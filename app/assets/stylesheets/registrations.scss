@@ -1,0 +1,65 @@
+.or-divider {
+  color: rgba(0,0,0,.26);
+  font-size: 18px;
+  font-weight: lighter;
+  font-style: italic;
+  margin: 25px;
+  margin-bottom: 10px;
+}
+
+.right-pane {
+  width: 100%
+}
+
+.left-pane {
+  display: block;
+  width: 100%
+}
+
+@media (min-width: $breakpoint-tablet) {
+  .mini-header {
+    display: none;
+  }
+
+  .left-pane {
+    position: absolute;
+    display: inline-block;
+    left: 0px;
+    width: 50%;
+    height: 80%;
+    padding-top: 15%;
+    background-color: $primary-green;
+
+    /* will be "on top", if browser supports it */
+    background-image: linear-gradient($primary-green, $secondary-green);
+  }
+
+  .right-pane {
+    position: absolute;
+    right: 0px;
+    width: 50%;
+    height: 80%;
+    padding-top: 15%;
+  }
+
+  h1 {
+    font-family: 'Lato', sans-serif;
+    font-style: italic;
+    font-weight: bold;
+    color: #FFFFFF;
+    font-size: 80px;
+    margin-top: 60px;
+    margin-bottom: 0px;
+  }
+
+  h4 {
+    font-weight: lighter;
+    color: rgba(255,255,255,.8);
+    font-size: 30px;
+    margin-top: 0px;
+    margin-bottom: 60px;
+  }
+
+
+
+}

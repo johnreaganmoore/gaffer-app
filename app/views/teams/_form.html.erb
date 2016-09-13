@@ -1,0 +1,47 @@
+<%= form_for(team) do |f| %>
+  <% if team.errors.any? %>
+    <div id="error_explanation">
+      <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
+
+      <ul>
+      <% team.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+      </ul>
+    </div>
+  <% end %>
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="text" name="team[name]" id="team_name">
+    <label class="mdl-textfield__label" for="team_name"><%= f.label :team_name %></label>
+  </div>
+
+  <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="color" name="team[color]" id="team_color" value="#ff0000" />
+    <label class="mdl-textfield__label" for="team_color"><%= f.label :color %></label>
+  </div>
+
+
+  <!-- <div class="mdl-textfield mdl-js-textfield">
+    <input class="mdl-textfield__input" type="file" name="team[logo]" id="team_logo" />
+    <label class="mdl-textfield__label" for="team_logo"><%= f.label :logo %></label>
+  </div> -->
+
+  <!-- <div class="field">
+    <%= f.label :logo %>
+    <%= f.text_field :logo %>
+  </div> -->
+  <div class="field">
+    <%= f.label :logo %><br>
+    <%= f.file_field :logo %>
+  </div>
+
+  <div>
+    <%= button_tag(type: 'submit', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary email-sign-up-button") do %>
+      <!-- <span class="button-icon">
+        <%= image_tag "email-icon.svg" %>
+      </span> -->
+      Create Team
+    <% end %>
+  </div>
+<% end %>

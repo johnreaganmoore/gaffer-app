@@ -1,0 +1,75 @@
+
+
+<div class="mini-header"></div>
+<div>
+  <div class="left-pane">
+    <div class="guts--narrow__centered">
+      <h1>Onside</h1>
+      <h4>Play Together</h4>
+      <!-- Three categories for features or side: communicate. plan. decide. -->
+    </div>
+  </div>
+  <div class="right-pane">
+    <div class="guts--narrow__centered">
+
+      <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+
+        <%= link_to(person_facebook_omniauth_authorize_path) do %>
+          <%= button_tag(type: 'button', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect facebook-button") do %>
+            <span class="button-icon">
+              <%= image_tag "facebook-icon.svg" %>
+            </span>
+            Sign in with Facebook
+          <% end %>
+        <% end %>
+
+        <%= link_to(person_google_oauth2_omniauth_authorize_path) do %>
+          <%= button_tag(type: 'button', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect google-button") do %>
+            <span class="button-icon">
+              <%= image_tag "google-icon.svg" %>
+            </span>
+            Sign in with Google
+          <% end %>
+        <% end %>
+
+        <div class="or-divider">or</div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+          <%= f.email_field :email, class: "mdl-textfield__input", autofocus: true %>
+          <%= f.label :email, class: "mdl-textfield__label" %>
+        </div>
+
+        <div class="mdl-textfield mdl-js-textfield">
+          <%= f.password_field :password, class: "mdl-textfield__input", autocomplete: "off" %>
+          <%= f.label :password, class: "mdl-textfield__label" %>
+        </div>
+
+        <% if devise_mapping.rememberable? -%>
+
+          <%= hidden_field_tag :remember_me, true %>
+
+          <!-- <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember_me">
+            <input type="checkbox" id="remember_me" class="mdl-checkbox__input" checked>
+            <span class="mdl-checkbox__label">Remember me</span>
+          </label> -->
+
+          <!-- <div class="field">
+            <%= f.check_box :remember_me %>
+            <%= f.label :remember_me %>
+          </div> -->
+        <% end -%>
+
+        <%= button_tag(type: 'submit', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary email-sign-up-button") do %>
+          <span class="button-icon">
+            <%= image_tag "email-icon.svg" %>
+          </span>
+          Sign in with Email
+        <% end %>
+      <% end %>
+      <div class="or-divider">
+        New to the team?
+        <%= link_to "Register here", new_person_registration_path,  class: "mdl-button mdl-js-button mdl-button--primary" %>
+      </div>
+    </div>
+  </div>
+</div>

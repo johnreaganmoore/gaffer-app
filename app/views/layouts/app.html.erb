@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>GafferApp</title>
+    <%= csrf_meta_tags %>
+
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-blue.min.css">
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body>
+    <div class="mdl-layout mdl-js-layout mdl-layout--fixed-header">
+      <% if defined?(@team) %>
+        <% bg_color = @team.color %>
+      <% else %>
+        <% bg_color = "#FFFFFF" %>
+      <% end %>
+      <header
+        class="mdl-layout__header mdl-color-text--white"
+        style="background-color: <%= bg_color %>"
+      >
+        <div class="mdl-layout__header-row">
+          <!-- Title -->
+          <span class="mdl-layout-title">
+            <% if defined?(@team.name) %>
+              <%= @team.name %>
+            <% end %>
+          </span>
+          <!-- Add spacer, to align navigation to the right -->
+          <div class="mdl-layout-spacer"></div>
+          <!-- Navigation. We hide it in small screens. -->
+          <nav class="mdl-navigation mdl-layout--large-screen-only">
+            <% if person_signed_in? %>
+              <%= link_to 'Sign out', destroy_person_session_path, method: :delete, class: "mdl-button mdl-js-button" %>
+            <% else %>
+              <%= link_to "Sign In", new_person_session_path,  class: "mdl-button mdl-js-button" %>
+            <% end %>
+          </nav>
+        </div>
+      </header>
+      <div class="mdl-layout__drawer">
+        <span class="mdl-layout-title">
+          <% if defined?(@team.logo) %>
+            <img src="<%= @team.logo.avatar %>" class="demo-avatar">
+          <% end %>
+          <% if defined?(@team.name) %>
+            <%= @team.name %>
+          <% end %>
+        </span>
+        <nav class="mdl-navigation">
+          <% if person_signed_in? %>
+            <%= link_to 'Sign out', destroy_person_session_path, method: :delete, class: "mdl-navigation__link" %>
+          <% else %>
+            <%= link_to "Sign In", new_person_session_path,  class: "mdl-navigation__link" %>
+          <% end %>
+        </nav>
+      </div>
+      <main class="mdl-layout__content">
+        <div class="page-content">
+          <%= yield %>
+        </div>
+      </main>
+    </div>
+  </body>
+</html>
+<%= javascript_tag do %>
+  window.flashMessages = $.parseJSON('<%=j flash.to_hash.to_json.html_safe %>');
+<% end %>

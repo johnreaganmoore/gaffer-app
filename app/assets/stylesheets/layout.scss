@@ -1,0 +1,35 @@
+body {
+  margin: 0px;
+  box-sizing: border-box;
+}
+
+.guts--narrow {
+  width: 350px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.guts--narrow__centered {
+  text-align: center;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.guts--narrow__left {
+  text-align: left;
+  width: 250px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.mini-header {
+  height: 15px;
+  background: repeating-linear-gradient(
+    60deg,
+    $primary-green,
+    $primary-green 70px,
+    $secondary-green 70px,
+    $secondary-green 140px
+  );
+}

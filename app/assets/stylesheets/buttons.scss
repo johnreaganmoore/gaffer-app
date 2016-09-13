@@ -1,0 +1,62 @@
+.button-icon {
+  width: 40px;
+  margin-right: 20px;
+
+  img {
+    max-height: 16px;
+  }
+}
+
+/*Override some MDL theme stuff*/
+
+.mdl-button--primary.mdl-button--primary.mdl-button--raised, .mdl-button--primary.mdl-button--primary.mdl-button--fab {
+  color: rgb(255,255,255);
+  text-transform: none;
+
+  background-color: $primary-green;
+
+  &:hover {
+    background-color: $secondary-green;
+  }
+
+}
+
+.facebook-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 15px;
+  width: 100%;
+  background-color: #3B5998;
+  color: white;
+  text-transform: none;
+
+  &:hover {
+    background-color: #627AAD;
+  }
+}
+
+.google-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  background-color: white;
+  color: black;
+  text-transform: none;
+
+}
+
+.email-sign-up-button {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  margin-bottom: 10px;
+  width: 100%;
+}
+
+nav {
+  .mdl-button {
+    color: white;
+  }
+}

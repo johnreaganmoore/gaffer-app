@@ -1,0 +1,20 @@
+.action-container {
+  position: relative;
+  height: 300px;
+  @media (min-width: $breakpoint-tablet) {
+    height: 200px;
+  }
+
+}
+
+.main-actions {
+  position: absolute;
+  width: 100%;
+  bottom: 0;
+
+  div {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 20px;
+  }
+}

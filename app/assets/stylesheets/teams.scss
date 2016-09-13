@@ -1,0 +1,23 @@
+// Place all the styles related to the Teams controller here.
+// They will automatically be included in application.css.
+// You can use Sass (SCSS) here: http://sass-lang.com/
+
+.invitation-divider {
+  background-color: #f4f4f4;
+  color: rgba(0, 0, 0, 0.54);
+  height: 48px;
+
+  i {
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+.mdl-list__item-secondary-action {
+  i {
+    color: rgba(0, 0, 0, 0.54);
+  }
+}
+
+a {
+  color: rgba(0, 0, 0, 0.870588);
+  font-weight: 400;
+}

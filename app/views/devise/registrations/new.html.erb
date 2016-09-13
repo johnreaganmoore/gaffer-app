@@ -1,0 +1,74 @@
+<div class="mini-header"></div>
+<%= devise_error_messages! %>
+<!-- <div class="guts--narrow__centered"> -->
+<div>
+  <div
+    class="left-pane"
+    <% if @team != nil %>
+      style="background: <%= @team.color %>;"
+    <% end %>
+  >
+    <div class="guts--narrow__centered">
+      <% if @team != nil %>
+        <h1><%= @team.name %></h1>
+      <% else %>
+        <h1>Onside</h1>
+      <% end %>
+      <h4>Play Together</h4>
+      <!-- Three categories for features or side: communicate. plan. decide. -->
+    </div>
+  </div>
+  <div class="right-pane">
+    <div class="guts--narrow__centered">
+      <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+        <% if @token != nil %>
+          <%= hidden_field_tag :invitation_token, @token %>
+        <% end %>
+        <% if @team != nil %>
+          <%= hidden_field_tag :team, @team.slug %>
+        <% end %>
+        <div>
+          <%= link_to(person_facebook_omniauth_authorize_path) do %>
+            <%= button_tag(type: 'button', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect facebook-button") do %>
+              <span class="button-icon">
+                <%= image_tag "facebook-icon.svg" %>
+              </span>
+              Sign up with Facebook
+            <% end %>
+          <% end %>
+          <%= link_to(person_google_oauth2_omniauth_authorize_path) do %>
+            <%= button_tag(type: 'button', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect google-button") do %>
+              <span class="button-icon">
+                <%= image_tag "google-icon.svg" %>
+              </span>
+              Sign up with Google
+            <% end %>
+          <% end %>
+        </div>
+        <div class="or-divider">or</div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="email" name="person[email]" id="person_email">
+          <label class="mdl-textfield__label" for="person_email"><%= f.label :email %></label>
+        </div>
+        <div class="mdl-textfield mdl-js-textfield">
+          <input class="mdl-textfield__input" type="password" name="person[password]" id="person_password">
+          <label class="mdl-textfield__label" for="person_password"><%= f.label :password %></label>
+        </div>
+        <div>
+          <% team_color = "" %>
+          <% if @team != nil then team_color = @team.color end %>
+          <%= button_tag(type: 'submit', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary email-sign-up-button", style: "background: #{team_color};") do %>
+            <span class="button-icon">
+              <%= image_tag "email-icon.svg" %>
+            </span>
+            Sign up with Email
+          <% end %>
+        </div>
+      <% end %>
+      <div class="or-divider">
+        Already onside?
+        <%= link_to "Sign In", new_person_session_path,  class: "mdl-button mdl-js-button mdl-button--accent" %>
+      </div>
+    </div>
+  </div>
+</div>

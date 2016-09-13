@@ -1,0 +1,11 @@
+#error_explanation {
+  padding: 10px;
+  border-bottom: 4px solid $primary-error;
+  color: $error-color;
+  background-color: $error-background;
+
+  h2 {
+    font-size: 18px;
+    margin: 0px;
+  }
+}
