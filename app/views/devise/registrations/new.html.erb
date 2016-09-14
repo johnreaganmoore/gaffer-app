@@ -8,15 +8,25 @@
       style="background: <%= @team.color %>;"
     <% end %>
   >
-    <div class="guts--narrow__centered">
+    <div>
       <% if @team != nil %>
         <h1><%= @team.name %></h1>
       <% else %>
         <h1>Onside</h1>
       <% end %>
       <h4>Play Together</h4>
+
       <!-- Three categories for features or side: communicate. plan. decide. -->
     </div>
+    <% if @team != nil %>
+      <ul class="reg-list">
+      <% @team.player_avatars.first(5).each do |avatar| %>
+          <li class="reg-list__item">
+             <img class="reg-list__item-avatar" src="<%= avatar %>">
+          </li>
+      <% end %>
+      </ul>
+    <% end %>
   </div>
   <div class="right-pane">
     <div class="guts--narrow__centered">

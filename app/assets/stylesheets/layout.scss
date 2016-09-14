@@ -33,3 +33,7 @@ body {
     $secondary-green 140px
   );
 }
+
+.mdl-layout-title {
+  @extend .capitalize;
+}

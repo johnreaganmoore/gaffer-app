@@ -12,6 +12,7 @@
  *
 
  */
+@import "text-utilities";
 @import "snackbar";
 @import "snackbar-material";
 @import "breakpoints";
@@ -42,4 +43,8 @@ a {
 }
 .snackbar.notice {
   background-color: green;
+}
+
+body {
+  background-color: #f5f5f5;
 }

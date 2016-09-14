@@ -8,12 +8,14 @@ class People::RegistrationsController < Devise::RegistrationsController
       @token = params[:invitation_token]
       if params[:team] != nil
         @team = Team.friendly.find(params[:team])
+        @team.player_avatars.each do |avatar|
+          puts avatar
+        end
       end
       if @token != nil
         @invite = Invite.find_by_token(@token)
         @team = @invite.team
       end
-
     end
   end
 

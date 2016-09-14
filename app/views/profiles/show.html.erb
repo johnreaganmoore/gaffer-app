@@ -1,16 +1,34 @@
-<% if defined?(@team) %>
+<% if @team != nil %>
   <% bg_color = @team.color %>
 <% else %>
   <% bg_color = "#FFFFFF" %>
   <% secondary_color = "#f6f6f6" %>
 <% end %>
-<div class="profile-header" style="background-color: <%= secondary_color %>">
-  <div class="guts--narrow__centered">
-    <div class="section__circle-container__circle mdl-color--accent section__circle--big large-avatar">
-      <% if @person.avatar.length > 1 then %>
-        <img src="<%= @person.avatar %>">
-      <% else %>
-        <i class="material-icons">face</i>
+
+<div class="profile-page">
+  <div class="profile-card mdl-card mdl-shadow--2dp">
+    <div class="mdl-card__title mdl-card--expand">
+      <div class="profile-header">
+        <% if @person.avatar.length > 1 then %>
+          <div class="profile-avatar">
+            <div class="section__circle--big large-avatar">
+                <img src="<%= @person.avatar %>">
+            </div>
+          </div>
+        <% end %>
+        <div class="profile-name">
+          <h3><%= @person.first_name %> <%= @person.last_name %></h3>
+        </div>
+      </div>
+    </div>
+    <div class="profile-actions mdl-card__actions mdl-card--border">
+      <%= link_to "mailto:#{@person.email}", class: "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect", remote: :true do %>
+      Email
+      <% end %>
+      <% if @team != nil %>
+        <%= link_to leave_team_path(:team => @team), class: "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect", data: {confirm: "Are you sure you want to remove #{@person.first_name} from #{@team.name}?"} do %>
+        Delete
+        <% end %>
       <% end %>
     </div>
   </div>

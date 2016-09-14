@@ -22,4 +22,17 @@ class Team < ApplicationRecord
     end
     return pending
   end
+
+  def player_avatars
+    avatars = []
+    self.people.each do |person|
+      if person.avatar.length > 2 then
+        puts person.avatar
+        avatars.push(person.avatar)
+      end
+    end
+    puts avatars
+    return avatars
+  end
+
 end

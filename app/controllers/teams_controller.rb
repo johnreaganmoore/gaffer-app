@@ -18,7 +18,7 @@ class TeamsController < ApplicationController
 
     @pending_invitations = []
     @team.invites.each do |invite|
-      unless @team.people.include?(invite.recipient)
+      unless @team.people.include?(invite.recipient) || invite.created_at != invite.updated_at
         @pending_invitations.push(invite)
       end
     end

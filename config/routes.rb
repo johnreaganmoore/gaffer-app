@@ -26,6 +26,7 @@ Rails.application.routes.draw do
 
   # scope :people do
   resources :profiles
+  get 'profiles/:id/leave', to: 'profiles#leave', as: :leave_team
   # end
 
 

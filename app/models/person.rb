@@ -38,6 +38,10 @@ class Person < ApplicationRecord
     end
   end
 
+  def leave_team(team)
+    self.teams.destroy(team)
+  end
+
   protected
 
   def confirmation_required?

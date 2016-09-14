@@ -14,14 +14,14 @@
        <% @team.people.each do |person| %>
          <li class="mdl-list__item">
            <span class="mdl-list__item-primary-content">
-            <%= link_to edit_person_registration_path(person) do %>
-              <% if person.avatar != nil then %>
+            <%= link_to profile_path(person) do %>
+              <% if person.avatar.length > 2 then %>
               <img class="mdl-list__item-avatar" src="<%= person.avatar %>">
               <% else %>
-              <i class="material-icons mdl-list__item-avatar">face</i>
+              <i class="material-icons mdl-list__item-avatar">account_circle</i>
               <% end %>
             <% end %>
-            <%= link_to edit_person_registration_path(person) do %>
+            <%= link_to profile_path(person) do %>
               <span><%= person.first_name %> <%= person.last_name %></span>
             <% end %>
            </span>
@@ -29,7 +29,7 @@
              <!-- <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= @team.color %>;">message</i></a>
              <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= @team.color %>;">chat</i></a>
              <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= @team.color %>;">chat_bubble</i></a> -->
-             <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= @team.color %>;">chat_bubble_outline</i></a>
+             <a class="mdl-list__item-secondary-action" href="mailto:<%= person.email %>"><i class="material-icons" style="color: <%= @team.color %>;">chat_bubble_outline</i></a>
            </span>
          </li>
        <% end %>
@@ -38,7 +38,7 @@
            Pending Invitations
          </span>
          <span class="mdl-list__item-secondary-content">
-           <%= link_to sweep_invites_path(@team), class: "mdl-list__item-secondary-action", remote: :true, data: { confirm: 'Are you certain you want to delete all pending invitations?' } do %>
+           <%= link_to sweep_invites_path(@team), class: "mdl-list__item-secondary-action", data: { confirm: 'Are you certain you want to delete all pending invitations?' } do %>
              <i class="material-icons">delete_sweep</i>
            <% end %>
          </span>

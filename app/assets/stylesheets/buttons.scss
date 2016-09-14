@@ -9,6 +9,10 @@
 
 /*Override some MDL theme stuff*/
 
+.mdl-layout__header .mdl-layout__drawer-button {
+  color: rgba(255,255,255,1);
+}
+
 .mdl-button--primary.mdl-button--primary.mdl-button--raised, .mdl-button--primary.mdl-button--primary.mdl-button--fab {
   color: rgb(255,255,255);
   text-transform: none;
