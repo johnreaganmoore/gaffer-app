@@ -28,7 +28,9 @@
           <!-- Title -->
           <span class="mdl-layout-title">
             <% if defined?(@team.name) %>
-              <%= @team.name %>
+              <%= link_to team_path(@team) do %>
+                <%= @team.name %>
+              <% end %>
             <% end %>
           </span>
           <!-- Add spacer, to align navigation to the right -->

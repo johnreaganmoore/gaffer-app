@@ -31,5 +31,12 @@
         <% end %>
       <% end %>
     </div>
+    <% if @person == current_person %>
+      <div class="mdl-card__menu">
+        <%= link_to edit_profile_path(@person), class: "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect" do %>
+        Edit
+        <% end %>
+      </div>
+    <% end %>
   </div>
 </div>

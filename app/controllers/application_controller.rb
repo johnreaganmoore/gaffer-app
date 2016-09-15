@@ -36,6 +36,7 @@ class ApplicationController < ActionController::Base
         :invitation_token,
         :team,
         :email,
+        :avatar,
         :first_name,
         :last_name,
         :password,

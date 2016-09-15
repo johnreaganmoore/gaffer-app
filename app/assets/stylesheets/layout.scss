@@ -36,4 +36,8 @@ body {
 
 .mdl-layout-title {
   @extend .capitalize;
+
+  a {
+    color: $white;
+  }
 }
