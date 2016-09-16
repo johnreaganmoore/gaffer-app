@@ -21,12 +21,6 @@
           <% end %>
         <% end %>
         <%= f.file_field :avatar, style: "display: none;", class: 'photo_upload', onchange: "loadFile(event)" %>
-        <script>
-          var loadFile = function(event) {
-            var avatar = document.getElementById('avatar');
-            avatar.src = URL.createObjectURL(event.target.files[0]);
-          };
-        </script>
 
         <div class="guts--narrow__centered">
 

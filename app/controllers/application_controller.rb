@@ -8,7 +8,12 @@ class ApplicationController < ActionController::Base
 
 
   def after_sign_in_path_for(person)
-    team_path(person.teams.first)
+
+    if person.teams.length > 0 then
+      team_path(person.teams.first)
+    else
+      onboarding_path(:create_team)
+    end
 
     # request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   end

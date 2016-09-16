@@ -1,36 +1,62 @@
-<%= form_for(team) do |f| %>
-  <% if team.errors.any? %>
-    <div id="error_explanation">
-      <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
+<div class="profile-page">
+  <div class="profile-card mdl-card mdl-shadow--2dp">
+    <%= form_for(team) do |f| %>
+      <div class="mdl-card__title mdl-card--expand">
+        <div class="profile-header">
+        <% if team.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(team.errors.count, "error") %> prohibited this team from being saved:</h2>
 
-      <ul>
-      <% team.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-      </ul>
-    </div>
-  <% end %>
+            <ul>
+            <% team.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
 
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" name="team[name]" id="team_name">
-    <label class="mdl-textfield__label" for="team_name"><%= f.label :team_name %></label>
-  </div>
 
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="color" name="team[color]" id="team_color" value="#ff0000" />
-    <label class="mdl-textfield__label" for="team_color"><%= f.label :color %></label>
-  </div>
+          <%= f.label :logo  do %>
+            <% if team.logo.length > 1 then %>
+              <div class="profile-avatar">
+                <div class="section__circle--big large-avatar editable">
+                    <img id="logo" src="<%= @team.logo %>">
+                    <div class="change-label">Change</div>
+                </div>
+              </div>
+            <% else %>
+              <div class="profile-avatar">
+                <div class="section__circle--big large-avatar editable">
+                    <%= image_tag "anonymous_material.png", id: "logo" %>
+                    <div class="change-label">Change</div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          <%= f.file_field :logo, style: "display: none;", class: 'photo_upload', onchange: "loadLogo(event)" %>
 
-  <div class="field">
-    <%= f.label :logo %><br>
-    <%= f.file_field :logo %>
-  </div>
+          <div class="guts--narrow__centered">
 
-  <%= hidden_field_tag :person_id, @person.id %>
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="text" name="team[name]" id="team_name">
+              <label class="mdl-textfield__label" for="team_name"><%= f.label :team_name %></label>
+            </div>
 
-  <div>
-    <%= button_tag(type: 'submit', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary email-sign-up-button") do %>
-      Create Team
+            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+              <input class="mdl-textfield__input" type="color" name="team[color]" id="team_color" value="#ff0000" />
+              <label class="mdl-textfield__label" for="team_color"><%= f.label :color %></label>
+            </div>
+
+          </div>
+
+          <%= hidden_field_tag :person_id, @person.id %>
+      </div>
+      </div>
+      <div class="edit-profile-actions mdl-card__actions mdl-card--border">
+        <%= button_tag(type: 'submit', class: "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect") do %>
+          Create Team
+        <% end %>
+      </div>
     <% end %>
   </div>
-<% end %>
+</div>

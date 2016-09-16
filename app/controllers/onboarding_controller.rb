@@ -1,5 +1,6 @@
 class OnboardingController < Wicked::WizardController
   before_action :authenticate_person!
+  # layout "app" 
 
   steps :create_profile, :create_team
 

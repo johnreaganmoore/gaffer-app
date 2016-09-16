@@ -27,7 +27,7 @@
         <div class="mdl-layout__header-row">
           <!-- Title -->
           <span class="mdl-layout-title">
-            <% if defined?(@team.name) %>
+            <% if defined?(@team.name) then %>
               <%= link_to team_path(@team) do %>
                 <%= @team.name %>
               <% end %>
