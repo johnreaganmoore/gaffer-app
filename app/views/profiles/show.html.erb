@@ -15,6 +15,12 @@
                 <img src="<%= @person.avatar %>">
             </div>
           </div>
+        <% else %>
+          <div class="profile-avatar">
+            <div class="section__circle--big large-avatar">
+                <%= image_tag "anonymous_material.png", id: "avatar" %>
+            </div>
+          </div>
         <% end %>
         <div class="profile-name">
           <h3><%= @person.first_name %> <%= @person.last_name %></h3>

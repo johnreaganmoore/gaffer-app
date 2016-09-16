@@ -12,6 +12,9 @@
 
 ActiveRecord::Schema.define(version: 20160910030748) do
 
+  # These are extensions that must be enabled in order to support this database
+  enable_extension "plpgsql"
+
   create_table "invites", force: :cascade do |t|
     t.string   "email"
     t.string   "first_name"
@@ -56,11 +59,11 @@ ActiveRecord::Schema.define(version: 20160910030748) do
     t.string   "invited_by_type"
     t.integer  "invited_by_id"
     t.integer  "invitations_count",      default: 0
-    t.index ["email"], name: "index_people_on_email", unique: true
-    t.index ["invitation_token"], name: "index_people_on_invitation_token", unique: true
-    t.index ["invitations_count"], name: "index_people_on_invitations_count"
-    t.index ["invited_by_id"], name: "index_people_on_invited_by_id"
-    t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true
+    t.index ["email"], name: "index_people_on_email", unique: true, using: :btree
+    t.index ["invitation_token"], name: "index_people_on_invitation_token", unique: true, using: :btree
+    t.index ["invitations_count"], name: "index_people_on_invitations_count", using: :btree
+    t.index ["invited_by_id"], name: "index_people_on_invited_by_id", using: :btree
+    t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
   end
 
   create_table "team_memberships", force: :cascade do |t|
@@ -69,8 +72,8 @@ ActiveRecord::Schema.define(version: 20160910030748) do
     t.integer  "person_id"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
-    t.index ["person_id"], name: "index_team_memberships_on_person_id"
-    t.index ["team_id"], name: "index_team_memberships_on_team_id"
+    t.index ["person_id"], name: "index_team_memberships_on_person_id", using: :btree
+    t.index ["team_id"], name: "index_team_memberships_on_team_id", using: :btree
   end
 
   create_table "teams", force: :cascade do |t|
@@ -82,4 +85,6 @@ ActiveRecord::Schema.define(version: 20160910030748) do
     t.string   "slug"
   end
 
+  add_foreign_key "team_memberships", "people"
+  add_foreign_key "team_memberships", "teams"
 end
