@@ -3,6 +3,8 @@
 ![Codeship Badge](https://codeship.com/projects/174235/status?branch=master)
 
 
+Deploy by pushing to master. 
+
 This README would normally document whatever steps are necessary to get the
 application up and running.
 
