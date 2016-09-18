@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GafferApp</title>
+    <title>
+      Let's Go
+      <% if defined?(@team.name) then %>
+        <%= @team.name %>
+      <% end %>
+    </title>
     <%= csrf_meta_tags %>
 
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>

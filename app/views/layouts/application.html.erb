@@ -1,7 +1,12 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>GafferApp</title>
+    <title>
+      Let's Go
+      <% if defined?(@team.name) then %>
+        <%= @team.name %>
+      <% end %>
+    </title>
     <%= csrf_meta_tags %>
 
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
