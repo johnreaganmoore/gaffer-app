@@ -12,7 +12,11 @@ class ApplicationController < ActionController::Base
     if person.teams.length > 0 then
       team_path(person.teams.first)
     else
-      onboarding_path(:create_team)
+      if person.first_name != nil then
+        onboarding_path(:create_team)
+      else
+        onboarding_path(:create_profile)
+      end
     end
 
     # request.env['omniauth.origin'] || stored_location_for(resource) || root_path

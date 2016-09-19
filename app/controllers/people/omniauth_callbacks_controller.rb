@@ -61,7 +61,11 @@ class People::OmniauthCallbacksController < Devise::OmniauthCallbacksController
     if person.teams[0] != nil then
       team_path(person.teams[0])
     else
-      onboarding_path(:create_team)
+      if person.first_name != nil then
+        onboarding_path(:create_team)
+      else
+        onboarding_path(:create_profile)
+      end
     end
     # request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   end
