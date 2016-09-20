@@ -29,6 +29,7 @@ Rails.application.routes.draw do
   get 'profiles/:id/leave', to: 'profiles#leave', as: :leave_team
   # end
 
+  resources :seasons
 
 
   # Special new team page for registration

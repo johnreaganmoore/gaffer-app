@@ -1,0 +1,75 @@
+<div class="mdl-card mdl-shadow--2dp">
+  <div class="mdl-card__title mdl-card--expand">
+    <%= form_for(season) do |f| %>
+      <% if season.errors.any? %>
+        <div id="error_explanation">
+          <h2><%= pluralize(season.errors.count, "error") %> prohibited this season from being saved:</h2>
+          <ul>
+          <% season.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+          </ul>
+        </div>
+      <% end %>
+
+      <% if @team != nil %>
+        <%= f.hidden_field :team_id, value: @team.id %>
+      <% end %>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+        <%= f.text_field :league_name, class: "mdl-textfield__input" %>
+        <%= f.label :league_name, class: "mdl-textfield__label" %>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+        <%= f.text_field :website, class: "mdl-textfield__input" %>
+        <%= f.label :season_website, class: "mdl-textfield__label" %>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+        <%= f.text_field :location, class: "mdl-textfield__input" %>
+        <%= f.label :season_location, class: "mdl-textfield__label" %>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+        <%= f.date_field :start_date, class: "mdl-textfield__input" %>
+        <%= f.label :season_start_date, class: "mdl-textfield__label" %>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+        <%= f.date_field :end_date, class: "mdl-textfield__input" %>
+        <%= f.label :season_end_date, class: "mdl-textfield__label" %>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+        <%= f.text_field :cost, class: "mdl-textfield__input", pattern: '^\$?\-?([1-9]{1}[0-9]{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\-?\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))$|^\(\$?([1-9]{1}\d{0,2}(\,\d{3})*(\.\d{0,2})?|[1-9]{1}\d{0,}(\.\d{0,2})?|0(\.\d{0,2})?|(\.\d{1,2}))\)$' %>
+        <%= f.label :season_cost, class: "mdl-textfield__label" %>
+        <span class="mdl-textfield__error">Input is not a valid amount format.</span>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+        <%= f.text_field :total_games, class: "mdl-textfield__input", pattern: '-?[0-9]*(\.[0-9]+)?' %>
+        <%= f.label :total_number_of_games, class: "mdl-textfield__label" %>
+        <span class="mdl-textfield__error">Input is not a number.</span>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+        <%= f.text_field :format, class: "mdl-textfield__input" %>
+        <%= f.label :game_format, class: "mdl-textfield__label" %>
+      </div>
+
+      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+        <%= f.text_field :min_players, class: "mdl-textfield__input", pattern: '-?[0-9]*(\.[0-9]+)?' %>
+        <%= f.label :minimum_number_of_players, class: "mdl-textfield__label" %>
+        <span class="mdl-textfield__error">Input is not a number.</span>
+      </div>
+
+      <div class="mdl-card__actions mdl-card--border">
+        <%= button_tag(type: 'submit', class: "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect") do %>
+          Save Season
+        <% end %>
+      </div>
+    <% end %>
+
+  </div>
+</div>
