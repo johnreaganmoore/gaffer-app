@@ -5,6 +5,7 @@ class Team < ApplicationRecord
   has_many :team_memberships
   has_many :people, through: :team_memberships
   has_many :invites
+  has_many :seasons
 
   mount_uploader :logo, ImageUploader
 

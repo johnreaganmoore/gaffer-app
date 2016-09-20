@@ -9,6 +9,9 @@ class Person < ApplicationRecord
   has_many :team_memberships
   has_many :teams, through: :team_memberships
 
+  has_many :season_participations
+  has_many :seasons, through: :season_participations
+
   has_many :invitations, :class_name => "Invite", :foreign_key => 'recipient_id'
   has_many :sent_invites, :class_name => "Invite", :foreign_key => 'sender_id'
 

@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  team: one
+  league_name: MyString
+  website: MyString
+  location: MyString
+  start_date: 2016-09-19
+  end_date: 2016-09-19
+  cost: 1
+  total_games: 1
+  format: MyString
+  min_players: 1
+
+two:
+  team: two
+  league_name: MyString
+  website: MyString
+  location: MyString
+  start_date: 2016-09-19
+  end_date: 2016-09-19
+  cost: 1
+  total_games: 1
+  format: MyString
+  min_players: 1
