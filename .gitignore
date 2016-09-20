@@ -24,5 +24,5 @@
 config/Gaffer-0ca8e57cdff0.json
 
 # Ignore secrets.yml
-config/secrets.yml
+# config/secrets.yml
 .env
