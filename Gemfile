@@ -10,6 +10,9 @@ gem 'foreman'
 
 gem "figaro"
 
+gem 'geocoder'
+gem 'gmaps4rails'
+
 # Use Puma as the app server
 gem 'puma', '~> 3.0'
 # Use SCSS for stylesheets

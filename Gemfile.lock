@@ -216,8 +216,10 @@ GEM
     formatador (0.2.5)
     friendly_id (5.1.0)
       activerecord (>= 4.0.0)
+    geocoder (1.4.0)
     globalid (0.3.6)
       activesupport (>= 4.1.0)
+    gmaps4rails (2.1.2)
     hashie (3.4.4)
     i18n (0.7.0)
     inflecto (0.0.2)
@@ -374,6 +376,8 @@ DEPENDENCIES
   fog
   foreman
   friendly_id (~> 5.1.0)
+  geocoder
+  gmaps4rails
   jbuilder (~> 2.5)
   jquery-rails
   listen (~> 3.0.5)

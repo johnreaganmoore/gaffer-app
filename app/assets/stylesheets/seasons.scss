@@ -1,3 +1,104 @@
 // Place all the styles related to the Seasons controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
+
+#season-map {
+  height: 180px;
+  margin-bottom: 75px;
+  @media(min-width: $breakpoint-tablet) {
+    height: 280px;
+    margin-bottom: 120px;
+  }
+  background: #f6f6f6;
+
+
+
+
+}
+
+.sport-indicator {
+  position: absolute;
+  top: 140px;
+  @media(min-width: $breakpoint-tablet) {
+    top: 240px;
+  }
+  left: calc(50% - 40px);
+  height: 70px;
+  width: 70px;
+  background-color: #ffffff;
+  border-radius: 50%;
+  border: 5px solid $white;
+
+  img {
+    width: 100%;
+    height: auto;
+  }
+}
+
+.season-title {
+  a {
+    color: $primary;
+    font-size: 24px;
+    font-weight: 400;
+    text-decoration: underline;
+
+    @media(min-width: $breakpoint-tablet) {
+      font-size: 36px;
+    }
+  }
+}
+.season-dates {
+  margin-top: 8px;
+  font-weight: lighter;
+  font-style: oblique;
+  font-size: 19px;
+  @media(min-width: $breakpoint-tablet) {
+    font-size: 26px;
+    margin-top: 20px;
+
+  }
+
+  color: $light-font;
+  letter-spacing: -0.29px;
+}
+
+.detail-item {
+  font-size: 16px;
+  margin-bottom: 8px;
+
+  .detail-label {
+    color: $light-font;
+    font-weight: lighter;
+  }
+  .detail-value {
+    color: $dark-font;
+    font-weight: normal;
+  }
+}
+
+.season-signup {
+  margin-top: 30px;
+  color: $light-font;
+  font-weight: lighter;
+  font-style: oblique;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-top: 12px;
+  }
+
+
+  .season-cost {
+    color: $dark-font;
+    font-weight: 600;
+    font-size: 18px;
+    font-style: normal;
+  }
+
+  .season-button {
+    color: $primary;
+    background-color: $white;
+  }
+}

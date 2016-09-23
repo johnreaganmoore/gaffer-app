@@ -30,7 +30,7 @@ Rails.application.routes.draw do
   # end
 
   resources :seasons
-
+  resources :locations, except: [:update, :edit, :destroy]
 
   # Special new team page for registration
   get 'register/team', to: 'teams#new'

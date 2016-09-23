@@ -1,9 +1,12 @@
+$primary: #04C860;
+
 $primary-green: #04C860;
 $secondary-green: #14994A;
 
 //Grayscale
 $white: rgba(255,255,255,1);
 $black: rgba(0,0,0,1);
+$faint: rgba(0,0,0,0.05);
 
 
 
@@ -12,3 +15,8 @@ $primary-error: #F5640C;
 $secondary-error: #C4500A;
 $error-background: #F5F5F5;
 $error-color: #6D6D6D;
+
+
+// Fonts
+$dark-font: #5F5F5F;
+$light-font: #949494;

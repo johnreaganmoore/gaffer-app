@@ -7,6 +7,33 @@ body {
   text-align: center;
 }
 
+.main-content {
+  display: flex;
+  justify-content: center;
+  padding-top: 50px;
+}
+
+.main-content__card {
+  width: 80%;
+  min-width: 280px;
+  max-width: 700px;
+}
+
+.main-content__form {
+  width: 100%;
+  padding-top: 50px;
+}
+
+.main-content__card-actions--end.mdl-card__actions.mdl-card--border {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main-content__card-actions--split {
+  display: flex;
+  justify-content: space-between;
+}
+
 .guts--narrow {
   width: 350px;
   margin-left: auto;
@@ -44,4 +71,31 @@ body {
   a {
     color: $white;
   }
+}
+
+
+
+.content-section {
+  margin: 30px;
+  margin-top: 50px;
+  @media(min-width: $breakpoint-tablet) {
+    margin: 80px;
+  }
+}
+
+.section-header {
+
+  h2 {
+    font-weight:400;
+    font-size: 24px;
+    @media(min-width: $breakpoint-tablet) {
+      font-size: 36px;
+    }
+    color: $dark-font;
+    line-height: 0px;
+  }
+}
+
+hr.faint {
+  border-top: 1px solid $faint;
 }

@@ -15,6 +15,8 @@
 //= require jquery_ujs
 //= require turbolinks
 //= require snackbar
+//= require underscore
+//= require gmaps/google
 //= require_tree .
 
 $( document ).on('turbolinks:load', function() {

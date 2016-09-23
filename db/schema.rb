@@ -10,10 +10,19 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160920023643) do
+ActiveRecord::Schema.define(version: 20160922214219) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "games", force: :cascade do |t|
+    t.integer  "season_id"
+    t.integer  "location_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["location_id"], name: "index_games_on_location_id", using: :btree
+    t.index ["season_id"], name: "index_games_on_season_id", using: :btree
+  end
 
   create_table "invites", force: :cascade do |t|
     t.string   "email"
@@ -25,6 +34,15 @@ ActiveRecord::Schema.define(version: 20160920023643) do
     t.string   "token"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+  end
+
+  create_table "locations", force: :cascade do |t|
+    t.string   "name"
+    t.text     "address"
+    t.float    "latitude"
+    t.float    "longitude"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
   end
 
   create_table "people", force: :cascade do |t|
@@ -110,6 +128,8 @@ ActiveRecord::Schema.define(version: 20160920023643) do
     t.string   "slug"
   end
 
+  add_foreign_key "games", "locations"
+  add_foreign_key "games", "seasons"
   add_foreign_key "season_participations", "people"
   add_foreign_key "season_participations", "seasons"
   add_foreign_key "seasons", "teams"
