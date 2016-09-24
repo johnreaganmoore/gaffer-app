@@ -106,7 +106,24 @@ class TeamsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_params
-      params.require(:team).permit(:name, :color, :logo, :person_id)
+      params.require(:team).permit(
+        :name,
+        :color,
+        :logo,
+        :person_id,
+        seasons_attributes: [
+          :id,
+          :league_name,
+          :website,
+          :location,
+          :start_date,
+          :end_date,
+          :cost,
+          :total_games,
+          :format,
+          :min_players
+        ]
+      )
     end
 
     # # https://coderwall.com/p/rqjjca/creating-a-scoped-invitation-system-for-rails

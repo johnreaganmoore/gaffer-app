@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160922214219) do
+ActiveRecord::Schema.define(version: 20160923204916) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -43,6 +43,8 @@ ActiveRecord::Schema.define(version: 20160922214219) do
     t.float    "longitude"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "season_id"
+    t.index ["season_id"], name: "index_locations_on_season_id", using: :btree
   end
 
   create_table "people", force: :cascade do |t|
@@ -130,6 +132,7 @@ ActiveRecord::Schema.define(version: 20160922214219) do
 
   add_foreign_key "games", "locations"
   add_foreign_key "games", "seasons"
+  add_foreign_key "locations", "seasons"
   add_foreign_key "season_participations", "people"
   add_foreign_key "season_participations", "seasons"
   add_foreign_key "seasons", "teams"

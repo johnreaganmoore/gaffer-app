@@ -6,6 +6,7 @@ class Team < ApplicationRecord
   has_many :people, through: :team_memberships
   has_many :invites
   has_many :seasons
+  accepts_nested_attributes_for :seasons
 
   mount_uploader :logo, ImageUploader
 

@@ -64,8 +64,8 @@
   handler = Gmaps.build('Google');
   handler.buildMap({
     provider: {
-      zoom:      12,
-      center:    new google.maps.LatLng(40.2732, 76.8867),
+      zoom:      13,
+      center:    new google.maps.LatLng("<%= @season.default_location.latitude %>", "<%= @season.default_location.longitude %>"),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles:    mapStyle
     },
@@ -74,10 +74,10 @@
   }, function(){
     markers = handler.addMarkers([
       {
-        "lat": 40.2732,
-        "lng": -76.8867,
+        "lat": "<%= @season.default_location.latitude %>",
+        "lng": "<%= @season.default_location.longitude %>",
         "picture": {
-          "url": "/assets/star-marker-7d5b75e67628510ba42079804887249c27eeab2dd0aeed26754a6c24ee764a61.png",
+          "url": "<%= image_path 'star-marker.png' %>",
           "width":  16,
           "height": 16
         },
@@ -85,6 +85,5 @@
       }
     ]);
     handler.bounds.extendWith(markers);
-    handler.fitMapToBounds();
   });
 </script>

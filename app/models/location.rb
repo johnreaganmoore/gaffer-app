@@ -2,7 +2,10 @@ class Location < ApplicationRecord
   has_many :games
   has_many :seasons, through: :games
 
+  belongs_to :season
+
   geocoded_by :address
-  after_validation :geocode, if: -> (obj){ obj.address.present? and obj.address_changed? }
+  after_validation :geocode
+  after_update :geocode
 
 end

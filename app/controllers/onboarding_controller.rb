@@ -12,6 +12,7 @@ class OnboardingController < Wicked::WizardController
     when :create_team
       skip_step if @person.teams.first != nil
       @team = Team.new
+      @team.seasons.build
     end
 
     render_wizard
