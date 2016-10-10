@@ -34,14 +34,16 @@
 
         <div class="or-divider">or</div>
 
-        <div class="input-field col s12">
-          <%= f.email_field :email, autofocus: true %>
-          <%= f.label :email %>
-        </div>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.email_field :email, autofocus: true %>
+            <%= f.label :email %>
+          </div>
 
-        <div class="input-field col s12">
-          <%= f.password_field :password, autocomplete: "off" %>
-          <%= f.label :password %>
+          <div class="input-field col s12">
+            <%= f.password_field :password, autocomplete: "off" %>
+            <%= f.label :password %>
+          </div>
         </div>
 
         <% if devise_mapping.rememberable? -%>
