@@ -11,13 +11,18 @@
     color: rgba(0, 0, 0, 0.54);
   }
 }
-.mdl-list__item-secondary-action {
-  i {
-    color: rgba(0, 0, 0, 0.54);
-  }
-}
 
 a {
   color: rgba(0, 0, 0, 0.870588);
   font-weight: 400;
+}
+
+.collection .collection-item.avatar .circle {
+    position: absolute;
+    bottom: 20px;
+    width: 42px;
+    height: 42px;
+    overflow: hidden;
+    left: 15px;
+    display: inline-block;
 }

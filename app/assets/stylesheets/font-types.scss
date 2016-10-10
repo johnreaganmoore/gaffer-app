@@ -1,5 +1,4 @@
 h1 {
-  font-family: 'Lato', sans-serif;
   font-style: italic;
   font-weight: bold;
   color: $secondary-green;
@@ -10,8 +9,39 @@ h1 {
 
 h4 {
   font-weight: lighter;
-  color: rgba(0,0,0,.26);
+  color: $light-font;
   font-size: 18px;
-  margin-top: 0px;
-  margin-bottom: 60px;
+}
+
+h6 {
+  font-weight: 200;
+}
+
+@import 'https://fonts.googleapis.com/css?family=Kalam:300,400,700';
+
+.awesome-sauce {
+  text-align: center;
+  font-family: 'Kalam', cursive;
+  font-size: 50px;
+  color: #30b562;
+  // color: #da3335;
+}
+
+.maybe-next-time {
+  text-align: center;
+  font-family: 'Kalam', cursive;
+  font-size: 50px;
+  color: #383d63;
+}
+
+code.share-link {
+  display: block;
+  background-color: ghostwhite;
+  border-radius: 5px;
+  width: 100%;
+  margin: 20px 0;
+  padding-left: 1.5rem;
+  padding-top: 1.5rem;
+  padding-bottom: 1.5rem;
+  border-left: 5px solid $primary-green;
 }

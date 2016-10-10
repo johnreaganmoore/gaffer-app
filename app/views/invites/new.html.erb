@@ -5,17 +5,17 @@
 
       <%= f.hidden_field :team_id, :value => @team.id %>
 
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <div class="input-field col s12">
         <%= f.text_field :first_name, class: "mdl-textfield__input", autofocus: true %>
         <%= f.label :first_name, class: "mdl-textfield__label" %>
       </div>
 
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <div class="input-field col s12">
         <%= f.text_field :last_name, class: "mdl-textfield__input" %>
         <%= f.label :last_name, class: "mdl-textfield__label" %>
       </div>
 
-      <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
+      <div class="input-field col s12">
         <%= f.email_field :email, class: "mdl-textfield__input" %>
         <%= f.label :email, class: "mdl-textfield__label" %>
       </div>

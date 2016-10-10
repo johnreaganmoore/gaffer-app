@@ -49,7 +49,13 @@ class ApplicationController < ActionController::Base
         :first_name,
         :last_name,
         :password,
-        :password_confirmation
+        :password_confirmation,
+        :date_of_birth,
+        :street_address,
+        :locality,
+        :region,
+        :postal_code
+
       ])
     end
   end

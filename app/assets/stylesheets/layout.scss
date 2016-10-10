@@ -3,14 +3,20 @@ body {
   box-sizing: border-box;
 }
 
+nav .brand-logo {
+  padding-left: 15px;
+}
+
+.card {
+  margin: 2rem 0 1rem 0;
+}
+
 .page-header {
   text-align: center;
 }
 
 .main-content {
-  display: flex;
-  justify-content: center;
-  padding-top: 50px;
+  // padding-top: 50px;
 }
 
 .main-content__card {
@@ -29,7 +35,7 @@ body {
   justify-content: flex-end;
 }
 
-.main-content__card-actions--split {
+.card-actions--split {
   display: flex;
   justify-content: space-between;
 }
@@ -42,7 +48,7 @@ body {
 
 .guts--narrow__centered {
   text-align: center;
-  width: 250px;
+  width: 300px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -55,24 +61,19 @@ body {
 }
 
 .mini-header {
-  height: 15px;
+  height: 20px;
   background: repeating-linear-gradient(
-    60deg,
+    to right,
     $primary-green,
-    $primary-green 70px,
-    $secondary-green 70px,
-    $secondary-green 140px
+    $primary-green 100px,
+    $secondary-green 100px,
+    $secondary-green 200px
   );
 }
 
-.mdl-layout-title {
-  @extend .capitalize;
-
-  a {
-    color: $white;
-  }
+.modal.bottom-sheet {
+  max-height: 85%;
 }
-
 
 
 .content-section {

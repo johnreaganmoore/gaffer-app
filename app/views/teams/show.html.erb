@@ -1,83 +1,76 @@
-<!-- <section class="mdl-layout__tab-panel is-active" id="players-tab"> -->
-   <div class="page-content">
-     <ul class="mdl-list">
-       <li class="mdl-list__item">
-         <span class="mdl-list__item-primary-content">
-           <%= link_to new_invite_path(:team_id => @team.id) do %>
-             <button class="mdl-list__item-avatar mdl-button mdl-js-button mdl-button--fab mdl-button--mini-fab mdl-js-ripple-effect mdl-button--colored" style="background-color: <%= @team.color %>;">
-               <i class="material-icons">add</i>
-             </button>
-           <% end %>
-           <span>Invite New Player</span>
-         </span>
+<div class="container">
+   <div class="card">
+
+     <ul class="collection">
+       <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
+           <a href="<%= new_invite_path(:team_id => @team.id) %>" class="btn-floating btn waves-effect waves-light valign" style="background-color: <%= @team.color %>; height: 42px; width: 42px;">
+             <i class="material-icons" style="line-height: 42px;">add</i>
+           </a>
+         <%= link_to new_invite_path(:team_id => @team.id) do %>
+           <span class="valign" style="margin-left: 15px">Invite New Player</span>
+         <% end %>
        </li>
        <% @team.people.each do |person| %>
-         <li class="mdl-list__item">
-           <span class="mdl-list__item-primary-content">
-            <%= link_to profile_path(person) do %>
-              <% if person.avatar.length > 2 then %>
-              <img class="mdl-list__item-avatar" src="<%= person.avatar %>">
-              <% else %>
-              <i class="material-icons mdl-list__item-avatar">account_circle</i>
-              <% end %>
+         <li class="collection-item avatar valign-wrapper">
+          <%= link_to profile_path(person) do %>
+            <% if person.avatar.length > 2 then %>
+            <img class="circle" src="<%= person.avatar %>">
+            <% else %>
+            <i class="material-icons circle valign">account_circle</i>
             <% end %>
-            <%= link_to profile_path(person) do %>
-              <span><%= person.first_name %> <%= person.last_name %></span>
-            <% end %>
-           </span>
-           <span class="mdl-list__item-secondary-content">
+          <% end %>
+          <%= link_to profile_path(person) do %>
+            <span class="valign"><%= person.first_name %> <%= person.last_name %></span>
+          <% end %>
+           <span class="secondary-content valign">
              <!-- <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= @team.color %>;">message</i></a>
              <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= @team.color %>;">chat</i></a>
              <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= @team.color %>;">chat_bubble</i></a> -->
-             <a class="mdl-list__item-secondary-action" href="mailto:<%= person.email %>"><i class="material-icons" style="color: <%= @team.color %>;">chat_bubble_outline</i></a>
+             <a class="secondary-content" href="mailto:<%= person.email %>"><i class="material-icons" style="color: <%= @team.color %>;">chat_bubble_outline</i></a>
            </span>
          </li>
        <% end %>
-       <li class="mdl-list__item invitation-divider">
-         <span class="mdl-list__item-primary-content">
-           Pending Invitations
-         </span>
-         <span class="mdl-list__item-secondary-content">
-           <%= link_to sweep_invites_path(@team), class: "mdl-list__item-secondary-action", data: { confirm: 'Are you certain you want to delete all pending invitations?' } do %>
-             <i class="material-icons">delete_sweep</i>
-           <% end %>
-         </span>
-       </li>
-       <% @pending_invitations.each do |invite| %>
-         <li class="mdl-list__item mdl-list__item--two-line">
-           <span class="mdl-list__item-primary-content">
-             <i class="material-icons mdl-list__item-avatar">person</i>
-             <span><%= invite.first_name %> <%= invite.last_name %></span>
-             <span class="mdl-list__item-sub-title">Invited <%= time_ago_in_words(invite.updated_at) %> ago.</span>
+       <% if @pending_invitations.length > 0 %>
+         <li class="collection-item avatar invitation-divider valign-wrapper">
+           <span class="valign">
+             Pending Invitations
            </span>
-
-           <span class="mdl-list__item-secondary-content">
-              <button id="invite-<%= invite.id %>"
-                      class="mdl-button mdl-js-button mdl-button--icon">
-                <i class="material-icons">more_vert</i>
-              </button>
-              <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                  for="invite-<%= invite.id %>">
-                <li class="mdl-menu__item">
-                  <%= link_to resend_invite_path(invite), class: "mdl-list__item-secondary-action" do %>
-                    Resend
-                  <% end %>
-                </li>
-                <li class="mdl-menu__item">
-                  <%= link_to invite_path(invite), class: "mdl-list__item-secondary-action", remote: :true, method: :delete, data: { confirm: 'Are you certain you want to delete this invitation?' } do %>
-                    Delete
-                  <% end %>
-                </li>
-              </ul>
+           <span class="valign secondary-content">
+             <%= link_to sweep_invites_path(@team), class: "valign secondary-content", data: { confirm: 'Are you certain you want to delete all pending invitations?' } do %>
+               <i class="material-icons">delete_sweep</i>
+             <% end %>
            </span>
          </li>
+         <% @pending_invitations.each do |invite| %>
+           <li class="mdl-list__item mdl-list__item--two-line">
+             <span class="mdl-list__item-primary-content">
+               <i class="material-icons mdl-list__item-avatar">person</i>
+               <span><%= invite.first_name %> <%= invite.last_name %></span>
+               <span class="mdl-list__item-sub-title">Invited <%= time_ago_in_words(invite.updated_at) %> ago.</span>
+             </span>
+
+             <span class="mdl-list__item-secondary-content">
+                <button id="invite-<%= invite.id %>"
+                        class="mdl-button mdl-js-button mdl-button--icon">
+                  <i class="material-icons">more_vert</i>
+                </button>
+                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
+                    for="invite-<%= invite.id %>">
+                  <li class="mdl-menu__item">
+                    <%= link_to resend_invite_path(invite), class: "mdl-list__item-secondary-action" do %>
+                      Resend
+                    <% end %>
+                  </li>
+                  <li class="mdl-menu__item">
+                    <%= link_to invite_path(invite), class: "mdl-list__item-secondary-action", remote: :true, method: :delete, data: { confirm: 'Are you certain you want to delete this invitation?' } do %>
+                      Delete
+                    <% end %>
+                  </li>
+                </ul>
+             </span>
+           </li>
+        <% end %>
        <% end %>
      </ul>
    </div>
-<!-- </section>
-<section class="mdl-layout__tab-panel" id="messages-tab">
-   <div class="page-content">Messages</div>
-</section>
-<section class="mdl-layout__tab-panel" id="schedule-tab">
-   <div class="page-content">Schedule</div>
-</section> -->
+</div>

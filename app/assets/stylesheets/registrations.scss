@@ -8,7 +8,7 @@
 }
 
 .right-pane {
-  width: 100%
+  width: 100%;
 }
 
 .left-pane {
@@ -16,8 +16,10 @@
   flex-direction: column;
   width: 100%;
   justify-content: flex-start;
+
+
   @media (max-width: $breakpoint-tablet) {
-    background: #ffffff !important;
+    // background: #ffffff !important;
     margin-bottom: 30px;
   }
 
@@ -46,23 +48,20 @@
 }
 
 @media (min-width: $breakpoint-tablet) {
-  .mini-header {
-    display: none;
-  }
-
   .left-pane {
     display: flex;
-    flex-direction: column;
     justify-content: flex-start;
+    align-items: center;
+    justify-content: center;
     position: fixed;
     left: 0px;
     width: 50%;
     height: 100%;
-    background-color: $primary-green;
-    padding-top: 10%;
+    // background-color: $primary-green;
+    // background-color: $white;
 
     /* will be "on top", if browser supports it */
-    background-image: linear-gradient($primary-green, $secondary-green);
+    // background-image: linear-gradient($primary-green, $secondary-green);
 
     div {
       display: flex;
@@ -79,14 +78,21 @@
       justify-content: space-around;
       margin-top: 40px;
     }
+
+    img {
+      align-items: center;
+      justify-content: center;
+    }
+
   }
 
   .right-pane {
     position: absolute;
     right: 0px;
     width: 50%;
-    height: 0%;
+    height: 100%;
     padding-bottom: 15%;
+    background: #fafafa;
   }
 
   h1 {
@@ -100,7 +106,7 @@
 
   h4 {
     font-weight: lighter;
-    color: rgba(255,255,255,.8);
+    // color: rgba(255,255,255,.8);
     font-size: 30px;
     margin-top: 0px;
     margin-bottom: 60px;
@@ -112,8 +118,14 @@
   display: flex;
   list-style-type: none;
   padding-left: 0px;
-  margin-left: 50px;
-  margin-right: 50px;
+}
+
+.reg-list__item {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  margin-right: 10px;
 }
 
 .reg-list__item-avatar {

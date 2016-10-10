@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160923204916) do
+ActiveRecord::Schema.define(version: 20161006141302) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -79,6 +79,11 @@ ActiveRecord::Schema.define(version: 20160923204916) do
     t.string   "invited_by_type"
     t.integer  "invited_by_id"
     t.integer  "invitations_count",      default: 0
+    t.string   "braintree_customer_id"
+    t.string   "street_address"
+    t.string   "locality"
+    t.string   "region"
+    t.string   "postal_code"
     t.index ["email"], name: "index_people_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_people_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_people_on_invitations_count", using: :btree
@@ -86,11 +91,23 @@ ActiveRecord::Schema.define(version: 20160923204916) do
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "playing_times", force: :cascade do |t|
+    t.integer  "timeframe_id"
+    t.integer  "season_id"
+    t.datetime "created_at",   null: false
+    t.datetime "updated_at",   null: false
+    t.index ["season_id"], name: "index_playing_times_on_season_id", using: :btree
+    t.index ["timeframe_id"], name: "index_playing_times_on_timeframe_id", using: :btree
+  end
+
   create_table "season_participations", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "season_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",      null: false
+    t.datetime "updated_at",      null: false
+    t.float    "amount_paid"
+    t.float    "amount_refunded"
+    t.boolean  "is_treasurer"
     t.index ["person_id"], name: "index_season_participations_on_person_id", using: :btree
     t.index ["season_id"], name: "index_season_participations_on_season_id", using: :btree
   end
@@ -108,6 +125,7 @@ ActiveRecord::Schema.define(version: 20160923204916) do
     t.integer  "min_players"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
+    t.string   "sport"
     t.index ["team_id"], name: "index_seasons_on_team_id", using: :btree
   end
 
@@ -130,9 +148,18 @@ ActiveRecord::Schema.define(version: 20160923204916) do
     t.string   "slug"
   end
 
+  create_table "timeframes", force: :cascade do |t|
+    t.string   "day_of_week"
+    t.string   "part_of_day"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+  end
+
   add_foreign_key "games", "locations"
   add_foreign_key "games", "seasons"
   add_foreign_key "locations", "seasons"
+  add_foreign_key "playing_times", "seasons"
+  add_foreign_key "playing_times", "timeframes"
   add_foreign_key "season_participations", "people"
   add_foreign_key "season_participations", "seasons"
   add_foreign_key "seasons", "teams"

@@ -2,17 +2,20 @@ class OnboardingController < Wicked::WizardController
   before_action :authenticate_person!
   # layout "app"
 
-  steps :create_profile, :create_team
+  steps :create_profile, :season
 
   def show
     @person = current_person
     case step
     # when :accept_team_invitation
     #   @invite = Invite.find_by_token(@person.invitation_token)
-    when :create_team
-      skip_step if @person.teams.first != nil
-      @team = Team.new
-      @team.seasons.build
+    # when :create_team
+    #   skip_step if @person.teams.first != nil
+    #   @team = Team.new
+    #   @team.seasons.build
+    when :season
+      @season = Season.new
+      @team = Team.create_random
     end
 
     render_wizard

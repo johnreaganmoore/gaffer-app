@@ -29,12 +29,91 @@ class Team < ApplicationRecord
     avatars = []
     self.people.each do |person|
       if person.avatar.length > 2 then
-        puts person.avatar
-        avatars.push(person.avatar)
+        avatars.push(person)
       end
     end
-    puts avatars
     return avatars
+  end
+
+  def self.create_random
+    names = [
+      "Hounds",
+      "Penguins",
+      "Elephants"
+    ]
+
+    e_adjectives = [
+      "Elegant",
+      "Eager",
+      "Elevated",
+      "Enormous",
+      "Excellent",
+      "Exacting",
+      "Excitable",
+      "Eerie",
+      "Eloquent",
+      "Echoing"
+    ]
+
+    p_adjectives = [
+      "Pensive",
+      "Powerful",
+      "Posh",
+      "Popular",
+      "Peculiar",
+      "Pickled",
+      "Plopping",
+      "Pilfering",
+      "Plausible"
+    ]
+
+    h_adjectives = [
+      "Hopeful",
+      "Hassling",
+      "Heroic",
+      "Hauty",
+      "Howling",
+      "Seeing Eye",
+      "Happy",
+      "Hefty",
+      "Hillbilly",
+      "Hipster",
+      "Hopping",
+    ]
+
+    e_image = "app/assets/images/elephant.png"
+    p_image = "app/assets/images/penguin.png"
+    h_image = "app/assets/images/hound.png"
+
+    selected_name = names.sample
+    selected_adjective = ""
+    selected_image = ""
+    selected_color = ""
+
+    if selected_name.first == "E"
+      selected_adjective = e_adjectives.sample
+      selected_image = e_image
+      selected_color = "#6C5F5F"
+    elsif selected_name.first == "H"
+      selected_adjective = h_adjectives.sample
+      selected_image = h_image
+      selected_color = "#a82c2c"
+    else
+      selected_adjective = p_adjectives.sample
+      selected_image = p_image
+      selected_color = "#7085B2"
+    end
+
+    puts selected_name.first
+    puts selected_name.first == "H"
+    puts selected_name.first == "E"
+    puts selected_name.first == "P"
+
+    final_name = "#{selected_adjective} #{selected_name}"
+
+    image_file = File.open(selected_image, "rb")
+
+    team = self.create(name: final_name, color: selected_color, logo: image_file)
   end
 
 end

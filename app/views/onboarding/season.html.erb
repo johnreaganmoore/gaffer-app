@@ -1,0 +1,63 @@
+<!--
+TODO
+Who - Registration
+What - Sport
+Where - Location
+When - Timeframe
+How Much - Cost
+ -->
+<div class="mini-header"></div>
+<div class="profile-page">
+  <div class="profile-card card">
+    <%= form_for(@season) do |f| %>
+        <div class="profile-header">
+
+          <div class="container">
+            <h4>What are you playing?</h4>
+            <!-- <div class="switch">
+              <label>
+                Outdoor
+                <input type="checkbox">
+                <span class="lever"></span>
+                Indoor
+              </label>
+            </div> -->
+            <div class="input-field col s12">
+              <%= f.select :format, options_for_select([
+                ['Select the format', "", {disabled: true, selected: true}],
+                ['3 v 3', '3 v 3'],
+                ['4 v 4','4 v 4'],
+                ['5 v 5','5 v 5'],
+                ['6 v 6','6 v 6'],
+                ['7 v 7','7 v 7'],
+                ['8 v 8','8 v 8'],
+                ['9 v 9','9 v 9'],
+                ['10 v 10','10 v 10'],
+                ['11 v 11','11 v 11']
+                ]) %>
+            </div>
+
+            <h4>Where are you playing?</h4>
+            <div class="input-field col s12">
+              <%= f.text_field :location%>
+              <%= f.label :address %>
+            </div>
+
+            <h4>When are the games?</h4>
+            <div class="input-field col s12">
+              <%= collection_select(:season, :timeframe_ids,
+              Timeframe.all,
+              :id, :friendly_label, {selected: @season.timeframe_ids, prompt: "Select timeframe(s)"}, {multiple: true}) %>
+            </div>
+
+          </div>
+
+        </div>
+      <div class="edit-profile-actions card-action">
+        <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
+          Sweet, You're Done!
+        <% end %>
+      </div>
+    <% end %>
+  </div>
+</div>

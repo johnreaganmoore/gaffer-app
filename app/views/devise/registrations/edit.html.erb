@@ -19,39 +19,39 @@
           <div>Currently waiting confirmation for: <%= resource.unconfirmed_email %></div>
         <% end %>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="email" name="person[email]" id="person_email" autofocus="true">
-          <label class="mdl-textfield__label" for="person_email"><%= f.label :email %></label>
+        <div class="input-field col s12">
+          <input class="validate" type="email" name="person[email]" id="person_email" autofocus="true">
+          <label  for="person_email"><%= f.label :email %></label>
         </div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" name="person[first_name]" id="person_first_name">
-          <label class="mdl-textfield__label" for="person_first_name"><%= f.label :first_name %></label>
+        <div class="input-field col s12">
+          <input class="validate" type="text" name="person[first_name]" id="person_first_name">
+          <label  for="person_first_name"><%= f.label :first_name %></label>
         </div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="text" name="person[last_name]" id="person_last_name">
-          <label class="mdl-textfield__label" for="person_last_name"><%= f.label :last_name %></label>
+        <div class="input-field col s12">
+          <input class="validate" type="text" name="person[last_name]" id="person_last_name">
+          <label  for="person_last_name"><%= f.label :last_name %></label>
         </div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="file" name="person[avatar]" id="person_avatar">
-          <label class="mdl-textfield__label" for="person_avatar"><%= f.label :avatar %></label>
+        <div class="input-field col s12">
+          <input class="validate" type="file" name="person[avatar]" id="person_avatar">
+          <label  for="person_avatar"><%= f.label :avatar %></label>
         </div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="password" name="person[password]" id="person_password" autocomplete="off">
-          <label class="mdl-textfield__label" for="person_password"><%= f.label :new_password %></label>
+        <div class="input-field col s12">
+          <input class="validate" type="password" name="person[password]" id="person_password" autocomplete="off">
+          <label  for="person_password"><%= f.label :new_password %></label>
         </div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="password" name="person[password_confirmation]" id="person_password_confirmation" autocomplete="off">
-          <label class="mdl-textfield__label" for="person_password_confirmation"><%= f.label :confirm_password %></label>
+        <div class="input-field col s12">
+          <input class="validate" type="password" name="person[password_confirmation]" id="person_password_confirmation" autocomplete="off">
+          <label  for="person_password_confirmation"><%= f.label :confirm_password %></label>
         </div>
 
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="password" name="person[current_password]" id="current_person_password" autocomplete="off">
-          <label class="mdl-textfield__label" for="current_person_password"><%= f.label :current_password %></label>
+        <div class="input-field col s12">
+          <input class="validate" type="password" name="person[current_password]" id="current_person_password" autocomplete="off">
+          <label  for="current_person_password"><%= f.label :current_password %></label>
         </div>
 
         <%= button_tag(type: 'submit', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect") do %>

@@ -19,6 +19,10 @@ class ProfilesController < ApplicationController
     @profile = Person.find(params[:id])
   end
 
+  def account
+    @profile = Person.find(params[:id])
+  end
+
   def update
     respond_to do |format|
       if @person.update(person_params)
@@ -46,7 +50,12 @@ class ProfilesController < ApplicationController
         :first_name,
         :last_name,
         :password,
-        :password_confirmation
+        :password_confirmation,
+        :date_of_birth,
+        :street_address,
+        :locality,
+        :region,
+        :postal_code
       )
     end
 

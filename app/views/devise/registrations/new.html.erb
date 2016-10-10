@@ -14,21 +14,9 @@
         <h1>Let's Go!</h1>
       <% end %>
       <h4>Play Together</h4>
-
-      <!-- Three categories for features or side: communicate. plan. decide. -->
     </div>
-    <% if @team != nil %>
-      <ul class="reg-list">
-      <% @team.player_avatars.first(5).each do |avatar| %>
-          <li class="reg-list__item">
-             <img class="reg-list__item-avatar" src="<%= avatar %>">
-          </li>
-      <% end %>
-      </ul>
-    <% end %>
   </div>
-  <div class="right-pane">
-    <div class="guts--narrow__centered">
+    <div class="container guts--narrow__centered">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <% if @token != nil %>
           <%= hidden_field_tag :invitation_token, @token %>
@@ -38,46 +26,57 @@
         <% end %>
         <div>
           <%= link_to(person_facebook_omniauth_authorize_path) do %>
-            <%= button_tag(type: 'button', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect facebook-button") do %>
-              <span class="button-icon">
+            <%= button_tag(type: 'button', class: "waves-effect waves-light btn facebook-button") do %>
+              <i class="material-icons left button-icon">
                 <%= image_tag "facebook-icon.svg" %>
-              </span>
+              </i>
               Sign up with Facebook
             <% end %>
           <% end %>
           <%= link_to(person_google_oauth2_omniauth_authorize_path) do %>
-            <%= button_tag(type: 'button', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect google-button") do %>
-              <span class="button-icon">
+            <%= button_tag(type: 'button', class: "waves-effect waves-light btn google-button") do %>
+              <i class="material-icons left button-icon">
                 <%= image_tag "google-icon.svg" %>
-              </span>
+              </i>
               Sign up with Google
             <% end %>
           <% end %>
         </div>
         <div class="or-divider">or</div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="email" name="person[email]" id="person_email">
-          <label class="mdl-textfield__label" for="person_email"><%= f.label :email %></label>
-        </div>
-        <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-          <input class="mdl-textfield__input" type="password" name="person[password]" id="person_password">
-          <label class="mdl-textfield__label" for="person_password"><%= f.label :password %></label>
-        </div>
+          <!-- <div class="input-field col s12">
+            <input class="validate" type="email" name="person[email]" id="person_email">
+            <label  for="person_email"><%= f.label :email %></label>
+          </div>
+          <div class="input-field col s12">
+            <input class="validate" type="password" name="person[password]" id="person_password">
+            <label  for="person_password"><%= f.label :password %></label>
+          </div> -->
+
+          <div class="input-field col s12">
+            <%= f.email_field :email, autofocus: true %>
+            <%= f.label :email %>
+          </div>
+
+          <div class="input-field col s12">
+            <%= f.password_field :password, autocomplete: "off" %>
+            <%= f.label :password %>
+          </div>
+
         <div>
           <% team_color = "" %>
           <% if @team != nil then team_color = @team.color end %>
-          <%= button_tag(type: 'submit', class: "mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect mdl-button--primary email-sign-up-button", style: "background: #{team_color};") do %>
-            <span class="button-icon">
+          <%= button_tag(type: 'submit', class: "waves-effect waves-light btn email-sign-up-button", style: "background: #{team_color};") do %>
+            <i class="material-icons left button-icon">
               <%= image_tag "email-icon.svg" %>
-            </span>
+            </i>
             Sign up with Email
           <% end %>
         </div>
       <% end %>
       <div class="or-divider">
-        Already onside?
-        <%= link_to "Sign In", new_person_session_path,  class: "mdl-button mdl-js-button mdl-button--accent" %>
+        Already onside?<br>
+        <%= link_to "Sign In", new_person_session_path,  class: "waves-effect waves-teal btn-flat" %>
       </div>
     </div>
-  </div>
+
 </div>

@@ -2,25 +2,67 @@
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
+
+.block-container {
+  position: relative;
+
+  overflow: hidden;
+  cursor: pointer;
+
+  // &:hover .block-overlay {
+  //   display: block;
+  //   // visibility: visible;
+  //   // opacity: 1;
+  //
+  //   transform: translateX(0)
+  // }
+}
+
+// .block-overlay {
+//   display: none;
+//   // visibility: hidden;
+//   // opacity: 0;
+//
+//   position: absolute;
+//   bottom: 0;
+//   left: 0;
+//   right: 0;
+//   top: 0;
+//
+//   margin: 20px 0;
+//   padding-left: 1.5rem;
+//
+//   padding: 20px;
+//
+//   text-align: center;
+//   background-color: rgba(#64B5F6, .8);
+//   color: white;
+//
+//   transform: translateX(-20px);
+//
+//   transition: transform .15s ease-in-out;
+// }
+
+
+
+.season-container {
+  display: block;
+}
+
 #season-map {
   height: 180px;
-  margin-bottom: 75px;
   @media(min-width: $breakpoint-tablet) {
     height: 280px;
-    margin-bottom: 120px;
   }
   background: #f6f6f6;
-
-
-
-
 }
 
 .sport-indicator {
+  display: none;
   position: absolute;
-  top: 140px;
+  top: 200px;
   @media(min-width: $breakpoint-tablet) {
-    top: 240px;
+    top: 310px;
   }
   left: calc(50% - 40px);
   height: 70px;
@@ -36,12 +78,13 @@
 }
 
 .season-title {
-  a {
+  text-align: center;
+
+  p {
     color: $primary;
     font-size: 24px;
+    font-style: italic;
     font-weight: 400;
-    text-decoration: underline;
-
     @media(min-width: $breakpoint-tablet) {
       font-size: 36px;
     }
@@ -101,4 +144,21 @@
     color: $primary;
     background-color: $white;
   }
+}
+
+.broken-leg {
+  img {
+    max-width: 400px; max-height: 300px;
+  }
+}
+
+.preview-options .section {
+  @media(min-width: $breakpoint-tablet) {
+    .row {
+      display: flex;
+      align-items: center;
+    }
+  }
+
+
 }

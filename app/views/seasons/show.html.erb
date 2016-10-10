@@ -1,89 +1,16 @@
-<% if @season.team != nil %>
-  <% team_color = @season.team.color %>
-<% end %>
-
-<div id="season-map">
+<div
+  class="mini-header"
+  style="
+    background: repeating-linear-gradient(
+        60deg,
+        <%= @season.team.color %>,
+        <%= @season.team.color %> 70px,
+        rgba(<%= @season.team.color %>, 0.6) 70px,
+        rgba(<%= @season.team.color %>, 0.6) 140px
+      );
+  "
+>
 </div>
-<div class="sport-indicator">
-  <img src="https://www.svgimages.com/svg-image/s4/soccer-ball-icon-256x256.png" class="sport-icon"/>
+<div class="container">
+  <%= render 'card', season: @season %>
 </div>
-<div class="content-section">
-  <div class="season-title">
-    <a
-      href="<%= @season.website %>"
-      style="color: <%= team_color %>;"
-    >
-      <%= @season.league_name %>
-    </a>
-  </div>
-  <div class="season-dates">
-    <span><%= @season.start_date.strftime("%B #{@season.start_date.day.ordinalize}") %> to <%= @season.end_date.strftime("%B #{@season.end_date.day.ordinalize}") %></span>
-  </div>
-  <div class="season-signup">
-    <div><span><span class="season-cost">$<%= @season.cost %></span> / team</span><span class="season-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="color: <%= team_color %>;">Let's Go</span></div>
-    <hr class="faint">
-    <div><span><span class="season-cost">$<%= @season.cost/@season.min_players %></span> / player</span><span class="season-button mdl-button mdl-js-button mdl-button--raised mdl-js-ripple-effect" style="color: <%= team_color %>;">Let's Go</span></div>
-  </div>
-</div>
-<div class="content-section">
-  <div class="section-header">
-    <h2>Details</h2>
-    <hr>
-  </div>
-  <div class="section-block">
-    <div class="detail-item">
-      <span class="detail-label">Sport: </span>
-      <span class="detail-value">Indoor Soccer</span>
-    </div>
-    <div class="detail-item">
-      <span class="detail-label">Timeframe: </span>
-      <span class="detail-value">Tuesday nights</span>
-    </div>
-    <div class="detail-item">
-      <span class="detail-label">Location: </span>
-      <span class="detail-value"><%= @season.location %></span>
-    </div>
-    <div class="detail-item">
-      <span class="detail-label">Format: </span>
-      <span class="detail-value"><%= @season.format %></span>
-    </div>
-    <div class="detail-item">
-      <span class="detail-label">Number of games: </span>
-      <span class="detail-value"><%= @season.total_games %></span>
-    </div>
-    <div class="detail-item">
-      <span class="detail-label">Roster Size: </span>
-      <span class="detail-value"><%= @season.min_players %></span>
-    </div>
-  </div>
-</div>
-<script>
-
-  var mapStyle = [{"featureType":"water","elementType":"geometry","stylers":[{"color":"#e9e9e9"},{"lightness":17}]},{"featureType":"landscape","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":20}]},{"featureType":"road.highway","elementType":"geometry.fill","stylers":[{"color":"#ffffff"},{"lightness":17}]},{"featureType":"road.highway","elementType":"geometry.stroke","stylers":[{"color":"#ffffff"},{"lightness":29},{"weight":0.2}]},{"featureType":"road.arterial","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":18}]},{"featureType":"road.local","elementType":"geometry","stylers":[{"color":"#ffffff"},{"lightness":16}]},{"featureType":"poi","elementType":"geometry","stylers":[{"color":"#f5f5f5"},{"lightness":21}]},{"featureType":"poi.park","elementType":"geometry","stylers":[{"color":"#dedede"},{"lightness":21}]},{"elementType":"labels.text.stroke","stylers":[{"visibility":"on"},{"color":"#ffffff"},{"lightness":16}]},{"elementType":"labels.text.fill","stylers":[{"saturation":36},{"color":"#333333"},{"lightness":40}]},{"elementType":"labels.icon","stylers":[{"visibility":"off"}]},{"featureType":"transit","elementType":"geometry","stylers":[{"color":"#f2f2f2"},{"lightness":19}]},{"featureType":"administrative","elementType":"geometry.fill","stylers":[{"color":"#fefefe"},{"lightness":20}]},{"featureType":"administrative","elementType":"geometry.stroke","stylers":[{"color":"#fefefe"},{"lightness":17},{"weight":1.2}]}]
-
-  handler = Gmaps.build('Google');
-  handler.buildMap({
-    provider: {
-      zoom:      13,
-      center:    new google.maps.LatLng("<%= @season.default_location.latitude %>", "<%= @season.default_location.longitude %>"),
-      mapTypeId: google.maps.MapTypeId.ROADMAP,
-      styles:    mapStyle
-    },
-    internal: {id: 'season-map'},
-
-  }, function(){
-    markers = handler.addMarkers([
-      {
-        "lat": "<%= @season.default_location.latitude %>",
-        "lng": "<%= @season.default_location.longitude %>",
-        "picture": {
-          "url": "<%= image_path 'star-marker.png' %>",
-          "width":  16,
-          "height": 16
-        },
-        "infowindow": "<%= @season.league_name %>"
-      }
-    ]);
-    handler.bounds.extendWith(markers);
-  });
-</script>

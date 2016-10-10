@@ -12,11 +12,22 @@
  *
 
  */
+
+ @import 'https://fonts.googleapis.com/css?family=Lato';
+ @import 'https://fonts.googleapis.com/css?family=Exo+2:100,100i,200,200i,300,300i,400,400i,500,500i,600,600i,700,700i,800,800i,900,900i';
+
+
 @import "text-utilities";
 @import "snackbar";
 @import "snackbar-material";
 @import "breakpoints";
 @import "colors";
+// From materialize docs, this is how you can overide color defaults.
+@import "materialize/components/color";
+$primary-color: $primary-green !default;
+$secondary-color: $secondary-green !default;
+@import 'materialize';
+
 @import "font-types";
 @import "layout";
 @import "buttons";
@@ -28,8 +39,6 @@
 @import "profiles";
 @import "seasons";
 @import "tool-tips";
-
-@import 'https://fonts.googleapis.com/css?family=Lato';
 
 
 a {
@@ -45,6 +54,10 @@ a {
 }
 .snackbar.notice {
   background-color: green;
+}
+
+html {
+  font-family: 'Exo 2', sans-serif;
 }
 
 body {

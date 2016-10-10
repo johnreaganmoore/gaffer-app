@@ -11,20 +11,20 @@
     </div>
   <% end %>
 
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="text" name="team[name]" id="team_name">
-    <label class="mdl-textfield__label" for="team_name"><%= f.label :team_name %></label>
+  <div class="input-field col s12">
+    <input class="validate" type="text" name="team[name]" id="team_name">
+    <label  for="team_name"><%= f.label :team_name %></label>
   </div>
 
-  <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="color" name="team[color]" id="team_color" value="#ff0000" />
-    <label class="mdl-textfield__label" for="team_color"><%= f.label :color %></label>
+  <div class="input-field col s12">
+    <input class="validate" type="color" name="team[color]" id="team_color" value="#ff0000" />
+    <label  for="team_color"><%= f.label :color %></label>
   </div>
 
 
-  <!-- <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-    <input class="mdl-textfield__input" type="file" name="team[logo]" id="team_logo" />
-    <label class="mdl-textfield__label" for="team_logo"><%= f.label :logo %></label>
+  <!-- <div class="input-field col s12">
+    <input class="validate" type="file" name="team[logo]" id="team_logo" />
+    <label  for="team_logo"><%= f.label :logo %></label>
   </div> -->
 
   <!-- <div class="field">

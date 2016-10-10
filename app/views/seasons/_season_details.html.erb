@@ -1,0 +1,94 @@
+<div class="card">
+  <div class="card-content">
+    <span class="card-title">Season Details</span>
+    <hr class="faint">
+      <div class="section-block">
+
+        <div class="detail-item">
+          <span class="detail-label">League: </span>
+          <% if season.league_name != nil %>
+            <span class="detail-value"><%= season.league_name %></span>
+          <% else %>
+            <span class="detail-value">Unknown</span>
+          <% end %>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Website: </span>
+          <% if season.website != nil %>
+            <span class="detail-value"><%= season.website %></span>
+          <% else %>
+            <span class="detail-value">Unknown</span>
+          <% end %>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Start Date: </span>
+          <% if season.start_date != nil %>
+            <span class="detail-value"><%= @season.start_date.strftime("%B #{@season.start_date.day.ordinalize}") %></span>
+          <% else %>
+            <span class="detail-value">Unknown</span>
+          <% end %>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">End Date: </span>
+          <% if season.end_date != nil %>
+            <span class="detail-value"><%= @season.end_date.strftime("%B #{@season.end_date.day.ordinalize}") %></span>
+          <% else %>
+            <span class="detail-value">Unknown</span>
+          <% end %>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Location: </span>
+          <% if season.location != nil %>
+            <span class="detail-value"><%= season.location %></span>
+          <% else %>
+            <span class="detail-value">Unknown</span>
+          <% end %>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Format: </span>
+          <% if season.format != "" %>
+            <span class="detail-value"><%= season.format %></span>
+          <% else %>
+            <span class="detail-value">Unknown</span>
+          <% end %>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Cost: </span>
+          <% if season.cost != nil %>
+            <span class="detail-value">$<%= season.cost/season.min_players %></span>
+          <% else %>
+            <span class="detail-value">Unknown</span>
+          <% end %>
+        </div>
+
+
+
+        <div class="detail-item">
+          <span class="detail-label">Number of games: </span>
+          <% if season.total_games != nil %>
+            <span class="detail-value"><%= season.total_games %></span>
+          <% else %>
+            <span class="detail-value">Unknown</span>
+          <% end %>
+        </div>
+
+        <div class="detail-item">
+          <span class="detail-label">Roster Size: </span>
+          <% if season.min_players != nil %>
+            <span class="detail-value"><%= season.min_players %></span>
+          <% else %>
+            <span class="detail-value">Unknown</span>
+          <% end %>
+        </div>
+      </div>
+  </div>
+  <div class="card-action edit-profile-actions">
+    <a class="waves-effect waves-light btn modal-trigger" href="#season-modal">Edit Season Details</a>
+  </div>
+</div>

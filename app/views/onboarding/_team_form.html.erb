@@ -1,5 +1,5 @@
 <div class="profile-page">
-  <div class="profile-card mdl-card mdl-shadow--2dp">
+  <div class="profile-card card">
     <%= form_for(team) do |f| %>
       <div class="mdl-card__title mdl-card--expand">
         <div class="profile-header">
@@ -37,66 +37,72 @@
 
           <div class="guts--narrow__centered">
 
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="text" name="team[name]" id="team_name">
-              <label class="mdl-textfield__label" for="team_name"><%= f.label :team_name %></label>
+            <div class="input-field col s12">
+              <%= f.text_field :name, class: "validate", required: true %>
+              <%= f.label :team_name, data_error: "Hmm, not going to cut it.", data_success: "Nailed it!" %>
             </div>
 
-            <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label">
-              <input class="mdl-textfield__input" type="color" name="team[color]" id="team_color" value="#ff0000" />
-              <label class="mdl-textfield__label" for="team_color"><%= f.label :color %></label>
+            <div class="input-field col s12">
+              <input class="validate" type="text" name="team[name]" id="team_name">
+              <label for="team_name" data-error="Hmm, not going to cut it." data-success="Nailed it!"><%= f.label :team_name %></label>
+            </div>
+
+            <div class="input-field col s12">
+              <input class="validate" type="color" name="team[color]" id="team_color" value="#ff0000" />
+              <label  for="team_color"><%= f.label :color %></label>
             </div>
 
             <%= f.fields_for :seasons do |seasons_form| %>
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+
+              <div class="input-field col s12">
                 <%= seasons_form.text_field :league_name, class: "mdl-textfield__input" %>
                 <%= seasons_form.label :league_name, class: "mdl-textfield__label" %>
               </div>
 
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+              <div class="input-field col s12">
                 <%= seasons_form.text_field :website, class: "mdl-textfield__input" %>
-                <%= seasons_form.label :season_website, class: "mdl-textfield__label" %>
+                <%= seasons_form.label :website, class: "mdl-textfield__label" %>
               </div>
 
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+              <div class="input-field col s12">
                 <%= seasons_form.text_field :location, class: "mdl-textfield__input" %>
-                <%= seasons_form.label :season_location, class: "mdl-textfield__label" %>
+                <%= seasons_form.label :location, class: "mdl-textfield__label" %>
               </div>
 
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
-                <%= seasons_form.date_field :start_date, class: "mdl-textfield__input" %>
-                <%= seasons_form.label :season_start_date, class: "mdl-textfield__label" %>
+              <div class="input-field col s12">
+                <%= seasons_form.date_field :start_date, class: "datepicker" %>
+                <%= seasons_form.label :start_date, class: "mdl-textfield__label" %>
               </div>
 
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
-                <%= seasons_form.date_field :end_date, class: "mdl-textfield__input" %>
-                <%= seasons_form.label :season_end_date, class: "mdl-textfield__label" %>
+              <div class="input-field col s12">
+                <%= seasons_form.date_field :end_date, class: "datepicker" %>
+                <%= seasons_form.label :end_date, class: "mdl-textfield__label" %>
               </div>
 
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+              <div class="input-field col s12">
                 <%= seasons_form.text_field :cost, class: "mdl-textfield__input", pattern: '-?[0-9]*(\.[0-9]+)?' %>
-                <%= seasons_form.label :season_cost, class: "mdl-textfield__label" %>
+                <%= seasons_form.label :cost, class: "mdl-textfield__label" %>
                 <span class="mdl-textfield__error">Input is not a valid amount format.</span>
               </div>
 
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+              <div class="input-field col s12">
                 <%= seasons_form.text_field :total_games, class: "mdl-textfield__input", pattern: '-?[0-9]*(\.[0-9]+)?' %>
-                <%= seasons_form.label :total_number_of_games, class: "mdl-textfield__label" %>
+                <%= seasons_form.label :total_games, class: "mdl-textfield__label" %>
                 <span class="mdl-textfield__error">Input is not a number.</span>
               </div>
 
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+              <div class="input-field col s12">
                 <%= seasons_form.text_field :format, class: "mdl-textfield__input" %>
-                <%= seasons_form.label :game_format, class: "mdl-textfield__label" %>
+                <%= seasons_form.label :format, class: "mdl-textfield__label" %>
                 <span id="tt-format" class="text-field-tt icon material-icons">help</span>
               </div>
               <div class="mdl-tooltip" for="tt-format">
               e.g. 7vs7 <br>or 3v3
               </div>
 
-              <div class="mdl-textfield mdl-js-textfield mdl-textfield--floating-label mdl-textfield--floating-label">
+              <div class="input-field col s12">
                 <%= seasons_form.text_field :min_players, class: "mdl-textfield__input", pattern: '-?[0-9]*(\.[0-9]+)?' %>
-                <%= seasons_form.label :minimum_number_of_players, class: "mdl-textfield__label" %>
+                <%= seasons_form.label :min_players, class: "mdl-textfield__label" %>
                 <span class="mdl-textfield__error">Input is not a number.</span>
               </div>
             <% end %>
@@ -108,8 +114,8 @@
           <%= hidden_field_tag :person_id, @person.id %>
       </div>
       </div>
-      <div class="edit-profile-actions mdl-card__actions mdl-card--border">
-        <%= button_tag(type: 'submit', class: "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect") do %>
+      <div class="edit-profile-actions card-action">
+        <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
           Create Team
         <% end %>
       </div>

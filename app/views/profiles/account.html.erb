@@ -1,0 +1,141 @@
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <%= form_for(@person, url: profile_path, method: :put) do |f| %>
+          <%= f.label :avatar  do %>
+            <% if @person.avatar.length > 1 then %>
+              <div class="profile-avatar">
+                <div class="section__circle--big large-avatar editable">
+                    <img id="avatar" src="<%= @person.avatar %>">
+                    <div class="change-label">Change</div>
+                </div>
+              </div>
+            <% else %>
+              <div class="profile-avatar">
+                <div class="section__circle--big large-avatar editable">
+                    <%= image_tag "anonymous_material.png", id: "avatar" %>
+                    <div class="change-label">Change</div>
+                </div>
+              </div>
+            <% end %>
+          <% end %>
+          <%= f.file_field :avatar, style: "display: none;", class: 'photo_upload', onchange: "loadFile(event)" %>
+
+          <div class="container">
+
+            <div class="input-field col s12">
+              <%= f.text_field :first_name, class: "mdl-textfield__input" %>
+              <%= f.label :first_name, class: "mdl-textfield__label" %>
+            </div>
+
+            <div class="input-field col s12">
+              <%= f.text_field :last_name, class: "mdl-textfield__input" %>
+              <%= f.label :last_name, class: "mdl-textfield__label" %>
+            </div>
+
+            <div class="input-field col s12">
+              <%= f.email_field :email, class: "mdl-textfield__input" %>
+              <%= f.label :email, class: "mdl-textfield__label" %>
+            </div>
+
+            <div class="input-field col s12">
+              <%= f.text_field :phone, class: "mdl-textfield__input" %>
+              <%= f.label :phone, class: "mdl-textfield__label" %>
+            </div>
+
+            <div class="input-field col s12">
+              <%= f.date_field :date_of_birth, class: "datepicker birthdate" %>
+              <%= f.label :date_of_birth %>
+            </div>
+            <div class="input-field col s12">
+              <%= f.text_field :street_address %>
+              <%= f.label :street_address %>
+            </div>
+            <div class="input-field col s12">
+              <%= f.text_field :locality %>
+              <%= f.label :city %>
+            </div>
+
+            <div class="input-field col s12">
+              <%= f.select :region, options_for_select([
+                ['Select State', "", {disabled: true, selected: true}],
+                ['AL', 'AL'],
+                ['AK','AK'],
+                ['AZ','AZ'],
+                ['AR','AR'],
+                ['CA','CA'],
+                ['CO','CO'],
+                ['CT','CT'],
+                ['DE','DE'],
+                ['FL','FL'],
+                ['GA','GA'],
+                ['HI','HI'],
+                ['ID','ID'],
+                ['IL','IL'],
+                ['IN','IN'],
+                ['IA','IA'],
+                ['KS','KS'],
+                ['KY','KY'],
+                ['LA','LA'],
+                ['ME','ME'],
+                ['MD','MD'],
+                ['MA','MA'],
+                ['MI','MI'],
+                ['MN','MN'],
+                ['MS','MS'],
+                ['MO','MO'],
+                ['MT','MT'],
+                ['NE','NE'],
+                ['NV','NV'],
+                ['NH','NH'],
+                ['NJ','NJ'],
+                ['NM','NM'],
+                ['NY','NY'],
+                ['NC','NC'],
+                ['ND','ND'],
+                ['OH','OH'],
+                ['OK','OK'],
+                ['OR','OR'],
+                ['PA','PA'],
+                ['RI','RI'],
+                ['SC','SC'],
+                ['SD','SD'],
+                ['TN','TN'],
+                ['TX','TX'],
+                ['UT','UT'],
+                ['VT','VT'],
+                ['VA','VA'],
+                ['WA','WA'],
+                ['WV','WV'],
+                ['WI','WI'],
+                ['WY','WY']
+                ]) %>
+              <%= f.label :game_format %>
+            </div>
+
+            <div class="input-field col s12">
+              <%= f.text_field :region %>
+              <%= f.label :state %>
+            </div>
+            <div class="input-field col s12">
+              <%= f.text_field :postal_code %>
+              <%= f.label :zip %>
+            </div>
+
+          </div>
+        </div>
+        <div class="edit-profile-actions card-action">
+          <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
+            Save
+          <% end %>
+        </div>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+  $("#payment-switch").click(function(){
+     $(".sub-merchant-form").toggle();
+  })
+</script>

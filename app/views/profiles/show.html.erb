@@ -6,7 +6,7 @@
 <% end %>
 
 <div class="profile-page">
-  <div class="profile-card mdl-card mdl-shadow--2dp">
+  <div class="profile-card card">
     <div class="mdl-card__title mdl-card--expand">
       <div class="profile-header">
         <% if @person.avatar.length > 1 then %>
@@ -27,7 +27,7 @@
         </div>
       </div>
     </div>
-    <div class="profile-actions mdl-card__actions mdl-card--border">
+    <div class="profile-actions card-action">
       <%= link_to "mailto:#{@person.email}", class: "mdl-button mdl-button--colored mdl-js-button mdl-js-ripple-effect", remote: :true do %>
       Email
       <% end %>

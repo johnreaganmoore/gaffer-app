@@ -67,6 +67,7 @@ class TeamsController < ApplicationController
     respond_to do |format|
       if @team.update(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }
+        format.js {}
         format.json { render :show, status: :ok, location: @team }
       else
         format.html { render :edit }

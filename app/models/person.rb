@@ -17,17 +17,7 @@ class Person < ApplicationRecord
 
   mount_uploader :avatar, ImageUploader
 
-
-  # This method overides default behavior to allow sign in for a confirmed person.
-  # http://stackoverflow.com/questions/32191011/devise-devise-invitable-how-to-skip-the-pending-invitations-control
-  # def block_from_invitation?
-  #   #If the user has not been confirmed yet, we let the usual controls work
-  #   if confirmed_at.blank?
-  #     return invited_to_sign_up?
-  #   else #if the user was confirmed, we let them in (will decide to accept or decline invitation from the dashboard)
-  #     return false
-  #   end
-  # end
+  after_update :new_sub_merchant?
 
   def self.from_omniauth(auth)
 
@@ -44,6 +34,74 @@ class Person < ApplicationRecord
   def leave_team(team)
     self.teams.destroy(team)
   end
+
+  def has_payment_info?
+    braintree_customer_id
+  end
+
+  def purchase(season, amount)
+    SeasonParticipation.create(person_id: self.id, season_id: season.id, amount_paid: amount)
+    self.teams.push(season.team)
+  end
+
+  def new_sub_merchant?
+    if self.date_of_birth_changed?(from: nil)
+      puts "Trying to create sub merchant"
+      create_sub_merchant
+    end
+  end
+
+  def create_sub_merchant
+    merchant_account_params = {
+      :individual => {
+        :first_name => self.first_name,
+        :last_name => self.last_name,
+        :email => self.email,
+        :date_of_birth => self.date_of_birth,
+        :address => {
+          :street_address => self.street_address,
+          :locality => self.locality,
+          :region => self.region,
+          :postal_code => self.postal_code
+        }
+      },
+      :funding => {
+        :descriptor => "Onside - Soccer Team Management App",
+        :destination => Braintree::MerchantAccount::FundingDestination::Email,
+        :email => self.email,
+        # :mobile_phone => self.phone,
+        # :account_number => "1123581321",
+        # :routing_number => "071101307"
+      },
+      :tos_accepted => true,
+      :master_merchant_account_id => "letsgoteam",
+      :id => self.id
+    }
+    result = Braintree::MerchantAccount.create(merchant_account_params)
+
+    puts "result"
+    puts result.inspect
+
+    puts result.success?
+    # true
+    puts result.merchant_account.status
+    # "pending"
+    puts result.merchant_account.id
+    # "blue_ladders_store"
+    puts result.merchant_account.master_merchant_account.id
+    # "14ladders_marketplace"
+    puts result.merchant_account.master_merchant_account.status
+    # "active"
+  end
+
+
+  def self.create_with_temp_pass(first_name, last_name, email)
+    temp_password = Devise.friendly_token.first(8)
+    person = Person.create!(first_name: first_name, last_name: last_name, email: email, :password => temp_password, :password_confirmation => temp_password)
+    PersonMailer.temp_password(person, temp_password).deliver
+    return person
+  end
+
 
   protected
 

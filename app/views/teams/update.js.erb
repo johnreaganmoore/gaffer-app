@@ -1,0 +1,2 @@
+// $("<%= escape_javascript(render @user) %>").appendTo("#users");
+$("#team_basics_container").html("<%= escape_javascript(render partial: 'team_basics', locals: { team: @team } ) %>");
