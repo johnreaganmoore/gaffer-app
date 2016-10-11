@@ -81,18 +81,35 @@ class Person < ApplicationRecord
 
     puts "result"
     puts result.inspect
-
-    puts result.success?
-    # true
-    puts result.merchant_account.status
-    # "pending"
-    puts result.merchant_account.id
-    # "blue_ladders_store"
-    puts result.merchant_account.master_merchant_account.id
-    # "14ladders_marketplace"
-    puts result.merchant_account.master_merchant_account.status
-    # "active"
   end
+
+  def update_sub_merchant
+    result = Braintree::MerchantAccount.update(
+      self.id,
+      :individual => {
+        :first_name => self.first_name,
+        :last_name => self.last_name,
+        :email => self.email,
+        :date_of_birth => self.date_of_birth,
+        :address => {
+          :street_address => self.street_address,
+          :locality => self.locality,
+          :region => self.region,
+          :postal_code => self.postal_code
+        }
+      },
+      :funding => {
+        :email => self.email,
+      },
+    )
+    if result.success?
+      p "Merchant account successfully updated"
+    else
+      p result.errors
+    end
+  end
+
+
 
 
   def self.create_with_temp_pass(first_name, last_name, email)

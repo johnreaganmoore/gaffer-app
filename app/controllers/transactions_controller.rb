@@ -8,6 +8,13 @@ class TransactionsController < ApplicationController
     nonce = 'fake-valid-nonce' # params["payment_method_nonce"]
     @season = Season.find(params["season"])
 
+    base_cost = @season.new_player_cost
+    service_fee = @season.new_player_cost * 0.10
+    total_cost = base_cost + service_fee
+
+    puts "service_fee: #{service_fee}"
+
+
     if current_person
       @person = current_person
     else
@@ -16,7 +23,9 @@ class TransactionsController < ApplicationController
 
     unless @person.has_payment_info?
       @result = Braintree::Transaction.sale(
-        amount: @season.new_player_cost,
+        merchant_account_id: @season.treasurer.id,
+        amount: total_cost,
+        service_fee_amount: service_fee,
         payment_method_nonce: 'fake-valid-nonce',
         customer: {
           first_name: @person.first_name,
@@ -24,13 +33,21 @@ class TransactionsController < ApplicationController
           email: @person.email
         },
         options: {
-          store_in_vault: true
+          store_in_vault: true,
+          submit_for_settlement: true,
+          hold_in_escrow: true
         }
       )
     else
       @result = Braintree::Transaction.sale(
-        :amount => @season.new_player_cost, # In production you should not take amounts directly from clients
-        :payment_method_nonce => 'fake-valid-nonce',
+        merchant_account_id: @season.treasurer.id,
+        amount: total_cost,
+        service_fee_amount: service_fee,
+        payment_method_nonce: 'fake-valid-nonce',
+        options: {
+          submit_for_settlement: true,
+          hold_in_escrow: true
+        }
       )
     end
 
