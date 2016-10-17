@@ -5,15 +5,6 @@
       <div class="section-block">
 
         <div class="detail-item">
-          <span class="detail-label">League: </span>
-          <% if season.league_name != nil %>
-            <span class="detail-value"><%= season.league_name %></span>
-          <% else %>
-            <span class="detail-value">Unknown</span>
-          <% end %>
-        </div>
-
-        <div class="detail-item">
           <span class="detail-label">Website: </span>
           <% if season.website != nil %>
             <span class="detail-value"><%= season.website %></span>
@@ -25,7 +16,7 @@
         <div class="detail-item">
           <span class="detail-label">Start Date: </span>
           <% if season.start_date != nil %>
-            <span class="detail-value"><%= @season.start_date.strftime("%B #{@season.start_date.day.ordinalize}") %></span>
+            <span class="detail-value"><%= season.start_date.strftime("%B #{season.start_date.day.ordinalize}") %></span>
           <% else %>
             <span class="detail-value">Unknown</span>
           <% end %>
@@ -34,7 +25,7 @@
         <div class="detail-item">
           <span class="detail-label">End Date: </span>
           <% if season.end_date != nil %>
-            <span class="detail-value"><%= @season.end_date.strftime("%B #{@season.end_date.day.ordinalize}") %></span>
+            <span class="detail-value"><%= season.end_date.strftime("%B #{season.end_date.day.ordinalize}") %></span>
           <% else %>
             <span class="detail-value">Unknown</span>
           <% end %>
@@ -61,7 +52,7 @@
         <div class="detail-item">
           <span class="detail-label">Cost: </span>
           <% if season.cost != nil %>
-            <span class="detail-value">$<%= season.cost/season.min_players %></span>
+            <span class="detail-value">$<%= season.cost/team_season.min_players %></span>
           <% else %>
             <span class="detail-value">Unknown</span>
           <% end %>
@@ -80,8 +71,8 @@
 
         <div class="detail-item">
           <span class="detail-label">Roster Size: </span>
-          <% if season.min_players != nil %>
-            <span class="detail-value"><%= season.min_players %></span>
+          <% if team_season.min_players != nil %>
+            <span class="detail-value"><%= team_season.min_players %></span>
           <% else %>
             <span class="detail-value">Unknown</span>
           <% end %>

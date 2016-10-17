@@ -26,3 +26,66 @@ a {
     left: 15px;
     display: inline-block;
 }
+
+.team-header {
+  padding: 15px;
+
+  .team-logo-container {
+    display: flex;
+    justify-content: center;
+    // width: 100%;
+  }
+
+  .large-avatar {
+    display: flex;
+    justify-content: center;
+  }
+
+  .team-name {
+
+    h3 {
+      position: relative;
+      // color: $light-font;
+      font-weight: 100;
+      padding: 15px;
+      margin: 0px;
+    }
+
+    .edit-team-link {
+      color: $light-font;
+      position: absolute;
+      top: 30px;
+      margin-left: 15px;
+      font-size: 1rem;
+      line-height: 15px;
+      border: 1px solid $faint;
+      border-radius: 4px;
+      padding: 10px;
+    }
+  }
+
+
+  @media only screen and (max-width : $breakpoint-tablet) {
+    display: flex;
+    align-items: center;
+
+
+    .team-logo-container {
+      display: block;
+    }
+
+    .large-avatar {
+      height: 42px;
+      width: 42px;
+    }
+
+    .team-name {
+      .edit-team-link {
+        right: -48px;
+        top: 28px;
+      }
+    }
+
+  }
+
+}

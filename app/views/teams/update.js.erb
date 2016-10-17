@@ -1,2 +1,4 @@
-// $("<%= escape_javascript(render @user) %>").appendTo("#users");
 $("#team_basics_container").html("<%= escape_javascript(render partial: 'team_basics', locals: { team: @team } ) %>");
+$("#color-setter-container").html("<%= escape_javascript(render partial: 'layouts/color_setter', locals: { team: @team } ) %>");
+$("#nav-container").html("<%= escape_javascript(render partial: 'layouts/header', locals: { bg_color: @team.color } ) %>");
+$("#side-nav-container").html("<%= escape_javascript(render partial: 'layouts/side_nav', locals: { bg_color: @team.color } ) %>");

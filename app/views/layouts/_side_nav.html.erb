@@ -1,0 +1,28 @@
+<ul id="slide-out" class="side-nav fixed">
+  <li>
+    <div class="userView" style="background-color: <%= bg_color %>;">
+      <% if defined?(current_person) %>
+        <img class="circle" src="<%= current_person.avatar.thumb %>">
+      <% end %>
+    </div>
+  </li>
+  <li class="no-padding account-menu" style="background-color: <%= bg_color %>;">
+    <a href="<%= account_path(current_person) %>">
+      <%= current_person.email %>
+      <i class="material-icons">arrow_drop_down</i>
+    </a>
+  </li>
+  <li class="no-padding">
+    <% if person_signed_in? %>
+      <a href="<%= destroy_person_session_path %>" rel="nofollow" data-method="delete"><i class="material-icons">person_outline</i>Sign out</a>
+    <% else %>
+      <%= link_to "Sign In", new_person_session_path,  class: "waves-effect" %>
+    <% end %>
+  </li>
+  <li><div class="divider"></div></li>
+  <li><a class="subheader">Teams</a></li>
+  <li><a href="<%= new_team_path %>"><i class="material-icons">add_circle</i>Create New Team</a></li>
+  <% current_person.teams.each do |team| %>
+    <li><a class="waves-effect team-menu-item" href="<%= team_path(team) %>"><img class="circle" src="<%= team.logo.avatar %>"><%= team.name %></a></li>
+  <% end %>
+</ul>

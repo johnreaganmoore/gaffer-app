@@ -102,19 +102,17 @@ ActiveRecord::Schema.define(version: 20161006141302) do
 
   create_table "season_participations", force: :cascade do |t|
     t.integer  "person_id"
-    t.integer  "season_id"
+    t.integer  "team_season_id"
     t.datetime "created_at",      null: false
     t.datetime "updated_at",      null: false
     t.float    "amount_paid"
     t.float    "amount_refunded"
     t.boolean  "is_treasurer"
     t.index ["person_id"], name: "index_season_participations_on_person_id", using: :btree
-    t.index ["season_id"], name: "index_season_participations_on_season_id", using: :btree
+    t.index ["team_season_id"], name: "index_season_participations_on_team_season_id", using: :btree
   end
 
   create_table "seasons", force: :cascade do |t|
-    t.integer  "team_id"
-    t.string   "league_name"
     t.string   "website"
     t.string   "location"
     t.date     "start_date"
@@ -122,11 +120,9 @@ ActiveRecord::Schema.define(version: 20161006141302) do
     t.integer  "cost"
     t.integer  "total_games"
     t.string   "format"
-    t.integer  "min_players"
     t.datetime "created_at",  null: false
     t.datetime "updated_at",  null: false
     t.string   "sport"
-    t.index ["team_id"], name: "index_seasons_on_team_id", using: :btree
   end
 
   create_table "team_memberships", force: :cascade do |t|
@@ -137,6 +133,17 @@ ActiveRecord::Schema.define(version: 20161006141302) do
     t.datetime "updated_at", null: false
     t.index ["person_id"], name: "index_team_memberships_on_person_id", using: :btree
     t.index ["team_id"], name: "index_team_memberships_on_team_id", using: :btree
+  end
+
+  create_table "team_seasons", force: :cascade do |t|
+    t.integer  "team_id"
+    t.integer  "season_id"
+    t.integer  "cost"
+    t.integer  "min_players"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["season_id"], name: "index_team_seasons_on_season_id", using: :btree
+    t.index ["team_id"], name: "index_team_seasons_on_team_id", using: :btree
   end
 
   create_table "teams", force: :cascade do |t|
@@ -161,8 +168,9 @@ ActiveRecord::Schema.define(version: 20161006141302) do
   add_foreign_key "playing_times", "seasons"
   add_foreign_key "playing_times", "timeframes"
   add_foreign_key "season_participations", "people"
-  add_foreign_key "season_participations", "seasons"
-  add_foreign_key "seasons", "teams"
+  add_foreign_key "season_participations", "team_seasons"
   add_foreign_key "team_memberships", "people"
   add_foreign_key "team_memberships", "teams"
+  add_foreign_key "team_seasons", "seasons"
+  add_foreign_key "team_seasons", "teams"
 end

@@ -5,8 +5,8 @@ class Team < ApplicationRecord
   has_many :team_memberships
   has_many :people, through: :team_memberships
   has_many :invites
-  has_many :seasons
-  accepts_nested_attributes_for :seasons
+  has_many :team_seasons
+  accepts_nested_attributes_for :team_seasons
 
   mount_uploader :logo, ImageUploader
 
@@ -71,7 +71,7 @@ class Team < ApplicationRecord
       "Hopeful",
       "Hassling",
       "Heroic",
-      "Hauty",
+      "Haughty",
       "Howling",
       "Seeing Eye",
       "Happy",
@@ -103,11 +103,6 @@ class Team < ApplicationRecord
       selected_image = p_image
       selected_color = "#7085B2"
     end
-
-    puts selected_name.first
-    puts selected_name.first == "H"
-    puts selected_name.first == "E"
-    puts selected_name.first == "P"
 
     final_name = "#{selected_adjective} #{selected_name}"
 

@@ -14,8 +14,18 @@ class OnboardingController < Wicked::WizardController
     #   @team = Team.new
     #   @team.seasons.build
     when :season
-      @season = Season.new
-      @team = Team.create_random
+      @team_season = TeamSeason.new  # change this to create an actual season???
+      if params[:team] != nil
+        @team = Team.find(params[:team])
+      else
+        @team = Team.create_random
+      end
+
+      if params[:season] != nil
+        @season = Season.find(params[:season])
+      else
+        @season = Season.new
+      end
     end
 
     render_wizard

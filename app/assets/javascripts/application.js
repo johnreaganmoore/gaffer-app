@@ -13,11 +13,13 @@
 
 //= require jquery
 //= require jquery_ujs
+//= require jquery.remotipart
 //= require turbolinks
 //= require snackbar
 //= require underscore
 //= require gmaps/google
 //= require materialize-sprockets
+//= require rails_env_favicon
 //= require_tree .
 
 $( document ).on('turbolinks:load', function() {
@@ -63,7 +65,10 @@ var loadFile = function(event) {
 
 var loadLogo = function(event) {
   var logo = document.getElementById('logo');
+  var modalLogo = document.getElementById('edit-modal-logo');
   logo.src = URL.createObjectURL(event.target.files[0]);
+  modalLogo.src = URL.createObjectURL(event.target.files[0]);
+
 };
 
 function LightenDarkenColor(col, amt) {

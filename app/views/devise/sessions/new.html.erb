@@ -3,10 +3,9 @@
 <div class="mini-header"></div>
 <div>
   <div class="left-pane">
-    <div class="guts--narrow__centered">
-      <h1>Let's Go</h1>
+    <div class="container">
+      <div class="logo-container"><%= image_tag "onside.svg" %></div>
       <h4>Play Together</h4>
-      <!-- Three categories for features or side: communicate. plan. decide. -->
     </div>
   </div>
   <div class="right-pane">
@@ -70,7 +69,7 @@
       <% end %>
       <div class="or-divider">
         New to the team?<br>
-        <%= link_to "Register here", new_person_registration_path,  class: "waves-effect waves-teal btn-flat" %>
+        <%= link_to "Register here", new_person_registration_path,  class: "waves-effect waves-green btn-flat" %>
       </div>
     </div>
   </div>

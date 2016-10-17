@@ -33,11 +33,15 @@ Rails.application.routes.draw do
   get 'profiles/:id/account', to: 'profiles#account', as: :account
   # end
 
+
+
   resources :seasons
-  get 'seasons/:id/preview', to: 'seasons#preview', as: :preview_season
-  get 'seasons/:id/accept', to: 'seasons#accept', as: :accept_season
-  get 'seasons/:id/decline', to: 'seasons#decline', as: :decline_season
-  get 'seasons/:id/price', to: 'seasons#price', as: :season_price
+  resources :team_seasons
+
+  get 'team_seasons/:id/preview', to: 'team_seasons#preview', as: :preview_season
+  get 'team_seasons/:id/accept', to: 'team_seasons#accept', as: :accept_season
+  get 'team_seasons/:id/decline', to: 'team_seasons#decline', as: :decline_season
+  get 'team_seasons/:id/price', to: 'team_seasons#price', as: :season_price
 
   resources :transactions, only: [:new, :create]
 

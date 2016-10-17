@@ -17,6 +17,8 @@ class Person < ApplicationRecord
 
   mount_uploader :avatar, ImageUploader
 
+  # after_initialize :ensure_avatar
+  after_update :ensure_avatar
   after_update :new_sub_merchant?
 
   def self.from_omniauth(auth)
@@ -124,6 +126,25 @@ class Person < ApplicationRecord
 
   def confirmation_required?
     false
+  end
+
+  def ensure_avatar
+
+    puts "Ensuring avatar"
+    # puts self.inspect
+    # puts "previous line is avatar"
+    #
+    # puts "File thingy will run"
+    image_file = File.open("app/assets/images/anonymous_material.png", "rb")
+
+    if self.avatar.file.nil?
+      self.avatar = image_file
+      self.save
+    end
+
+
+
+    puts self.inspect
   end
 
 end

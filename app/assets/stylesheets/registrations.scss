@@ -32,6 +32,25 @@
       text-align: center;
       margin-bottom: 5px;
     }
+
+    h4 {
+      display: none;
+    }
+
+  }
+
+  .logo-container {
+    display: flex;
+    flex-direction: row;
+    justify-content: center;
+    padding: 50px;
+    padding-bottom: 0px;
+    width: 100%;
+
+    img {
+      max-width: 300px;
+    }
+
   }
 
   ul {
@@ -50,13 +69,13 @@
 @media (min-width: $breakpoint-tablet) {
   .left-pane {
     display: flex;
-    justify-content: flex-start;
-    align-items: center;
     justify-content: center;
+    align-items: center;
     position: fixed;
     left: 0px;
     width: 50%;
     height: 100%;
+    padding-bottom: 150px;
     // background-color: $primary-green;
     // background-color: $white;
 
@@ -70,6 +89,10 @@
 
       h1,h4 {
         text-align: center;
+      }
+
+      h4 {
+        display: block;
       }
     }
 
@@ -87,11 +110,13 @@
   }
 
   .right-pane {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     position: absolute;
     right: 0px;
     width: 50%;
     height: 100%;
-    padding-bottom: 15%;
     background: #fafafa;
   }
 

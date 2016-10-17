@@ -1,0 +1,74 @@
+<div class="main-content container">
+  <div class="preview-options">
+    <div class="section">
+      <div class="card">
+        <div class="card-content">
+          <div id="team_basics_container">
+            <%= render 'teams/team_basics', team: @team %>
+          </div>
+        </div>
+        <div class="card-action edit-profile-actions">
+          <a class="waves-effect waves-light btn modal-trigger" href="#team-modal">Edit Team</a>
+        </div>
+      </div>
+
+      <!-- Modal Structure -->
+      <div id="team-modal" class="modal bottom-sheet">
+        <%= render 'team_modal_form', team: @team_season.team %>
+      </div>
+
+
+    <div id="season_details_container" class="section add-more-detail">
+      <%= render 'seasons/season_details', season: @team_season.season, team_season: @team_season %>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="season-modal" class="modal bottom-sheet">
+      <%= render 'season_modal_form', season: @team_season.season, team_season: @team_season %>
+    </div>
+
+    <div class="section">
+      <%= render 'payment_details', person: @team_season.treasurer %>
+    </div>
+
+    <!-- Modal Structure -->
+    <div id="payment-details-modal" class="modal bottom-sheet">
+      <%= render 'payment_details_modal_form', person: @team_season.treasurer %>
+    </div>
+
+    <div class="section share">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <p class="flow-text">
+            Invite people to play this season with this link:
+          </p>
+
+          <div class="block-container">
+            <code class="share-link">
+              <span>
+                <%= team_season_url(@team_season) %>
+              </span>
+            </code>
+          </div>
+        </div>
+        <div class="card-action edit-profile-actions">
+          <%= link_to "View Page", team_season_path(@team_season), class: "btn waves-effect waves-light", target: "_blank" %>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+  $('.modal-trigger').leanModal({
+    dismissible: true, // Modal can be dismissed by clicking outside of the modal
+    opacity: .5, // Opacity of modal background
+    in_duration: 300, // Transition in duration
+    out_duration: 200, // Transition out duration
+    starting_top: '4%', // Starting top style attribute
+    ending_top: '10%' // Ending top style attribute
+    //ready: function() { alert('Ready'); }, // Callback for Modal open
+    //complete: function() { alert('Closed'); } // Callback for Modal close
+  });
+
+</script>

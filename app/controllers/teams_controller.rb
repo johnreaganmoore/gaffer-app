@@ -1,6 +1,8 @@
 class TeamsController < ApplicationController
+  before_action :authenticate_person!
   layout "app" #, only: [:index, :edit, :update, :destroy]
   # layout "team", only: [:show]
+
 
   before_action :set_team, only: [:show, :edit, :update, :destroy, :sweep_invites]
 
@@ -45,10 +47,9 @@ class TeamsController < ApplicationController
     # bucket.create_file file_url, params["team"]["name"]
 
     @team = Team.new(team_params)
-    @person = Person.find(params[:person_id])
 
     @team.save
-    @team.add_creator(@person)
+    @team.add_creator(current_person)
 
     respond_to do |format|
       if @team.save
@@ -112,7 +113,7 @@ class TeamsController < ApplicationController
         :color,
         :logo,
         :person_id,
-        seasons_attributes: [
+        team_seasons_attributes: [
           :id,
           :league_name,
           :website,

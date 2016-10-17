@@ -1,3 +1,4 @@
+<div class="mini-header"></div>
 <div class="profile-page">
   <div class="profile-card card">
     <%= form_for(@person, url: wizard_path, method: :put) do |f| %>
@@ -32,16 +33,6 @@
             <div class="input-field col s12">
               <%= f.text_field :last_name, class: "mdl-textfield__input" %>
               <%= f.label :last_name, class: "mdl-textfield__label" %>
-            </div>
-
-            <div class="input-field col s12">
-              <%= f.email_field :email, class: "mdl-textfield__input" %>
-              <%= f.label :email, class: "mdl-textfield__label" %>
-            </div>
-
-            <div class="input-field col s12">
-              <%= f.text_field :phone, class: "mdl-textfield__input" %>
-              <%= f.label :phone, class: "mdl-textfield__label" %>
             </div>
 
           </div>

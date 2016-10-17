@@ -14,45 +14,16 @@ class SeasonsController < ApplicationController
   # GET /teams/1
   # GET /teams/1.json
   def show
-    @team = @season.team
   end
 
   # GET /teams/1/edit
   def edit
-    @team = @season.team
-  end
-
-  def preview
-    @team = @season.team
-  end
-
-  def accept
-    @team = @season.team
-    @client_token = generate_client_token
-
-    # If the person is logged in when on the accept page great!
-    # if not we need to create a new person,
-    # and if the email they use to create the new person is unique, we will save as a new record
-    if current_person
-      @person = current_person
-    else
-      @person = Person.new
-    end
-  end
-
-  def decline
-    @team = @season.team
-  end
-
-  def price
-    @team = @season.team
   end
 
 
   # GET /teams/new
   def new
     @season = Season.new
-    @team = Team.find(params[:team])
   end
 
   # POST /teams
@@ -60,12 +31,10 @@ class SeasonsController < ApplicationController
   def create
 
     @season = Season.create(season_params)
-    @season.add_creator(current_person)
-    @season.set_treasurer(current_person)
 
     respond_to do |format|
       if @season.save
-        format.html { redirect_to preview_season_path(@season), notice: 'Season was successfully created.' }
+        format.html { redirect_to season_path(@season), notice: 'Season was successfully created.' }
         format.json { render :season_preview, status: :created, location: @season }
       else
         format.html { render :new }
@@ -77,10 +46,22 @@ class SeasonsController < ApplicationController
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
+
+    # puts season_params['teams_seasons_attributes']
+    #
+    # @team_season = TeamSeason.find(season_params['team_seasons_attributes']['id'])
+    #
+    # if season_params['team_season']['min_players']
+    #   @team_season.min_players = season_params['team_season']['min_players']
+    #   @team_season.save
+    # end
+
+
     respond_to do |format|
       if @season.update(season_params)
-        format.html { redirect_to preview_season_path(@season), notice: 'Season was successfully updated.' }
+        format.html { redirect_to season_path(@season), notice: 'Season was successfully updated.' }
         format.json { render :show, status: :ok, location: @season }
+        format.js {}
       else
         format.html { render :edit }
         format.json { render json: @season.errors, status: :unprocessable_entity }
@@ -116,30 +97,12 @@ class SeasonsController < ApplicationController
         :cost,
         :total_games,
         :format,
-        :min_players,
-        :sport,
         timeframe_ids: [],
-        person_attributes: [
-          :date_of_birth,
-          :street_address,
-          :locality,
-          :region,
-          :postal_code
+        team_seasons_attributes: [
+          :id,
+          :min_players
         ]
       )
-    end
-
-    def generate_client_token
-
-      # puts "token below?"
-      # puts current_person.has_payment_info?
-      # puts "token above?"
-
-      if current_person and current_person.has_payment_info?
-        Braintree::ClientToken.generate(customer_id: current_person.braintree_customer_id)
-      else
-        Braintree::ClientToken.generate
-      end
     end
 
 end

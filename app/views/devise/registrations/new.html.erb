@@ -1,21 +1,13 @@
 <div class="mini-header"></div>
 <%= devise_error_messages! %>
 <div>
-  <div
-    class="left-pane"
-    <% if @team != nil %>
-      style="background: <%= @team.color %>;"
-    <% end %>
-  >
-    <div>
-      <% if @team != nil %>
-        <h1>Let's Go <%= @team.name %>!</h1>
-      <% else %>
-        <h1>Let's Go!</h1>
-      <% end %>
+  <div class="left-pane">
+    <div class="container">
+      <div class="logo-container"><%= image_tag "onside.svg" %></div>
       <h4>Play Together</h4>
     </div>
   </div>
+  <div class="right-pane">
     <div class="container guts--narrow__centered">
       <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
         <% if @token != nil %>
@@ -68,8 +60,8 @@
       <% end %>
       <div class="or-divider">
         Already onside?<br>
-        <%= link_to "Sign In", new_person_session_path,  class: "waves-effect waves-teal btn-flat" %>
+        <%= link_to "Sign In", new_person_session_path,  class: "waves-effect waves-green btn-flat" %>
       </div>
     </div>
-
+  </div>
 </div>

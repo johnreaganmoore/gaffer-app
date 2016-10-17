@@ -43,6 +43,7 @@ source 'https://rubygems.org' do
   gem 'carrierwave'
   gem 'fog'
   gem 'mini_magick'
+  gem 'remotipart' # allow ajax file uploads
 
   gem 'rack-cors', :require => 'rack/cors'
 
@@ -71,6 +72,8 @@ source 'https://rubygems.org' do
 
   gem "braintree", "~> 2.66.0"
   gem 'gon'
+
+  gem 'rails-env-favicon'
 
   group :development, :test do
     # Call 'byebug' anywhere in the code to stop execution and get a debugger console

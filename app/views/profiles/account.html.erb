@@ -23,103 +23,124 @@
 
           <div class="container">
 
-            <div class="input-field col s12">
-              <%= f.text_field :first_name, class: "mdl-textfield__input" %>
-              <%= f.label :first_name, class: "mdl-textfield__label" %>
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.text_field :first_name, class: "mdl-textfield__input" %>
+                <%= f.label :first_name, class: "mdl-textfield__label" %>
+              </div>
             </div>
 
-            <div class="input-field col s12">
-              <%= f.text_field :last_name, class: "mdl-textfield__input" %>
-              <%= f.label :last_name, class: "mdl-textfield__label" %>
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.text_field :last_name, class: "mdl-textfield__input" %>
+                <%= f.label :last_name, class: "mdl-textfield__label" %>
+              </div>
             </div>
 
-            <div class="input-field col s12">
-              <%= f.email_field :email, class: "mdl-textfield__input" %>
-              <%= f.label :email, class: "mdl-textfield__label" %>
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.email_field :email, class: "mdl-textfield__input" %>
+                <%= f.label :email, class: "mdl-textfield__label" %>
+              </div>
             </div>
 
-            <div class="input-field col s12">
-              <%= f.text_field :phone, class: "mdl-textfield__input" %>
-              <%= f.label :phone, class: "mdl-textfield__label" %>
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.text_field :phone, class: "mdl-textfield__input" %>
+                <%= f.label :phone, class: "mdl-textfield__label" %>
+              </div>
             </div>
 
-            <div class="input-field col s12">
-              <%= f.date_field :date_of_birth, class: "datepicker birthdate" %>
-              <%= f.label :date_of_birth %>
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.date_field :date_of_birth, class: "datepicker birthdate" %>
+                <%= f.label :date_of_birth %>
+              </div>
             </div>
-            <div class="input-field col s12">
-              <%= f.text_field :street_address %>
-              <%= f.label :street_address %>
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.text_field :street_address %>
+                <%= f.label :street_address %>
+              </div>
             </div>
-            <div class="input-field col s12">
-              <%= f.text_field :locality %>
-              <%= f.label :city %>
-            </div>
-
-            <div class="input-field col s12">
-              <%= f.select :region, options_for_select([
-                ['Select State', "", {disabled: true, selected: true}],
-                ['AL', 'AL'],
-                ['AK','AK'],
-                ['AZ','AZ'],
-                ['AR','AR'],
-                ['CA','CA'],
-                ['CO','CO'],
-                ['CT','CT'],
-                ['DE','DE'],
-                ['FL','FL'],
-                ['GA','GA'],
-                ['HI','HI'],
-                ['ID','ID'],
-                ['IL','IL'],
-                ['IN','IN'],
-                ['IA','IA'],
-                ['KS','KS'],
-                ['KY','KY'],
-                ['LA','LA'],
-                ['ME','ME'],
-                ['MD','MD'],
-                ['MA','MA'],
-                ['MI','MI'],
-                ['MN','MN'],
-                ['MS','MS'],
-                ['MO','MO'],
-                ['MT','MT'],
-                ['NE','NE'],
-                ['NV','NV'],
-                ['NH','NH'],
-                ['NJ','NJ'],
-                ['NM','NM'],
-                ['NY','NY'],
-                ['NC','NC'],
-                ['ND','ND'],
-                ['OH','OH'],
-                ['OK','OK'],
-                ['OR','OR'],
-                ['PA','PA'],
-                ['RI','RI'],
-                ['SC','SC'],
-                ['SD','SD'],
-                ['TN','TN'],
-                ['TX','TX'],
-                ['UT','UT'],
-                ['VT','VT'],
-                ['VA','VA'],
-                ['WA','WA'],
-                ['WV','WV'],
-                ['WI','WI'],
-                ['WY','WY']
-                ]) %>
-              <%= f.label :game_format %>
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.text_field :locality %>
+                <%= f.label :city %>
+              </div>
             </div>
 
-            <div class="input-field col s12">
-              <%= f.text_field :region %>
-              <%= f.label :state %>
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.select :region, options_for_select([
+                  ['Select State', "", {disabled: true, selected: true}],
+                  ['AL', 'AL'],
+                  ['AK','AK'],
+                  ['AZ','AZ'],
+                  ['AR','AR'],
+                  ['CA','CA'],
+                  ['CO','CO'],
+                  ['CT','CT'],
+                  ['DE','DE'],
+                  ['FL','FL'],
+                  ['GA','GA'],
+                  ['HI','HI'],
+                  ['ID','ID'],
+                  ['IL','IL'],
+                  ['IN','IN'],
+                  ['IA','IA'],
+                  ['KS','KS'],
+                  ['KY','KY'],
+                  ['LA','LA'],
+                  ['ME','ME'],
+                  ['MD','MD'],
+                  ['MA','MA'],
+                  ['MI','MI'],
+                  ['MN','MN'],
+                  ['MS','MS'],
+                  ['MO','MO'],
+                  ['MT','MT'],
+                  ['NE','NE'],
+                  ['NV','NV'],
+                  ['NH','NH'],
+                  ['NJ','NJ'],
+                  ['NM','NM'],
+                  ['NY','NY'],
+                  ['NC','NC'],
+                  ['ND','ND'],
+                  ['OH','OH'],
+                  ['OK','OK'],
+                  ['OR','OR'],
+                  ['PA','PA'],
+                  ['RI','RI'],
+                  ['SC','SC'],
+                  ['SD','SD'],
+                  ['TN','TN'],
+                  ['TX','TX'],
+                  ['UT','UT'],
+                  ['VT','VT'],
+                  ['VA','VA'],
+                  ['WA','WA'],
+                  ['WV','WV'],
+                  ['WI','WI'],
+                  ['WY','WY']
+                  ]) %>
+                <%= f.label :game_format %>
+              </div>
             </div>
-            <div class="input-field col s12">
-              <%= f.text_field :postal_code %>
-              <%= f.label :zip %>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.text_field :region %>
+                <%= f.label :state %>
+              </div>
+            </div>
+
+            <div class="row">
+              <div class="input-field col s12">
+                <%= f.text_field :postal_code %>
+                <%= f.label :zip %>
+              </div>
             </div>
 
           </div>
