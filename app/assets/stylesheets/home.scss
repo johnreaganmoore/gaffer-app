@@ -1,8 +1,10 @@
 .action-container {
   position: relative;
+
   height: 300px;
+
   @media (min-width: $breakpoint-tablet) {
-    height: 200px;
+    height: 80px;
   }
 
 }

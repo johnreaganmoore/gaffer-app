@@ -1,21 +1,20 @@
 <div class="mini-header"></div>
 <div>
   <div class="left-pane">
-    <div class="guts--narrow__centered">
-      <h1>Let's Go</h1>
+    <div class="container">
+      <div class="logo-container"><%= image_tag "onside.svg" %></div>
       <h4>Play Together</h4>
-      <!-- Three categories for features or side: communicate. plan. decide. -->
     </div>
   </div>
   <div class="right-pane">
-    <div class="guts--narrow__centered">
+    <div class="container guts--narrow__centered">
       <div class="action-container">
         <div class="main-actions">
           <div>
-            <%= link_to "Register", new_person_registration_path,  class: "mdl-button mdl-js-button mdl-button--primary" %>
+            <%= link_to "Register", new_person_registration_path,  class: "btn-flat waves-effect waves-green" %>
           </div>
           <div>
-            <%= link_to "Sign In", new_person_session_path,  class: "mdl-button mdl-js-button mdl-button--accent" %>
+            <%= link_to "Sign In", new_person_session_path,  class: "btn-flat waves-effect waves-green" %>
           </div>
         </div>
       </div>
