@@ -62,7 +62,7 @@ class People::OmniauthCallbacksController < Devise::OmniauthCallbacksController
       team_path(person.teams[0])
     else
       if person.first_name != nil then
-        onboarding_path(:create_team)
+        onboarding_path(:season)
       else
         onboarding_path(:create_profile)
       end
