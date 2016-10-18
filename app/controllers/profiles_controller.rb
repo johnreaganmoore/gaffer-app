@@ -28,6 +28,7 @@ class ProfilesController < ApplicationController
       if @person.update(person_params)
         format.html { redirect_to profile_path(@person), notice: 'Profile was successfully updated.' }
         format.json { render :show, status: :ok, location: profile_path(@person) }
+        format.js {}
       else
         format.html { render :edit }
         format.json { render json: profile_path(@person).errors, status: :unprocessable_entity }

@@ -22,7 +22,7 @@
       <% end %>
       <%= timeframe_array.to_sentence  %>
        at
-      <span class="detail-value"><%= @team_season.location %></span>
+      <span class="detail-value"><%= @team_season.season.location %></span>
     </div>
     <div class="season-dates">
       <% if @team_season.season.start_date != nil %>
@@ -75,13 +75,13 @@
           <span class="detail-value"><%= @team_season.season.location %></span>
         </div>
         <% end %>
-        <% if @team_season.format != "" %>
+        <% if @team_season.season.format != "" %>
         <div class="detail-item">
           <span class="detail-label">Format: </span>
           <span class="detail-value"><%= @team_season.season.format %></span>
         </div>
         <% end %>
-        <% if @team_season.total_games != nil %>
+        <% if @team_season.season.total_games != nil %>
         <div class="detail-item">
           <span class="detail-label">Number of games: </span>
           <span class="detail-value"><%= @team_season.season.total_games %></span>
@@ -114,7 +114,7 @@
   handler.buildMap({
     provider: {
       zoom:      12,
-      center:    new google.maps.LatLng("<%= @team_season.default_location.latitude %>", "<%= @team_season.default_location.longitude %>"),
+      center:    new google.maps.LatLng("<%= @team_season.season.default_location.latitude %>", "<%= @team_season.season.default_location.longitude %>"),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles:    mapStyle
     },
@@ -130,7 +130,7 @@
           "width":  16,
           "height": 16
         },
-        "infowindow": "<%= @team_season.season.league_name %>"
+        "infowindow": "This is the default location for the season: <%= @team_season.season.default_location.address %>"
       }
     ]);
     handler.bounds.extendWith(markers);

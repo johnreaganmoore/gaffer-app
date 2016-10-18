@@ -12,29 +12,22 @@
       <div class="card-content">
         <div class="season-title">
           <p style="color: <%= @team_season.team.color %>;">
-            <%= @team_season.sport %>
+            Let's Play Soccer
           </p>
         </div>
-        <!-- <div class="season-logistics flow-text">
-          <% timeframe_array = [] %>
-          <% @team_season.timeframes.each do |timeframe| %>
-            <% timeframe_array.push(timeframe.friendly_label)  %>
-          <% end %>
-          <%= timeframe_array.to_sentence  %>
-        </div> -->
         <div class="season-dates">
           <% timeframe_array = [] %>
-          <% @team_season.timeframes.each do |timeframe| %>
+          <% @team_season.season.timeframes.each do |timeframe| %>
             <% timeframe_array.push(timeframe.friendly_label)  %>
           <% end %>
           <%= timeframe_array.to_sentence  %>
         </div>
         <div class="season-dates">
-          <%= @team_season.location %>
+          <%= @team_season.season.location %>
         </div>
         <div class="season-dates">
-          <% if @team_season.start_date != nil %>
-            <span><%= @team_season.start_date.strftime("%B #{@team_season.start_date.day.ordinalize}") %> to <%= @team_season.end_date.strftime("%B #{@team_season.end_date.day.ordinalize}") %></span>
+          <% if @team_season.season.start_date != nil %>
+            <span><%= @team_season.season.start_date.strftime("%B #{@team_season.season.start_date.day.ordinalize}") %> to <%= @team_season.season.end_date.strftime("%B #{@team_season.season.end_date.day.ordinalize}") %></span>
           <% end %>
         </div>
         <% if @team_season.cost != nil %>
@@ -81,7 +74,6 @@
             <div class="row">
               <div class="input-field col s12">
                 <input placeholder="4111 1111 1111 1111" class="hosted-fields" id="card-number"></input>
-                <!-- <label for="card-number">Card Number</label> -->
               </div>
             </div>
 

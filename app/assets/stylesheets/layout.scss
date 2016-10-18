@@ -54,6 +54,10 @@ nav .brand-logo {
 }
 
 .mini-header {
+  position:fixed;
+  width:100%;
+  top:0px;
+  z-index: 99999;
   height: 20px;
   background: repeating-linear-gradient(
     to right,

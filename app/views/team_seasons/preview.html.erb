@@ -27,8 +27,8 @@
       <%= render 'season_modal_form', season: @team_season.season, team_season: @team_season %>
     </div>
 
-    <div class="section">
-      <%= render 'payment_details', person: @team_season.treasurer %>
+    <div id="payment_details_container" class="section">
+      <%= render 'profiles/payment_details', person: @team_season.treasurer %>
     </div>
 
     <!-- Modal Structure -->

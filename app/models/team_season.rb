@@ -17,6 +17,7 @@ class TeamSeason < ApplicationRecord
   accepts_nested_attributes_for :treasurer, :season
 
   after_create :ensure_team, :ensure_min_players
+  after_initialize :ensure_cost
 
   def new_player_cost
     self.cost / self.cost_divisor
@@ -65,7 +66,11 @@ class TeamSeason < ApplicationRecord
       self.min_players = self.season.format.first.to_i
       self.save
     end
-    # puts "team_season.min_players = #{self.min_players}"
+  end
+
+  def ensure_cost
+      self.cost ||= self.season.cost
+      self.save
   end
 
 end
