@@ -16,7 +16,7 @@
   flex-direction: column;
   width: 100%;
   justify-content: flex-start;
-  background: #ffffff;
+  background: $primary-bg;
 
 
   @media (max-width: $breakpoint-tablet) {
@@ -78,7 +78,7 @@
     height: 100%;
     padding-bottom: 150px;
     // background-color: $primary-green;
-    // background-color: $white;
+    background-color: $white;
 
     /* will be "on top", if browser supports it */
     // background-image: linear-gradient($primary-green, $secondary-green);

@@ -69,8 +69,10 @@ class TeamSeason < ApplicationRecord
   end
 
   def ensure_cost
+    unless self.season == nil
       self.cost ||= self.season.cost
       self.save
+    end
   end
 
 end
