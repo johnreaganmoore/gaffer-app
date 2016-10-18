@@ -2,8 +2,8 @@
 
 one:
   person: one
-  team_season: one
+  team_season_id: one
 
 two:
   person: two
-  team_season: two
+  team_season_id: two
