@@ -1,5 +1,5 @@
 class InviteMailer < ApplicationMailer
-  default from: 'johnreaganmoore+gaffer@gmail.com'
+  default from: 'gaffer@playonside.com'
 
   def new_person_invite(invite, url)
     @invite = invite
@@ -7,11 +7,12 @@ class InviteMailer < ApplicationMailer
 
     @sender = Person.find(invite.sender_id)
 
-    puts @sender
-    puts @sender.first_name
-    puts @invite.team.name
-
-    mail(to: @invite.email, subject: "Welcome to the #{@invite.team.name}")
+    mail(
+      to: @invite.email,
+      subject: "#{@sender.first_name} #{@sender.last_name} wants to play soccer",
+      tag: 'new-invite',
+      track_opens: 'true'
+    )
   end
 
   def new_person_resend_invite(invite, url)
@@ -20,11 +21,7 @@ class InviteMailer < ApplicationMailer
 
     @sender = Person.find(invite.sender_id)
 
-    puts @sender
-    puts @sender.first_name
-    puts @invite.team.name
-
-    mail(to: @invite.email, subject: "Welcome to the #{@invite.team.name}")
+    mail(to: @invite.email, subject: "#{@sender.first_name} wants to play soccer with you")
   end
 
   def existing_person_invite(invite, url)
@@ -32,10 +29,6 @@ class InviteMailer < ApplicationMailer
     @url = url
 
     @sender = Person.find(invite.sender_id)
-
-    puts @sender
-    puts @sender.first_name
-    puts @invite.team.name
 
     mail(to: @invite.email, subject: "Welcome to the #{@invite.team.name}")
   end
@@ -45,10 +38,6 @@ class InviteMailer < ApplicationMailer
     @url = url
 
     @sender = Person.find(invite.sender_id)
-
-    puts @sender
-    puts @sender.first_name
-    puts @invite.team.name
 
     mail(to: @invite.email, subject: "Welcome to the #{@invite.team.name}")
   end

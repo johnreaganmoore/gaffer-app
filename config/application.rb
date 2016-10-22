@@ -19,5 +19,8 @@ module GafferApp
       end
     end
 
+    config.action_mailer.delivery_method = :postmark
+    config.action_mailer.postmark_settings = { :api_token => ENV['postmark_api_key'] }
+
   end
 end

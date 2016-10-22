@@ -1,5 +1,5 @@
 class PersonMailer < ApplicationMailer
-  default from: 'johnreaganmoore+gaffer@gmail.com'
+  default from: 'gaffer@playonside.com'
 
   def temp_password(person, generated_password)
     @person = person

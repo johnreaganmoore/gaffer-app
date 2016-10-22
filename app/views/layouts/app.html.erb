@@ -28,19 +28,15 @@
         <% bg_color = "#6FA135" %>
       <% end %>
     </div>
-    <% if @team != nil %>
-      <nav id="nav-container">
-        <%= render "layouts/header", bg_color: bg_color %>
-      </nav>
-      <div id="side-nav-container">
-        <%= render "layouts/side_nav", bg_color: bg_color %>
-      </div>
-    <% else %>
-      <div class="mini-header"></div>
-    <% end %>
-      <main class="page-content">
-        <%= yield %>
-      </main>
+    <nav id="nav-container">
+      <%= render "layouts/header", bg_color: bg_color %>
+    </nav>
+    <div id="side-nav-container">
+      <%= render "layouts/side_nav", bg_color: bg_color %>
+    </div>
+    <main class="page-content">
+      <%= yield %>
+    </main>
   </body>
 </html>
 <%= javascript_tag do %>

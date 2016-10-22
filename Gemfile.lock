@@ -39,6 +39,7 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    addressable (2.4.0)
     arel (7.0.0)
     bcrypt (3.1.11)
     better_errors (2.1.1)
@@ -67,6 +68,8 @@ GEM
       execjs
     coffee-script-source (1.10.0)
     concurrent-ruby (1.0.2)
+    css_parser (1.4.5)
+      addressable
     debug_inspector (0.0.2)
     devise (4.2.0)
       bcrypt (~> 3.0)
@@ -228,6 +231,7 @@ GEM
       multi_json
       request_store (>= 1.0)
     hashie (3.4.4)
+    htmlentities (4.3.4)
     i18n (0.7.0)
     inflecto (0.0.2)
     ipaddress (0.8.3)
@@ -286,6 +290,18 @@ GEM
     orm_adapter (0.5.0)
     pg (0.18.4)
     pkg-config (1.1.7)
+    postmark (1.8.1)
+      json
+      rake
+    postmark-rails (0.13.0)
+      actionmailer (>= 3.0.0)
+      postmark (~> 1.8.0)
+    premailer (1.8.7)
+      css_parser (>= 1.4.5)
+      htmlentities (>= 4.0.0)
+    premailer-rails (1.9.4)
+      actionmailer (>= 3, < 6)
+      premailer (~> 1.7, >= 1.7.9)
     puma (3.4.0)
     rack (2.0.1)
     rack-cors (0.4.0)
@@ -407,6 +423,8 @@ DEPENDENCIES
   omniauth-facebook!
   omniauth-google-oauth2!
   pg!
+  postmark-rails!
+  premailer-rails!
   puma (~> 3.0)!
   rack-cors!
   rails (~> 5.0.0)!

@@ -2,17 +2,41 @@
 <html>
   <head>
     <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+    <%= stylesheet_link_tag    'application' %>
   </head>
   <body>
-    <div style="text-align: center; margin-top:40px; background-color: <%= @invite.team.color %>">
-      <h1><%= @invite.team.name %></h1>
-    <div>
-    <p>
-      You have been invited by <%= @sender.first_name %> <%= @sender.last_name %>
-    </p>
-    <p>
-      To login to the site, just follow this link: <%= "localhost:3000#{@url}" %>.
-    </p>
-    <p>Thanks for joining and have a great day!</p>
+    <div class="email-mini-header"></div>
+    <div class="container">
+      <div class="card">
+        <div class="card-content">
+          <div class="profile-avatar email">
+            <div class="section__circle--big large-avatar email">
+                <img id="logo" src="<%= @invite.team.logo %>">
+            </div>
+          </div>
+          <div class="center-align flow-text">
+            <h5><%= @invite.team.name %></h5>
+          <div>
+          <hr>
+          <p class="email-text flow-text">
+            Congratulations <%= @invite.first_name %>!
+          </p>
+          <p class="email-text flow-text">
+            <%= @sender.first_name %> thinks you have what it takes.
+            You are invited to join the <%= @invite.team.name %>.
+          </p>
+          <p class="email-text flow-text">
+            To join the team and get ready to play soccer, click this button:
+          </p>
+          <div class="email-action-container">
+            <%=
+              link_to @url,
+              class: "waves-effect waves-light btn" do %>
+              Yes, I'm In!
+          <% end %>
+          </div>
+        </div>
+      </div>
+    </div>
   </body>
 </html>

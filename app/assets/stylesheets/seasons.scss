@@ -166,6 +166,18 @@
       align-items: center;
     }
   }
+}
 
+.sauce-container {
+  display: flex;
+  height: 100%;
+  width: 100%;
+  justify-content: center;
+  align-items: center;
 
+  .sauce-image {
+    height: 70%;
+    max-height: 600px;
+    
+  }
 }

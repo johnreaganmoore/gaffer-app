@@ -13,6 +13,9 @@ source 'https://rubygems.org' do
   gem 'geocoder'
   gem 'gmaps4rails'
 
+  gem 'postmark-rails'
+  gem 'premailer-rails'
+
   # Use Puma as the app server
   gem 'puma', '~> 3.0'
   # Use SCSS for stylesheets

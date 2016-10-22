@@ -7,22 +7,42 @@
     </div>
   </li>
   <li class="no-padding account-menu" style="background-color: <%= bg_color %>;">
-    <a href="<%= account_path(current_person) %>">
-      <%= current_person.email %>
-      <i class="material-icons">arrow_drop_down</i>
-    </a>
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header">
+          <%= current_person.first_name %> <%= current_person.last_name %>
+          <i class="material-icons">arrow_drop_down</i>
+        </a>
+        <div class="collapsible-body">
+          <ul>
+            <li>
+              <a href="<%= account_path(current_person) %>">
+                <i class="material-icons">account_circle</i>
+                Manage Account
+              </a>
+            </li>
+            <li>
+              <% if person_signed_in? %>
+                <a href="<%= destroy_person_session_path %>" class="team-menu-item" rel="nofollow" data-method="delete"><i class="material-icons">exit_to_app</i>Sign out</a>
+              <% else %>
+                <%= link_to "Sign In", new_person_session_path,  class: "waves-effect" %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+    </li>
+    </ul>
   </li>
-  <li class="no-padding">
-    <% if person_signed_in? %>
-      <a href="<%= destroy_person_session_path %>" rel="nofollow" data-method="delete"><i class="material-icons">person_outline</i>Sign out</a>
-    <% else %>
-      <%= link_to "Sign In", new_person_session_path,  class: "waves-effect" %>
-    <% end %>
-  </li>
-  <li><div class="divider"></div></li>
+
   <li><a class="subheader">Teams</a></li>
+  <li><div class="divider sans-margin"></div></li>
   <li><a href="<%= new_team_path %>"><i class="material-icons">add_circle</i>Create New Team</a></li>
   <% current_person.teams.each do |team| %>
-    <li><a class="waves-effect team-menu-item" href="<%= team_path(team) %>"><img class="circle" src="<%= team.logo.avatar %>"><%= team.name %></a></li>
+    <li>
+      <a class="waves-effect team-menu-item" href="<%= team_path(team) %>">
+        <img class="circle" src="<%= team.logo.avatar %>">
+        <%= team.name %>
+      </a>
+    </li>
   <% end %>
 </ul>

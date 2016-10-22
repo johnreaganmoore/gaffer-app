@@ -29,6 +29,7 @@ a {
 
 .team-header {
   padding: 15px;
+  padding-top: 30px;
 
   .team-logo-container {
     display: flex;
@@ -86,6 +87,24 @@ a {
       }
     }
 
+    .team-logo-container.email {
+      display: none;
+    }
+
+    // .section__circle--big.large-avatar.email {
+    //   display: none;
+    //   img {
+    //     display: none;
+    //   }
+    // }
+
+
   }
 
+}
+
+.card.team-card {
+  .collection {
+    overflow: visible !important;
+  }
 }

@@ -12,8 +12,7 @@
       </h3>
     </div>
   </div>
-   <div class="card">
-
+   <div class="card team-card">
      <ul class="collection">
        <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
            <a href="<%= new_invite_path(:team_id => @team.id) %>" class="btn-floating btn waves-effect waves-light valign" style="background-color: <%= @team.color %>; height: 42px; width: 42px;">
@@ -55,26 +54,31 @@
            </span>
          </li>
          <% @pending_invitations.each do |invite| %>
-           <li class="mdl-list__item mdl-list__item--two-line">
-             <span class="mdl-list__item-primary-content">
-               <i class="material-icons mdl-list__item-avatar">person</i>
-               <span><%= invite.first_name %> <%= invite.last_name %></span>
-               <span class="mdl-list__item-sub-title">Invited <%= time_ago_in_words(invite.updated_at) %> ago.</span>
+           <li class="collection-item avatar valign-wrapper">
+             <i class="material-icons circle">person</i>
+             <span class="valign">
+               <span class="title"><%= invite.first_name %> <%= invite.last_name %></span>
+               <p >Invited <%= time_ago_in_words(invite.updated_at) %> ago.</p>
              </span>
-
-             <span class="mdl-list__item-secondary-content">
-                <button id="invite-<%= invite.id %>"
-                        class="mdl-button mdl-js-button mdl-button--icon">
+             <span class="secondary-content valign">
+                <a
+                  class="dropdown-button valign"
+                  data-activates="invite-<%= invite.id %>"
+                  href="#"
+                >
                   <i class="material-icons">more_vert</i>
-                </button>
-                <ul class="mdl-menu mdl-menu--bottom-right mdl-js-menu mdl-js-ripple-effect"
-                    for="invite-<%= invite.id %>">
-                  <li class="mdl-menu__item">
+                </a>
+                <ul
+                  id="invite-<%= invite.id %>"
+                  class="dropdown-content"
+                  style="overflow: visible;"
+                >
+                  <li>
                     <%= link_to resend_invite_path(invite), class: "mdl-list__item-secondary-action" do %>
                       Resend
                     <% end %>
                   </li>
-                  <li class="mdl-menu__item">
+                  <li>
                     <%= link_to invite_path(invite), class: "mdl-list__item-secondary-action", remote: :true, method: :delete, data: { confirm: 'Are you certain you want to delete this invitation?' } do %>
                       Delete
                     <% end %>

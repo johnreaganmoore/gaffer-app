@@ -41,9 +41,9 @@ class Person < ApplicationRecord
     braintree_customer_id
   end
 
-  def purchase(season, amount)
-    SeasonParticipation.create(person_id: self.id, season_id: season.id, amount_paid: amount)
-    self.teams.push(season.team)
+  def purchase(team_season, amount)
+    SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount)
+    self.teams.push(team_season.team)
   end
 
   def new_sub_merchant?

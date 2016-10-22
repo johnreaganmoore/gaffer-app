@@ -40,6 +40,8 @@ $secondary-color: $secondary-green !default;
 @import "profiles";
 @import "seasons";
 @import "tool-tips";
+@import "emails";
+@import "transactions";
 
 
 a {
@@ -59,6 +61,8 @@ a {
 
 html {
   font-family: 'Exo 2', sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 body {
@@ -84,29 +88,16 @@ nav {
 }
 
 .side-nav.fixed .account-menu {
-  a,b,i {
-    color: $white;
-  }
-
-  a {
+  a.collapsible-header {
     display: flex;
     justify-content: space-between;
     align-items: center;
+    color: $white;
+    i {
+      color: $white;
+      margin-right: 0px;
+    }
   }
-
-  b.caret {
-    width: 0;
-    height: 0;
-    border-left: 5px solid transparent;
-    border-right: 5px solid transparent;
-
-    border-top: 5px solid #ffffff;
-  }
-
-  i.material-icons {
-    margin: 0px;
-  }
-
 }
 
 .dropdown-menu {
@@ -123,4 +114,16 @@ nav {
     width: 24px;
     margin-right: 32px;
   }
+}
+
+.side-nav .collapsible-body li a,
+.side-nav.fixed .collapsible-body li a {
+  display: flex;
+  padding: 0 16px;
+  color: rgba(0, 0, 0, 0.87);
+  align-items: center;
+}
+
+ .side-nav .divider.sans-margin {
+  margin-top: 0px;
 }
