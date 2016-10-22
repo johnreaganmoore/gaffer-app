@@ -1,0 +1,36 @@
+.email-mini-header {
+  width:100%;
+  height: 20px;
+  background: repeating-linear-gradient(
+    to right,
+    #6FA135,
+    #6FA135 100px,
+    #619326 100px,
+    #619326 200px
+  );
+}
+
+.email-action-container {
+  padding: 25px;
+}
+
+.email-text {
+  padding: 10px;
+}
+
+.profile-avatar {
+  .section__circle--big.large-avatar.email {
+      height: 80px;
+      width: 80px;
+
+      img {
+        height: 80px;
+        width: 80px;
+      }
+  }
+}
+
+.profile-avatar.email {
+  display: flex;
+  justify-content: center;
+}
