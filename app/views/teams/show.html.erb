@@ -12,82 +12,23 @@
       </h3>
     </div>
   </div>
-   <div class="card team-card">
-     <ul class="collection">
-       <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
-           <a href="<%= new_invite_path(:team_id => @team.id) %>" class="btn-floating btn waves-effect waves-light valign" style="background-color: <%= @team.color %>; height: 42px; width: 42px;">
-             <i class="material-icons" style="line-height: 42px;">add</i>
-           </a>
-         <%= link_to new_invite_path(:team_id => @team.id) do %>
-           <span class="valign" style="margin-left: 15px">Invite New Player</span>
-         <% end %>
-       </li>
-       <% @team.people.each do |person| %>
-         <li class="collection-item avatar valign-wrapper">
-          <%= link_to profile_path(person) do %>
-            <% if person.avatar.length > 2 then %>
-            <img class="circle" src="<%= person.avatar %>">
-            <% else %>
-            <i class="material-icons circle valign">account_circle</i>
-            <% end %>
-          <% end %>
-          <%= link_to profile_path(person) do %>
-            <span class="valign"><%= person.first_name %> <%= person.last_name %></span>
-          <% end %>
-           <span class="secondary-content valign">
-             <!-- <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= @team.color %>;">message</i></a>
-             <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= @team.color %>;">chat</i></a>
-             <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= @team.color %>;">chat_bubble</i></a> -->
-             <a class="secondary-content" href="mailto:<%= person.email %>"><i class="material-icons" style="color: <%= @team.color %>;">chat_bubble_outline</i></a>
-           </span>
-         </li>
-       <% end %>
-       <% if @pending_invitations.length > 0 %>
-         <li class="collection-item avatar invitation-divider valign-wrapper">
-           <span class="valign">
-             Pending Invitations
-           </span>
-           <span class="valign secondary-content">
-             <%= link_to sweep_invites_path(@team), class: "valign secondary-content", data: { confirm: 'Are you certain you want to delete all pending invitations?' } do %>
-               <i class="material-icons">delete_sweep</i>
-             <% end %>
-           </span>
-         </li>
-         <% @pending_invitations.each do |invite| %>
-           <li class="collection-item avatar valign-wrapper">
-             <i class="material-icons circle">person</i>
-             <span class="valign">
-               <span class="title"><%= invite.first_name %> <%= invite.last_name %></span>
-               <p >Invited <%= time_ago_in_words(invite.updated_at) %> ago.</p>
-             </span>
-             <span class="secondary-content valign">
-                <a
-                  class="dropdown-button valign"
-                  data-activates="invite-<%= invite.id %>"
-                  href="#"
-                >
-                  <i class="material-icons">more_vert</i>
-                </a>
-                <ul
-                  id="invite-<%= invite.id %>"
-                  class="dropdown-content"
-                  style="overflow: visible;"
-                >
-                  <li>
-                    <%= link_to resend_invite_path(invite), class: "mdl-list__item-secondary-action" do %>
-                      Resend
-                    <% end %>
-                  </li>
-                  <li>
-                    <%= link_to invite_path(invite), class: "mdl-list__item-secondary-action", remote: :true, method: :delete, data: { confirm: 'Are you certain you want to delete this invitation?' } do %>
-                      Delete
-                    <% end %>
-                  </li>
-                </ul>
-             </span>
-           </li>
-        <% end %>
-       <% end %>
-     </ul>
-   </div>
+  <div class="card team-card">
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s3"><a class="active" href="#players">Players</a></li>
+          <li class="tab col s3"><a  href="#seasons">Seasons</a></li>
+        </ul>
+      </div>
+      <div id="players" class="col s12">
+
+        <%= render 'players_card', team: @team, pending_invitations: @pending_invitations %>
+
+      </div>
+      <div id="seasons" class="col s12">
+        Seasons Card Goes Here
+      </div>
+
+    </div>
+  </div>
 </div>

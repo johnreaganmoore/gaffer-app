@@ -1,6 +1,6 @@
 class TeamSeasonsController < ApplicationController
-  before_action :authenticate_person!, except: [:show, :accept, :decline]
-  layout "app", except: [:show, :accept, :decline] #, only: [:index, :edit, :update, :destroy]
+  before_action :authenticate_person!, except: [:show, :accept, :decline, :confirm]
+  layout "app", except: [:show, :accept, :decline, :confirm] #, only: [:index, :edit, :update, :destroy]
   # layout "team", only: [:show]
 
   before_action :set_season, except: [:index, :new, :create]
@@ -24,6 +24,16 @@ class TeamSeasonsController < ApplicationController
 
   def preview
     @team = @team_season.team
+  end
+
+  def confirm
+    @team = @team_season.team
+    @pending_invitations = []
+    @team.invites.each do |invite|
+      unless @team.people.include?(invite.recipient) || invite.created_at != invite.updated_at
+        @pending_invitations.push(invite)
+      end
+    end
   end
 
   def accept

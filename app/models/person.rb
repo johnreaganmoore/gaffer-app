@@ -41,9 +41,54 @@ class Person < ApplicationRecord
     braintree_customer_id
   end
 
-  def purchase(team_season, amount)
-    SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount)
-    self.teams.push(team_season.team)
+  def purchase_season(team_season, nonce)
+
+    base_cost = team_season.new_player_cost
+    service_fee = team_season.new_player_cost * 0.10
+    total_cost = base_cost + service_fee
+
+    season_participation = self.season_participations.where(team_season_id: team_season.id).first
+    if season_participation != nil
+      amount_paid = season_participation.amount_paid
+    else
+      amount_paid = 0
+    end
+
+    # check to see if person owes money for team_season
+    if amount_paid >= team_season.new_player_cost
+      # Display error saying they have already signed up and paid
+      puts "You are already signed up and paid up!"
+      return {success: true, already_paid: true}
+    else
+      # Pay balance
+      # Process a transaction for the balance of the amount for the season and update the SeasonParticipation accordingly
+      amount_owed = team_season.new_player_cost - amount_paid
+      service_fee = amount_owed * 0.10
+      # Make payment
+      payment_params = {
+        amount: amount_owed + service_fee,
+        fee_amount: service_fee,
+        merchant_account_id: team_season.treasurer.id,
+        payment_method_nonce: nonce
+      }
+      result = self.pay(payment_params)
+
+      # if payment goes through increment their paid amount.
+      if result.success?
+        puts result.inspect
+        #Increment existing season
+        if season_participation != nil
+          season_participation.amount = amount_paid + amount_owed
+          season_participation.save
+        else
+        # Create season participation
+          SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed)
+          self.teams.push(team_season.team)
+        end
+      end
+      return result
+    end
+
   end
 
   def new_sub_merchant?
@@ -111,16 +156,70 @@ class Person < ApplicationRecord
     end
   end
 
-
-
-
   def self.create_with_temp_pass(first_name, last_name, email)
     temp_password = Devise.friendly_token.first(8)
-    person = Person.create!(first_name: first_name, last_name: last_name, email: email, :password => temp_password, :password_confirmation => temp_password)
-    PersonMailer.temp_password(person, temp_password).deliver
+
+    person = Person.find_by_email(email)
+
+    if person == nil
+      person = Person.create!(first_name: first_name, last_name: last_name, email: email, :password => temp_password, :password_confirmation => temp_password)
+      PersonMailer.temp_password(person, temp_password).deliver
+    end
+
     return person
   end
 
+
+
+  def pay(p)
+    unless self.has_payment_info?
+      pay_and_create_customer(p[:amount], p[:fee_amount], p[:merchant_account_id], p[:payment_method_nonce])
+    else
+      pay_without_vaulting(p[:amount], p[:fee_amount], p[:merchant_account_id], p[:payment_method_nonce])
+    end
+  end
+
+  def pay_and_create_customer(
+    amount,
+    fee_amount,
+    merchant_account_id,
+    payment_method_nonce
+    )
+    Braintree::Transaction.sale(
+      merchant_account_id: merchant_account_id,
+      amount: amount,
+      service_fee_amount: fee_amount,
+      payment_method_nonce: payment_method_nonce,
+      customer: {
+        first_name: self.first_name,
+        last_name: self.last_name,
+        email: self.email
+      },
+      options: {
+        store_in_vault: true,
+        submit_for_settlement: true,
+        hold_in_escrow: true
+      }
+    )
+  end
+
+  def pay_without_vaulting(
+    amount,
+    fee_amount,
+    merchant_account_id,
+    payment_method_nonce
+    )
+    Braintree::Transaction.sale(
+      merchant_account_id: merchant_account_id,
+      amount: amount,
+      service_fee_amount: fee_amount,
+      payment_method_nonce: payment_method_nonce,
+      options: {
+        submit_for_settlement: true,
+        hold_in_escrow: true
+      }
+    )
+  end
 
   protected
 

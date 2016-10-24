@@ -38,6 +38,7 @@ Rails.application.routes.draw do
   resources :seasons
   resources :team_seasons
 
+  get 'team_seasons/:id/confirm', to: 'team_seasons#confirm', as: :confirm_team_season
   get 'team_seasons/:id/preview', to: 'team_seasons#preview', as: :preview_season
   get 'team_seasons/:id/accept', to: 'team_seasons#accept', as: :accept_season
   get 'team_seasons/:id/decline', to: 'team_seasons#decline', as: :decline_season
