@@ -1,8 +1,6 @@
 class ProfilesController < ApplicationController
-
+  before_action :authenticate_person!, :set_person
   layout "app"
-
-  before_action :set_person
 
   def show
     @team = @person.teams.first

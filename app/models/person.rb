@@ -1,4 +1,5 @@
 class Person < ApplicationRecord
+  include ActionView::Helpers::NumberHelper
   # Include default devise modules. Others available are:
   # :lockable
   devise :invitable, :database_authenticatable, :registerable,
@@ -43,9 +44,9 @@ class Person < ApplicationRecord
 
   def purchase_season(team_season, nonce)
 
-    base_cost = team_season.new_player_cost
-    service_fee = team_season.new_player_cost * 0.10
-    total_cost = base_cost + service_fee
+    # base_cost = team_season.new_player_cost
+    # service_fee = team_season.new_player_cost * 0.10
+    # total_cost = base_cost + service_fee
 
     season_participation = self.season_participations.where(team_season_id: team_season.id).first
     if season_participation != nil
@@ -63,10 +64,17 @@ class Person < ApplicationRecord
       # Pay balance
       # Process a transaction for the balance of the amount for the season and update the SeasonParticipation accordingly
       amount_owed = team_season.new_player_cost - amount_paid
-      service_fee = amount_owed * 0.10
+
+      puts "amount_owed: #{amount_owed}"
+
+      service_fee = (amount_owed * 0.10).round
+      raw_cost = amount_owed + service_fee
+      total_cost = number_with_precision(raw_cost, precision: 2)
+
+      puts "total_cost: #{total_cost}"
       # Make payment
       payment_params = {
-        amount: amount_owed + service_fee,
+        amount: total_cost,
         fee_amount: service_fee,
         merchant_account_id: team_season.treasurer.id,
         payment_method_nonce: nonce

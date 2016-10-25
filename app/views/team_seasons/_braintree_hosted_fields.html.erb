@@ -7,7 +7,7 @@
       <div class="card-content">
 
         <% unless person.id %>
-          <p>Please enter your personal info:</p>
+          <p>Please enter your billing info:</p>
 
           <div class="row">
             <div class="input-field col s12 m6 l6">
@@ -57,7 +57,7 @@
 
       </div>
       <div class="card-action edit-profile-actions">
-        <input class="waves-effect waves-light btn white blue-grey-text" type="submit" value="Pay <%= number_to_currency(team_season.new_player_cost * 1.1) %>" disabled>
+        <input class="waves-effect waves-light btn white blue-grey-text" type="submit" value="Pay <%= number_to_currency(team_season.new_player_cost +  (team_season.new_player_cost * 0.1).round) %>" disabled>
       </div>
     </div>
 
@@ -131,8 +131,6 @@
 
         hostedFieldsInstance.tokenize(function (tokenizeErr, payload) {
 
-          console.log(payload);
-
           if (tokenizeErr) {
             // Handle error in Hosted Fields tokenization
             return;
@@ -141,8 +139,6 @@
           // Put `payload.nonce` into the `payment-method-nonce` input, and then
           // submit the form. Alternatively, you could send the nonce to your server
           // with AJAX.
-          console.log(payload.nonce)
-          console.log(document.querySelector('input[name="payment-method-nonce"]'))
 
           document.querySelector('input[name="payment-method-nonce"]').value = payload.nonce;
           form.submit();

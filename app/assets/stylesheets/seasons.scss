@@ -94,15 +94,9 @@
   }
 }
 .season-dates {
-  margin-top: 8px;
   font-weight: lighter;
   font-style: oblique;
   font-size: 19px;
-  @media(min-width: $breakpoint-tablet) {
-    font-size: 26px;
-    margin-top: 20px;
-
-  }
 
   color: $light-font;
   letter-spacing: -0.29px;
@@ -136,15 +130,22 @@
   }
 
 
-  .season-cost {
+  .season-sub-cost {
+    display: flex;
+    justify-content: space-between;
+    color: $light-font;
+    font-weight: 300;
+    font-size: 18px;
+    font-style: normal;
+  }
+
+  .season-total-cost {
     display: flex;
     justify-content: space-between;
     color: $dark-font;
     font-weight: 600;
     font-size: 18px;
     font-style: normal;
-
-
   }
 
   .season-button {
@@ -178,6 +179,66 @@
   .sauce-image {
     height: 70%;
     max-height: 600px;
-    
+
+  }
+}
+
+
+
+
+//////////////////////////////
+// Checkout Form
+/////////////////////////////
+
+.checkout-team-header {
+  display: flex;
+  justify-content: flex-start;
+  align-items: middle;
+
+  .profile-avatar {
+    margin-bottom: 0px;
+  }
+
+  .section__circle--big {
+    height: 60px;
+    width: 60px;
+
+  }
+
+  .name {
+    display: flex;
+    align-items: center;
+    font-size: 28px;
+    font-weight: 400;
+  }
+}
+
+.checkout-team-card {
+  i {
+    // margin-left: 18px;
+  }
+
+  .season-details-row {
+    margin-top: 20px;
+    display: flex;
+    align-items: flex-start;
+  }
+
+  .season-details {
+    margin-top: -4px;
+    font-weight: lighter;
+    font-style: oblique;
+    font-size: 19px;
+    margin-left: 20px;
+
+    // color: $light-font;
+    letter-spacing: -0.29px;
+  }
+
+}
+
+input[type="submit"] {
+  &:focus {
+    outline: none;
   }
 }
