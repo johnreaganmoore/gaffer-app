@@ -4,7 +4,7 @@
   height: 300px;
 
   @media (min-width: $breakpoint-tablet) {
-    height: 80px;
+    height: 180px;
   }
 
 }
@@ -18,5 +18,138 @@
     display: flex;
     justify-content: center;
     margin-bottom: 20px;
+  }
+}
+
+.hero {
+  display: flex;
+  justify-content: center;
+  background: $secondary-green;
+  background-image: linear-gradient( 180deg, $primary-green, $secondary-green );
+  padding-top: 150px;
+  padding-bottom: 100px;
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    img {
+      max-width: 300px;
+    }
+  }
+
+  .btn {
+    color: $dark-font;
+  }
+
+  .btn-flat {
+    color: $white;
+  }
+
+}
+
+.home-section {
+  text-align: center;
+
+  h2 {
+    margin-top: 150px;
+    margin-bottom: 0px;
+    // font-family: lato;
+    color: $dark-font;
+    font-size: 36px;
+  }
+
+  h3 {
+    margin: 50px;
+    margin-bottom: 0px;
+    // font-family: lato;
+    color: $light-font;
+    font-size: 24px;
+  }
+
+  .home-sub-section-container {
+    display: flex;
+    -webkit-flex-flow: row wrap;
+  }
+
+  .home-sub-section {
+    width: 50%;
+    min-width: 350px;
+    flex-grow: 1;
+
+    .home-sub-section-desc {
+      padding: 15px;
+      p {
+        font-size: 16px;
+      }
+    }
+
+    .home-sub-section-img {
+
+      border: 1px solid $light-font;
+
+      .gif.team {
+        height: 667px;
+        width: 375px;
+        background-size: 100%;
+        background-image: image-url("team_page.png");
+        margin:auto; /*position the [div] on the center*/
+
+        &:hover {
+          cursor:pointer;
+          background-image: image-url("team.gif");
+        }
+
+      }
+
+      .gif.season_preview {
+        height:175px;
+        // width:320px;
+        background-size: 100%;
+        background-image: image-url("season_preview.png");
+        margin:auto; /*position the [div] on the center*/
+
+        &:hover {
+          cursor:pointer;
+          background-image: image-url("season_preview.gif");
+        }
+      }
+
+
+    }
+
+  }
+
+}
+
+
+.home-section.last {
+  display: flex;
+  justify-content: center;
+  background: $primary-green;
+  background-image: linear-gradient( 0deg, $primary-green, $secondary-green );
+  margin-top: 100px;
+  padding-top: 150px;
+  padding-bottom: 100px;
+
+  .price-line {
+    // font-family: lato;
+    color: $white;
+    font-size: 48px;
+    font-weight: 600;
+  }
+
+  .price-detail {
+    margin-top: 25px;
+    color: $white;
+    font-size: 18px;
+    font-weight: 100;
+  }
+
+  .btn {
+    color: $dark-font;
+  }
+
+  .btn-flat {
+    color: $white;
   }
 }

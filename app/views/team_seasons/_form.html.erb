@@ -17,69 +17,27 @@
       <% end %>
 
       <div class="container">
+        <div class="row">
 
-        <div class="input-field col s12">
-          <%= f.text_field :league_name, class: "mdl-textfield__input" %>
-          <%= f.label :league_name, class: "mdl-textfield__label" %>
+          <div class="input-field col s12">
+            <%= f.text_field :cost, pattern: '-?[0-9]*(\.[0-9]+)?' %>
+            <%= f.label :season_cost %>
+          </div>
+
+          <div class="input-field col s12">
+            <%= f.text_field :min_players, pattern: '-?[0-9]*(\.[0-9]+)?' %>
+            <%= f.label :minimum_number_of_players %>
+          </div>
+
+          <div class="input-field col s12">
+            <%= f.text_field :max_players, pattern: '-?[0-9]*(\.[0-9]+)?' %>
+            <%= f.label :maximum_number_of_players %>
+          </div>
+
         </div>
-
-        <div class="input-field col s12">
-          <%= f.text_field :website, class: "mdl-textfield__input" %>
-          <%= f.label :season_website, class: "mdl-textfield__label" %>
-        </div>
-
-        <div class="input-field col s12">
-          <%= f.text_field :location, class: "mdl-textfield__input" %>
-          <%= f.label :season_location, class: "mdl-textfield__label" %>
-        </div>
-
-        <div class="input-field col s12">
-          <%= f.date_field :start_date, class: "mdl-textfield__input" %>
-          <%= f.label :season_start_date, class: "mdl-textfield__label" %>
-        </div>
-
-        <div class="input-field col s12">
-          <%= f.date_field :end_date, class: "mdl-textfield__input" %>
-          <%= f.label :season_end_date, class: "mdl-textfield__label" %>
-        </div>
-
-        <div class="input-field col s12">
-          <%= f.text_field :cost, class: "mdl-textfield__input", pattern: '-?[0-9]*(\.[0-9]+)?' %>
-          <%= f.label :season_cost, class: "mdl-textfield__label" %>
-          <span class="mdl-textfield__error">Input is not a valid amount format.</span>
-        </div>
-
-        <div class="input-field col s12">
-          <%= f.text_field :total_games, class: "mdl-textfield__input", pattern: '-?[0-9]*(\.[0-9]+)?' %>
-          <%= f.label :total_number_of_games, class: "mdl-textfield__label" %>
-          <span class="mdl-textfield__error">Input is not a number.</span>
-        </div>
-
-        <div class="input-field col s12">
-          <%= f.select :format, options_for_select([
-            ['Select the format', "", {disabled: true, selected: true}],
-            ['3 v 3', '3 v 3'],
-            ['4 v 4','4 v 4'],
-            ['5 v 5','5 v 5'],
-            ['6 v 6','6 v 6'],
-            ['7 v 7','7 v 7'],
-            ['8 v 8','8 v 8'],
-            ['9 v 9','9 v 9'],
-            ['10 v 10','10 v 10'],
-            ['11 v 11','11 v 11']
-            ]) %>
-          <%= f.label :game_format %>
-        </div>
-
-        <div class="input-field col s12">
-          <%= f.text_field :min_players, class: "mdl-textfield__input", pattern: '-?[0-9]*(\.[0-9]+)?' %>
-          <%= f.label :minimum_number_of_players, class: "mdl-textfield__label" %>
-          <span class="mdl-textfield__error">Input is not a number.</span>
-        </div>
-
       </div>
 
-      <div class="main-content__card-actions--end card-action">
+      <div class="card-action edit-profile-actions">
         <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
           Save Season
         <% end %>

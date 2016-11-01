@@ -34,7 +34,7 @@ Rails.application.routes.draw do
   # end
 
 
-
+  resources :leads, only: [:new, :create]
   resources :seasons
   resources :team_seasons
 
@@ -54,8 +54,14 @@ Rails.application.routes.draw do
 
   post "/webhooks", to: 'webhooks#recieve'
 
-  get "/", to: 'marketing#home'
-  root to: 'marketing#home'
+
+  get '/', to: 'marketing#harrisburg', constraints: { subdomain: 'harrisburg' }
+
+  # get "/", to: 'marketing#home'
+  # root to: 'marketing#home'
+  get "/", to: 'marketing#coming_soon'
+  root to: 'marketing#coming_soon'
+
 
 
 end

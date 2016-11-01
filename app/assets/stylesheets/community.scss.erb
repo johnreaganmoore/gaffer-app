@@ -1,0 +1,145 @@
+.community-hero {
+  text-align: center;
+  display: flex;
+  justify-content: center;
+  background: rgba(62,115,0,0.85);
+  // background-image: linear-gradient( 180deg, $primary-green, $secondary-green );
+  padding-top: 150px;
+  padding-bottom: 100px;
+}
+
+.community-title {
+  color: $white;
+  font-size: 48px;
+  font-weight: 600;
+}
+
+.community-slogan {
+  color: $white;
+  font-size: 30px;
+  font-weight: 100;
+  margin-bottom: 100px;
+}
+
+.community-desc {
+  color: $white;
+  font-size: 28px;
+  font-weight: 400;
+  // max-width: 600px;
+  margin: 0 auto;
+}
+
+.community-last-overlay {
+  width: 100%;
+  height: 100%;
+  background: rgba(62,115,0,0.85);
+}
+
+#cover-map {
+  // height: 500px;
+  background-image: url("https://maps.googleapis.com/maps/api/staticmap?key=<%= ENV['google_maps_geocoding'] %>&center=40.24030607217404,-76.88677702094724&zoom=13&format=png&maptype=roadmap&style=element:geometry%7Ccolor:0x212121&style=element:labels%7Cvisibility:off&style=element:labels.icon%7Cvisibility:off&style=element:labels.text.fill%7Ccolor:0x757575&style=element:labels.text.stroke%7Ccolor:0x212121&style=feature:administrative%7Celement:geometry%7Ccolor:0x757575&style=feature:administrative.country%7Celement:labels.text.fill%7Ccolor:0x9e9e9e&style=feature:administrative.land_parcel%7Cvisibility:off&style=feature:administrative.locality%7Celement:labels.text.fill%7Ccolor:0xbdbdbd&style=feature:administrative.neighborhood%7Cvisibility:off&style=feature:poi%7Celement:labels.text.fill%7Ccolor:0x757575&style=feature:poi.park%7Celement:geometry%7Ccolor:0x181818&style=feature:poi.park%7Celement:labels.text.fill%7Ccolor:0x616161&style=feature:poi.park%7Celement:labels.text.stroke%7Ccolor:0x1b1b1b&style=feature:road%7Celement:geometry.fill%7Ccolor:0x2c2c2c&style=feature:road%7Celement:labels.text.fill%7Ccolor:0x8a8a8a&style=feature:road.arterial%7Celement:geometry%7Ccolor:0x373737&style=feature:road.arterial%7Celement:labels%7Cvisibility:off&style=feature:road.highway%7Celement:geometry%7Ccolor:0x3c3c3c&style=feature:road.highway%7Celement:labels%7Cvisibility:off&style=feature:road.highway.controlled_access%7Celement:geometry%7Ccolor:0x4e4e4e&style=feature:road.local%7Cvisibility:off&style=feature:road.local%7Celement:labels.text.fill%7Ccolor:0x616161&style=feature:transit%7Celement:labels.text.fill%7Ccolor:0x757575&style=feature:water%7Celement:geometry%7Ccolor:0x000000&style=feature:water%7Celement:labels.text.fill%7Ccolor:0x3d3d3d&size=2000x600");
+  background-size: cover;
+  margin-bottom: 40px;
+}
+
+.community-last {
+  display: flex;
+  justify-content: center;
+  background: $primary-green;
+  background-image: linear-gradient( 0deg, $primary-green, $secondary-green );
+  margin-top: 100px;
+
+  .container {
+    margin-top: 150px;
+    margin-bottom: 100px;
+  }
+
+  .price-line {
+    // font-family: lato;
+    color: $white;
+    font-size: 48px;
+    font-weight: 600;
+  }
+
+  .price-detail {
+    margin-top: 25px;
+    color: $white;
+    font-size: 18px;
+    font-weight: 100;
+  }
+
+  .btn {
+    color: $dark-font;
+  }
+
+  .btn-flat {
+    color: $white;
+  }
+}
+
+.collapsible {
+
+  .org-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    cursor: pointer;
+    min-height: 3rem;
+    line-height: 3rem;
+    padding: 1rem 1rem;
+    background-color: #fff;
+    // background-color: #5f5f5f;
+    border-bottom: 1px solid #ddd;
+
+    a {
+      // color: $white;
+      font-size: 18px;
+      font-weight: 300;
+      text-decoration: underline;
+    }
+
+  }
+
+  .collapsible-header {
+    display: flex;
+    justify-content: space-between;
+
+    .price {
+      color: $secondary-green;
+    }
+  }
+
+  .collapsible-body {
+    padding: 1rem;
+
+    .opp-section-title {
+      color: $light-font;
+      border-bottom: 1px solid $faint;
+      margin-bottom: 0.8rem;
+    }
+
+    .opp-section-body {
+      margin-bottom: 1.2rem;
+
+      &.last {
+        margin-bottom: 0px;
+      }
+
+      .next-start-time {
+        font-weight: 600;
+      }
+
+      .location-name {
+        font-weight: 600;
+      }
+
+      .location-address {
+        text-decoration: underline;
+      }
+
+    }
+
+  }
+
+
+}

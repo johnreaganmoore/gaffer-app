@@ -10,11 +10,6 @@
     <img src="https://www.svgimages.com/svg-image/s4/soccer-ball-icon-256x256.png" class="sport-icon"/>
   </div>
   <div class="content-section">
-    <div class="season-title">
-      <p style="color: <%= team_color %>;">
-        Let's Play Soccer!
-      </p>
-    </div>
     <div class="season-logistics flow-text">
       <% timeframe_array = [] %>
       <% @team_season.season.timeframes.each do |timeframe| %>
@@ -97,11 +92,11 @@
     </div>
   <% end %>
   <div class="edit-profile-actions card-actions--split card-action">
-    <%= link_to accept_season_path(@team_season), class: "waves-effect waves-light btn green darken-1", style: "margin-right: 25px;" do %>
-      Yes, I'm In!
+    <%= link_to decline_season_path(@team_season), class: "waves-effect waves-light btn-flat deep-orange-text " do %>
+      <span class="hide-on-small-only">Bummer, </span>I'm Out
     <% end %>
-    <%= link_to decline_season_path(@team_season), class: "waves-effect waves-light btn deep-orange darken-1" do %>
-      Bummer, I Can't
+    <%= link_to accept_season_path(@team_season), class: "waves-effect waves-light btn green darken-1" do %>
+      <span class="hide-on-small-only">Yes, </span>I'm In!
     <% end %>
   </div>
 </div>

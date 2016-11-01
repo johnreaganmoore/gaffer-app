@@ -18,12 +18,17 @@ class TeamsController < ApplicationController
     @invite = Invite.new
     @invite.team_id = @team.id
 
-    @pending_invitations = []
-    @team.invites.each do |invite|
-      unless @team.people.include?(invite.recipient) || invite.created_at != invite.updated_at
-        @pending_invitations.push(invite)
-      end
-    end
+    @open_team_seasons = @team.open_team_seasons
+    @closed_team_seasons = @team.closed_team_seasons
+    @archived_team_seasons = @team.archived_team_seasons
+
+
+    @pending_invitations = @team.pending_invitations
+    # @team.invites.each do |invite|
+    #   unless @team.people.include?(invite.recipient) || invite.created_at != invite.updated_at
+    #     @pending_invitations.push(invite)
+    #   end
+    # end
   end
 
   # GET /teams/new

@@ -1,0 +1,83 @@
+<ul class="collection with-header">
+  <li class="collection-header">
+    <%= link_to edit_team_season_path(team_season) do %>
+      <h4>Edit Season</h4>
+    <% end %>
+    <div>
+      <a
+        class="dropdown-button"
+        data-activates="active-season-<%= team_season.id %>"
+        href="#"
+      >
+        <i class="material-icons" style="color: <%= team_season.team.color %>;">more_vert</i>
+      </a>
+      <ul
+        id="active-season-<%= team_season.id %>"
+        class="dropdown-content"
+        style="overflow: visible;"
+      >
+        <li>
+          <%= link_to edit_team_season_path(team_season) do %>
+            Edit
+          <% end %>
+        </li>
+        <% if team_season.status == "open" %>
+          <li>
+            <%= link_to team_season_path(team_season, "status" => "close"), remote: true, method: :put do %>
+              Close
+            <% end %>
+          </li>
+        <% elsif team_season.status == "closed" %>
+          <li>
+            <%= link_to team_season_path(team_season, "status" => "open"), remote: true, method: :put do %>
+              Reopen
+            <% end %>
+          </li>
+          <li>
+            <%= link_to team_season_path(team_season, "status" => "archived"), remote: true, method: :put, data: { confirm: "Are you sure you want to archive this?" } do %>
+              Archive
+            <% end %>
+          </li>
+        <% else %>
+          <li>
+            <%= link_to team_season_path(team_season, "status" => "closed"), remote: true, method: :put do %>
+              Unarchive
+            <% end %>
+          </li>
+        <% end %>
+      </ul>
+    </div>
+  </li>
+  <li class="collection-header"><h4>Players</h4><div><%= team_season.season_participations.count %> committed <span>/ <%= team_season.min_players %></span><span class="hide-on-small-only"> minimum</span></div></li>
+  <% team_season.people.each do |person| %>
+    <li class="collection-item avatar valign-wrapper">
+     <%= link_to profile_path(person) do %>
+       <% if person.avatar.length > 2 then %>
+       <img class="circle" src="<%= person.avatar %>">
+       <% else %>
+       <i class="material-icons circle valign">account_circle</i>
+       <% end %>
+     <% end %>
+     <%= link_to profile_path(person) do %>
+       <span class="valign"><%= person.first_name %> <%= person.last_name %></span>
+     <% end %>
+      <div class="secondary-content valign">
+
+        <% if person.season_participations.where(team_season_id: team_season.id).first.amount_paid >= team_season.new_player_cost %>
+          <span class="secondary-content" style="color: #6FA135;">Paid</span>
+        <% else %>
+          <span class="secondary-content" style="color: tomato;">Unpaid</span>
+        <% end %>
+
+        <!-- <i
+          class="material-icons secondary-content valign"
+          <% if person.season_participations.where(team_season_id: team_season.id).first.amount_paid >= team_season.new_player_cost %>
+            style="color: #6FA135;"
+          <% else %>
+            style="color: tomato;"
+          <% end %>
+        >attach_money</i> -->
+      </div>
+    </li>
+  <% end %>
+</ul>

@@ -5,6 +5,7 @@ class PersonMailer < ApplicationMailer
     @person = person
     @generated_password = generated_password
     @team = person.teams.last
+    @url = "http://playonside.com/sign_in"
 
     mail(to: @person.email, subject: "Welcome to the team")
   end

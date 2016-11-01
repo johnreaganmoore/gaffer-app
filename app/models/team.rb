@@ -18,12 +18,26 @@ class Team < ApplicationRecord
   def pending_invitations
     pending = []
     self.invites.each do |invite|
-      unless self.people.include?(invite.recipient)
+      unless self.people.include?(invite.recipient) || invite.created_at != invite.updated_at
         pending.push(invite)
       end
     end
     return pending
   end
+
+  def open_team_seasons
+    self.team_seasons.where(status: "open")
+  end
+
+  def closed_team_seasons
+    self.team_seasons.where(status: "closed")
+  end
+
+  def archived_team_seasons
+    self.team_seasons.where(status: "archived")
+  end
+
+
 
   def player_avatars
     avatars = []

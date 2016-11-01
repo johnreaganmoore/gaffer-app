@@ -47,19 +47,12 @@ class SeasonsController < ApplicationController
   # PATCH/PUT /teams/1.json
   def update
 
-    # puts season_params['teams_seasons_attributes']
-    #
-    # @team_season = TeamSeason.find(season_params['team_seasons_attributes']['id'])
-    #
-    # if season_params['team_season']['min_players']
-    #   @team_season.min_players = season_params['team_season']['min_players']
-    #   @team_season.save
-    # end
-
+    @team_season = TeamSeason.find(season_params[:team_seasons_attributes]['0'][:id])
+    @team = @team_season.team
 
     respond_to do |format|
       if @season.update(season_params)
-        format.html { redirect_to season_path(@season), notice: 'Season was successfully updated.' }
+        format.html { redirect_to team_path(@team), notice: 'Season was successfully updated.' }
         format.json { render :show, status: :ok, location: @season }
         format.js {}
       else

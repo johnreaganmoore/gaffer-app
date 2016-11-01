@@ -1,4 +1,14 @@
 class TeamSeason < ApplicationRecord
+  # "team_id"
+  # "season_id"
+  # "cost"
+  # "min_players"
+  # "max_players"
+  # "status"
+  # "season_id"
+  # "team_id"
+
+
   belongs_to :team
   belongs_to :season, inverse_of: :team_seasons
 
@@ -16,7 +26,7 @@ class TeamSeason < ApplicationRecord
 
   accepts_nested_attributes_for :treasurer, :season
 
-  after_create :ensure_team, :ensure_min_players
+  after_create :ensure_team, :ensure_min_players, :open
   after_initialize :ensure_cost
 
   def new_player_cost
@@ -50,6 +60,14 @@ class TeamSeason < ApplicationRecord
     self.format
   end
 
+  def paid_players
+    self.season_participations.where(amount_paid >= self.new_player_cost)
+  end
+
+  def total_paid
+    self.season_participations.sum(:amount_paid)
+  end
+
   private
 
   def ensure_team
@@ -63,16 +81,28 @@ class TeamSeason < ApplicationRecord
 
   def ensure_min_players
     unless self.min_players != nil
-      self.min_players = self.season.format.first.to_i
-      self.save
+      # self.min_players = self.season.format.first.to_i
+      # self.save
+      self.min_players = 5
     end
   end
 
   def ensure_cost
-    unless self.season == nil
-      self.cost ||= self.season.cost
-      self.save
-    end
+    self.cost ||= 0
+    self.save
+  end
+
+  def open
+    self.status = "open"
+    self.save
+  end
+
+  def close
+    self.status = "closed"
+  end
+
+  def archive
+    self.status = "archived"
   end
 
 end

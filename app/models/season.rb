@@ -7,10 +7,15 @@ class Season < ApplicationRecord
 
   has_one :default_location, :class_name => "Location"
 
-  after_create :add_default_location
+  after_create :add_default_location, :ensure_cost
   after_update :update_default_location
 
   private
+
+  def ensure_cost
+    self.cost ||= 0
+    self.save
+  end
 
   def add_default_location
     address = self.location

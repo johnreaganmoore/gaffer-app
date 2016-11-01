@@ -50,7 +50,11 @@ class Person < ApplicationRecord
 
     season_participation = self.season_participations.where(team_season_id: team_season.id).first
     if season_participation != nil
-      amount_paid = season_participation.amount_paid
+      if season_participation.amount_paid != nil
+        amount_paid = season_participation.amount_paid
+      else
+        amount_paid = 0
+      end
     else
       amount_paid = 0
     end
@@ -65,13 +69,10 @@ class Person < ApplicationRecord
       # Process a transaction for the balance of the amount for the season and update the SeasonParticipation accordingly
       amount_owed = team_season.new_player_cost - amount_paid
 
-      puts "amount_owed: #{amount_owed}"
-
       service_fee = (amount_owed * 0.10).round
       raw_cost = amount_owed + service_fee
       total_cost = number_with_precision(raw_cost, precision: 2)
 
-      puts "total_cost: #{total_cost}"
       # Make payment
       payment_params = {
         amount: total_cost,
@@ -83,10 +84,9 @@ class Person < ApplicationRecord
 
       # if payment goes through increment their paid amount.
       if result.success?
-        puts result.inspect
         #Increment existing season
         if season_participation != nil
-          season_participation.amount = amount_paid + amount_owed
+          season_participation.amount_paid = amount_paid + amount_owed
           season_participation.save
         else
         # Create season participation

@@ -1,0 +1,123 @@
+.coming-soon {
+  position:fixed;
+  width:100%;
+  height:100%;
+  top:0px;
+  left:0px;
+  display: flex;
+  justify-content: center;
+  background: $primary-green;
+  background-image: linear-gradient( 0deg, $primary-green, $secondary-green );
+
+  .container {
+    margin-top: 150px;
+    margin-bottom: 100px;
+  }
+
+  .logo-container {
+    display: flex;
+    justify-content: center;
+    img {
+      max-width: 300px;
+    }
+  }
+
+
+  .coming-soon-text-container {
+    margin-top: 60px;
+    text-align: center;
+    color: $white;
+  }
+
+  .coming-soon-text {
+    font-size: 36px;
+    font-weight: 400;
+    margin: 0 auto;
+    margin-bottom: 15px;
+  }
+
+  .coming-soon-desc {
+    max-width: 500px;
+    margin: 0 auto;
+  }
+
+  .coming-soon-overlay {
+    width: 100%;
+    height: 100%;
+    background: rgba(62,115,0,0.85);
+  }
+
+  .price-line {
+    // font-family: lato;
+    color: $white;
+    font-size: 48px;
+    font-weight: 600;
+  }
+
+  .price-detail {
+    margin-top: 25px;
+    color: $white;
+    font-size: 18px;
+    font-weight: 100;
+  }
+
+  .btn {
+    color: $dark-font;
+  }
+
+  .btn-flat {
+    color: $white;
+  }
+}
+
+input[type=email].coming-soon-email-input {
+  border-bottom: 1px solid #ffffff;
+  color: $white;
+
+  &:focus {
+    border-bottom: 1px solid #fafafa;
+    box-shadow: 0 1px 0 0 #fefefe;
+  }
+}
+
+
+.input-field label.coming-soon-email-label {
+  color: $white;
+}
+
+input[type=email]:focus:not([readonly]) + label.coming-soon-email-label {
+  color: $white;
+}
+
+.container .row.coming-soon-email-input-area {
+  text-align: center;
+  max-width: 400px;
+  margin: 0 auto;
+  margin-top: 80px;
+}
+
+.coming-soon-thanks {
+  text-align: center;
+  color: $white;
+  font-size: 28px;
+  font-weight: 300;
+  margin: 0 auto;
+  margin-top: 100px;
+
+
+  .coming-soon-signature {
+    // margin: 0 auto;
+    display: flex;
+    justify-content: center;
+    font-size: 18px;
+    font-weight: 100;
+    margin-top: 15px;
+
+    div {
+      display: flex;
+      justify-content: flex-start;
+    }
+
+  }
+
+}

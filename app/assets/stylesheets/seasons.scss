@@ -61,11 +61,11 @@
 }
 
 .sport-indicator {
-  display: none;
+  // display: none;
   position: absolute;
-  top: 200px;
+  top: 150px;
   @media(min-width: $breakpoint-tablet) {
-    top: 310px;
+    top: 250px;
   }
   left: calc(50% - 40px);
   height: 70px;

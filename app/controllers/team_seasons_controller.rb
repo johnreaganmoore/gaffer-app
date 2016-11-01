@@ -61,8 +61,19 @@ class TeamSeasonsController < ApplicationController
 
   # GET /teams/new
   def new
-    @team_season = TeamSeason.new
-    @team = Team.find(params[:team])
+    if params[:season] != nil
+      @season = Season.find(params[:season])
+    else
+      @season =  Season.create!
+    end
+    if params[:team] != nil
+      @team = Team.find(params[:team])
+    else
+      @team = Team.new
+    end
+
+    puts @season.inspect
+    @team_season = TeamSeason.create(team_id: @team.id, season_id: @season.id)
   end
 
   # POST /teams
@@ -94,10 +105,13 @@ class TeamSeasonsController < ApplicationController
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
+    @team = @team_season.team
+
     respond_to do |format|
       if @team_season.update(team_season_params)
         format.html { redirect_to preview_season_path(@team_season), notice: 'Season was successfully updated.' }
         format.json { render :show, status: :ok, location: @team_season }
+        format.js {}
       else
         format.html { render :edit }
         format.json { render json: @team_season.errors, status: :unprocessable_entity }
@@ -124,8 +138,11 @@ class TeamSeasonsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def team_season_params
       params.permit(
+        :id,
         :team_id,
         :min_players,
+        :max_players,
+        :status,
         timeframe_ids: [],
         person_attributes: [
           :date_of_birth,

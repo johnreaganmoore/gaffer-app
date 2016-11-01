@@ -133,3 +133,29 @@ ul.collection.team {
   margin: 0px;
   border: none;
 }
+
+ul.collapsible.team {
+  margin: 0px;
+  border: none;
+  box-shadow: none;
+
+  .collection-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+  }
+
+  h4 {
+    margin-bottom: 5px;
+  }
+
+  .collapsible-body {
+    // padding: 10px;
+  }
+
+}
+
+.team-season-item {
+  display: flex;
+  justify-content: space-between;
+}

@@ -27,6 +27,8 @@ $( document ).on('turbolinks:load', function() {
     $.snackbar({content: value, style: key, timeout: 10000});
   });
 
+  $('ul.tabs').tabs();
+
   $('.dropdown-button').dropdown({
      inDuration: 300,
      outDuration: 225,
@@ -65,6 +67,8 @@ $( document ).on('turbolinks:load', function() {
   //   // selectYears: 2 // Creates a dropdown of 2 years to control year
   // });
   $(".button-collapse").sideNav();
+
+  Materialize.updateTextFields();
 
 })
 
