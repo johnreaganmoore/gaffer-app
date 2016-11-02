@@ -546,7 +546,43 @@ class MarketingController < ApplicationController
             }
           },
         ]
-      }
+      },
+      {
+        name: "In The Net",
+        external_link: "http://www.inthenet.com/",
+        category: "Facility",
+        opps: [
+          {
+            name: "Wednesday Night Men's League",
+            timeframe: "Wednesday Night",
+            in_or_outdoor: "Indoor",
+            category: "Season",
+            price: "$975/team",
+            external_link: "http://www.inthenet.com/leagues/soccer/2016-05-19-18-08-56.html",
+            basics: [
+              "Adult - Open",
+              "Men",
+              "Season",
+              "Indoor"
+            ],
+            next_start: {
+              date: "December 7th",
+              time: "TBD"
+            },
+            location: {
+              name: "In The Net Sports Complex",
+              location_link: "http://www.inthenet.com/",
+              address: {
+                street: "798 Airport Road",
+                city: "Palmyra",
+                state: "PA",
+                zip: "17078"
+              },
+              address_link: "https://goo.gl/maps/fiyXAE2tsDy"
+            }
+          }
+        ]
+      },
 
     ]
 
