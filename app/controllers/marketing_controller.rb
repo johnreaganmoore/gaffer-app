@@ -46,7 +46,7 @@ class MarketingController < ApplicationController
             in_or_outdoor: "Outdoor",
             category: "Pickup",
             price: "FREE",
-            external_link: "https://www.facebook.com/events/150231985442535/",
+            external_link: "https://www.facebook.com/events/609921559192439/",
             basics: [
               "Adult - Open",
               "Coed",
