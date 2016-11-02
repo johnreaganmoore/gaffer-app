@@ -55,20 +55,143 @@ class MarketingController < ApplicationController
             ],
             next_start: {
               date: "November 5th",
-              time: "10am ET"
+              time: "10:15am ET"
             },
             location: {
-              name: "Sporting Hill Elementary School",
+              name: "Adams Ricci Park",
               location_link: "#",
               address: {
-                street: "210 S Sporting Hill Rd",
+                street: "100 E Penn Dr",
+                city: "Enola",
+                state: "PA",
+                zip: "17025"
+              },
+              address_link: "https://goo.gl/maps/XZSZayxBfbU2"
+            }
+          }
+        ]
+      },
+      {
+        name: "Twin Ponds",
+        external_link: "http://twinponds.com/soccer/",
+        category: "Facility",
+        opps: [
+          {
+            name: "Monday Night Indoor Pickup",
+            timeframe: "Monday Night",
+            in_or_outdoor: "Indoor",
+            category: "Pickup",
+            price: "$5",
+            external_link: "http://twinponds.com/soccer/open-soccer/",
+            basics: [
+              "Adult - 16+",
+              "Coed",
+              "Pickup",
+              "Indoor"
+            ],
+            next_start: {
+              date: "November 7th",
+              time: "9pm ET"
+            },
+            location: {
+              name: "Twin Ponds West",
+              location_link: "http://twinponds.com/soccer/",
+              address: {
+                street: "200 Lambs Gap Road",
                 city: "Mechanicsburg",
                 state: "PA",
                 zip: "17050"
               },
-              address_link: "https://goo.gl/maps/WtZbqo6QCHD2"
+              address_link: "https://goo.gl/maps/guQsjxiq9LR2"
             }
-          }
+          },
+          {
+            name: "Wednesday Night Indoor Pickup",
+            timeframe: "Wednesday Night",
+            in_or_outdoor: "Indoor",
+            category: "Pickup",
+            price: "$5",
+            external_link: "http://twinponds.com/soccer/open-soccer/",
+            basics: [
+              "Adult - 16+",
+              "Coed",
+              "Pickup",
+              "Indoor"
+            ],
+            next_start: {
+              date: "November 9th",
+              time: "9pm ET"
+            },
+            location: {
+              name: "Twin Ponds West",
+              location_link: "http://twinponds.com/soccer/",
+              address: {
+                street: "200 Lambs Gap Road",
+                city: "Mechanicsburg",
+                state: "PA",
+                zip: "17050"
+              },
+              address_link: "https://goo.gl/maps/guQsjxiq9LR2"
+            }
+          },
+          {
+            name: "Men's Over 30",
+            timeframe: "Monday Night",
+            in_or_outdoor: "Indoor",
+            category: "League",
+            price: "TBD",
+            external_link: "http://twinponds.com/soccer/adult-soccer/",
+            basics: [
+              "Over 30",
+              "Men",
+              "Season",
+              "Indoor"
+            ],
+            next_start: {
+              date: "TBD",
+              time: "TBD"
+            },
+            location: {
+              name: "Twin Ponds West",
+              location_link: "http://twinponds.com/soccer/",
+              address: {
+                street: "200 Lambs Gap Road",
+                city: "Mechanicsburg",
+                state: "PA",
+                zip: "17050"
+              },
+              address_link: "https://goo.gl/maps/guQsjxiq9LR2"
+            }
+          },
+          {
+            name: "Women's Over 30",
+            timeframe: "Friday Night",
+            in_or_outdoor: "Indoor",
+            category: "League",
+            price: "TBD",
+            external_link: "http://twinponds.com/soccer/adult-soccer/",
+            basics: [
+              "Over 30",
+              "Women",
+              "Season",
+              "Indoor"
+            ],
+            next_start: {
+              date: "TBD",
+              time: "TBD"
+            },
+            location: {
+              name: "Twin Ponds West",
+              location_link: "http://twinponds.com/soccer/",
+              address: {
+                street: "200 Lambs Gap Road",
+                city: "Mechanicsburg",
+                state: "PA",
+                zip: "17050"
+              },
+              address_link: "https://goo.gl/maps/guQsjxiq9LR2"
+            }
+          },
         ]
       },
       {
@@ -108,7 +231,7 @@ class MarketingController < ApplicationController
       {
         name: "Yellow Breeches Sports Center",
         external_link: "http://yellowbreechessports.com/sports/soccer/",
-        category: "League",
+        category: "Facility",
         opps: [
           {
             name: "Tuesday Men's Indoor",
