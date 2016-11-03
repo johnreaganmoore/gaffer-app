@@ -17,10 +17,22 @@
         <%= render 'team_modal_form', team: @team_season.team %>
       </div>
 
-
-    <div id="season_details_container" class="section add-more-detail">
-      <%= render 'seasons/season_details', season: @team_season.season, team_season: @team_season %>
-    </div>
+      <div class="card">
+        <div class="card-content">
+          <span class="card-title">Season Details</span>
+          <hr class="faint">
+          <div class="section-block">
+            <div class="section add-more-detail">
+              <div id="season_details_container">
+                <%= render 'seasons/season_details', season: @team_season.season, team_season: @team_season %>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="card-action edit-profile-actions">
+          <a class="waves-effect waves-light btn modal-trigger" href="#season-modal">Edit Season Details</a>
+        </div>
+      </div>
 
     <!-- Modal Structure -->
     <div id="season-modal" class="modal bottom-sheet">

@@ -142,7 +142,9 @@ ul.collapsible.team {
   .collection-header {
     display: flex;
     justify-content: space-between;
-    align-items: baseline;
+    @media only screen and (min-width : $breakpoint-tablet) {
+      align-items: baseline;
+    }
   }
 
   h4 {
@@ -150,7 +152,9 @@ ul.collapsible.team {
   }
 
   .collapsible-body {
-    // padding: 10px;
+    .collection-header {
+      padding-left: 0px;
+    }
   }
 
 }
@@ -158,4 +162,28 @@ ul.collapsible.team {
 .team-season-item {
   display: flex;
   justify-content: space-between;
+}
+
+.season-details-section {
+  padding-top: 1rem;
+}
+
+.season-details-action-icons {
+  display: flex;
+  align-items: flex-end;
+  color: $dark-font;
+
+  i {
+    margin-left: 1.2rem;
+  }
+
+  a {
+    display: flex;
+    align-items: flex-end;
+
+    i {
+      margin-left: 1.2rem;
+      color: $dark-font;
+    }
+  }
 }

@@ -1,4 +1,11 @@
 <ul class="collection team">
+  <li>
+    <ul class="collapsible team" data-collapsible="accordion">
+        <% team.team_seasons.each do |team_season| %>
+          <%= render 'team_seasons/collapsible_item', team_season: team_season, team: team %>
+        <% end %>
+     </ul>
+  </li>
   <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
       <a href="<%= new_team_season_path(:team => team.id) %>" class="btn-floating btn waves-effect waves-light valign" style="background-color: <%= team.color %>; height: 42px; width: 42px;">
         <i class="material-icons" style="line-height: 42px;">add</i>
@@ -7,125 +14,4 @@
       <span class="valign" style="margin-left: 15px">Create New Season</span>
     <% end %>
   </li>
-  <li>
-    <ul class="collapsible team" data-collapsible="accordion">
-        <% team.open_team_seasons.each do |team_season| %>
-          <%= render 'team_seasons/collapsible_item', team_season: team_season, team: team %>
-        <% end %>
-     </ul>
-  </li>
  </ul>
-
-
-  <% if @team.closed_team_seasons.length > 0 %>
-    <li class="collection-item avatar invitation-divider valign-wrapper">
-      <span class="valign">
-        Closed Seasons
-      </span>
-      <span class="valign secondary-content">
-        <i class="material-icons">arrow_drop_down</i>
-        <i class="material-icons">arrow_drop_up</i>
-      </span>
-    </li>
-    <% @team.closed_team_seasons.each do |team_season| %>
-      <li class="collection-item avatar valign-wrapper">
-       <%= link_to preview_season_path(team_season) do %>
-         <i class="material-icons circle valign">lock_outline</i>
-         <!-- <i class="material-icons circle valign">event_note</i> -->
-       <% end %>
-       <%= link_to preview_season_path(team_season) do %>
-         <span class="valign">
-         <% timeframe_array = [] %>
-           <% team_season.season.timeframes.each do |timeframe| %>
-             <% timeframe_array.push(timeframe.friendly_label)  %>
-           <% end %>
-           <%= timeframe_array.to_sentence  %>
-           <% if team_season.season.start_date != nil %>
-              starting
-             <%= team_season.season.start_date.strftime("%B #{team_season.season.start_date.day.ordinalize}") %>
-           <% end %>
-         </span>
-       <% end %>
-       <span class="secondary-content valign">
-          <a
-            class="dropdown-button valign secondary-content"
-            data-activates="active-season-<%= team_season.id %>"
-            href="#"
-          >
-            <i class="material-icons" style="color: <%= team.color %>;">more_vert</i>
-          </a>
-          <ul
-            id="active-season-<%= team_season.id %>"
-            class="dropdown-content"
-            style="overflow: visible;"
-          >
-            <li>
-              <%= link_to team_season_path(team_season, "status" => "open"), remote: true, method: :put,  :confirm => "Sure?" do %>
-                Reopen
-              <% end %>
-            </li>
-            <li>
-              <%= link_to team_season_path(team_season, "status" => "archived"), remote: true, method: :put, data: { confirm: "Are you sure you want to archive this?" } do %>
-                Archive
-              <% end %>
-            </li>
-          </ul>
-       </span>
-      </li>
-   <% end %>
-  <% end %>
-
-  <% if @team.archived_team_seasons.length > 0 %>
-    <li class="collection-item avatar invitation-divider valign-wrapper">
-      <span class="valign">
-        Archived Seasons
-      </span>
-      <span class="valign secondary-content">
-        <i class="material-icons">arrow_drop_down</i>
-        <i class="material-icons">arrow_drop_up</i>
-      </span>
-    </li>
-    <% @team.archived_team_seasons.each do |team_season| %>
-      <li class="collection-item avatar valign-wrapper">
-       <%= link_to preview_season_path(team_season) do %>
-         <i class="material-icons circle valign">archive</i>
-         <!-- <i class="material-icons circle valign">event_note</i> -->
-       <% end %>
-       <%= link_to preview_season_path(team_season) do %>
-         <span class="valign">
-         <% timeframe_array = [] %>
-           <% team_season.season.timeframes.each do |timeframe| %>
-             <% timeframe_array.push(timeframe.friendly_label)  %>
-           <% end %>
-           <%= timeframe_array.to_sentence  %>
-           <% if team_season.season.start_date != nil %>
-              starting
-             <%= team_season.season.start_date.strftime("%B #{team_season.season.start_date.day.ordinalize}") %>
-           <% end %>
-         </span>
-       <% end %>
-       <span class="secondary-content valign">
-          <a
-            class="dropdown-button valign secondary-content"
-            data-activates="active-season-<%= team_season.id %>"
-            href="#"
-          >
-            <i class="material-icons" style="color: <%= team.color %>;">more_vert</i>
-          </a>
-          <ul
-            id="active-season-<%= team_season.id %>"
-            class="dropdown-content"
-            style="overflow: visible;"
-          >
-
-            <li>
-              <%= link_to team_season_path(team_season, "status" => "closed"), remote: true, method: :put,  :confirm => "Sure?" do %>
-                <span>Unarchive</span>
-              <% end %>
-            </li>
-          </ul>
-       </span>
-      </li>
-   <% end %>
-  <% end %>
-</ul>
