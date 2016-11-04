@@ -1,0 +1,18 @@
+<div class="card blue-grey darken-1">
+  <div class="card-content white-text">
+    <p class="flow-text">
+      Invite people to play this season with this link:
+    </p>
+
+    <div class="block-container">
+      <code class="share-link">
+        <span>
+          <%= team_season_url(team_season) %>
+        </span>
+      </code>
+    </div>
+  </div>
+  <div class="card-action edit-profile-actions">
+    <%= link_to "View Page", team_season_path(team_season), class: "btn waves-effect waves-light", target: "_blank" %>
+  </div>
+</div>
