@@ -25,7 +25,7 @@ class MarketingController < ApplicationController
               "Indoor"
             ],
             next_start: {
-              date: "November 4th",
+              date: "November 11th",
               time: "9pm ET"
             },
             location: {
