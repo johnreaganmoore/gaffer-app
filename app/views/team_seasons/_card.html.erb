@@ -61,7 +61,7 @@
         <% if @team_season.cost != nil %>
         <div class="detail-item">
           <span class="detail-label">Cost: </span>
-            <span class="detail-value">$<%= @team_season.season.cost/@team_season.min_players %></span>
+            <span class="detail-value">$<%= @team_season.cost/@team_season.min_players %></span>
         </div>
         <% end %>
         <% if @team_season.season.location != nil %>

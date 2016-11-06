@@ -54,20 +54,31 @@ class MarketingController < ApplicationController
               "Outdoor"
             ],
             next_start: {
-              date: "November 5th",
+              date: "November 12th",
               time: "10:15am ET"
             },
             location: {
-              name: "Adams Ricci Park",
+              name: "Sporting Hill Elementary School",
               location_link: "#",
               address: {
-                street: "100 E Penn Dr",
-                city: "Enola",
+                street: "210 S Sporting Hill Rd",
+                city: "Mechanicsburg",
                 state: "PA",
-                zip: "17025"
+                zip: "17050"
               },
-              address_link: "https://goo.gl/maps/XZSZayxBfbU2"
+              address_link: "https://goo.gl/maps/4juzkqApgQx"
             }
+            # location: {
+            #   name: "Adams Ricci Park",
+            #   location_link: "#",
+            #   address: {
+            #     street: "100 E Penn Dr",
+            #     city: "Enola",
+            #     state: "PA",
+            #     zip: "17025"
+            #   },
+            #   address_link: "https://goo.gl/maps/XZSZayxBfbU2"
+            # }
           }
         ]
       },

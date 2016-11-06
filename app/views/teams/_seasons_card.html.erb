@@ -3,7 +3,7 @@
     <ul class="collapsible team" data-collapsible="accordion">
         <% team.team_seasons.each do |team_season| %>
           <%= render 'team_seasons/collapsible_item', team_season: team_season, team: team %>
-          <div id="season-modal-<%= team_season.id %>" class="modal bottom-sheet">
+          <div id="season-modal-<%= team_season.id %>" class="modal">
             <%= render 'team_seasons/season_modal_form', season: team_season.season, team_season: team_season %>
           </div>
         <% end %>
