@@ -57,6 +57,8 @@ Rails.application.routes.draw do
 
   get '/', to: 'marketing#harrisburg', constraints: { subdomain: 'harrisburg' }
 
+  get '/tos', to: 'marketing#tos'
+
   # get "/", to: 'marketing#home'
   # root to: 'marketing#home'
   get "/", to: 'marketing#coming_soon'

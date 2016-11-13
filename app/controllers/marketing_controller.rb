@@ -2,6 +2,9 @@ class MarketingController < ApplicationController
   def home
   end
 
+  def tos
+  end
+
   def harrisburg
 
 
