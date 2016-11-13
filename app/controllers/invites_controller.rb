@@ -27,8 +27,12 @@ class InvitesController < ApplicationController
         InviteMailer.new_person_invite(@invite, new_person_registration_path(:invitation_token => @invite.token)).deliver
       end
 
-      flash[:notice] = "Invitation sent successfully"
-      redirect_to team_path(@invite.team)
+      respond_to do |format|
+        format.html { redirect_to team_path(@invite.team), notice: 'Invitation sent successfully' }
+        format.json { head :no_content }
+        format.js {}
+      end
+
     else
       print "Oh no, the invite failed to save"
       flash[:alert] = "Invitation failed to send"

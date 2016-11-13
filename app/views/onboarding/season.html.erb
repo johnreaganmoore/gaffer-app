@@ -12,7 +12,7 @@ How Much - Cost
     <h4>Create Your Season</h4>
     <div class="card">
 
-    <%= form_for(@season, url: team_seasons_path, method: :post) do |season_fields| %>
+    <%= form_for(@season, url: wizard_path(:season, ts: @team_season.id), method: :put) do |season_fields| %>
 
           <div class="card-content">
             <h5>What are you playing?</h5>
@@ -54,6 +54,7 @@ How Much - Cost
               :id, :friendly_label, {selected: @season.timeframe_ids, prompt: "Select timeframe(s)"}, {multiple: true}) %>
             </div>
           </div>
+
         <div class="edit-profile-actions card-action">
           <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
             Sweet, You're Done!

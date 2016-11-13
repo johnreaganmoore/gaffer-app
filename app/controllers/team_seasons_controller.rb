@@ -51,6 +51,7 @@ class TeamSeasonsController < ApplicationController
   end
 
   def decline
+    @invite = Invite.new
     @team = @team_season.team
   end
 

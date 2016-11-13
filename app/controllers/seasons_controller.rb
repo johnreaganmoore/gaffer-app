@@ -93,7 +93,8 @@ class SeasonsController < ApplicationController
         timeframe_ids: [],
         team_seasons_attributes: [
           :id,
-          :min_players
+          :min_players,
+          :max_players,
         ]
       )
     end

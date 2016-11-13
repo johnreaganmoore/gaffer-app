@@ -9,7 +9,7 @@
           <div class="col s12 m6 l6">
             <div class="detail-item">
               <div class="detail-label">Website: </div>
-              <% if season.website != nil %>
+              <% if season.website != nil && season.website != "" %>
                 <span class="detail-value"><%= season.website %></span>
               <% else %>
                 <span class="detail-value">Unknown</span>
@@ -93,8 +93,8 @@
           <div class="col s12 m6 l6">
             <div class="detail-item">
               <div class="detail-label">Maximum Roster Size: </div>
-              <% if team_season.min_players != nil %>
-                <span class="detail-value"><%= team_season.min_players %></span>
+              <% if team_season.max_players != nil %>
+                <span class="detail-value"><%= team_season.max_players %></span>
               <% else %>
                 <span class="detail-value">Unknown</span>
               <% end %>
