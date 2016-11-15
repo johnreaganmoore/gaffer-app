@@ -68,6 +68,20 @@ class TeamSeason < ApplicationRecord
     self.season_participations.sum(:amount_paid)
   end
 
+  def close
+    self.status = "closed"
+    self.disburse_funds
+  end
+
+  def disburse_funds
+    self.season_participations.each do |participation|
+      participation.transactions.each do |tx|
+        result = Braintree::Transaction.release_from_escrow(tx)
+        puts result.inspect
+      end
+    end
+  end
+
   private
 
   def ensure_team
@@ -95,10 +109,6 @@ class TeamSeason < ApplicationRecord
   def open
     self.status = "open"
     self.save
-  end
-
-  def close
-    self.status = "closed"
   end
 
   def archive

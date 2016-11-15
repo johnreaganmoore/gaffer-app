@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161029201302) do
+ActiveRecord::Schema.define(version: 20161114214044) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -109,11 +109,12 @@ ActiveRecord::Schema.define(version: 20161029201302) do
   create_table "season_participations", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "team_season_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.float    "amount_paid"
     t.float    "amount_refunded"
     t.boolean  "is_treasurer"
+    t.string   "transactions",    default: [],              array: true
     t.index ["person_id"], name: "index_season_participations_on_person_id", using: :btree
     t.index ["team_season_id"], name: "index_season_participations_on_team_season_id", using: :btree
   end

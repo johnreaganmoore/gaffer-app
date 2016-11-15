@@ -84,13 +84,17 @@ class Person < ApplicationRecord
 
       # if payment goes through increment their paid amount.
       if result.success?
+
+        puts result.transaction.id
+
         #Increment existing season
         if season_participation != nil
           season_participation.amount_paid = amount_paid + amount_owed
+          season_participation.transactions.push(result.transaction.id)
           season_participation.save
         else
         # Create season participation
-          SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed)
+          SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed, transactions: [result.transaction.id])
           self.teams.push(team_season.team)
         end
       end

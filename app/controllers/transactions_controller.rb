@@ -18,7 +18,7 @@ class TransactionsController < ApplicationController
 
     @result = @person.purchase_season(@team_season, nonce)
 
-    if @result.class == Braintree::SuccessfulResult || Braintree::ErrorResult
+    if @result.class == Braintree::SuccessfulResult || @result.class == Braintree::ErrorResult
       if @result.success? || @result.transaction
         @person.update(braintree_customer_id: @result.transaction.customer_details.id) unless @person.has_payment_info?
 
