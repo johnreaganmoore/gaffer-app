@@ -30,7 +30,7 @@ class TeamSeason < ApplicationRecord
   after_initialize :ensure_cost
 
   def new_player_cost
-    self.cost / self.cost_divisor
+    ((self.cost * 100)  / self.cost_divisor.to_f).ceil
   end
 
   def cost_divisor

@@ -6,30 +6,6 @@
     <div class="card">
       <div class="card-content">
 
-        <% unless person.id %>
-          <p>Please enter your billing info:</p>
-
-          <div class="row">
-            <div class="input-field col s12 m6 l6">
-              <%= text_field_tag :first_name %>
-              <%= label_tag :first_name %>
-            </div>
-
-            <div class="input-field col s12 m6 l6">
-              <%= text_field_tag :last_name %>
-              <%= label_tag :last_name %>
-            </div>
-          </div>
-          <div class="row">
-            <div class="input-field col s12">
-              <%= email_field_tag :email %>
-              <%= label_tag :email %>
-            </div>
-          </div>
-        <% end %>
-
-
-
         <div class="row">
           <div class="textfield--float-label col s12">
             <label class="hosted-field--label" for="card-number">

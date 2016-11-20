@@ -48,6 +48,9 @@ class TeamSeasonsController < ApplicationController
     else
       @person = Person.new
     end
+
+    @payment = @person.payment_composition(@team_season.new_player_cost, 0.1, 0)
+
   end
 
   def decline

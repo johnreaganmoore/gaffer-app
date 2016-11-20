@@ -73,6 +73,10 @@ source 'https://rubygems.org' do
 
   gem 'materialize-sass'
 
+
+  gem 'stripe'
+
+
   gem "braintree", "~> 2.66.0"
   gem 'gon'
 

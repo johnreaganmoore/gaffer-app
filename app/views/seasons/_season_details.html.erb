@@ -69,8 +69,8 @@
           <div class="col s12 m6 l6">
             <div class="detail-item">
               <div class="detail-label">Cost: </div>
-              <% if season.cost != nil %>
-                <span class="detail-value">$<%= season.cost/team_season.min_players %></span>
+              <% if team_season.cost != nil %>
+                <span class="detail-value"><%= number_to_currency(team_season.new_player_cost / 100.0)  %></span>
               <% else %>
                 <span class="detail-value">Unknown</span>
               <% end %>

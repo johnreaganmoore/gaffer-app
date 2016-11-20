@@ -46,6 +46,9 @@ Rails.application.routes.draw do
 
   resources :transactions, only: [:new, :create]
 
+  post 'kickoff', to: 'transactions#kickoff', as: :kickoff
+  post 'player_purchase', to: 'transactions#player_purchase', as: :player_purchase
+
   resources :locations, except: [:update, :edit, :destroy]
 
   # Special new team page for registration

@@ -9,21 +9,15 @@ How Much - Cost
 <div class="mini-header"></div>
 <div class="profile-page">
   <div class="container">
-    <h4>Create Your Season</h4>
     <div class="card">
+      <%= form_for(@season, url: wizard_path(:season, ts: @team_season.id), method: :put) do |season_fields| %>
+        <div class="card-content">
+          <div class="card-title">
+            <h3>Create Your Season</h3>
+          </div>
 
-    <%= form_for(@season, url: wizard_path(:season, ts: @team_season.id), method: :put) do |season_fields| %>
 
-          <div class="card-content">
             <h5>What are you playing?</h5>
-            <!-- <div class="switch">
-              <label>
-                Outdoor
-                <input type="checkbox">
-                <span class="lever"></span>
-                Indoor
-              </label>
-            </div> -->
             <div class="input-field col s12">
               <%= season_fields.select :format, options_for_select([
                 ['Select the format', "", {disabled: true, selected: true}],
@@ -53,11 +47,11 @@ How Much - Cost
               Timeframe.all,
               :id, :friendly_label, {selected: @season.timeframe_ids, prompt: "Select timeframe(s)"}, {multiple: true}) %>
             </div>
-          </div>
 
+        </div>
         <div class="edit-profile-actions card-action">
           <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
-            Sweet, You're Done!
+            Next
           <% end %>
         </div>
       <% end %>
