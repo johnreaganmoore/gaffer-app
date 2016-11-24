@@ -70,6 +70,11 @@ class TeamsController < ApplicationController
   # PATCH/PUT /teams/1
   # PATCH/PUT /teams/1.json
   def update
+
+    @team_season = TeamSeason.find(params[:ts])
+    @person = @team_season.treasurer
+    @payment = @person.payment_composition(@team_season.new_player_cost, 0.1, 0)
+
     respond_to do |format|
       if @team.update(team_params)
         format.html { redirect_to @team, notice: 'Team was successfully updated.' }

@@ -38,7 +38,6 @@ class TeamSeasonsController < ApplicationController
 
   def accept
     @team = @team_season.team
-    @client_token = generate_client_token
 
     # If the person is logged in when on the accept page great!
     # if not we need to create a new person,
@@ -175,19 +174,6 @@ class TeamSeasonsController < ApplicationController
         :format,
         timeframe_ids: []
       )
-    end
-
-    def generate_client_token
-
-      # puts "token below?"
-      # puts current_person.has_payment_info?
-      # puts "token above?"
-
-      if current_person and current_person.has_payment_info?
-        Braintree::ClientToken.generate(customer_id: current_person.braintree_customer_id)
-      else
-        Braintree::ClientToken.generate
-      end
     end
 
 end

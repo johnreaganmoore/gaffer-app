@@ -103,20 +103,21 @@ class Person < ApplicationRecord
 
       customer = Stripe::Customer.retrieve(self.customer_id)
 
-      token = Stripe::Token.create(
-        {:customer => customer.id, :card => customer.default_source},
-        {:stripe_account => team_season.treasurer.merchant_account_id} # id of the connected account
-      )
+      # token = Stripe::Token.create(
+      #   {:customer => customer.id, :card => customer.default_source},
+      #   {:stripe_account => team_season.treasurer.merchant_account_id} # id of the connected account
+      # )
 
 
       result = Stripe::Charge.create({
         amount: comp[:charge_amount],
         currency: "usd",
-        source: token.id,
+        # source: token.id,
+        customer: customer.id,
         description: "Season Fee",
-        application_fee: comp[:onside_net] # amount in cents
-        },
-        {stripe_account: team_season.treasurer.merchant_account_id}
+        application_fee: comp[:service_fee], # amount in cents
+        destination: team_season.treasurer.merchant_account_id
+        }
       )
 
       # if payment goes through increment their paid amount.
@@ -240,6 +241,9 @@ class Person < ApplicationRecord
   def create_managed_account
     account_props = {
       managed: true,
+      transfer_schedule: {
+        interval: "manual"
+      },
       country: 'US',
       email: self.email,
       legal_entity: {
@@ -260,6 +264,7 @@ class Person < ApplicationRecord
         first_name: self.first_name,
         last_name: self.last_name,
       }
+
     }
     result = Stripe::Account.create(account_props)
   end
@@ -274,7 +279,11 @@ class Person < ApplicationRecord
     )
 
     account = Stripe::Account.retrieve(self.merchant_account_id)
-    account.external_accounts.create(:external_account => token.id)
+    account.external_accounts.create(
+      external_account: token.id,
+      default_for_currency: true
+    )
+
   end
 
   def record_accept_terms(ip)

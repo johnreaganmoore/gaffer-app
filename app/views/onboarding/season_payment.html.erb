@@ -2,52 +2,9 @@
 <div class="profile-page">
   <div class="container">
 
-    <!-- <div class="season-preview-container container"> -->
-      <div class="card checkout-team-card">
-        <div class="card-content">
-          <div class="season-title">
-            <div class="checkout-team-header">
-              <div class="name" style="color: <%= @team.color %>;">
-                <%= @team.name %>
-              </div>
-            </div>
-          </div>
-
-          <div class="season-details-row">
-            <i class="material-icons" style="color: <%= @team.color %>;">date_range</i>
-            <div class="season-details">
-              <div>
-                <% timeframe_array = [] %>
-                <% @team_season.season.timeframes.each do |timeframe| %>
-                  <% timeframe_array.push(timeframe.friendly_label)  %>
-                <% end %>
-                <%= timeframe_array.to_sentence  %>
-              </div>
-              <div>
-                <% if @team_season.season.start_date != nil %>
-                  <span>Starting <%= @team_season.season.start_date.strftime("%B #{@team_season.season.start_date.day.ordinalize}") %></span>
-                <% end %>
-              </div>
-            </div>
-          </div>
-          <div class="season-details-row">
-            <i class="material-icons" style="color: <%= @team.color %>;">map</i>
-            <div class="season-details">
-              <%= @team_season.season.location %>
-            </div>
-          </div>
-
-          <% if @team_season.cost != nil %>
-            <div class="season-signup">
-              <div class="season-sub-cost"><span>League Fee:</span><span><%= number_to_currency(@payment[:season_fee] / 100.0) %></span></div>
-              <div class="season-sub-cost"><span>Team Management Fee:</span><span><%= number_to_currency(@payment[:service_fee] / 100.0)  %></span></div>
-              <hr>
-              <div class="season-total-cost"><span>Season Cost:</span><span><%= number_to_currency(@payment[:charge_amount] / 100.0)  %></span></div>
-            </div>
-          <% end %>
-        </div>
-      </div>
-    <!-- </div> -->
+    <div id="season-cost-card-container">
+      <%= render 'season_cost_card', team: @team,  team_season: @team_season, payment: @payment %>
+    </div>
 
 <div class="card checkout-team-card">
   <%= form_tag kickoff_path, id: "payment-form" do %>

@@ -1,5 +1,10 @@
 <div class="main-content container">
   <div class="preview-options">
+
+    <div class="section share">
+      <%= render 'team_seasons/invite_page_link_card', team_season: @team_season %>
+    </div>
+
     <div class="section">
       <div class="card">
         <div class="card-content">
@@ -48,9 +53,6 @@
       <%= render 'payment_details_modal_form', person: @team_season.treasurer %>
     </div>
 
-    <div class="section share">
-      <%= render 'team_seasons/invite_page_link_card', team_season: @team_season %>
-    </div>
   </div>
 </div>
 
