@@ -2,7 +2,7 @@
 <div class="card-content">
   <h4>Edit Team</h4>
 
-  <%= form_for(team, remote: true) do |f| %>
+  <%= form_for(team) do |f| %>
     <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
     <div>
       <div class="profile-header">
@@ -21,8 +21,8 @@
 
         <%= f.label :logo  do %>
           <div class="profile-avatar">
-            <div class="section__circle--big large-avatar editable">
-                <img id="logo" src="<%= @team.logo %>">
+            <div class="section__circle--big large-avatar editable set-bg-elem">
+                <%= image_tag "#{@team.display_logo}", class: "team-logo-img" %>
                 <div class="change-label">Change</div>
             </div>
           </div>
@@ -38,7 +38,7 @@
 
         <div class="row">
           <div class="input-field col s12">
-            <input class="colorpicker" type="color" name="team[color]" id="team_color" value="<%= @team.color %>" />
+            <input class="colorpicker set-bg-elem"  name="team[color]" id="team_color" value="<%= @team.color %>" />
           </div>
         </div>
 
@@ -54,3 +54,14 @@
 </div>
 
 <% end %>
+
+<script>
+  var elem = $('.colorpicker')[0];
+  var hueb = new Huebee( elem, {
+    // options
+    setBGColor: '.set-bg-elem',
+    hues: 7,
+    shades: 7,
+    saturations: 1
+  });
+</script>

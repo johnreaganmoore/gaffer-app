@@ -1,21 +1,11 @@
 <div class="main-content container">
   <div class="preview-options">
-    <div class="section">
-      <div class="card">
-        <div class="card-content">
-          <div id="team_basics_container">
-            <%= render 'teams/team_basics', team: @team %>
-          </div>
-        </div>
-        <div class="card-action edit-profile-actions">
-          <a class="waves-effect waves-light btn modal-trigger" href="#team-modal">Edit Team</a>
-        </div>
-      </div>
 
-      <!-- Modal Structure -->
-      <div id="team-modal" class="modal bottom-sheet">
-        <%= render 'team_modal_form', team: @team_season.team %>
-      </div>
+    <div class="section share">
+      <%= render 'team_seasons/invite_page_link_card', team_season: @team_season %>
+    </div>
+
+    <div class="section">
 
       <div class="card">
         <div class="card-content">
@@ -40,7 +30,7 @@
     </div>
 
     <div id="payment_details_container" class="section">
-      <%= render 'profiles/payment_details', person: @team_season.treasurer %>
+      <%= render 'profiles/payment_details', person: @team_season.treasurer, last_four: "1234" %>
     </div>
 
     <!-- Modal Structure -->
@@ -48,9 +38,6 @@
       <%= render 'payment_details_modal_form', person: @team_season.treasurer %>
     </div>
 
-    <div class="section share">
-      <%= render 'team_seasons/invite_page_link_card', team_season: @team_season %>
-    </div>
   </div>
 </div>
 

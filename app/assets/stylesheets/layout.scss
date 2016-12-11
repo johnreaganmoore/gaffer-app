@@ -102,3 +102,19 @@ hr.faint {
   margin-bottom: 0px;
   padding: 16px;
 }
+
+p.simple-paragraph {
+  padding-top: 30px;
+}
+
+.card-title.with-actions {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  padding: 20px;
+  border-bottom: 1px solid rgba(160, 160, 160, 0.2);
+
+  .details {
+    font-size: 16px;
+  }
+}

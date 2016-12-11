@@ -9,6 +9,9 @@ class TeamSeason < ApplicationRecord
   # "team_id"
 
 
+  require "stripe"
+  Stripe.api_key = ENV['stripe_api_key']
+
   belongs_to :team
   belongs_to :season, inverse_of: :team_seasons
 
@@ -30,7 +33,7 @@ class TeamSeason < ApplicationRecord
   after_initialize :ensure_cost
 
   def new_player_cost
-    self.cost / self.cost_divisor
+    ((self.cost * 100)  / self.cost_divisor.to_f).ceil
   end
 
   def cost_divisor
@@ -68,6 +71,43 @@ class TeamSeason < ApplicationRecord
     self.season_participations.sum(:amount_paid)
   end
 
+  def close
+    self.status = "closed"
+    self.disburse_funds
+  end
+
+  def disburse_funds
+
+    season_paid_amount = 0
+
+    self.season_participations.each do |participation|
+      refunded = 0
+      if participation.amount_refunded != nil
+        refunded = participation.amount_refunded
+      end
+
+      season_paid_amount += (participation.amount_paid - refunded)
+
+      # participation.transactions.each do |tx|
+      #   charge = Stripe::Charge.retrieve(tx)
+      #   season_paid_amount += (charge.amount - charge.amount_refunded)
+      # end
+    end
+
+
+    Stripe::Transfer.create(
+      {
+        # :stripe_account => self.treasurer.merchant_account_id,
+        :amount => season_paid_amount.to_i,
+        :currency => "usd",
+        :method => "instant",
+        :destination => "default_for_currency"
+      },
+      {:stripe_account => self.treasurer.merchant_account_id}
+    )
+
+  end
+
   private
 
   def ensure_team
@@ -95,10 +135,6 @@ class TeamSeason < ApplicationRecord
   def open
     self.status = "open"
     self.save
-  end
-
-  def close
-    self.status = "closed"
   end
 
   def archive

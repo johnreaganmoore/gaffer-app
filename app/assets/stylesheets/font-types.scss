@@ -29,6 +29,14 @@ h6 {
   font-weight: 200;
 }
 
+h3 {
+  font-size: 2.5rem;
+  font-weight: 200;
+  line-height: 110%;
+  margin: 0rem 0 1.168rem 0;
+}
+
+
 @import 'https://fonts.googleapis.com/css?family=Kalam:300,400,700';
 
 .awesome-sauce {
@@ -40,10 +48,17 @@ h6 {
 }
 
 .maybe-next-time {
+  margin-top: 30px;
   text-align: center;
   font-family: 'Kalam', cursive;
   font-size: 50px;
-  color: #383d63;
+  color: $dark-font;
+
+  @media (max-width: $breakpoint-tablet) {
+    font-size: 36px;
+  }
+
+
 }
 
 code.share-link {
@@ -56,4 +71,9 @@ code.share-link {
   padding-top: 1.5rem;
   padding-bottom: 1.5rem;
   border-left: 5px solid $primary-green;
+}
+
+.card .card-content p.agreement-line {
+  color: $light-font;
+  font-size: 12px;
 }

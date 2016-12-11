@@ -43,8 +43,12 @@ Rails.application.routes.draw do
   get 'team_seasons/:id/accept', to: 'team_seasons#accept', as: :accept_season
   get 'team_seasons/:id/decline', to: 'team_seasons#decline', as: :decline_season
   get 'team_seasons/:id/price', to: 'team_seasons#price', as: :season_price
+  get 'team_seasons/:id/disburse', to: 'team_seasons#disburse', as: :disburse
 
   resources :transactions, only: [:new, :create]
+
+  post 'kickoff', to: 'transactions#kickoff', as: :kickoff
+  post 'player_purchase', to: 'transactions#player_purchase', as: :player_purchase
 
   resources :locations, except: [:update, :edit, :destroy]
 
@@ -56,6 +60,8 @@ Rails.application.routes.draw do
 
 
   get '/', to: 'marketing#harrisburg', constraints: { subdomain: 'harrisburg' }
+
+  get '/tos', to: 'marketing#tos'
 
   # get "/", to: 'marketing#home'
   # root to: 'marketing#home'

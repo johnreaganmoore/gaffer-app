@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20161029201302) do
+ActiveRecord::Schema.define(version: 20161116234643) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -85,11 +85,12 @@ ActiveRecord::Schema.define(version: 20161029201302) do
     t.string   "invited_by_type"
     t.integer  "invited_by_id"
     t.integer  "invitations_count",      default: 0
-    t.string   "braintree_customer_id"
+    t.string   "customer_id"
     t.string   "street_address"
     t.string   "locality"
     t.string   "region"
     t.string   "postal_code"
+    t.string   "merchant_account_id"
     t.index ["email"], name: "index_people_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_people_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_people_on_invitations_count", using: :btree
@@ -109,11 +110,12 @@ ActiveRecord::Schema.define(version: 20161029201302) do
   create_table "season_participations", force: :cascade do |t|
     t.integer  "person_id"
     t.integer  "team_season_id"
-    t.datetime "created_at",      null: false
-    t.datetime "updated_at",      null: false
+    t.datetime "created_at",                   null: false
+    t.datetime "updated_at",                   null: false
     t.float    "amount_paid"
     t.float    "amount_refunded"
     t.boolean  "is_treasurer"
+    t.string   "transactions",    default: [],              array: true
     t.index ["person_id"], name: "index_season_participations_on_person_id", using: :btree
     t.index ["team_season_id"], name: "index_season_participations_on_team_season_id", using: :btree
   end

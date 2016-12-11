@@ -43,14 +43,140 @@
 
         <% if @team_season.cost != nil %>
           <div class="season-signup">
-            <div class="season-sub-cost"><span>League Fee:</span><span><%= number_to_currency(@team_season.new_player_cost) %></span></div>
-            <div class="season-sub-cost"><span>Team Management Fee:</span><span><%= number_to_currency((@team_season.new_player_cost * 0.1).round)  %></span></div>
+            <div class="season-sub-cost"><span>League Fee:</span><span><%= number_to_currency(@payment[:season_fee] / 100.0) %></span></div>
+            <div class="season-sub-cost"><span>Team Management Fee:</span><span><%= number_to_currency(@payment[:service_fee] / 100.0)  %></span></div>
             <hr>
-            <div class="season-total-cost"><span>Season Cost:</span><span><%= number_to_currency((@team_season.new_player_cost) + (@team_season.new_player_cost * 0.1).round)  %></span></div>
+            <div class="season-total-cost"><span>Season Cost:</span><span><%= number_to_currency(@payment[:charge_amount] / 100.0)  %></span></div>
           </div>
         <% end %>
       </div>
     </div>
+
+    <div class="card checkout-team-card">
+      <%= form_tag player_purchase_path, id: "payment-form" do %>
+        <div class="card-content">
+
+          <div class="card-title">
+            Season Payment Details
+          </div>
+
+          <% unless @person.id %>
+            <p>Personal Info</p>
+
+            <div class="row">
+              <div class="input-field col s12 m6 l6">
+                <%= text_field_tag :first_name %>
+                <%= label_tag :first_name %>
+              </div>
+
+              <div class="input-field col s12 m6 l6">
+                <%= text_field_tag :last_name %>
+                <%= label_tag :last_name %>
+              </div>
+            </div>
+            <div class="row">
+              <div class="input-field col s12">
+                <%= email_field_tag :email %>
+                <%= label_tag :email %>
+              </div>
+            </div>
+          <% end %>
+
+          <!-- <hr class="faint"> -->
+
+
+
+          <p class="debit-explanation">
+            Card Info
+          </p>
+          <span class="payment-errors"></span>
+          <div class="row">
+            <div class="input-field col s12 m12 l12">
+              <input class="ccInput cc-num" type="tel" size="20" placeholder="&#8226;&#8226;&#8226;&#8226;  &#8226;&#8226;&#8226;&#8226;  &#8226;&#8226;&#8226;&#8226;  &#8226;&#8226;&#8226;&#8226;" autocompletetype="cc-number" data-stripe="number">
+              <span class="card-icon" aria-hidden="true"></span>
+              <label>
+                Card Number
+              </label>
+            </div>
+          </div>
+
+          <div class="row">
+            <div class="input-field col s6 m6 l6">
+              <input class="ccInput cc-exp" type="tel" size="2" placeholder="MM/YY" autocompletetype="cc-exp" data-stripe="exp">
+              <label>
+                Expiration
+              </label>
+            </div>
+            <div class="input-field col s6 m6 l6">
+              <input class="ccInput cc-cvc" type="tel" size="4" placeholder="&#8226;&#8226;&#8226;" autocomplete="off" data-stripe="cvc">
+              <label>
+                CVC
+              </label>
+            </div>
+          </div>
+
+          <input type="hidden" name="ts" value="<%= @team_season.id %>">
+
+          <%# TODO: Change this currency to be a select as I add more countries %>
+          <input type="hidden" value="usd" data-stripe="currency">
+
+
+          <p class="agreement-line">
+            By registering as a team treasurer you agree to our <%= link_to 'terms of service', tos_path, target: '_blank' %> and the <%= link_to 'Stripe Connected Account Agreement', "https://stripe.com/us/connect-account/legal", target: '_blank' %>.
+          </p>
+
+        </div>
+        <div class="card-action edit-profile-actions">
+          <input type="submit" class="submit waves-effect waves-light btn white blue-grey-text" value="Pay <%= number_to_currency(@payment[:charge_amount] / 100.0) %>">
+        </div>
+      <% end %>
+    </div>
+
   </div>
-  <%= render 'braintree_hosted_fields', person: @person, team_season: @team_season, client_token: @client_token %>
 </div>
+
+<script>
+  Stripe.setPublishableKey("<%= ENV['stripe_publishable_key'] %>");
+  $('input.cc-num').payment('formatCardNumber');
+  $('input.cc-exp').payment('formatCardExpiry');
+  $('input.cc-cvc').payment('formatCardCVC');
+
+  var validateDetails = function() {
+
+    var expiry = $('.cc-exp').payment('cardExpiryVal');
+    var validateExpiry = $.payment.validateCardExpiry(expiry["month"], expiry["year"]);
+    var validateCVC = $.payment.validateCardCVC($('.cc-cvc').val());
+
+    if (validateExpiry) {
+      $('.cc-exp').addClass('identified');
+      $('.cc-exp').addClass('valid');
+    } else {
+      $('.cc-exp').removeClass('identified');
+      $('.cc-exp').removeClass('valid');
+    }
+
+    if (validateCVC) {
+      $('.cc-cvc').addClass('identified');
+      $('.cc-cvc').addClass('valid');
+    } else {
+      $('.cc-cvc').removeClass('identified');
+      $('.cc-cvc').removeClass('valid');
+    }
+
+
+    if (Stripe.validateCardNumber($('input.cc-num').val())) {
+      $('.cc-num').addClass("valid");
+      $('.cc-num').removeClass("invalid");
+    } else {
+      $('.cc-num').removeClass("valid");
+      $('.cc-num').addClass("invalid");
+    }
+
+  }
+
+  $('.ccInput').bind('change paste keyup', function() {
+    validateDetails();
+  });
+
+
+</script>

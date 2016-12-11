@@ -38,7 +38,6 @@ class TeamSeasonsController < ApplicationController
 
   def accept
     @team = @team_season.team
-    @client_token = generate_client_token
 
     # If the person is logged in when on the accept page great!
     # if not we need to create a new person,
@@ -48,14 +47,27 @@ class TeamSeasonsController < ApplicationController
     else
       @person = Person.new
     end
+
+    @payment = @person.payment_composition(@team_season.new_player_cost, 0.1, 0)
+
   end
 
   def decline
+    @invite = Invite.new
     @team = @team_season.team
   end
 
   def price
     @team = @team_season.team
+  end
+
+  def disburse
+    @team_season.disburse_funds
+
+    respond_to do |format|
+      format.html { redirect_to team_path(@team_season.team), notice: 'Funds disbursed' }
+      format.json { head :no_content }
+    end
   end
 
 
@@ -171,19 +183,6 @@ class TeamSeasonsController < ApplicationController
         :format,
         timeframe_ids: []
       )
-    end
-
-    def generate_client_token
-
-      # puts "token below?"
-      # puts current_person.has_payment_info?
-      # puts "token above?"
-
-      if current_person and current_person.has_payment_info?
-        Braintree::ClientToken.generate(customer_id: current_person.braintree_customer_id)
-      else
-        Braintree::ClientToken.generate
-      end
     end
 
 end

@@ -128,3 +128,45 @@ Media Queries
     margin-bottom: 0px;
   }
 }
+
+.card .card-content p.debit-explanation {
+  margin-bottom: 25px;
+}
+
+
+.card-icon {
+  position: absolute;
+  display: block;
+  right: 1.5em;
+  top: 37%;
+  margin-top: -10px;
+  width: 28px;
+  height: 19px;
+  background: url('https://d2fz1tzabfzgo4.cloudfront.net/demos/cards/card.svg') center center;
+  background-size: 100%;
+}
+
+
+.cc-num.visa + .card-icon {
+  background: url('https://d2fz1tzabfzgo4.cloudfront.net/demos/cards/visa.png') no-repeat center center;
+}
+
+.cc-num.amex + .card-icon {
+  background: url('https://d2fz1tzabfzgo4.cloudfront.net/demos/cards/amex.png') no-repeat center center;
+}
+
+.cc-num.mastercard + .card-icon {
+  background: url('https://d2fz1tzabfzgo4.cloudfront.net/demos/cards/mastercard.png') no-repeat center center;
+}
+
+.cc-num.diners + .card-icon {
+  background: url('https://d2fz1tzabfzgo4.cloudfront.net/demos/cards/diners.png') no-repeat center center;
+}
+
+.cc-num.discover + .card-icon {
+  background: url('https://d2fz1tzabfzgo4.cloudfront.net/demos/cards/discover.png') no-repeat center center;
+}
+
+.payment-errors {
+  color: tomato;
+}

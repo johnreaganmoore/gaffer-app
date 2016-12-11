@@ -1,5 +1,10 @@
 class Person < ApplicationRecord
   include ActionView::Helpers::NumberHelper
+
+  require "stripe"
+  Stripe.api_key = ENV['stripe_api_key']
+
+
   # Include default devise modules. Others available are:
   # :lockable
   devise :invitable, :database_authenticatable, :registerable,
@@ -20,7 +25,7 @@ class Person < ApplicationRecord
 
   # after_initialize :ensure_avatar
   after_update :ensure_avatar
-  after_update :new_sub_merchant?
+  after_update :new_managed_account?
 
   def self.from_omniauth(auth)
 
@@ -39,14 +44,35 @@ class Person < ApplicationRecord
   end
 
   def has_payment_info?
-    braintree_customer_id
+    customer_id
   end
 
-  def purchase_season(team_season, nonce)
+  # Cost is cost in cents integer
+  # service_fee_rate is the percentage we are charging as the onside fee as a decimal
+  # discount_rate is the percentage of the fee we are taking off as a decimal(eg 100% discount = 1.0, 50% off = 0.5)
+  def payment_composition(cost, service_fee_rate, discount_rate)
 
-    # base_cost = team_season.new_player_cost
-    # service_fee = team_season.new_player_cost * 0.10
-    # total_cost = base_cost + service_fee
+    adjusted_fee_rate = service_fee_rate * (1 - discount_rate)
+    # fee_multiplier = 1 + adjusted_fee_rate
+    service_fee = (cost * adjusted_fee_rate).round(-2).to_i
+
+    charge_amount = cost + service_fee
+    stripe_fee = (charge_amount * ENV['stripe_percentage'].to_f).ceil + ENV['stripe_flat'].to_i
+    onside_net = service_fee - stripe_fee
+
+    composition = {
+      charge_amount: charge_amount.to_i,
+      season_fee: cost,
+      service_fee: service_fee,
+      stripe_fee: stripe_fee,
+      onside_net: onside_net
+    }
+
+    # puts composition.inspect
+
+  end
+
+  def purchase_season(team_season)
 
     season_participation = self.season_participations.where(team_season_id: team_season.id).first
     if season_participation != nil
@@ -69,99 +95,61 @@ class Person < ApplicationRecord
       # Process a transaction for the balance of the amount for the season and update the SeasonParticipation accordingly
       amount_owed = team_season.new_player_cost - amount_paid
 
-      service_fee = (amount_owed * 0.10).round
-      raw_cost = amount_owed + service_fee
-      total_cost = number_with_precision(raw_cost, precision: 2)
+      # charge_amount = (amount_owed * 1.10).round + ENV['stripe_flat'].to_i
+      # stripe_fee = (charge_amount * ENV['stripe_percentage'].to_f).ceil + ENV['stripe_flat'].to_i
+      # service_fee = (charge_amount - (amount_owed + stripe_fee)).to_i
 
-      # Make payment
-      payment_params = {
-        amount: total_cost,
-        fee_amount: service_fee,
-        merchant_account_id: team_season.treasurer.id,
-        payment_method_nonce: nonce
-      }
-      result = self.pay(payment_params)
+      comp = self.payment_composition(amount_owed, 0.1, 0)
+
+      customer = Stripe::Customer.retrieve(self.customer_id)
+
+      # token = Stripe::Token.create(
+      #   {:customer => customer.id, :card => customer.default_source},
+      #   {:stripe_account => team_season.treasurer.merchant_account_id} # id of the connected account
+      # )
+
+
+      result = Stripe::Charge.create({
+        amount: comp[:charge_amount],
+        currency: "usd",
+        # source: token.id,
+        customer: customer.id,
+        description: "Season Fee",
+        application_fee: comp[:service_fee], # amount in cents
+        destination: team_season.treasurer.merchant_account_id
+        }
+      )
 
       # if payment goes through increment their paid amount.
-      if result.success?
+      if result.status == "succeeded"
+
         #Increment existing season
         if season_participation != nil
           season_participation.amount_paid = amount_paid + amount_owed
+          season_participation.transactions.push(result.id)
           season_participation.save
         else
         # Create season participation
-          SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed)
+          SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed, transactions: [result.id])
           self.teams.push(team_season.team)
         end
       end
       return result
+
     end
 
   end
 
-  def new_sub_merchant?
-    if self.date_of_birth_changed?(from: nil)
+  def new_managed_account?
+
+    if self.date_of_birth_changed?(from: nil) && self.merchant_account_id == nil
       puts "Trying to create sub merchant"
-      create_sub_merchant
+      # create_sub_merchant
+      result = create_managed_account
+      self.merchant_account_id = result.id
+      self.save
     end
-  end
 
-  def create_sub_merchant
-    merchant_account_params = {
-      :individual => {
-        :first_name => self.first_name,
-        :last_name => self.last_name,
-        :email => self.email,
-        :date_of_birth => self.date_of_birth,
-        :address => {
-          :street_address => self.street_address,
-          :locality => self.locality,
-          :region => self.region,
-          :postal_code => self.postal_code
-        }
-      },
-      :funding => {
-        :descriptor => "Onside - Soccer Team Management App",
-        :destination => Braintree::MerchantAccount::FundingDestination::Email,
-        :email => self.email,
-        # :mobile_phone => self.phone,
-        # :account_number => "1123581321",
-        # :routing_number => "071101307"
-      },
-      :tos_accepted => true,
-      :master_merchant_account_id => "letsgoteam",
-      :id => self.id
-    }
-    result = Braintree::MerchantAccount.create(merchant_account_params)
-
-    puts "result"
-    puts result.inspect
-  end
-
-  def update_sub_merchant
-    result = Braintree::MerchantAccount.update(
-      self.id,
-      :individual => {
-        :first_name => self.first_name,
-        :last_name => self.last_name,
-        :email => self.email,
-        :date_of_birth => self.date_of_birth,
-        :address => {
-          :street_address => self.street_address,
-          :locality => self.locality,
-          :region => self.region,
-          :postal_code => self.postal_code
-        }
-      },
-      :funding => {
-        :email => self.email,
-      },
-    )
-    if result.success?
-      p "Merchant account successfully updated"
-    else
-      p result.errors
-    end
   end
 
   def self.create_with_temp_pass(first_name, last_name, email)
@@ -178,55 +166,84 @@ class Person < ApplicationRecord
   end
 
 
+  def create_customer(token)
 
-  def pay(p)
-    unless self.has_payment_info?
-      pay_and_create_customer(p[:amount], p[:fee_amount], p[:merchant_account_id], p[:payment_method_nonce])
-    else
-      pay_without_vaulting(p[:amount], p[:fee_amount], p[:merchant_account_id], p[:payment_method_nonce])
-    end
+    result = Stripe::Customer.create(
+      email: self.email,
+      description: "Customer for #{self.email}",
+      source: token # obtained with Stripe.js
+    )
+
+    puts result
+
+    self.customer_id = result.id
+    self.save
   end
 
-  def pay_and_create_customer(
-    amount,
-    fee_amount,
-    merchant_account_id,
-    payment_method_nonce
-    )
-    Braintree::Transaction.sale(
-      merchant_account_id: merchant_account_id,
-      amount: amount,
-      service_fee_amount: fee_amount,
-      payment_method_nonce: payment_method_nonce,
-      customer: {
+  def create_managed_account
+    account_props = {
+      managed: true,
+      transfer_schedule: {
+        interval: "manual"
+      },
+      country: 'US',
+      email: self.email,
+      legal_entity: {
+        type: "individual",
+        address: {
+          city: self.locality,
+          country: 'US',
+          line1: self.street_address,
+          line2: "",
+          postal_code: self.postal_code,
+          state: self.region
+        },
+        dob: {
+          day: self.date_of_birth.strftime("%d").to_i,
+          month: self.date_of_birth.strftime("%m").to_i,
+          year: self.date_of_birth.strftime("%Y").to_i
+        },
         first_name: self.first_name,
         last_name: self.last_name,
-        email: self.email
-      },
-      options: {
-        store_in_vault: true,
-        submit_for_settlement: true,
-        hold_in_escrow: true
       }
-    )
+
+    }
+    result = Stripe::Account.create(account_props)
   end
 
-  def pay_without_vaulting(
-    amount,
-    fee_amount,
-    merchant_account_id,
-    payment_method_nonce
+  def add_external_account
+
+    customer = Stripe::Customer.retrieve(self.customer_id)
+
+    token = Stripe::Token.create(
+      {:customer => customer.id, :card => customer.default_source},
+      {:stripe_account => self.merchant_account_id} # id of the connected account
     )
-    Braintree::Transaction.sale(
-      merchant_account_id: merchant_account_id,
-      amount: amount,
-      service_fee_amount: fee_amount,
-      payment_method_nonce: payment_method_nonce,
-      options: {
-        submit_for_settlement: true,
-        hold_in_escrow: true
-      }
+
+    account = Stripe::Account.retrieve(self.merchant_account_id)
+    account.external_accounts.create(
+      external_account: token.id,
+      default_for_currency: true
     )
+
+  end
+
+  def record_accept_terms(ip)
+    account = Stripe::Account.retrieve(self.merchant_account_id)
+    account.tos_acceptance.date = Time.now.to_i
+    account.tos_acceptance.ip = ip # Assumes you're not using a proxy
+    account.save
+  end
+
+  def last_four
+    account = Stripe::Account.retrieve(self.merchant_account_id)
+
+    account.external_accounts.data.each do |account|
+      if account.default_for_currency == true
+        return account.last4
+      end
+    end
+
   end
 
   protected
@@ -236,22 +253,12 @@ class Person < ApplicationRecord
   end
 
   def ensure_avatar
-
-    puts "Ensuring avatar"
-    # puts self.inspect
-    # puts "previous line is avatar"
-    #
-    # puts "File thingy will run"
     image_file = File.open("app/assets/images/anonymous_material.png", "rb")
 
     if self.avatar.file.nil?
       self.avatar = image_file
       self.save
     end
-
-
-
-    puts self.inspect
   end
 
 end

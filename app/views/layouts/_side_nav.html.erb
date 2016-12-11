@@ -35,14 +35,27 @@
   </li>
 
   <li><a class="subheader">Teams</a></li>
-  <li><div class="divider sans-margin"></div></li>
-  <li><a href="<%= new_team_path %>"><i class="material-icons">add_circle</i>Create New Team</a></li>
   <% current_person.teams.each do |team| %>
+    <li><div class="divider sans-margin"></div></li>
     <li>
       <a class="waves-effect team-menu-item" href="<%= team_path(team) %>">
-        <img class="circle" src="<%= team.logo.avatar %>">
+        <%= image_tag "#{team.display_logo}", class: "circle team-logo-img set-bg-elem" %>
         <%= team.name %>
       </a>
     </li>
+    <% team.team_seasons.each do |team_season| %>
+      <li>
+        <a class="waves-effect team-menu-item" href="<%= preview_season_path(team_season) %>">
+          <i class="material-icons" style="color: <%= team_season.team.color %>;">event_available</i>
+          <% timeframe_array = [] %>
+          <% team_season.season.timeframes.each do |timeframe| %>
+            <% timeframe_array.push(timeframe.friendly_label)  %>
+          <% end %>
+          <%= timeframe_array.to_sentence  %>
+        </a>
+      </li>
+    <% end %>
+    <li><div class="divider sans-margin"></div></li>
   <% end %>
+  <li><a href="<%= new_team_path %>"><i class="material-icons">add_circle</i>Create New Team</a></li>
 </ul>
