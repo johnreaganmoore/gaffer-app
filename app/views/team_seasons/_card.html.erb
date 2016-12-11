@@ -21,7 +21,7 @@
     </div>
     <div class="season-dates">
       <% if @team_season.season.start_date != nil %>
-        <span><%= @team_season.season.start_date.strftime("%B #{@team_season.season.start_date.day.ordinalize}") %> to <%= @team_season.season.end_date.strftime("%B #{@team_season.season.end_date.day.ordinalize}") %></span>
+        <span>Starts <%= @team_season.season.start_date.strftime("%B #{@team_season.season.start_date.day.ordinalize}") %></span>
       <% end %>
     </div>
 
@@ -116,6 +116,8 @@
     internal: {id: 'season-map'},
 
   }, function(){
+
+    console.log("<%= @team_season.season.default_location.latitude %>")
     markers = handler.addMarkers([
       {
         "lat": "<%= @team_season.season.default_location.latitude %>",

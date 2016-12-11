@@ -23,6 +23,11 @@
 //= require_tree .
 
 $( document ).on('turbolinks:load', function() {
+
+  $(function() {
+    Materialize.updateTextFields();
+  });
+
   $.each( flashMessages, function(key, value){
     $.snackbar({content: value, style: key, timeout: 10000});
   });
@@ -78,8 +83,6 @@ $( document ).on('turbolinks:load', function() {
   // });
   $(".button-collapse").sideNav();
 
-  Materialize.updateTextFields();
-
 })
 
 function maxDate() {
@@ -94,10 +97,20 @@ var loadFile = function(event) {
 };
 
 var loadLogo = function(event) {
-  var logo = document.getElementById('logo');
-  var modalLogo = document.getElementById('edit-modal-logo');
-  logo.src = URL.createObjectURL(event.target.files[0]);
-  modalLogo.src = URL.createObjectURL(event.target.files[0]);
+  // var logo = document.getElementById('logo-header');
+  // var contentLogo = document.getElementById('logo-content');
+  // logo.src = URL.createObjectURL(event.target.files[0]);
+  //
+  // console.log(contentLogo)
+  //
+  // if (contentLogo !== undefined && contentLogo !== null) {
+  //   contentLogo.src = URL.createObjectURL(event.target.files[0]);
+  //   console.log(contentLogo.src)
+  // }
+
+  $('.team-logo-img').each(function () {
+    $(this).attr('src', URL.createObjectURL(event.target.files[0]));
+  });
 
 };
 

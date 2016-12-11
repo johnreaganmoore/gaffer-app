@@ -1,7 +1,7 @@
 <li>
   <div class="collapsible-header team-season-item">
     <div>
-      <i class="material-icons" style="color: <%= team.color %>;">event_available</i>
+      <i class="material-icons" style="color: <%= team_season.team.color %>;">event_available</i>
       <% timeframe_array = [] %>
       <% team_season.season.timeframes.each do |timeframe| %>
         <% timeframe_array.push(timeframe.friendly_label)  %>
@@ -9,7 +9,7 @@
       <%= timeframe_array.to_sentence  %>
       <% if team_season.season.start_date != nil %>
          starting
-        <%= team_season.season.start_date.strftime("%B #{team_season.season.start_date.day.ordinalize}") %>
+        <%= team_season.season.start_date.strftime("%b #{team_season.season.start_date.day.ordinalize}") %>
       <% end %>
     </div>
     <div>
@@ -33,7 +33,7 @@
   </div>
   <div class="collapsible-body">
     <!-- <div class="card-panel"> -->
-      <%= render 'team_seasons/collapsible_item_body', team_season: team_season, team: team %>
+      <%= render 'team_seasons/collapsible_item_body', team_season: team_season, team: team_season.team %>
     <!-- </div> -->
   </div>
 </li>

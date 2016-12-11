@@ -61,6 +61,15 @@ class TeamSeasonsController < ApplicationController
     @team = @team_season.team
   end
 
+  def disburse
+    @team_season.disburse_funds
+
+    respond_to do |format|
+      format.html { redirect_to team_path(@team_season.team), notice: 'Funds disbursed' }
+      format.json { head :no_content }
+    end
+  end
+
 
   # GET /teams/new
   def new

@@ -152,64 +152,6 @@ class Person < ApplicationRecord
 
   end
 
-  def create_sub_merchant
-    merchant_account_params = {
-      :individual => {
-        :first_name => self.first_name,
-        :last_name => self.last_name,
-        :email => self.email,
-        :date_of_birth => self.date_of_birth,
-        :address => {
-          :street_address => self.street_address,
-          :locality => self.locality,
-          :region => self.region,
-          :postal_code => self.postal_code
-        }
-      },
-      :funding => {
-        :descriptor => "Onside - Soccer Team Management App",
-        :destination => Braintree::MerchantAccount::FundingDestination::Email,
-        :email => self.email,
-        # :mobile_phone => self.phone,
-        # :account_number => "1123581321",
-        # :routing_number => "071101307"
-      },
-      :tos_accepted => true,
-      :master_merchant_account_id => "letsgoteam",
-      :id => self.id
-    }
-    result = Braintree::MerchantAccount.create(merchant_account_params)
-
-    puts "result"
-    puts result.inspect
-  end
-
-  def update_sub_merchant
-    result = Braintree::MerchantAccount.update(
-      self.id,
-      :individual => {
-        :first_name => self.first_name,
-        :last_name => self.last_name,
-        :email => self.email,
-        :date_of_birth => self.date_of_birth,
-        :address => {
-          :street_address => self.street_address,
-          :locality => self.locality,
-          :region => self.region,
-          :postal_code => self.postal_code
-        }
-      },
-      :funding => {
-        :email => self.email,
-      },
-    )
-    if result.success?
-      p "Merchant account successfully updated"
-    else
-      p result.errors
-    end
-  end
-
   def self.create_with_temp_pass(first_name, last_name, email)
     temp_password = Devise.friendly_token.first(8)
 
@@ -293,54 +235,15 @@ class Person < ApplicationRecord
     account.save
   end
 
-  def pay(p)
-    unless self.has_payment_info?
-      pay_and_create_customer(p[:amount], p[:fee_amount], p[:merchant_account_id], p[:payment_method_nonce])
-    else
-      pay_without_vaulting(p[:amount], p[:fee_amount], p[:merchant_account_id], p[:payment_method_nonce])
+  def last_four
+    account = Stripe::Account.retrieve(self.merchant_account_id)
+
+    account.external_accounts.data.each do |account|
+      if account.default_for_currency == true
+        return account.last4
+      end
     end
-  end
 
-  def pay_and_create_customer(
-    amount,
-    fee_amount,
-    merchant_account_id,
-    payment_method_nonce
-    )
-    Braintree::Transaction.sale(
-      merchant_account_id: merchant_account_id,
-      amount: amount,
-      service_fee_amount: fee_amount,
-      payment_method_nonce: payment_method_nonce,
-      customer: {
-        first_name: self.first_name,
-        last_name: self.last_name,
-        email: self.email
-      },
-      options: {
-        store_in_vault: true,
-        submit_for_settlement: true,
-        hold_in_escrow: true
-      }
-    )
-  end
-
-  def pay_without_vaulting(
-    amount,
-    fee_amount,
-    merchant_account_id,
-    payment_method_nonce
-    )
-    Braintree::Transaction.sale(
-      merchant_account_id: merchant_account_id,
-      amount: amount,
-      service_fee_amount: fee_amount,
-      payment_method_nonce: payment_method_nonce,
-      options: {
-        submit_for_settlement: true,
-        hold_in_escrow: true
-      }
-    )
   end
 
   protected

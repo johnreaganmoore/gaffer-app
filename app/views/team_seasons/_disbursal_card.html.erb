@@ -1,0 +1,13 @@
+<div class="card">
+  <div class="card-title with-actions">
+    <span>Payment</span><span class="details"><%= number_to_currency(team_season.total_paid / 100.0) %> / <%= number_to_currency(team_season.cost / 100.0) %></span>
+  </div>
+  <div class="card-content">
+
+    <div class="disbursal-detail"><span>Current Balance:</span><span><%= number_to_currency(team_season.total_paid / 100.0) %></span></div>
+
+  </div>
+  <div class="card-action edit-profile-actions">
+    <%= link_to "Disburse Funds", disburse_path(team_season), class: "btn waves-effect waves-light", target: "_blank" %>
+  </div>
+</div>

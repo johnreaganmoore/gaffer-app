@@ -1,88 +1,28 @@
 <div class="card">
   <div class="card-content">
-    <span class="card-title">Team Treasuer Info</span>
-    <h6>
+    <span class="card-title">Team Treasuer</span>
+    <!-- <h6>
       In order to collect online payments for this season we need some
        information from the person who will be responsible
         for collecting the money and paying the league.
-    </h6>
+    </h6> -->
+
     <hr class="faint">
-      <div class="section-block">
-
-        <div class="detail-item">
-          <span class="detail-label">First Name: </span>
-          <% if person.first_name != nil %>
-            <span class="detail-value"><%= person.first_name %></span>
-          <% else %>
-            <span class="detail-value">Unknown</span>
-          <% end %>
-        </div>
-
-        <div class="detail-item">
-          <span class="detail-label">Last Name: </span>
-          <% if person.last_name != nil %>
-            <span class="detail-value"><%= person.last_name %></span>
-          <% else %>
-            <span class="detail-value">Unknown</span>
-          <% end %>
-        </div>
-
-        <div class="detail-item">
-          <span class="detail-label">Date of Birth: </span>
-          <% if person.date_of_birth != nil %>
-            <span class="detail-value"><%= person.date_of_birth %></span>
-          <% else %>
-            <span class="detail-value">Unknown</span>
-          <% end %>
-        </div>
-
-        <div class="detail-item">
-          <span class="detail-label">Email: </span>
-          <% if person.email != nil %>
-            <span class="detail-value"><%= person.email %></span>
-          <% else %>
-            <span class="detail-value">Unknown</span>
-          <% end %>
-        </div>
-
-        <div class="detail-item">
-          <span class="detail-label">Street Address: </span>
-          <% if person.street_address != nil %>
-            <span class="detail-value"><%= person.street_address %></span>
-          <% else %>
-            <span class="detail-value">Unknown</span>
-          <% end %>
-        </div>
-
-        <div class="detail-item">
-          <span class="detail-label">City: </span>
-          <% if person.locality != nil %>
-            <span class="detail-value"><%= person.locality %></span>
-          <% else %>
-            <span class="detail-value">Unknown</span>
-          <% end %>
-        </div>
-
-        <div class="detail-item">
-          <span class="detail-label">State: </span>
-          <% if person.region != nil %>
-            <span class="detail-value"><%= person.region %></span>
-          <% else %>
-            <span class="detail-value">Unknown</span>
-          <% end %>
-        </div>
-
-        <div class="detail-item">
-          <span class="detail-label">Zip Code: </span>
-          <% if person.postal_code != nil %>
-            <span class="detail-value"><%= person.postal_code %></span>
-          <% else %>
-            <span class="detail-value">Unknown</span>
-          <% end %>
-        </div>
+    <div class="section-block">
+      <div class="treasurer-line">
+        <span class="person">
+          <img class="circle avatar" src="<%= person.avatar %>">
+          <span class="name"><%= person.first_name %></span>
+          <span class="name"><%= person.last_name %></span>
+        </span>
+        <span>
+          <span class="card-ending">Card Ending &#8226;&#8226;&#8226;&#8226;</span>
+            <%= person.last_four %>
+        </span>
+      </div>
     </div>
   </div>
   <div class="card-action edit-profile-actions">
-    <a class="waves-effect waves-light btn modal-trigger" href="#payment-details-modal">Edit Treasurer Details</a>
+    <a class="waves-effect waves-light btn modal-trigger" href="#payment-details-modal">Edit Treasurer</a>
   </div>
 </div>

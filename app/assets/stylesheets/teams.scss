@@ -55,7 +55,7 @@ a {
     .edit-team-link {
       color: $light-font;
       position: absolute;
-      top: 30px;
+      top: 24px;
       margin-left: 15px;
       font-size: 1rem;
       line-height: 15px;
@@ -116,11 +116,18 @@ a {
 
 
   .section__circle--big {
-    position: absolute;
-    top: -75px;
-    left: calc(50% - 75px);
-    border: 10px solid white;
+    // position: absolute;
+    // top: -75px;
+    // left: calc(50% - 75px);
+    // border: 10px solid white;
+    border: none;
     box-shadow: 0 2px 5px 0 rgba(0, 0, 0, 0.16), 0 2px 10px 0 rgba(0, 0, 0, 0.12);
+  }
+
+  .profile-avatar {
+    display: flex;
+    justify-content: center;
+    margin-bottom: 0px;
   }
 
 }
@@ -162,6 +169,8 @@ ul.collapsible.team {
 .team-season-item {
   display: flex;
   justify-content: space-between;
+  padding-top: 0.5rem;
+  padding-bottom: 0.5rem;
 }
 
 .season-details-section {
@@ -186,4 +195,60 @@ ul.collapsible.team {
       color: $dark-font;
     }
   }
+}
+
+
+nav .nav-wrapper {
+    padding-right: 48px;
+}
+
+.team-header-emblem {
+  display: flex;
+  justify-content: center;
+
+
+  .team-logo-container {
+    display: flex;
+    justify-content: center;
+    margin-right: 0.8rem;
+  }
+
+  .large-avatar {
+    display: flex;
+    justify-content: center;
+    border: none;
+  }
+
+  .team-name {
+
+  }
+
+
+  @media only screen and (max-width : $breakpoint-tablet) {
+    display: flex;
+    align-items: center;
+
+
+    .team-logo-container {
+      display: block;
+    }
+
+    .large-avatar {
+      height: 42px;
+      width: 42px;
+    }
+
+    .team-name {
+      .edit-team-link {
+        right: -48px;
+        top: 28px;
+      }
+    }
+
+    .team-logo-container.email {
+      display: none;
+    }
+
+  }
+
 }

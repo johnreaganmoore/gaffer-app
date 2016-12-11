@@ -1,3 +1,17 @@
-<div class="nav-wrapper" style="background-color: <%= bg_color %>">
+<div class="nav-wrapper set-bg-elem" style="background-color: <%= bg_color %>">
   <a href="#" data-activates="slide-out" class="button-collapse"><i class="material-icons">menu</i></a>
+
+  <% if @team && @team.id != nil %>
+    <a href="<%= team_path(@team) %>" class="team-header-emblem">
+      <div class="team-logo-container">
+        <div class="section__circle--big large-avatar set-bg-elem">
+            <%= image_tag "#{@team.display_logo}", class: "team-logo-img" %>
+        </div>
+      </div>
+      <div class="center-align team-name">
+        <span class="flow-text"><%= @team.name %></span>
+      </div>
+    </a>
+  <% end %>
+
 </div>

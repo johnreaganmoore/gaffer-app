@@ -3,4 +3,6 @@ $("#color-setter-container").html("<%= escape_javascript(render partial: 'layout
 $("#nav-container").html("<%= escape_javascript(render partial: 'layouts/header', locals: { bg_color: @team.color } ) %>");
 $("#side-nav-container").html("<%= escape_javascript(render partial: 'layouts/side_nav', locals: { bg_color: @team.color } ) %>");
 
-$("#season-cost-card-container").html("<%= escape_javascript(render partial: 'onboarding/season_cost_card', locals: { team: @team,  team_season: @team_season, payment: @payment } ) %>");
+if (false != true) {
+  $("#season-cost-card-container").html("<%= escape_javascript(render partial: 'onboarding/season_cost_card', locals: { team: @team,  team_season: @team_season, payment: @payment } ) %>");
+}

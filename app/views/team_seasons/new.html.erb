@@ -41,9 +41,15 @@
           </div>
 
           <div class="input-field col s12 m6 l6">
+            <%= collection_select(:season, :timeframe_ids,
+            Timeframe.all,
+            :id, :friendly_label, {selected: @season.timeframe_ids, prompt: "Select timeframe(s)"}, {multiple: true}) %>
+          </div>
+
+          <!-- <div class="input-field col s12 m6 l6">
             <%= f.text_field :website %>
             <%= f.label :season_website %>
-          </div>
+          </div> -->
         </div>
 
         <div class="row">
@@ -53,8 +59,8 @@
           </div>
 
           <div class="input-field col s12 m6 l6">
-            <%= f.date_field :end_date, class: "datepicker season-date" %>
-            <%= f.label :season_end_date %>
+            <%= f.text_field :total_games %>
+            <%= f.label :total_number_of_games%>
           </div>
         </div>
 
@@ -63,14 +69,6 @@
             <%= f.text_field :cost %>
             <%= f.label :season_cost %>
           </div>
-
-          <div class="input-field col s12 m6 l6">
-            <%= f.text_field :total_games %>
-            <%= f.label :total_number_of_games%>
-          </div>
-        </div>
-
-        <div class="row">
 
           <% @season.team_seasons.each do |t_season| %>
             <% if t_season === @team_season %>
@@ -87,7 +85,8 @@
             <% end %>
           <% end %>
 
-      </div>
+        </div>
+
     </div>
     <div class="card-action edit-profile-actions">
       <%= button_tag(type: 'submit', class: "modal-action modal-close btn waves-effect waves-light") do %>

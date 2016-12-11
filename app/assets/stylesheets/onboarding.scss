@@ -18,6 +18,7 @@
 .profile-header {
   width: 100%;
   padding-top: 50px;
+  position: relative;
 }
 
 .profile-avatar {
@@ -104,9 +105,8 @@
 
 .checkout-edit-team-link {
   color: $light-font;
-  position: absolute;
-  top: 25px;
-  margin-left: 100px;
+  margin-top: 8px;
+  margin-left: 1rem;
   font-size: 1rem;
   line-height: 15px;
   border: 1px solid $faint;

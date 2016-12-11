@@ -37,6 +37,14 @@ class Team < ApplicationRecord
     self.team_seasons.where(status: "archived")
   end
 
+  def display_logo
+    if self.logo.file != nil
+      return self.logo
+    else
+      puts "Logo should be sad face"
+      return self.name[0].upcase
+    end
+  end
 
 
   def player_avatars
