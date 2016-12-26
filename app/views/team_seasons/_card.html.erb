@@ -61,7 +61,7 @@
         <% if @team_season.cost != nil %>
         <div class="detail-item">
           <span class="detail-label">Cost: </span>
-            <span class="detail-value">$<%= @team_season.cost/@team_season.min_players %></span>
+            <span class="detail-value"><%= number_to_currency(@payment[:charge_amount] / 100.0)  %></span>
         </div>
         <% end %>
         <% if @team_season.season.location != nil %>
@@ -117,7 +117,6 @@
 
   }, function(){
 
-    console.log("<%= @team_season.season.default_location.latitude %>")
     markers = handler.addMarkers([
       {
         "lat": "<%= @team_season.season.default_location.latitude %>",

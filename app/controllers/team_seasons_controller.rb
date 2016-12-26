@@ -15,6 +15,10 @@ class TeamSeasonsController < ApplicationController
   # GET /teams/1.json
   def show
     @team = @team_season.team
+
+    @person = Person.new
+
+    @payment = @person.payment_composition(@team_season.new_player_cost, 0.1, 0)
   end
 
   # GET /teams/1/edit
@@ -63,6 +67,15 @@ class TeamSeasonsController < ApplicationController
 
   def disburse
     @team_season.disburse_funds
+
+    respond_to do |format|
+      format.html { redirect_to team_path(@team_season.team), notice: 'Funds disbursed' }
+      format.json { head :no_content }
+    end
+  end
+
+  def distribute_surplus
+    @team_season.distribute_surplus
 
     respond_to do |format|
       format.html { redirect_to team_path(@team_season.team), notice: 'Funds disbursed' }

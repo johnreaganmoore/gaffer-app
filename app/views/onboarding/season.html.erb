@@ -36,7 +36,7 @@ How Much - Cost
             <h5>Where are you playing?</h5>
             <div class="row">
               <div class="input-field col s12">
-                <%= season_fields.text_field :location%>
+                <%= season_fields.text_field :location, required: true %>
                 <%= season_fields.label :address %>
               </div>
             </div>
@@ -45,7 +45,7 @@ How Much - Cost
             <div class="input-field col s12">
               <%= collection_select(:season, :timeframe_ids,
               Timeframe.all,
-              :id, :friendly_label, {selected: @season.timeframe_ids, prompt: "Select timeframe(s)"}, {multiple: true}) %>
+              :id, :friendly_label, {required: true, selected: @season.timeframe_ids, prompt: "Select timeframe(s)"}, {multiple: true}) %>
             </div>
 
         </div>

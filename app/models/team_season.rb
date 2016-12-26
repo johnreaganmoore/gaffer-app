@@ -36,6 +36,14 @@ class TeamSeason < ApplicationRecord
     ((self.cost * 100)  / self.cost_divisor.to_f).ceil
   end
 
+  def last_player_cost
+    if self.season_participations.length > self.min_players
+      return ((self.cost * 100)  / (self.cost_divisor - 1.0)).ceil
+    else
+      return new_player_cost
+    end
+  end
+
   def cost_divisor
     if self.season_participations.length > self.min_players
       return self.season_participations.length
@@ -71,6 +79,10 @@ class TeamSeason < ApplicationRecord
     self.season_participations.sum(:amount_paid)
   end
 
+  def net_paid
+    self.collective_amount_paid - self.collective_amount_refunded
+  end
+
   def close
     self.status = "closed"
     self.disburse_funds
@@ -78,27 +90,9 @@ class TeamSeason < ApplicationRecord
 
   def disburse_funds
 
-    season_paid_amount = 0
-
-    self.season_participations.each do |participation|
-      refunded = 0
-      if participation.amount_refunded != nil
-        refunded = participation.amount_refunded
-      end
-
-      season_paid_amount += (participation.amount_paid - refunded)
-
-      # participation.transactions.each do |tx|
-      #   charge = Stripe::Charge.retrieve(tx)
-      #   season_paid_amount += (charge.amount - charge.amount_refunded)
-      # end
-    end
-
-
-    Stripe::Transfer.create(
+    transfer = Stripe::Transfer.create(
       {
-        # :stripe_account => self.treasurer.merchant_account_id,
-        :amount => season_paid_amount.to_i,
+        :amount => self.current_balance,
         :currency => "usd",
         :method => "instant",
         :destination => "default_for_currency"
@@ -106,6 +100,73 @@ class TeamSeason < ApplicationRecord
       {:stripe_account => self.treasurer.merchant_account_id}
     )
 
+    self.transfers.push(transfer.id)
+    self.save
+
+  end
+
+  def distribute_surplus
+
+    surplus = self.collective_amount_paid - (self.cost * 10)
+
+    if surplus > 0
+      self.season_participations.each do |participation|
+
+        net_paid = 0
+
+        if participation.amount_refunded == nil
+          net_paid = participation.amount_paid
+        else
+          net_paid = participation.amount_paid - participation.amount_refunded
+        end
+
+        refund_amount = (net_paid - self.new_player_cost).to_i
+        refund_response = participation.person.refund(participation.transactions[0], refund_amount)
+
+      end
+
+      return { message: "Surplus distributed" }
+    else
+      return { message: "There is no surplus" }
+    end
+
+  end
+
+  def collective_amount_paid
+    season_paid_amount = 0
+    self.season_participations.each do |participation|
+      season_paid_amount += (participation.amount_paid)
+    end
+    return season_paid_amount.to_i
+  end
+
+  def collective_amount_refunded
+    season_refunded_amount = 0
+    self.season_participations.each do |participation|
+      if participation.amount_refunded != nil
+        season_refunded_amount += (participation.amount_refunded)
+      end
+    end
+    return season_refunded_amount.to_i
+  end
+
+  def disbursed_amount
+    amount_disbursed = 0
+
+    self.transfers.each do |transfer_id|
+      transfer = Stripe::Transfer.retrieve(transfer_id, {stripe_account: self.treasurer.merchant_account_id})
+
+      net_transferred = transfer.amount - transfer.amount_reversed
+      amount_disbursed += net_transferred
+    end
+
+    return amount_disbursed
+
+  end
+
+  def current_balance
+    balance = self.net_paid - self.disbursed_amount
+    return balance
   end
 
   private

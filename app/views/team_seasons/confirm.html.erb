@@ -1,15 +1,12 @@
-<div class="mini-header"></div>
+<!-- <div class="mini-header"></div> -->
 <div class="main-content container">
   <div class="card team-card confirm">
     <div class="team-logo-container">
       <div class="section__circle--big large-avatar">
-          <img class="team-logo-img" src="<%= @team.logo %>">
+        <%= image_tag "#{@team.display_logo}", class: "team-logo-img" %>
       </div>
     </div>
     <div class="card-content">
-      <!-- <span class="card-title">
-        Here are some of your other teammates and potential teammates.
-      </span> -->
       <p class="flow-text">
         Thanks for joining the <%= @team.name %> this season!
         Meet your teammates:

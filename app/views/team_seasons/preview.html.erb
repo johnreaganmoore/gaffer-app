@@ -5,40 +5,88 @@
       <%= render 'team_seasons/invite_page_link_card', team_season: @team_season %>
     </div>
 
-    <div class="section">
+    <% if current_person == @team_season.treasurer %>
 
-      <div class="card">
-        <div class="card-content">
-          <span class="card-title">Season Details</span>
-          <hr class="faint">
-          <div class="section-block">
-            <div class="section add-more-detail">
-              <div id="season_details_container">
-                <%= render 'seasons/season_details', season: @team_season.season, team_season: @team_season %>
-              </div>
-            </div>
+      <%= render 'team_seasons/disbursal_card', team_season: @team_season %>
+
+      <div class="section">
+        <div class="card collection with-header">
+          <div class="card-title with-actions">
+            <span>Players</span><span class="details"><%= @team_season.season_participations.count %> committed / <%= @team_season.min_players %><span class="hide-on-small-only"> minimum</span></span>
+          </div>
+          <div class="card-content">
+
+            <% @team_season.people.each do |person| %>
+              <li class="collection-item avatar valign-wrapper">
+               <%= link_to profile_path(person) do %>
+                 <% if person.avatar.length > 2 then %>
+                 <img class="circle" src="<%= person.avatar %>">
+                 <% else %>
+                 <i class="material-icons circle valign">account_circle</i>
+                 <% end %>
+               <% end %>
+               <%= link_to profile_path(person) do %>
+                 <span class="valign"><%= person.first_name %> <%= person.last_name %></span>
+               <% end %>
+                <div class="secondary-content valign">
+
+                  <% if person.season_participations.where(team_season_id: @team_season.id).first.amount_paid > @team_season.last_player_cost %>
+                    <span class="secondary-content" style="color: #6FA135;">Refund: <%= number_to_currency((person.season_participations.where(team_season_id: @team_season.id).first.amount_paid - @team_season.last_player_cost) / 100.0)%></span>
+                  <% elsif person.season_participations.where(team_season_id: @team_season.id).first.amount_paid == @team_season.last_player_cost %>
+                    <span class="secondary-content" style="color: #6FA135;">Paid</span>
+                  <% else %>
+                    <span class="secondary-content" style="color: tomato;">Unpaid</span>
+                  <% end %>
+                </div>
+              </li>
+            <% end %>
+
+          </div>
+          <div class="card-action edit-profile-actions">
+            <%= link_to "Email Everyone", "#", class: "btn waves-effect waves-light", target: "_blank" %>
           </div>
         </div>
-        <div class="card-action edit-profile-actions">
-          <a class="waves-effect waves-light btn modal-trigger" href="#season-modal">Edit Season Details</a>
+
+        <!-- Modal Structure -->
+        <div id="season-modal" class="modal bottom-sheet">
+          <%= render 'season_modal_form', season: @team_season.season, team_season: @team_season %>
+        </div>
+
+
+        <div id="payment_details_container" class="section">
+          <%= render 'profiles/payment_details', person: @team_season.treasurer, last_four: "1234" %>
+        </div>
+
+        <!-- Modal Structure -->
+        <div id="payment-details-modal" class="modal bottom-sheet">
+          <%= render 'payment_details_modal_form', person: @team_season.treasurer %>
         </div>
       </div>
+    <% end %>
 
-    <!-- Modal Structure -->
-    <div id="season-modal" class="modal bottom-sheet">
-      <%= render 'season_modal_form', season: @team_season.season, team_season: @team_season %>
+  <div class="card">
+    <div class="card-title with-actions">
+      <span>Season Details</span>
+      <% if current_person == @team_season.treasurer %>
+        <span id="season-edit-icons" class="details">
+          <%= render 'team_seasons/season_edit_icons', team_season: @team_season %>
+        </span>
+      <% end %>
     </div>
-
-    <div id="payment_details_container" class="section">
-      <%= render 'profiles/payment_details', person: @team_season.treasurer, last_four: "1234" %>
+    <div class="card-content">
+      <div id="season_details_container">
+        <%= render 'seasons/season_details', season: @team_season.season, team_season: @team_season %>
+      </div>
     </div>
-
-    <!-- Modal Structure -->
-    <div id="payment-details-modal" class="modal bottom-sheet">
-      <%= render 'payment_details_modal_form', person: @team_season.treasurer %>
-    </div>
-
+      <% if current_person == @team_season.treasurer %>
+        <div class="card-action edit-profile-actions">
+          <a class="modal-trigger btn waves-effect waves-light" href="#season-modal" target="_blank">
+            Edit Season
+          </a>
+        </div>
+      <% end %>
   </div>
+
 </div>
 
 <script>

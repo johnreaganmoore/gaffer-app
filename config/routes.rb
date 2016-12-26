@@ -44,6 +44,7 @@ Rails.application.routes.draw do
   get 'team_seasons/:id/decline', to: 'team_seasons#decline', as: :decline_season
   get 'team_seasons/:id/price', to: 'team_seasons#price', as: :season_price
   get 'team_seasons/:id/disburse', to: 'team_seasons#disburse', as: :disburse
+  get 'team_seasons/:id/dist_surplus', to: 'team_seasons#distribute_surplus', as: :dist_surplus
 
   resources :transactions, only: [:new, :create]
 
