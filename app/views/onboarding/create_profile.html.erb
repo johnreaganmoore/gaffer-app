@@ -26,12 +26,12 @@
 
             <div class="row">
               <div class="input-field col s12 m6 l6">
-                <%= f.text_field :first_name %>
+                <%= f.text_field :first_name, required: true %>
                 <%= f.label :first_name %>
               </div>
 
               <div class="input-field col s12 m6 l6">
-                <%= f.text_field :last_name %>
+                <%= f.text_field :last_name, required: true %>
                 <%= f.label :last_name %>
               </div>
             </div>
@@ -40,12 +40,12 @@
 
             <div class="row">
               <div class="input-field col s12 m6 l6">
-                <%= f.email_field :email %>
+                <%= f.email_field :email, required: true %>
                 <%= f.label :email %>
               </div>
 
               <div class="input-field col s12 m6 l6">
-                <%= f.date_field :date_of_birth, class: "datepicker birthdate" %>
+                <%= f.date_field :date_of_birth, class: "datepicker birthdate", required: true %>
                 <%= f.label :date_of_birth %>
               </div>
             </div>
@@ -54,11 +54,11 @@
 
             <div class="row">
               <div class="input-field col s12 m6 l6">
-                <%= f.text_field :street_address %>
+                <%= f.text_field :street_address, required: true %>
                 <%= f.label :street_address %>
               </div>
               <div class="input-field col s12 m6 l6">
-                <%= f.text_field :locality %>
+                <%= f.text_field :locality, required: true %>
                 <%= f.label :city %>
               </div>
             </div>
@@ -117,12 +117,12 @@
                   ['WV','WV'],
                   ['WI','WI'],
                   ['WY','WY']
-                  ]) %>
+                  ]), required: true %>
                 <%= f.label :state %>
               </div>
 
               <div class="input-field col s12 m6 l6">
-                <%= f.text_field :postal_code %>
+                <%= f.text_field :postal_code, required: true %>
                 <%= f.label :zip %>
               </div>
             </div>

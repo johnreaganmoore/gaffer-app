@@ -10,4 +10,11 @@ class PersonMailer < ApplicationMailer
     mail(to: @person.email, subject: "Welcome to the team")
   end
 
+  def new_team_member(new_player, team_season)
+    @person = new_player
+    @url = preview_season_url(team_season)
+
+    mail(to: team_season.treasurer.email, subject: "New Team Member")
+  end
+
 end

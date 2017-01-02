@@ -13,7 +13,7 @@
             <h5>How much does the season cost for the whole team?</h5>
             <div class="row">
               <div class="input-field col s12">
-                <%= team_season_fields.text_field :cost, id: 'cost' %>
+                <%= team_season_fields.text_field :cost, id: 'cost', required: true %>
                 <%= team_season_fields.label :team_cost %>
               </div>
             </div>
@@ -21,7 +21,7 @@
             <h5>What is the minimum number of players you are willing to play with?</h5>
             <div class="row">
               <div class="input-field col s12">
-                <%= team_season_fields.text_field :min_players, id: 'min_players' %>
+                <%= team_season_fields.text_field :min_players, id: 'min_players', required: true  %>
                 <%= team_season_fields.label :minimum_roster_size %>
               </div>
             </div>
@@ -29,7 +29,7 @@
             <h5>What is the maximum number of players you want on the team?</h5>
             <div class="row">
               <div class="input-field col s12">
-                <%= team_season_fields.text_field :max_players %>
+                <%= team_season_fields.text_field :max_players, required: true  %>
                 <%= team_season_fields.label :max_roster_size %>
               </div>
             </div>

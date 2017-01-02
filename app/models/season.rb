@@ -24,7 +24,7 @@ class Season < ApplicationRecord
 
   def update_default_location
     address = self.location
-    self.default_location.update_attribute(:address, address)
+    self.default_location = Location.create({address: address} )
   end
 
 end

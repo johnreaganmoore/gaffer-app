@@ -94,20 +94,9 @@ class Person < ApplicationRecord
       # Pay balance
       # Process a transaction for the balance of the amount for the season and update the SeasonParticipation accordingly
       amount_owed = team_season.new_player_cost - amount_paid
-
-      # charge_amount = (amount_owed * 1.10).round + ENV['stripe_flat'].to_i
-      # stripe_fee = (charge_amount * ENV['stripe_percentage'].to_f).ceil + ENV['stripe_flat'].to_i
-      # service_fee = (charge_amount - (amount_owed + stripe_fee)).to_i
-
       comp = self.payment_composition(amount_owed, 0.1, 0)
 
       customer = Stripe::Customer.retrieve(self.customer_id)
-
-      # token = Stripe::Token.create(
-      #   {:customer => customer.id, :card => customer.default_source},
-      #   {:stripe_account => team_season.treasurer.merchant_account_id} # id of the connected account
-      # )
-
 
       result = Stripe::Charge.create({
         amount: comp[:charge_amount],
@@ -132,6 +121,7 @@ class Person < ApplicationRecord
         # Create season participation
           SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed, transactions: [result.id])
           self.teams.push(team_season.team)
+          PersonMailer.new_team_member(self, team_season).deliver
         end
       end
       return result
@@ -165,19 +155,16 @@ class Person < ApplicationRecord
     return person
   end
 
-
   def create_customer(token)
-
     result = Stripe::Customer.create(
       email: self.email,
       description: "Customer for #{self.email}",
       source: token # obtained with Stripe.js
     )
 
-    puts result
-
     self.customer_id = result.id
     self.save
+    return self
   end
 
   def create_managed_account
@@ -244,6 +231,13 @@ class Person < ApplicationRecord
       end
     end
 
+  end
+
+  def refund(charge, amount)
+    refund = Stripe::Refund.create(
+      charge: charge,
+      amount: amount
+    )
   end
 
   protected
