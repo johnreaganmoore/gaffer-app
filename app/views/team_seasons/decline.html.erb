@@ -1,12 +1,12 @@
 <!-- <div class="mini-header"></div> -->
 <div class="left-pane hide-on-small-only">
   <div class="broken-leg">
-    <%= image_tag 'sad_face' %>
+    <%= image_tag 'sad_face.svg' %>
     <div class="maybe-next-time">Maybe Next Time!</div>
   </div>
 </div>
 
-<div class="right-pane">
+<div class="right-pane" style="background-color: <%= @team.color %>; padding-top: 1rem; padding-bottom: 1rem;">
   <div class="container">
     <div class="card">
       <div class="card-content">

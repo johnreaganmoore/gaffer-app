@@ -52,7 +52,7 @@ class TeamSeasonsController < ApplicationController
       @person = Person.new
     end
 
-    @payment = @person.payment_composition(@team_season.new_player_cost, 0.1, 0)
+    @payment = @person.payment_composition(@team_season.new_player_cost, 0.05, 0)
 
   end
 

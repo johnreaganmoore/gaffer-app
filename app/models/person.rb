@@ -94,7 +94,8 @@ class Person < ApplicationRecord
       # Pay balance
       # Process a transaction for the balance of the amount for the season and update the SeasonParticipation accordingly
       amount_owed = team_season.new_player_cost - amount_paid
-      comp = self.payment_composition(amount_owed, 0.1, 0)
+      comp = self.payment_composition(amount_owed, 0.05, 0)
+      puts comp
 
       customer = Stripe::Customer.retrieve(self.customer_id)
 
