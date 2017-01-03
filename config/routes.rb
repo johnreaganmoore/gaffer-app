@@ -64,10 +64,10 @@ Rails.application.routes.draw do
 
   get '/tos', to: 'marketing#tos'
 
-  # get "/", to: 'marketing#home'
-  # root to: 'marketing#home'
-  get "/", to: 'marketing#coming_soon'
-  root to: 'marketing#coming_soon'
+  get "/", to: 'marketing#home'
+  root to: 'marketing#home'
+  # get "/", to: 'marketing#coming_soon'
+  # root to: 'marketing#coming_soon'
 
 
 
