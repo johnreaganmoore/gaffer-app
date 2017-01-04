@@ -37,7 +37,7 @@ class OnboardingController < Wicked::WizardController
       @team_season = TeamSeason.find(params[:ts])
       @team = @team_season.team
       @person = current_person
-      @payment = @person.payment_composition(@team_season.new_player_cost, 0.1, 0)
+      @payment = @person.payment_composition(@team_season.new_player_cost, 0.05, 0)
     end
 
 

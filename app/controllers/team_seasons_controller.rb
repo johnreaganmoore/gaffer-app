@@ -69,7 +69,7 @@ class TeamSeasonsController < ApplicationController
     @team_season.disburse_funds
 
     respond_to do |format|
-      format.html { redirect_to team_path(@team_season.team), notice: 'Funds disbursed' }
+      format.html { redirect_to cashed_out_path(@team_season), notice: 'Funds disbursed' }
       format.json { head :no_content }
     end
   end
@@ -78,9 +78,13 @@ class TeamSeasonsController < ApplicationController
     @team_season.distribute_surplus
 
     respond_to do |format|
-      format.html { redirect_to team_path(@team_season.team), notice: 'Funds disbursed' }
+      format.html { redirect_to cashed_out_path(@team_season), notice: 'Funds disbursed' }
       format.json { head :no_content }
     end
+  end
+
+  def cashed_out
+    @team = @team_season.team
   end
 
 

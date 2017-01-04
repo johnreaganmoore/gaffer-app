@@ -11,6 +11,8 @@
   "
 >
 </div> -->
+<script src="//maps.google.com/maps/api/js?key=<%= ENV['google_maps_geocoding'] %>"></script>
+<script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
 <div class="base" style="background-color: <%= @team_season.team.color %>; padding-top: 0.01rem; padding-bottom: 0.5rem">
   <div class="container">
     <%= render 'card', season: @team_season %>

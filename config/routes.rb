@@ -45,6 +45,7 @@ Rails.application.routes.draw do
   get 'team_seasons/:id/price', to: 'team_seasons#price', as: :season_price
   get 'team_seasons/:id/disburse', to: 'team_seasons#disburse', as: :disburse
   get 'team_seasons/:id/dist_surplus', to: 'team_seasons#distribute_surplus', as: :dist_surplus
+  get 'team_seasons/:id/cashed_out', to: 'team_seasons#cashed_out', as: :cashed_out
 
   resources :transactions, only: [:new, :create]
 

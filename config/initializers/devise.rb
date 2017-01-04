@@ -5,7 +5,7 @@ Devise.setup do |config|
 
   # ==> OmniAuth
   config.omniauth :google_oauth2, "1033280359900-io8hbgad47c0dvjp3dlkoqgeud7haevc.apps.googleusercontent.com", "QD2qAg5h2cLXoiODTgSnHbW-"
-  config.omniauth :facebook, "158883847853922", "062f5ab65cb3c9d90c06cc247e3cdd25", callback_url: "http://localhost:3000/auth/facebook/callback", scope: 'email', info_fields: 'email'
+  config.omniauth :facebook, "158883847853922", "062f5ab65cb3c9d90c06cc247e3cdd25", callback_url: "http://#{request.host}/auth/facebook/callback", scope: 'email', info_fields: 'email'
 
 
 

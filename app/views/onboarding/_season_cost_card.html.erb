@@ -39,8 +39,8 @@
 
     <% if team_season.cost != nil %>
       <div class="season-signup">
-        <div class="season-sub-cost"><span>League Fee:</span><span><%= number_to_currency(payment[:season_fee] / 100.0) %></span></div>
-        <div class="season-sub-cost"><span>Team Management Fee:</span><span><%= number_to_currency(payment[:service_fee] / 100.0)  %></span></div>
+        <div class="season-sub-cost"><span>Player Registration Fee:</span><span><%= number_to_currency(payment[:season_fee] / 100.0) %></span></div>
+        <div class="season-sub-cost"><span>Processing Fee:</span><span><%= number_to_currency(payment[:service_fee] / 100.0)  %></span></div>
         <hr>
         <div class="season-total-cost"><span>Season Cost:</span><span><%= number_to_currency(payment[:charge_amount] / 100.0)  %></span></div>
       </div>
