@@ -40,15 +40,27 @@
             <%= @team_season.season.location %>
           </div>
         </div>
-
         <% if @team_season.cost != nil %>
+        <hr>
+        <div class="season-details-row">
+          <i class="material-icons" style="color: <%= @team.color %>;">attach_money</i>
+          <div class="season-details season-signup">
+            <div class="season-total-cost total-only">
+              <span>Registration Cost:</span>
+              <span><%= number_to_currency(@payment[:charge_amount] / 100.0)  %></span>
+            </div>
+          </div>
+        </div>
+        <% end %>
+
+        <!-- <% if @team_season.cost != nil %>
           <div class="season-signup">
             <div class="season-sub-cost"><span>League Fee:</span><span><%= number_to_currency(@payment[:season_fee] / 100.0) %></span></div>
             <div class="season-sub-cost"><span>Team Management Fee:</span><span><%= number_to_currency(@payment[:service_fee] / 100.0)  %></span></div>
             <hr>
-            <div class="season-total-cost"><span>Season Cost:</span><span><%= number_to_currency(@payment[:charge_amount] / 100.0)  %></span></div>
+            <div class="season-total-cost"><span><i class="material-icons" style="color: <%= @team.color %>;">attach_money</i>Player Registration Cost:</span><span><%= number_to_currency(@payment[:charge_amount] / 100.0)  %></span></div>
           </div>
-        <% end %>
+        <% end %> -->
       </div>
     </div>
 

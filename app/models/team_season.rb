@@ -37,7 +37,7 @@ class TeamSeason < ApplicationRecord
   end
 
   def last_player_cost
-    if self.season_participations.length > self.min_players
+    if self.season_participations.length >= self.min_players
       return ((self.cost * 100)  / (self.cost_divisor - 1.0)).ceil
     else
       return new_player_cost
@@ -45,8 +45,8 @@ class TeamSeason < ApplicationRecord
   end
 
   def cost_divisor
-    if self.season_participations.length > self.min_players
-      return self.season_participations.length
+    if self.season_participations.length >= self.min_players
+      return self.season_participations.length + 1
     else
       return self.min_players
     end
@@ -184,7 +184,7 @@ class TeamSeason < ApplicationRecord
     unless self.min_players != nil
       # self.min_players = self.season.format.first.to_i
       # self.save
-      self.min_players = 5
+      self.min_players = 0
     end
   end
 
