@@ -8,7 +8,7 @@
       <!-- <h4>Play Together</h4> -->
     </div>
   </div>
-  <div class="right-pane" style="background-color: #619326">
+  <div class="right-pane">
     <div class="container">
       <div class="card">
       <div class="card-content">
@@ -16,14 +16,14 @@
 
           <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-            <%= link_to(person_facebook_omniauth_authorize_path) do %>
+            <!-- <%= link_to(person_facebook_omniauth_authorize_path) do %>
               <%= button_tag(type: 'button', class: "waves-effect waves-light btn facebook-button") do %>
                 <i class="material-icons left button-icon">
                   <%= image_tag "facebook-icon.svg" %>
                 </i>
                 Sign in with Facebook
               <% end %>
-            <% end %>
+            <% end %> -->
 
             <%= link_to(person_google_oauth2_omniauth_authorize_path) do %>
               <%= button_tag(type: 'button', class: "waves-effect waves-light btn google-button") do %>

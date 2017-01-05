@@ -9,6 +9,7 @@
 
 .right-pane {
   width: 100%;
+  background: $primary-bg;
 }
 
 .left-pane {
@@ -120,7 +121,7 @@
     right: 0px;
     width: 50%;
     min-height: 100%;
-    background: #fafafa;
+    background-color: #619326;
   }
 
   h1 {
