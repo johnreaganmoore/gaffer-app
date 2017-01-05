@@ -7,14 +7,25 @@ When - Timeframe
 How Much - Cost
  -->
 <div class="mini-header"></div>
-<div class="profile-page">
+<!-- <div class="profile-page"> -->
   <div class="container">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <div class="card-title">
+          Create Your Season
+        </div>
+        <p>
+          This info will be included in the season signup page that you share with people, so other players have the info they need to decide to sign up for the season.
+        </p>
+      </div>
+    </div>
+
     <div class="card">
       <%= form_for(@season, url: wizard_path(:season, ts: @team_season.id), method: :put) do |season_fields| %>
         <div class="card-content">
-          <div class="card-title">
+          <!-- <div class="card-title">
             <h3>Create Your Season</h3>
-          </div>
+          </div> -->
 
 
             <h5>How many players in each side? (goalkeeper included)</h5>
@@ -61,7 +72,7 @@ How Much - Cost
       <% end %>
     </div>
   </div>
-</div>
+<!-- </div> -->
 
 <script>
   var placeSearch, autocomplete;
