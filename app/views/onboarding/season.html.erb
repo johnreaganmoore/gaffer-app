@@ -63,6 +63,9 @@ How Much - Cost
               :id, :friendly_label, {required: true, selected: @season.timeframe_ids, prompt: "Select timeframe(s)"}, {multiple: true}) %>
             </div>
 
+            <%= season_fields.hidden_field :location_lat, id: "lat", value: "" %>
+            <%= season_fields.hidden_field :location_long, id: "lng", value: "" %>
+
         </div>
         <div class="edit-profile-actions card-action">
           <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
@@ -94,8 +97,19 @@ How Much - Cost
 
     // When the user selects an address from the dropdown, populate the address
     // fields in the form.
-    // autocomplete.addListener('place_changed', fillInAddress);
+    autocomplete.addListener('place_changed', logGeometry);
   }
+
+  function logGeometry() {
+    console.log(autocomplete.getPlace().geometry.location.lat())
+    console.log(autocomplete.getPlace().geometry.location.lng())
+
+    document.getElementById("lat").value = autocomplete.getPlace().geometry.location.lat();
+    document.getElementById("lng").value = autocomplete.getPlace().geometry.location.lng();
+
+  }
+
+
 
   // function fillInAddress() {
   //   // Get the place details from the autocomplete object.

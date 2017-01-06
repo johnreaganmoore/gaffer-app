@@ -86,7 +86,7 @@ class OnboardingController < Wicked::WizardController
   end
 
   def season_params
-    params.require(:season).permit(:format, :location, timeframe_ids: [])
+    params.require(:season).permit(:format, :location, :location_lat, :location_long, timeframe_ids: [])
   end
 
   def team_season_params

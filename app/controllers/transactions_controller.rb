@@ -38,24 +38,13 @@ class TransactionsController < ApplicationController
     @token = params["stripeToken"]
     @team_season = TeamSeason.find(params["ts"])
 
-
     if current_person
-      puts "Already has current_person"
       @person = current_person
     else
-      puts "creating new person"
       @person = Person.create_with_temp_pass(params["first_name"], params["last_name"], params["email"])
     end
 
-    puts params.inspect
-
-    puts "Token for player_purchase"
-    puts @token
-
     person_with_customer = @person.create_customer(@token)
-    puts "person with custome"
-    puts person_with_customer.inspect
-
 
     self.charge_customer(person_with_customer, @team_season)
 
@@ -66,8 +55,6 @@ class TransactionsController < ApplicationController
 
   def charge_customer(customer, team_season)
     result = customer.purchase_season(@team_season)
-    puts "Result from charging customer"
-    puts result
   end
 
 end
