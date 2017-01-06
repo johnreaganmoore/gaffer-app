@@ -47,6 +47,29 @@
 
 }
 
+ul li.home-list-point {
+  text-align: left;
+  list-style: circle;
+  list-style-position: outside;
+}
+
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+  > .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
 .home-section {
   text-align: center;
 
@@ -73,19 +96,21 @@
 
   .home-sub-section {
     width: 50%;
-    min-width: 350px;
+    min-width: 310px;
     flex-grow: 1;
 
     .home-sub-section-desc {
       padding: 15px;
       p {
+        text-align: left;
         font-size: 16px;
       }
     }
 
     .home-sub-section-img {
+      max-width: 400px;
 
-      border: 1px solid $light-font;
+      // border: 1px solid $light-font;
 
       .gif.team {
         height: 667px;
@@ -111,6 +136,22 @@
         &:hover {
           cursor:pointer;
           background-image: image-url("season_preview.gif");
+        }
+      }
+
+      .gif.sign_up {
+        @include aspect-ratio(413, 733);
+
+
+        // max-height: 667px;
+        max-width: 400px;
+        background-size: 100%;
+        background-image: image-url("sign_up.png");
+        margin: auto; /*position the [div] on the center*/
+
+        &:hover {
+          cursor:pointer;
+          background-image: image-url("sign_up.gif");
         }
       }
 
