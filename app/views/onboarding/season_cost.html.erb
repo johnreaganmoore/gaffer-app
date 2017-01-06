@@ -1,14 +1,32 @@
 <div class="mini-header"></div>
-<div class="profile-page">
+<!-- <div class="profile-page"> -->
   <div class="container">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <div class="card-title">
+          Calculate Cost Per Player
+        </div>
+        <p>
+          Enter the team cost and the smallest number of players you want to commit to the team.<br>
+        </p>
+        <p>
+          The cost per player will be based on the team cost divided by the minimum number of players.<br>
+        </p>
+        <p>
+          If more than the minimum sign up for the team you can refund the difference in the amount paid and the actual cost per player.
+        </p>
+      </div>
+    </div>
+
+
     <div class="card">
     <%= form_for(@team_season, url: wizard_path(:season_cost, ts: @team_season.id), method: :put) do |team_season_fields| %>
 
           <div class="card-content">
 
-            <div class="card-title">
+            <!-- <div class="card-title">
               <h3>Season Cost</h3>
-            </div>
+            </div> -->
 
             <h5>How much does the season cost for the whole team?</h5>
             <div class="row">
@@ -26,13 +44,13 @@
               </div>
             </div>
 
-            <h5>What is the maximum number of players you want on the team?</h5>
+            <!-- <h5>What is the maximum number of players you want on the team?</h5>
             <div class="row">
               <div class="input-field col s12">
                 <%= team_season_fields.text_field :max_players, required: true  %>
                 <%= team_season_fields.label :max_roster_size %>
               </div>
-            </div>
+            </div> -->
 
             <h5>The cost per player will be:</h5>
             <div id="player-cost-container">
@@ -48,7 +66,7 @@
       <% end %>
     </div>
   </div>
-</div>
+<!-- </div> -->
 <script>
   // Closure
   (function() {

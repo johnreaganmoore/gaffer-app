@@ -9,6 +9,7 @@
 
 .right-pane {
   width: 100%;
+  background: $primary-bg;
 }
 
 .left-pane {
@@ -46,6 +47,7 @@
     flex-direction: row;
     justify-content: center;
     padding: 50px;
+    padding-top: 0px;
     padding-bottom: 0px;
     width: 100%;
 
@@ -119,7 +121,7 @@
     right: 0px;
     width: 50%;
     min-height: 100%;
-    background: #fafafa;
+    background-color: #619326;
   }
 
   h1 {

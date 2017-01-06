@@ -7,39 +7,54 @@ When - Timeframe
 How Much - Cost
  -->
 <div class="mini-header"></div>
-<div class="profile-page">
+<!-- <div class="profile-page"> -->
   <div class="container">
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <div class="card-title">
+          Create Your Season
+        </div>
+        <p>
+          This info will be included in the season signup page that you share with people, so other players have the info they need to decide to sign up for the season.
+        </p>
+      </div>
+    </div>
+
     <div class="card">
       <%= form_for(@season, url: wizard_path(:season, ts: @team_season.id), method: :put) do |season_fields| %>
         <div class="card-content">
-          <div class="card-title">
+          <!-- <div class="card-title">
             <h3>Create Your Season</h3>
-          </div>
+          </div> -->
 
 
-            <h5>What are you playing?</h5>
+            <h5>How many players in each side? (goalkeeper included)</h5>
             <div class="input-field col s12">
               <%= season_fields.select :format, options_for_select([
-                ['Select the format', "", {disabled: true, selected: true}],
-                ['3 v 3', '3 v 3'],
-                ['4 v 4','4 v 4'],
-                ['5 v 5','5 v 5'],
-                ['6 v 6','6 v 6'],
-                ['7 v 7','7 v 7'],
-                ['8 v 8','8 v 8'],
-                ['9 v 9','9 v 9'],
+                ['11 v 11', "11 v 11", {disabled: false, selected: true}],
                 ['10 v 10','10 v 10'],
-                ['11 v 11','11 v 11']
+                ['9 v 9','9 v 9'],
+                ['8 v 8','8 v 8'],
+                ['7 v 7','7 v 7'],
+                ['6 v 6','6 v 6'],
+                ['5 v 5','5 v 5'],
+                ['4 v 4','4 v 4'],
+                ['3 v 3', '3 v 3'],
                 ]) %>
             </div>
 
             <h5>Where are you playing?</h5>
             <div class="row">
               <div class="input-field col s12">
-                <%= season_fields.text_field :location, required: true %>
-                <%= season_fields.label :address %>
+                <%= season_fields.text_field :location, id: "autocomplete", required: true, onFocus: "geolocate()", placeholder: "Enter a location" %>
+                <%= season_fields.label :season_location %>
               </div>
             </div>
+
+            <!-- <div id="locationField">
+              <input id="autocomplete" placeholder="Address"
+                     onFocus="geolocate()" type="text"></input>
+            </div> -->
 
             <h5>When are the games?</h5>
             <div class="input-field col s12">
@@ -47,6 +62,9 @@ How Much - Cost
               Timeframe.all,
               :id, :friendly_label, {required: true, selected: @season.timeframe_ids, prompt: "Select timeframe(s)"}, {multiple: true}) %>
             </div>
+
+            <%= season_fields.hidden_field :location_lat, id: "lat", value: "" %>
+            <%= season_fields.hidden_field :location_long, id: "lng", value: "" %>
 
         </div>
         <div class="edit-profile-actions card-action">
@@ -57,4 +75,80 @@ How Much - Cost
       <% end %>
     </div>
   </div>
-</div>
+<!-- </div> -->
+
+<script>
+  var placeSearch, autocomplete;
+  // var componentForm = {
+  //   street_number: 'short_name',
+  //   route: 'long_name',
+  //   locality: 'long_name',
+  //   administrative_area_level_1: 'short_name',
+  //   country: 'long_name',
+  //   postal_code: 'short_name'
+  // };
+
+  function initAutocomplete() {
+    // Create the autocomplete object, restricting the search to geographical
+    // location types.
+    autocomplete = new google.maps.places.Autocomplete(
+        /** @type {!HTMLInputElement} */(document.getElementById('autocomplete')),
+        {types: []});
+
+    // When the user selects an address from the dropdown, populate the address
+    // fields in the form.
+    autocomplete.addListener('place_changed', logGeometry);
+  }
+
+  function logGeometry() {
+    console.log(autocomplete.getPlace().geometry.location.lat())
+    console.log(autocomplete.getPlace().geometry.location.lng())
+
+    document.getElementById("lat").value = autocomplete.getPlace().geometry.location.lat();
+    document.getElementById("lng").value = autocomplete.getPlace().geometry.location.lng();
+
+  }
+
+
+
+  // function fillInAddress() {
+  //   // Get the place details from the autocomplete object.
+  //   var place = autocomplete.getPlace();
+  //
+  //   for (var component in componentForm) {
+  //     document.getElementById(component).value = '';
+  //     document.getElementById(component).disabled = false;
+  //   }
+  //
+  //   // Get each component of the address from the place details
+  //   // and fill the corresponding field on the form.
+  //   for (var i = 0; i < place.address_components.length; i++) {
+  //     var addressType = place.address_components[i].types[0];
+  //     if (componentForm[addressType]) {
+  //       var val = place.address_components[i][componentForm[addressType]];
+  //       document.getElementById(addressType).value = val;
+  //     }
+  //   }
+  // }
+
+  // Bias the autocomplete object to the user's geographical location,
+  // as supplied by the browser's 'navigator.geolocation' object.
+  function geolocate() {
+    if (navigator.geolocation) {
+      navigator.geolocation.getCurrentPosition(function(position) {
+        var geolocation = {
+          lat: position.coords.latitude,
+          lng: position.coords.longitude
+        };
+
+        var circle = new google.maps.Circle({
+          center: geolocation,
+          radius: position.coords.accuracy
+        });
+        autocomplete.setBounds(circle.getBounds());
+      });
+    }
+  }
+</script>
+<script src="https://maps.googleapis.com/maps/api/js?key=<%= ENV['google_maps_geocoding'] %>&libraries=places&callback=initAutocomplete"
+        async defer></script>

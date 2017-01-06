@@ -53,3 +53,14 @@
     <% end %>
   </div>
 <% end %>
+
+<script>
+  var elem = $('.colorpicker')[0];
+  var hueb = new Huebee( elem, {
+    // options
+    setBGColor: '.set-bg-elem',
+    hues: 7,
+    shades: 7,
+    saturations: 1
+  });
+</script>

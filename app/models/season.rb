@@ -7,8 +7,9 @@ class Season < ApplicationRecord
 
   has_one :default_location, :class_name => "Location"
 
-  after_create :add_default_location, :ensure_cost
-  after_update :update_default_location
+  after_create :ensure_cost
+  # after_update :update_default_location
+  before_save :update_default_location, if: :location_changed?
 
   private
 
@@ -17,14 +18,18 @@ class Season < ApplicationRecord
     self.save
   end
 
-  def add_default_location
-    address = self.location
-    self.default_location = Location.create({address: address} )
-  end
+  # def add_default_location
+  #   address = self.location
+  #   self.default_location = Location.create({address: address} )
+  #   self.save
+  # end
 
   def update_default_location
+    puts "Calling the update_default_location method in season.rb"
+
     address = self.location
-    self.default_location = Location.create({address: address} )
+    self.default_location = Location.create({ address: address, latitude: self.location_lat, longitude: self.location_long })
+    # self.save
   end
 
 end

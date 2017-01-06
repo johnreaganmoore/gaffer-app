@@ -9,8 +9,8 @@
     <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
     <!-- <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-blue.min.css"> -->
     <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
-    <script src="//maps.google.com/maps/api/js?key=<%= ENV['google_maps_geocoding'] %>"></script>
-    <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+    <link rel="stylesheet" href="https://unpkg.com/huebee@1/dist/huebee.min.css">
+    <script src="https://unpkg.com/huebee@1/dist/huebee.pkgd.min.js"></script>
 
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
@@ -22,10 +22,6 @@
 
   <body>
     <%= yield %>
-    <script src="https://cdn.smooch.io/smooch.min.js"></script>
-    <script>
-      Smooch.init({ appToken: '4uo07emseza6om3y5azyjq56e' });
-    </script>
   </body>
 </html>
 <%= javascript_tag do %>

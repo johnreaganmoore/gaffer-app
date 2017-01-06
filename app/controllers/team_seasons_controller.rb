@@ -18,7 +18,7 @@ class TeamSeasonsController < ApplicationController
 
     @person = Person.new
 
-    @payment = @person.payment_composition(@team_season.new_player_cost, 0.1, 0)
+    @payment = @person.payment_composition(@team_season.new_player_cost, 0.05, 0)
   end
 
   # GET /teams/1/edit
@@ -52,7 +52,9 @@ class TeamSeasonsController < ApplicationController
       @person = Person.new
     end
 
-    @payment = @person.payment_composition(@team_season.new_player_cost, 0.1, 0)
+    puts @team_season.new_player_cost
+
+    @payment = @person.payment_composition(@team_season.new_player_cost, 0.05, 0)
 
   end
 
@@ -69,7 +71,7 @@ class TeamSeasonsController < ApplicationController
     @team_season.disburse_funds
 
     respond_to do |format|
-      format.html { redirect_to team_path(@team_season.team), notice: 'Funds disbursed' }
+      format.html { redirect_to cashed_out_path(@team_season), notice: 'Funds disbursed' }
       format.json { head :no_content }
     end
   end
@@ -78,9 +80,13 @@ class TeamSeasonsController < ApplicationController
     @team_season.distribute_surplus
 
     respond_to do |format|
-      format.html { redirect_to team_path(@team_season.team), notice: 'Funds disbursed' }
+      format.html { redirect_to cashed_out_path(@team_season), notice: 'Funds disbursed' }
       format.json { head :no_content }
     end
+  end
+
+  def cashed_out
+    @team = @team_season.team
   end
 
 

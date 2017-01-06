@@ -13,7 +13,7 @@
   <% if team_season.current_balance > 0 %>
     <div class="card-action edit-profile-actions">
       <!-- <%= link_to "Distribute Surplus", dist_surplus_path(team_season), class: "waves-effect waves-light" %> -->
-      <%= link_to "Disburse Funds", disburse_path(team_season), class: "btn waves-effect waves-light" %>
+      <%= link_to "Cash Out", disburse_path(team_season), class: "btn waves-effect waves-light" %>
     </div>
   <% end %>
 </div>

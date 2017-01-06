@@ -7,7 +7,8 @@
   <div id="season-map">
   </div>
   <div class="sport-indicator">
-    <img src="https://www.svgimages.com/svg-image/s4/soccer-ball-icon-256x256.png" class="sport-icon"/>
+    <!-- <img src="https://www.svgimages.com/svg-image/s4/soccer-ball-icon-256x256.png" class="sport-icon"/> -->
+    <%= image_tag "#{@team.display_logo}", style: "border-radius: 50%;"%>
   </div>
   <div class="content-section">
     <div class="season-logistics flow-text">
@@ -17,7 +18,9 @@
       <% end %>
       <%= timeframe_array.to_sentence  %>
        at
-      <span class="detail-value"><%= @team_season.season.location %></span>
+      <span class="detail-value">
+        <%= @team_season.season.location %>
+      </span>
     </div>
     <div class="season-dates">
       <% if @team_season.season.start_date != nil %>
@@ -67,7 +70,11 @@
         <% if @team_season.season.location != nil %>
         <div class="detail-item">
           <span class="detail-label">Location: </span>
-          <span class="detail-value"><%= @team_season.season.location %></span>
+          <span class="detail-value">
+            <%= link_to "https://www.google.com/search?q=#{@team_season.season.location}" do %>
+              <%= @team_season.season.location %>
+            <% end %>
+          </span>
         </div>
         <% end %>
         <% if @team_season.season.format != "" %>
