@@ -42,7 +42,7 @@
       <h2 style="color: <%= team_color %>;"><%= @team_season.team.name %></h2>
       <hr class="faint">
       <ul class="reg-list">
-      <% @team_season.team.player_avatars.first(5).each do |person| %>
+      <% @team_season.team.player_avatars.first(3).each do |person| %>
           <li class="reg-list__item">
              <img class="reg-list__item-avatar" src="<%= person.avatar %>">
              <div><%= person.first_name %></div>
