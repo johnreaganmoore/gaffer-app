@@ -12,6 +12,14 @@
     <link rel="stylesheet" href="https://unpkg.com/huebee@1/dist/huebee.min.css">
     <script src="https://unpkg.com/huebee@1/dist/huebee.pkgd.min.js"></script>
 
+    <% if defined?(@team) && @team.color != nil %>
+      <% bg_color = @team.color %>
+    <% else %>
+      <% bg_color = "#6FA135" %>
+    <% end %>
+
+    <meta name="theme-color" content="<%= bg_color %>">
+
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>

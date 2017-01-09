@@ -44,6 +44,20 @@ class TeamSeason < ApplicationRecord
     end
   end
 
+  def lowest_possible_cost
+    if self.max_players != nil
+      base = ((self.cost * 100)  / self.max_players.to_f).ceil
+      fee = (base * 0.05).ceil
+      base + fee
+    else
+      nil
+    end
+  end
+
+  def spots_remaining
+    self.max_players - self.season_participations.length
+  end
+
   def cost_divisor
     if self.season_participations.length >= self.min_players
       return self.season_participations.length + 1
