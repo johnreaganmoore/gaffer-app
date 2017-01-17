@@ -76,8 +76,7 @@ source 'https://rubygems.org' do
 
   gem 'stripe'
 
-
-  gem "braintree", "~> 2.66.0"
+  # gem "braintree", "~> 2.66.0"
   gem 'gon'
 
   gem 'rails-env-favicon'
