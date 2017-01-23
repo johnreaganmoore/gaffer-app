@@ -1,0 +1,26 @@
+<%= form_for @org do |f| %>
+  <div class="card-content">
+    <div class="mdl-card__title mdl-card--expand">
+      <div class="profile-header">
+
+        <div class="row">
+          <div class="input-field col s12 m6 l6">
+            <%= f.text_field :name, required: true %>
+            <%= f.label :organization_name %>
+          </div>
+
+          <div class="input-field col s12 m6 l6">
+            <%= f.text_field :external_link, required: true %>
+            <%= f.label :external_link %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<div class="edit-profile-actions card-action">
+  <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
+    Create Org
+  <% end %>
+</div>
+<% end %>

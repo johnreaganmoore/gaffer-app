@@ -1,0 +1,47 @@
+<div class="row">
+  <div class="col s12 m6 l6">
+    <div class="detail-item">
+      <div class="detail-label">Format: </div>
+      <% if season.format != "" %>
+        <span class="detail-value"><%= season.format %></span>
+      <% else %>
+        <span class="detail-value">Unknown</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col s12 m6 l6">
+    <div class="detail-item">
+      <div class="detail-label">Team Cost: </div>
+      <% if season.cost != nil %>
+        <span class="detail-value"><%= number_to_currency(season.cost / 100.0)  %></span>
+      <% else %>
+        <span class="detail-value">Unknown</span>
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<div class="row">
+  <div class="col s12 m6 l6">
+    <div class="detail-item">
+      <div class="detail-label">Start Date: </div>
+      <% if season.start_date != nil %>
+        <span class="detail-value"><%= season.start_date.strftime("%B #{season.start_date.day.ordinalize}") %></span>
+      <% else %>
+        <span class="detail-value">Unknown</span>
+      <% end %>
+    </div>
+  </div>
+
+  <div class="col s12 m6 l6">
+    <div class="detail-item">
+      <div class="detail-label">Number of games: </div>
+      <% if season.total_games != nil %>
+        <span class="detail-value"><%= season.total_games %></span>
+      <% else %>
+        <span class="detail-value">Unknown</span>
+      <% end %>
+    </div>
+  </div>
+</div>

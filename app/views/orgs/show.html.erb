@@ -1,0 +1,24 @@
+<div>
+  <div id="cover-map"
+  >
+    <div class="community-hero">
+      <div class="community-title">
+        <%= @org.name %>
+      </div>
+    </div>
+  </div>
+  <div class="container">
+    Leagues:
+    <% @org.leagues.each do |league| %>
+      <div>
+        <%= render "leagues/list_item", league: league %>
+        <div>
+          Seasons:
+          <% league.seasons.each do |season| %>
+            <%= render "seasons/list_item", season: season %>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  </div>
+</div>
