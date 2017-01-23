@@ -25,8 +25,6 @@ class TeamSeason < ApplicationRecord
   has_many :playing_times
   has_many :timeframes, through: :playing_times
 
-  # has_one :default_location, :class_name => "Location"
-
   accepts_nested_attributes_for :treasurer, :season
 
   after_create :ensure_team, :ensure_min_players, :open

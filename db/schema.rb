@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106031518) do
+ActiveRecord::Schema.define(version: 20170119025202) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,14 @@ ActiveRecord::Schema.define(version: 20170106031518) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "leagues", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "org_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_id"], name: "index_leagues_on_org_id", using: :btree
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string   "name"
     t.text     "address"
@@ -51,6 +59,14 @@ ActiveRecord::Schema.define(version: 20170106031518) do
     t.datetime "updated_at", null: false
     t.integer  "season_id"
     t.index ["season_id"], name: "index_locations_on_season_id", using: :btree
+  end
+
+  create_table "orgs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "external_link"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "slug"
   end
 
   create_table "people", force: :cascade do |t|
@@ -133,6 +149,8 @@ ActiveRecord::Schema.define(version: 20170106031518) do
     t.string   "sport"
     t.float    "location_lat"
     t.float    "location_long"
+    t.integer  "league_id"
+    t.index ["league_id"], name: "index_seasons_on_league_id", using: :btree
   end
 
   create_table "team_memberships", force: :cascade do |t|
@@ -177,11 +195,13 @@ ActiveRecord::Schema.define(version: 20170106031518) do
 
   add_foreign_key "games", "locations"
   add_foreign_key "games", "seasons"
+  add_foreign_key "leagues", "orgs"
   add_foreign_key "locations", "seasons"
   add_foreign_key "playing_times", "seasons"
   add_foreign_key "playing_times", "timeframes"
   add_foreign_key "season_participations", "people"
   add_foreign_key "season_participations", "team_seasons"
+  add_foreign_key "seasons", "leagues"
   add_foreign_key "team_memberships", "people"
   add_foreign_key "team_memberships", "teams"
   add_foreign_key "team_seasons", "seasons"

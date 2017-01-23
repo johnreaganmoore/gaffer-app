@@ -35,6 +35,7 @@ Rails.application.routes.draw do
 
 
   resources :leads, only: [:new, :create]
+  resources :orgs
   resources :seasons
   resources :team_seasons
 
@@ -62,6 +63,11 @@ Rails.application.routes.draw do
 
 
   get '/', to: 'marketing#harrisburg', constraints: { subdomain: 'harrisburg' }
+
+  get '/', to: 'marketing#subs', constraints: { subdomain: 'subs' }
+  get '/', to: 'marketing#subs', constraints: { subdomain: 'subfinder' }
+  get '/subs', to: 'marketing#subs', constraints: { subdomain: 'harrisburg' }
+  get '/subs', to: 'marketing#subs'
 
   get '/tos', to: 'marketing#tos'
 

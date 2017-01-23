@@ -1,4 +1,6 @@
 class Season < ApplicationRecord
+  belongs_to :league
+
   has_many :playing_times
   has_many :timeframes, through: :playing_times
 
