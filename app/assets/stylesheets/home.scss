@@ -92,12 +92,13 @@ ul li.home-list-point {
   .home-sub-section-container {
     display: flex;
     -webkit-flex-flow: row wrap;
+    justify-content: space-between;
   }
 
   .home-sub-section {
-    width: 50%;
-    min-width: 310px;
-    flex-grow: 1;
+    width: 47%;
+    min-width: 290px;
+    // flex-grow: 1;
 
     .home-sub-section-desc {
       padding: 15px;
