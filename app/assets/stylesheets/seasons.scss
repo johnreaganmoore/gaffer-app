@@ -290,3 +290,31 @@ input[type="submit"] {
   justify-content: space-between;
   font-size: 18px;
 }
+
+
+
+
+.team-registration-block {
+
+  margin-top: 80px;
+
+  h2 {
+    font-weight: 600;
+    font-size: 2.5rem;
+    margin-bottom: 30px
+  }
+
+
+}
+
+.team-registration-price {
+  .dollar-amount {
+    color: $dark-font;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+}
+
+.team-registration-deadline {
+
+}

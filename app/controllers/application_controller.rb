@@ -6,8 +6,16 @@ class ApplicationController < ActionController::Base
     @current_ability ||= Ability.new(current_person)
   end
 
+  def active_org
+    @active_org ||= Org.find(session[:admin_org]["id"])
+  end
+
 
   def after_sign_in_path_for(person)
+
+    if person.take_admin_org
+      session[:admin_org] = person.take_admin_org
+    end
 
     if person.teams.length > 0 then
       team_path(person.teams.first)

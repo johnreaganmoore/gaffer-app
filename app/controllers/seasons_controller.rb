@@ -1,9 +1,10 @@
 class SeasonsController < ApplicationController
-  before_action :authenticate_person!, except: [:show, :accept, :decline]
-  layout "app", except: [:show, :accept, :decline] #, only: [:index, :edit, :update, :destroy]
-  # layout "team", only: [:show]
+  before_action :authenticate_person!, except: [:show, :accept, :decline, :register]
+  layout "app", except: [:show, :accept, :decline, :register, :new, :edit] #, only: [:index, :edit, :update, :destroy]
+  layout "league_admin", only: [:new, :edit]
 
   before_action :set_season, except: [:index, :new, :create]
+  before_action :active_org, except: [:index, :show]
 
   # GET /teams
   # GET /teams.json
@@ -20,6 +21,13 @@ class SeasonsController < ApplicationController
   def edit
   end
 
+  def register
+    if current_person
+      @person = current_person
+    else
+      @person = Person.new
+    end
+  end
 
   # GET /teams/new
   def new
@@ -29,9 +37,7 @@ class SeasonsController < ApplicationController
   # POST /teams
   # POST /teams.json
   def create
-
     @season = Season.create(season_params)
-
     respond_to do |format|
       if @season.save
         format.html { redirect_to season_path(@season), notice: 'Season was successfully created.' }
@@ -47,12 +53,15 @@ class SeasonsController < ApplicationController
   # PATCH/PUT /teams/1.json
   def update
 
-    @team_season = TeamSeason.find(season_params[:team_seasons_attributes]['0'][:id])
-    @team = @team_season.team
+    if season_params[:team_seasons_attributes]
+      # @team_season = TeamSeason.find(season_params[:team_seasons_attributes]['0'][:id])
+      # @team = @team_season.team
+    end
+
 
     respond_to do |format|
       if @season.update(season_params)
-        format.html { redirect_to team_path(@team), notice: 'Season was successfully updated.' }
+        format.html { redirect_to season_path(@season), notice: 'Season was successfully updated.' }
         format.json { render :show, status: :ok, location: @season }
         format.js {}
       else
@@ -82,9 +91,12 @@ class SeasonsController < ApplicationController
     def season_params
       params.require(:season).permit(
         :team_id,
+        :league_id,
         :league_name,
         :website,
         :location,
+        :location_lat,
+        :location_long,
         :start_date,
         :end_date,
         :cost,

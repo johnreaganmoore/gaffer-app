@@ -1,4 +1,5 @@
 class Person < ApplicationRecord
+  rolify
   include ActionView::Helpers::NumberHelper
 
   require "stripe"
@@ -26,6 +27,12 @@ class Person < ApplicationRecord
   # after_initialize :ensure_avatar
   after_update :ensure_avatar
   after_update :new_managed_account?
+
+  # after_create :assign_default_role
+  #
+  # def assign_default_role
+  #   self.add_role(:new_person) if self.roles.blank?
+  # end
 
   def self.from_omniauth(auth)
 
@@ -239,6 +246,22 @@ class Person < ApplicationRecord
       charge: charge,
       amount: amount
     )
+  end
+
+  def administered_orgs_ids
+    orgs = []
+
+    self.roles.where(:resource_type == "Org").each do |role|
+      role.resource_id.push
+    end
+
+    return orgs
+  end
+
+  def take_admin_org
+    role = self.roles.where(:resource_type == "Org").take
+    org = Org.find(role.resource_id)
+    return org
   end
 
   protected

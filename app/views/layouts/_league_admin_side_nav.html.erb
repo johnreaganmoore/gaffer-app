@@ -1,0 +1,47 @@
+<ul id="slide-out" class="side-nav fixed">
+  <li>
+    <div class="userView" style="background-color: <%= bg_color %>;">
+      <% if defined?(current_person) %>
+        <img class="circle" src="<%= current_person.avatar.thumb %>">
+      <% end %>
+    </div>
+  </li>
+  <li class="no-padding account-menu" style="background-color: <%= bg_color %>;">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header">
+          <%= current_person.first_name %> <%= current_person.last_name %>
+          <i class="material-icons">arrow_drop_down</i>
+        </a>
+        <div class="collapsible-body">
+          <ul>
+            <li>
+              <a href="<%= account_path(current_person) %>">
+                <i class="material-icons">account_circle</i>
+                Manage Account
+              </a>
+            </li>
+            <li>
+              <% if person_signed_in? %>
+                <a href="<%= destroy_person_session_path %>" class="team-menu-item" rel="nofollow" data-method="delete"><i class="material-icons">exit_to_app</i>Sign out</a>
+              <% else %>
+                <%= link_to "Sign In", new_person_session_path,  class: "waves-effect" %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+    </li>
+    </ul>
+  </li>
+
+  <li><a class="subheader">Leagues</a></li>
+  <% @active_org.leagues.each do |league| %>
+    <li><div class="divider sans-margin"></div></li>
+    <li>
+      <a class="waves-effect team-menu-item" href="<%= edit_league_path(league) %>">
+        <%= league.name %>
+      </a>
+    </li>
+  <% end %>
+  <li><a href="<%= new_league_path %>"><i class="material-icons">add_circle</i>Create New League</a></li>
+</ul>

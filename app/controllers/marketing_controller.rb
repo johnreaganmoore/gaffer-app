@@ -610,4 +610,8 @@ class MarketingController < ApplicationController
 
   def subs
   end
+
+  def register
+  end
+  
 end

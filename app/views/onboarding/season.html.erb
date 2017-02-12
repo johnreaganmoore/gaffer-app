@@ -101,12 +101,8 @@ How Much - Cost
   }
 
   function logGeometry() {
-    console.log(autocomplete.getPlace().geometry.location.lat())
-    console.log(autocomplete.getPlace().geometry.location.lng())
-
     document.getElementById("lat").value = autocomplete.getPlace().geometry.location.lat();
     document.getElementById("lng").value = autocomplete.getPlace().geometry.location.lng();
-
   }
 
 

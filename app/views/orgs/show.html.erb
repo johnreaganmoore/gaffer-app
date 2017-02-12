@@ -1,22 +1,25 @@
 <div>
-  <div id="cover-map"
-  >
-    <div class="community-hero">
-      <div class="community-title">
+  <div id="cover-map">
+    <div class="registration-header">
+      <div class="registration-title">
         <%= @org.name %>
       </div>
     </div>
   </div>
   <div class="container">
-    Leagues:
-    <% @org.leagues.each do |league| %>
-      <div>
-        <%= render "leagues/list_item", league: league %>
-        <div>
-          Seasons:
-          <% league.seasons.each do |season| %>
-            <%= render "seasons/list_item", season: season %>
-          <% end %>
+    <% if @org.leagues.length > 0 %>
+      <ul class="collapsible popout" data-collapsible="accordion">
+        <% @org.leagues.each do |league| %>
+          <%= render "leagues/list_item", league: league %>
+        <% end %>
+      </ul>
+    <% else %>
+      <div class="card">
+        <div class="card-content">
+          <h2>Whoa there, pioneer.</h2>
+          <p class="flow-text">It looks like <%= @org.name %> is not listing any leagues yet.  If you are a league administrator, login to add leagues to this organization <a href="<%= new_person_session_path %>">here</a>.</p>
+          <br/>
+          <p class="flow-text">If you are a not an administrator, you may be able to learn more about this league on <a href="http://<%= @org.external_link %>">their website</a>.</p>
         </div>
       </div>
     <% end %>

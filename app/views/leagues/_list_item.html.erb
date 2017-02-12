@@ -1,1 +1,59 @@
-<h3><%= league.name %></h3>
+<li>
+  <div class="collapsible-header">
+    <div><%= league.name %></div>
+    <!-- <div class="price"></div> -->
+  </div>
+  <div class="collapsible-body">
+    <div class="opp-section-title">Basics</div>
+    <div class="opp-section-body">
+      <div class="basic-data">
+
+          <div class="chip">
+            <%= league.players_per_team %> v <%= league.players_per_team %>
+          </div>
+          <div class="chip">
+            <%= league.minutes_per_game %> minute games
+          </div>
+          <div class="chip">
+            <%= league.facility_type %>
+          </div>
+
+      </div>
+    </div>
+    <div class="next-start">
+      <div class="opp-section-title">Upcoming Seasons</div>
+      <div class="opp-section-body">
+        <% if league.seasons.length > 0 %>
+          <% league.seasons.each do |season| %>
+            <div class="next-start-time">
+              <a class="location-address" href="<%= season_path(season) %>">Season starting <%= season.start_date.strftime("%B #{season.start_date.day.ordinalize}") %></a>
+            </div>
+          <% end %>
+        <% else %>
+            <p>No seasons currently listed. If you are a league admin, go <a href="<%= new_season_path %>"><b>here</b></a> to add a season.</p>
+        <% end %>
+
+      </div>
+    </div>
+    <div class="location">
+      <div class="opp-section-title">Location<% if league.locations.length > 0 %>s<% end %></div>
+      <% if league.locations.length > 0 %>
+        <% league.locations.each do |location| %>
+          <div class="opp-section-body">
+            <a class="location-address" href="http://maps.google.com/maps?q=<%= location %>">
+              <div><%= location %></div>
+            </a>
+          </div>
+        <% end %>
+      <% else %>
+          <p>No locations currently listed. If you are a league admin, go <a href="<%= edit_league_path(league) %>"><b>here</b></a> to add a location.</p>
+      <% end %>
+    </div>
+    <div class="more-info">
+      <div class="opp-section-title">More Info</div>
+      <div class="opp-section-body last">
+        <a class="event-link btn waves-effect waves-green" href="<%= league_path(league) %>">More Info</a>
+      </div>
+    </div>
+  </div>
+</li>

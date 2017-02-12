@@ -36,9 +36,14 @@ Rails.application.routes.draw do
 
   resources :leads, only: [:new, :create]
   resources :orgs
+  resources :leagues
   resources :seasons
+  get 'seasons/:id/register', to: 'seasons#register', as: :season_register
+
+
   resources :team_seasons
 
+  get 'team_seasons/:id/confirm_team', to: 'team_seasons#confirm_team', as: :team_season_confirm_team
   get 'team_seasons/:id/confirm', to: 'team_seasons#confirm', as: :confirm_team_season
   get 'team_seasons/:id/preview', to: 'team_seasons#preview', as: :preview_season
   get 'team_seasons/:id/accept', to: 'team_seasons#accept', as: :accept_season
@@ -63,6 +68,7 @@ Rails.application.routes.draw do
 
 
   get '/', to: 'marketing#harrisburg', constraints: { subdomain: 'harrisburg' }
+  get '/', to: 'marketing#register', constraints: { subdomain: 'register' }
 
   get '/', to: 'marketing#subs', constraints: { subdomain: 'subs' }
   get '/', to: 'marketing#subs', constraints: { subdomain: 'subfinder' }

@@ -58,6 +58,7 @@ source 'https://rubygems.org' do
 
   # CanCanCan for authorization
   gem 'cancancan'
+  gem 'rolify'
 
   # invitations modules
   gem 'devise_invitable'

@@ -1,0 +1,42 @@
+<%= form_for @league do |f| %>
+  <div class="card-content">
+    <div class="mdl-card__title mdl-card--expand">
+      <div class="profile-header">
+
+        <div class="row">
+          <div class="input-field col s12 m12 l12">
+            <%= f.text_field :name, required: true %>
+            <%= f.label :league_name %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12 m6 l6">
+
+            <%= f.text_field :players_per_team, required: true %>
+            <%= f.label :players_per_team_on_the_field %>
+          </div>
+          <div class="input-field col s12 m6 l6">
+            <%= f.text_field :minutes_per_game, required: true %>
+            <%= f.label :minutes_per_game %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.select :facility_type, options_for_select([
+              ['Outdoor', "Outdoor", {disabled: false, selected: true}],
+              ['Indoor','Indoor'],
+              ]) %>
+          </div>
+        </div>
+
+      </div>
+    </div>
+  </div>
+<div class="edit-profile-actions card-action">
+  <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
+    Save League
+  <% end %>
+</div>
+<% end %>

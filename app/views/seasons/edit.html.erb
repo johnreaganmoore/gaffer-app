@@ -1,0 +1,23 @@
+<div class="container">
+
+  <div class="card blue-grey darken-1">
+    <div class="card-content white-text">
+      <div class="card-title">
+        Manage Season
+      </div>
+      <p>
+        Manage this season's details.
+      </p>
+    </div>
+  </div>
+
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+        <%= @season.league.name %> starting <%= @season.start_date.strftime("%B #{@season.start_date.day.ordinalize} %Y") %>
+      </div>
+      <%= render 'form', season: @season %>
+    </div>
+  </div>
+
+</div>

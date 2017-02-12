@@ -1,8 +1,7 @@
 class TeamsController < ApplicationController
   before_action :authenticate_person!
-  layout "app" #, only: [:index, :edit, :update, :destroy]
+  layout "app"
   # layout "team", only: [:show]
-
 
   before_action :set_team, only: [:show, :edit, :update, :destroy, :sweep_invites]
 
