@@ -71,8 +71,12 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+.app-background {
   background: $primary-bg;
+}
+
+.marketing-background {
+  background: $marketing-bg;
 }
 
 header, main, footer {

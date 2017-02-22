@@ -241,7 +241,7 @@
     width: 100%;
     margin-top: -4px;
     font-weight: lighter;
-    font-style: oblique;
+    // font-style: oblique;
     font-size: 19px;
     margin-left: 20px;
 
@@ -317,4 +317,15 @@ input[type="submit"] {
 
 .team-registration-deadline {
 
+}
+
+.captain-list-item {
+  width: 100%;
+
+  .captain-content {
+    width: calc(100% - 60px);
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
+  }
 }

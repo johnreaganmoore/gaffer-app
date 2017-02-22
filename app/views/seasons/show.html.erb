@@ -88,7 +88,7 @@
           </div> -->
 
       <div class="edit-profile-actions card-actions--split card-action">
-        <%= link_to season_path(@season), class: "waves-effect waves-light btn green darken-1" do %>
+        <%= link_to new_transaction_path(season: @season.id), class: "waves-effect waves-light btn green darken-1" do %>
           Sign<span class="hide-on-small-only"> Me</span> Up!
         <% end %>
       </div>

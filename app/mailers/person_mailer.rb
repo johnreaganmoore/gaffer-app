@@ -17,4 +17,14 @@ class PersonMailer < ApplicationMailer
     mail(to: team_season.treasurer.email, subject: "New Team Member")
   end
 
+  def season_signup_notification(season, person)
+    @season = season
+    @person = person
+
+    Person.with_role(:admin, @season.league.org).each do |admin|
+      puts admin.inspect
+      mail(to: admin.email, subject: "New Team registered for #{@season.league.name}")
+    end
+
+  end
 end

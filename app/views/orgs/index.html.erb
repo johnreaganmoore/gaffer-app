@@ -1,51 +1,25 @@
-<div>
-  <div id="cover-map"
-  >
-    <div class="community-hero">
-      <div class="container">
-        <!-- <div class="logo-container"><%= image_tag "onside_white.svg" %></div> -->
-        <!-- <h4>Play Together</h4> -->
-        <div class="community-title">
-          Harrisburg Onside
+<div class="container">
+
+  <% if @orgs.length == 0 %>
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <div class="card-title">
+          Your First Organization
         </div>
-        <div class="community-slogan">
-          Play Together
-        </div>
-        <div class="community-desc flow-text">
-        <!-- <div class="community-desc"> -->
-          Community Maintained List of Soccer Opportunities in and around Harrisburg, PA
-        </div>
+        <p>
+          It looks like you haven't set up your organization yet.
+          In order to create leagues and seasons and get started with registrations you need to setup your organization.
+          Click the button below to create your organization!
+        </p>
+      </div>
+      <div class="edit-profile-actions card-action">
+        <a class="btn waves-effect waves-light" href="<%= new_org_path %>">New Organization</a>
       </div>
     </div>
-  </div>
-  <div class="container">
-
+  <% else %>
     <% @orgs.each do |org| %>
       <%= render "org_item", org: org %>
     <% end %>
+  <% end %>
 
-  </div>
-  <div class="home-section community-last" style="background:url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=ccf49c77862a41c128526e4260210f8a'); background-size: cover; background-position: bottom">
-    <div class="community-last-overlay">
-      <div class="container">
-        <div class="price-line">
-          By The Players For The Players
-        </div>
-        <div class="price-detail">
-          <p class="flow-text">
-            Harrisburg Onside strives to provide accurate, up-to-date, information about opportunites to play, watch, and participate in soccer.
-            We rely on your input to provide accurate information and provide a better experience for users.
-            Please contact us with any new listings, corrections, general feedback, questions and ideas of how we can improve the site.
-          </p>
-        </div>
-        <div class="action-container">
-          <div class="main-actions">
-            <div>
-              <%= link_to "Contact", "mailto:gaffer@playonside.com",  class: "btn waves-effect waves-green white" %>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>

@@ -24,9 +24,6 @@ Rails.application.routes.draw do
   resources :invites
   get 'invites/:id/resend', to: 'invites#resend', as: :resend_invite
 
-  resources :onboarding
-  resources :season_creator
-
   # scope :people do
   resources :profiles
   get 'profiles/:id/leave', to: 'profiles#leave', as: :leave_team
@@ -57,6 +54,7 @@ Rails.application.routes.draw do
 
   post 'kickoff', to: 'transactions#kickoff', as: :kickoff
   post 'player_purchase', to: 'transactions#player_purchase', as: :player_purchase
+  post 'captain_signup', to: 'transactions#captain_signup', as: :captain_signup
 
   resources :locations, except: [:update, :edit, :destroy]
 
@@ -69,6 +67,13 @@ Rails.application.routes.draw do
 
   get '/', to: 'marketing#harrisburg', constraints: { subdomain: 'harrisburg' }
   get '/', to: 'marketing#register', constraints: { subdomain: 'register' }
+
+  get '/onboarding', to: 'register_onboarding#profile', constraints: { subdomain: 'register' }
+  put '/onboarding', to: 'register_onboarding#update_profile', constraints: { subdomain: 'register' }
+
+  resources :onboarding
+  resources :season_creator
+
 
   get '/', to: 'marketing#subs', constraints: { subdomain: 'subs' }
   get '/', to: 'marketing#subs', constraints: { subdomain: 'subfinder' }

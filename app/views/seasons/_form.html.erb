@@ -5,26 +5,26 @@
         <div class="row">
           <div class="input-field col s12">
             <%= f.text_field :location, id: "autocomplete", required: true, onFocus: "geolocate()", placeholder: "Enter a location" %>
-            <%= f.label :season_location %>
+            <%= f.label :location %>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s12 m6 l6">
             <%= f.date_field :start_date, class: "datepicker season-date" %>
-            <%= f.label :season_start_date %>
+            <%= f.label :start_date %>
           </div>
 
           <div class="input-field col s12 m6 l6">
             <%= f.text_field :total_games %>
-            <%= f.label :total_number_of_games%>
+            <%= f.label :total_games%>
           </div>
         </div>
 
         <div class="row">
           <div class="input-field col s12 m6 l6">
             <%= f.text_field :cost %>
-            <%= f.label :season_cost %>
+            <%= f.label :cost %>
           </div>
 
           <div class="input-field col s12 m6 l6">

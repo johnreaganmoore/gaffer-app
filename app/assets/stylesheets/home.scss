@@ -74,10 +74,10 @@ ul li.home-list-point {
   text-align: center;
 
   h2 {
-    margin-top: 150px;
+    margin-top: 100px;
     margin-bottom: 0px;
     // font-family: lato;
-    color: $dark-font;
+    color: $primary-green;
     font-size: 36px;
   }
 
@@ -92,7 +92,8 @@ ul li.home-list-point {
   .home-sub-section-container {
     display: flex;
     -webkit-flex-flow: row wrap;
-    justify-content: space-between;
+    justify-content: space-around;
+    margin: 40px;
   }
 
   .home-sub-section {

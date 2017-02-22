@@ -33,15 +33,18 @@
     </li>
     </ul>
   </li>
-
-  <li><a class="subheader">Leagues</a></li>
-  <% @active_org.leagues.each do |league| %>
-    <li><div class="divider sans-margin"></div></li>
-    <li>
-      <a class="waves-effect team-menu-item" href="<%= edit_league_path(league) %>">
-        <%= league.name %>
-      </a>
-    </li>
+  <% if @active_org %>
+  <% if @active_org.leagues.length > 0 %>
+    <li><a class="subheader">Leagues</a></li>
+      <% @active_org.leagues.each do |league| %>
+        <li><div class="divider sans-margin"></div></li>
+        <li>
+          <a class="waves-effect team-menu-item" href="<%= edit_league_path(league) %>">
+            <%= league.name %>
+          </a>
+        </li>
+      <% end %>
+    <% end %>
+    <li><a href="<%= new_league_path %>"><i class="material-icons">add_circle</i>Create New League</a></li>
   <% end %>
-  <li><a href="<%= new_league_path %>"><i class="material-icons">add_circle</i>Create New League</a></li>
 </ul>

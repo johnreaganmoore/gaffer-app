@@ -1,6 +1,19 @@
 class TransactionsController < ApplicationController
 
   def new
+    if current_person
+      @person = current_person
+    else
+      @person = Person.new
+    end
+
+    @season = Season.find(params[:season])
+  end
+
+  def captain_signup
+    @season = Season.find(params[:season])
+
+    result = self.purchase_team_season(@season)
   end
 
 
@@ -54,7 +67,34 @@ class TransactionsController < ApplicationController
   end
 
   def charge_customer(customer, team_season)
-    result = customer.purchase_season(@team_season)
+    result = customer.purchase_season(team_season, team_season.treasurer.merchant_account_id, team_season.new_player_cost)
+  end
+
+
+# TODO finish this method to allow the captain to complete the season purchase. On completion take them to a success page.
+  def purchase_team_season(season)
+    @token = params["stripeToken"]
+
+    @team = Team.create_random
+    @team_season = TeamSeason.create(team_id: @team.id, season_id: season.id, cost: season.cost, min_players: season.league.players_per_team)
+
+    if current_person
+      @captain = current_person
+    else
+      @captain = Person.create_with_temp_pass(params["first_name"], params["last_name"], params["email"])
+    end
+    @captain = @captain.create_customer(@token)
+
+    result = @captain.purchase_season(@team_season, season.league.org.merchant_account_id, season.cost)
+
+    # redirect_to confirm_team_season_path(@team_season.id)
+
+    flash[:success] = "Great, you're signed up. We'll be in touch with you shortly. Enjoy the season!"
+
+    PersonMailer.season_signup_notification(season, @captain).deliver
+
+    return result
+
   end
 
 end

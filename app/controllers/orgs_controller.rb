@@ -1,13 +1,14 @@
 class OrgsController < ApplicationController
-  layout "league_admin", except: [:index, :show]
+  layout "league_admin", except: [:show]
 
   before_action :authenticate_person!, except: [:show]
   before_action :set_org, except: [:index, :new, :create]
-  before_action :active_org, except: [:index, :show]
+  before_action :active_org, except: [:index, :show, :new, :create]
 
 
   def index
-    @orgs = Org.order('created_at DESC')
+    @orgs = current_person.administered_orgs
+    # @orgs = Org.order('created_at DESC')
   end
 
   def new
@@ -20,8 +21,13 @@ class OrgsController < ApplicationController
     if @org.save
       org_creator = current_person
       org_creator.add_role :admin, @org
+      session[:admin_org] = @org
+      redirect_to edit_org_path(@org)
       flash[:success] = "Organization was successfully created!"
-      redirect_to org_path(@org)
+
+      @org.create_managed_account(current_person)
+      @org.record_accept_terms(request.remote_ip)
+
     else
       render 'new'
     end
@@ -31,7 +37,7 @@ class OrgsController < ApplicationController
 
     respond_to do |format|
       if @org.update(org_params)
-        format.html { redirect_to @org, notice: 'Organization was successfully updated.' }
+        format.html { redirect_to edit_org_path(@org), notice: 'Organization was successfully updated.' }
         format.js {}
       else
         format.html { render :edit }
