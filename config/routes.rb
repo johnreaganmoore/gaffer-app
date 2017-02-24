@@ -74,6 +74,10 @@ Rails.application.routes.draw do
   resources :onboarding
   resources :season_creator
 
+  get '/find', to: 'subs#find', constraints: {subdomain: 'subs'}
+  get '/select', to: 'subs#select', constraints: {subdomain: 'subs'}
+  get '/email', to: 'subs#email', constraints: {subdomain: 'subs'}
+
 
   get '/', to: 'marketing#subs', constraints: { subdomain: 'subs' }
   get '/', to: 'marketing#subs', constraints: { subdomain: 'subfinder' }

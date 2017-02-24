@@ -82,10 +82,10 @@ ul li.home-list-point {
   }
 
   h3 {
-    margin: 50px;
+    // margin: 50px;
     margin-bottom: 0px;
     // font-family: lato;
-    color: $light-font;
+    color: $dark-font;
     font-size: 24px;
   }
 
@@ -100,6 +100,14 @@ ul li.home-list-point {
     width: 47%;
     min-width: 290px;
     // flex-grow: 1;
+
+    .home-sub-section-header {
+      height: 100%;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+    }
 
     .home-sub-section-desc {
       padding: 15px;
@@ -154,6 +162,23 @@ ul li.home-list-point {
         &:hover {
           cursor:pointer;
           background-image: image-url("sign_up.gif");
+        }
+      }
+
+      .gif.add_league {
+        @include aspect-ratio(413, 733);
+
+        // max-height: 667px;
+        max-width: 400px;
+        background-size: 100%;
+        background-image: image-url("add_league.png");
+        margin: auto; /*position the [div] on the center*/
+        // border: 1px solid #dddddd;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+
+        &:hover {
+          cursor:pointer;
+          background-image: image-url("add_league.gif");
         }
       }
 

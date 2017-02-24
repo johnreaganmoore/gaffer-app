@@ -13,6 +13,8 @@ source 'https://rubygems.org' do
   gem 'geocoder'
   gem 'gmaps4rails'
 
+  gem 'airtable'
+
   gem 'postmark-rails'
   gem 'premailer-rails'
 

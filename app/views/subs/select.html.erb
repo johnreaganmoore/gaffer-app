@@ -1,0 +1,95 @@
+<div class="container">
+
+  <div class="card">
+    <div class="card-content">
+      <table class="bordered">
+       <thead>
+         <tr>
+             <th data-field="id">Name</th>
+             <th data-field="name">Positions</th>
+             <th data-field="price">Notes</th>
+             <th data-field="delete">Delete</th>
+         </tr>
+       </thead>
+
+       <tbody>
+         <% @filtered_players.each do |player| %>
+           <tr>
+             <td><%= player[:first_name] %> <%= player[:last_name] %></td>
+
+             <td>
+               <% player[:positions].each do |position| %>
+                  <div class="chip">
+                    <%= position %>
+                  </div>
+                <% end %>
+             </td>
+
+             <td>
+               <% if (player[:notes].length > 1) %>
+                 <span class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="<%= player[:notes] %>">
+                  <%=  truncate(player[:notes], length: 25) %>
+                 </span>
+               <% else %>
+                  No Notes Yet
+                <% end %>
+             </td>
+             <td>
+               <span id="<%= player[:email] %>" class="secondary-content player-delete"><i class="material-icons" style="color: tomato;">delete</i></span>
+             </td>
+           </tr>
+         <% end %>
+       </tbody>
+     </table>
+    </div>
+    <div class="edit-profile-actions card-action">
+      <%= button_tag id: "mail_button", class: "btn waves-effect waves-light" do %>
+
+        Email Players
+      <% end %>
+    </div>
+  </div>
+</div>
+
+<script>
+
+  function remove(arr, what) {
+    var found = arr.indexOf(what);
+    while (found !== -1) {
+        arr.splice(found, 1);
+        found = arr.indexOf(what);
+    }
+  }
+
+  var activePlayers = [];
+  <% @filtered_players.each do |player| %>
+    activePlayers.push("<%= player[:email] %>")
+  <% end %>
+
+  var button = $('#mail_button')
+  var deleteButtons = $('.player-delete')
+
+  deleteButtons.on("click", function(e){
+    var row = e.currentTarget.closest('tr');
+    remove(activePlayers, e.currentTarget.id);
+    $(row).hide()
+  });
+
+  var emailString = function(playersArr) {
+    var emailString = playersArr.join(", ")
+    return emailString
+  }
+
+  var dayAndTime = "Thursday at 9pm";
+  var field = "Randall's Island Field 11";
+  var personName = "Todd Jasko";
+  var orgName = "Gotham Soccer Leagues"
+  var newLine = "%0D%0A"
+
+  button.click(function(e) {
+    var mailString = "mailto:subs@playonside.com?bcc=" + emailString(activePlayers) + "&subject=We Need Subs: " + dayAndTime + " at " + field + "&body=Hey Guys," + newLine + newLine + " We need subs for a game this " + dayAndTime + " at " + field + ". If you are certain you can make it please let me know as soon as possible so I can put you in touch with the team captain." + newLine + newLine + "Thanks, " + newLine + newLine + personName + " for " + orgName
+    console.log(mailString);
+    window.location.href = mailString;
+  })
+
+</script>
