@@ -613,5 +613,13 @@ class MarketingController < ApplicationController
 
   def register
   end
-  
+
+  def tryout
+    @lead = Lead.new
+  end
+
+  def collect
+    @lead = Lead.new
+  end
+
 end

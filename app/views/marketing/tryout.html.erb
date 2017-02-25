@@ -1,0 +1,22 @@
+<div class="coming-soon" style="background:url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=ccf49c77862a41c128526e4260210f8a'); background-size: cover; background-position: bottom">
+  <div class="coming-soon-overlay">
+    <div class="container">
+      <div class="logo-container"><%= image_tag "onside_white.svg" %></div>
+      <div class="coming-soon-text-container">
+          <div class="coming-soon-text">
+            Onside Tryout
+          </div>
+          <div class="coming-soon-desc flow-text">
+            We're working on something special.
+            <br>
+            <p>
+              Simple tryout management for clubs who want to provide a great player experience.
+            </p>
+          </div>
+      </div>
+      <div id="coming-soon-email-container">
+        <%= render "input_area", lead: @lead %>
+      </div>
+    </div>
+  </div>
+</div>

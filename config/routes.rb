@@ -66,7 +66,10 @@ Rails.application.routes.draw do
 
 
   get '/', to: 'marketing#harrisburg', constraints: { subdomain: 'harrisburg' }
-  get '/', to: 'marketing#register', constraints: { subdomain: 'register' }
+
+  get '/', to: 'marketing#register', constraints: { subdomain: 'register' }, as: :register_home
+  get '/', to: 'marketing#tryout', constraints: { subdomain: 'tryout' }, as: :tryout_home
+  get '/', to: 'marketing#collect', constraints: { subdomain: 'collect' }, as: :collect_home
 
   get '/onboarding', to: 'register_onboarding#profile', constraints: { subdomain: 'register' }
   put '/onboarding', to: 'register_onboarding#update_profile', constraints: { subdomain: 'register' }
@@ -91,7 +94,7 @@ Rails.application.routes.draw do
 
   get '/tos', to: 'marketing#tos'
 
-  get "/", to: 'marketing#home'
+  get "/", to: 'marketing#home', as: :onside_home
   root to: 'marketing#home'
   # get "/", to: 'marketing#coming_soon'
   # root to: 'marketing#coming_soon'
