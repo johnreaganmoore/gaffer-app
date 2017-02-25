@@ -25,6 +25,7 @@
 $( document ).on('turbolinks:load', function() {
 
   $(function() {
+    console.log(Materialize.updateTextFields)
     Materialize.updateTextFields();
   });
 
@@ -153,5 +154,3 @@ m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
 
 ga('create', 'UA-86792018-1', 'auto');
 ga('send', 'pageview');
-
-Materialize.updateTextFields();

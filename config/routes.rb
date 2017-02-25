@@ -76,7 +76,12 @@ Rails.application.routes.draw do
 
   get '/find', to: 'subs#find', constraints: {subdomain: 'subs'}
   get '/select', to: 'subs#select', constraints: {subdomain: 'subs'}
+  post '/select', to: 'subs#select', constraints: {subdomain: 'subs'}
   get '/email', to: 'subs#email', constraints: {subdomain: 'subs'}
+
+  get '/find', to: 'subs#find'
+  get '/select', to: 'subs#select'
+  post '/select', to: 'subs#select'
 
 
   get '/', to: 'marketing#subs', constraints: { subdomain: 'subs' }

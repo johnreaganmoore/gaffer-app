@@ -1,1 +1,99 @@
-This is where a form for finding subs will be.
+<%= form_tag select_path do %>
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+        Request Subs
+      </div>
+
+      <h4>Game</h4>
+      <br>
+      <div class="row">
+        <div class="input-field col s12 m12 l12">
+          <input class="" name="location" type="text" placeholder="Brooklyn Bridge Park, Pier 5, Field 3">
+          <label>
+            Location (e.g. "East Side Park, Field 3")
+          </label>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="input-field col s6 m6 l6">
+          <input class="" name="game_date" type="text" placeholder="Thursday">
+          <label>
+            Game Day (e.g. "Thursday" or "Thursday the 13th")
+          </label>
+        </div>
+        <div class="input-field col s6 m6 l6">
+          <input class="" name="game_time" type="text" placeholder="10:00pm">
+          <label>
+            Game Time (e.g. "7:30pm")
+          </label>
+        </div>
+      </div>
+
+      <hr class="faint">
+
+      <div class="row">
+        <div class="col s12 m6 l6">
+          <h4>Positions</h4>
+          <br>
+          <p>
+            <input type="checkbox" class="filled-in" id="defender" name="defender" checked="checked" />
+            <label for="defender">Defender</label>
+          </p>
+          <p>
+            <input type="checkbox" class="filled-in" id="midfielder" name="midfielder" checked="checked" />
+            <label for="midfielder">Midfielder</label>
+          </p>
+          <p>
+            <input type="checkbox" class="filled-in" id="forward" name="forward" checked="checked" />
+            <label for="forward">Forward</label>
+          </p>
+          <p>
+            <input type="checkbox" class="filled-in" id="goalkeeper" name="goalkeeper" />
+            <label for="goalkeeper">Goalkeeper</label>
+          </p>
+        </div>
+
+        <div class="col s12 m6 l6">
+          <h4>Player Type</h4>
+          <br>
+          <p>
+            <input type="checkbox" class="filled-in" id="male" name="male" checked="checked" />
+            <label for="male">Men</label>
+          </p>
+          <p>
+            <input type="checkbox" class="filled-in" id="female" name="female" checked="checked" />
+            <label for="female">Women</label>
+          </p>
+          <br>
+          <p>
+            <select id="experience-select">
+              <option value="" disabled selected>Minimum Experience Level</option>
+              <option value="beginner">Beginner</option>
+              <option value="high-school">High School</option>
+              <option value="college-club">College/Advanced Club</option>
+              <option value="pro">Professional</option>
+            </select>
+          </p>
+        </div>
+      </div>
+
+      <input id="experience" name="experience" type="hidden" value="" />
+
+    </div>
+    <div class="card-action edit-profile-actions">
+      <input type="submit" class="submit waves-effect waves-light btn" value="Find Subs">
+    </div>
+  </div>
+</div>
+<% end %>
+
+<script>
+  $('#experience-select').on("change", function(e){
+    console.log(e.currentTarget.value)
+    $('#experience').val(e.currentTarget.value)
+    console.log($('#experience'))
+  });
+</script>
