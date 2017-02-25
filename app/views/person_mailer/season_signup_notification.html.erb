@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+  <head>
+
+  </head>
+  <body>
+    <div class="container">
+      <div class="card">
+        <div class="card-content">
+          <p class="email-text flow-text">
+            A new team signed up for <%= @season.league.name %> starting <%= @season.start_date %>!
+          </p>
+          <p>
+             The team captain is <%= @person.first_name %> <%= @person.last_name %> and they have paid the season cost of <%= @season.cost %>, which will be deposited in your linked account in 2-3 business days.
+          </p>
+          <p class="email-text flow-text">
+            You just made some money, keep up the good work!
+          </p>
+          <p class="email-text flow-text">
+            Cheers,<br>
+            <br>
+            The Onside Team
+          </p>
+        </div>
+      </div>
+    </div>
+  </body>
+</html>

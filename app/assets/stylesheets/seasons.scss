@@ -241,7 +241,7 @@
     width: 100%;
     margin-top: -4px;
     font-weight: lighter;
-    font-style: oblique;
+    // font-style: oblique;
     font-size: 19px;
     margin-left: 20px;
 
@@ -289,4 +289,43 @@ input[type="submit"] {
   display: flex;
   justify-content: space-between;
   font-size: 18px;
+}
+
+
+
+
+.team-registration-block {
+
+  margin-top: 80px;
+
+  h2 {
+    font-weight: 600;
+    font-size: 2.5rem;
+    margin-bottom: 30px
+  }
+
+
+}
+
+.team-registration-price {
+  .dollar-amount {
+    color: $dark-font;
+    font-size: 2rem;
+    font-weight: 500;
+  }
+}
+
+.team-registration-deadline {
+
+}
+
+.captain-list-item {
+  width: 100%;
+
+  .captain-content {
+    width: calc(100% - 60px);
+    display: flex;
+    justify-content: space-between;
+    padding-right: 30px;
+  }
 }

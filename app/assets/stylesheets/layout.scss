@@ -1,6 +1,10 @@
-body {
+html, body {
   margin: 0px;
   box-sizing: border-box;
+  // height: 100%;
+
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
 }
 
 nav .brand-logo {
@@ -77,7 +81,7 @@ nav .brand-logo {
   margin: 30px;
   margin-top: 50px;
   @media(min-width: $breakpoint-tablet) {
-    margin: 80px;
+    margin: 50px;
   }
 }
 
@@ -90,8 +94,11 @@ nav .brand-logo {
       font-size: 36px;
     }
     color: $dark-font;
-    line-height: 0px;
   }
+}
+
+.section-block {
+  margin-left: 18px;
 }
 
 hr.faint {
@@ -117,4 +124,32 @@ p.simple-paragraph {
   .details {
     font-size: 16px;
   }
+}
+
+.z-depth-1, nav, .card-panel, .toast, .btn, .btn-large, .btn-floating, .dropdown-content, .collapsible, .side-nav {
+    box-shadow: 0 3px 2px rgba(0,0,0,0.05);
+}
+.collapsible.popout > li.active {
+  // box-shadow: 0 3px 2px rgba(0,0,0,0.05);
+}
+.collapsible.popout > li {
+  box-shadow: 0 3px 2px rgba(0,0,0,0.05);
+}
+
+.background-image {
+  height: 118%;
+  // width: 100%;
+  // background-size: fill;
+
+  &.fields {
+    background-image: image-url("aerial-soccer-fields.jpg");
+    background-size: cover;
+    background-repeat: repeat-y;
+    padding-top: 40px;
+  }
+
+}
+
+.header-offset {
+  margin-top: 64px;
 }

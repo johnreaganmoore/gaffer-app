@@ -17,19 +17,19 @@
 
     <%= favicon_link_tag %>
 
+    <% if defined?(@team) && @team.color != nil %>
+      <% bg_color = @team.color %>
+    <% else %>
+      <% bg_color = "#6FA135" %>
+    <% end %>
+
+    <meta name="theme-color" content="<%= bg_color %>">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
   </head>
 
-  <body>
-    <div id="color-setter-container">
-      <% if defined?(@team) && @team.color != nil %>
-        <% bg_color = @team.color %>
-      <% else %>
-        <% bg_color = "#6FA135" %>
-      <% end %>
-    </div>
+  <body class="app-background">
     <nav id="nav-container">
       <%= render "layouts/header", bg_color: bg_color %>
     </nav>

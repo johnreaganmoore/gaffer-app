@@ -95,7 +95,7 @@ class People::RegistrationsController < Devise::RegistrationsController
   # end
 
   def after_update_path_for(person)
-    team_path(person.teams.first)
+    account_path(person)
   end
 
 

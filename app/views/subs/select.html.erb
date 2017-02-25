@@ -1,0 +1,123 @@
+<div class="container">
+
+  <div class="card">
+    <div class="card-content">
+
+      <% if @filtered_players.length == 0 %>
+        <p class="flow-text">
+          It looks like no players match your search criteria. <%= link_to "Try another search", find_path %> with broadened criteria.  If you believe you are getting this message in error, please <a href="mailto:subs@playonside.com">contact us</a>.
+        </p>
+      <% else %>
+
+        <table class="bordered">
+         <thead>
+           <tr>
+               <th data-field="id">Name</th>
+               <th data-field="name">Positions</th>
+               <th data-field="experience">Experience</th>
+               <th data-field="skill-rating">Skill Rating</th>
+               <th data-field="price">Notes</th>
+               <th data-field="delete">Delete</th>
+           </tr>
+         </thead>
+
+         <tbody>
+           <% @filtered_players.each do |player| %>
+             <tr>
+               <td><%= player[:first_name] %> <%= player[:last_name] %></td>
+
+               <td>
+                 <% player[:positions].each do |position| %>
+                    <div class="chip">
+                      <%= position %>
+                    </div>
+                  <% end %>
+               </td>
+
+               <td>
+                 <%= player[:experience] %>
+               </td>
+
+               <td>
+                 <%= player[:skill] %>
+               </td>
+
+               <td>
+                 <% if (player[:notes].length > 1) %>
+                   <span class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="<%= player[:notes] %>">
+                    <%=  truncate(player[:notes], length: 25) %>
+                   </span>
+                 <% else %>
+                    No Notes Yet
+                  <% end %>
+               </td>
+               <td>
+                 <span id="<%= player[:email] %>" class="secondary-content player-delete"><i class="material-icons" style="color: tomato;">delete</i></span>
+               </td>
+             </tr>
+           <% end %>
+         </tbody>
+       </table>
+      </div>
+      <div class="edit-profile-actions card-action">
+        <%= button_tag id: "mail_button", class: "btn waves-effect waves-light" do %>
+
+          Email Players
+        <% end %>
+      </div>
+
+    <% end %>
+  </div>
+</div>
+
+<script>
+
+  function remove(arr, what) {
+    var found = arr.indexOf(what);
+    while (found !== -1) {
+        arr.splice(found, 1);
+        found = arr.indexOf(what);
+    }
+  }
+
+  var activePlayers = [];
+  <% @filtered_players.each do |player| %>
+    activePlayers.push("<%= player[:email] %>")
+  <% end %>
+
+  var button = $('#mail_button')
+  var deleteButtons = $('.player-delete')
+
+  deleteButtons.on("click", function(e){
+    var row = e.currentTarget.closest('tr');
+    remove(activePlayers, e.currentTarget.id);
+    $(row).hide()
+  });
+
+  var emailString = function(playersArr) {
+    var emailString = playersArr.join(", ")
+    return emailString
+  }
+
+  var dayAndTime = encodeURIComponent("<%= @game_date %> at <%= @game_time %>".replace(/&#39;/g, "\'"));
+  var field = encodeURIComponent(("<%= @location %>").replace(/&#39;/g, "\'"));
+
+  // console.log("<%= @location %>")
+  // console.log("<%= @location %>".replace(/&#39;/g, "'"))
+  // console.log(encodeURIComponent("<%= @location %>".replace(/&#39;/g, "%27")))
+  // console.log(encodeURIComponent("<%= @location %>".replace(/&#39;/g, "\'")))
+
+  var personName = encodeURIComponent("<%= @person.first_name %> <%= @person.last_name %>".replace(/&#39;/g, "\'"));
+  var orgName = encodeURIComponent("<%= @org.name %>".replace(/&#39;/g, "\'"));
+  var newLine = "%0D%0A";
+
+  button.click(function(e) {
+
+    var mailString = "mailto:subs@playonside.com?bcc=" + emailString(activePlayers) + "&subject=We Need Subs: " + dayAndTime + " at " + field + "&body=Hey Guys," + newLine + newLine + " We need subs for a game this " + dayAndTime + " at " + field + ". If you are certain you can make it please let me know as soon as possible so I can put you in touch with the team captain." + newLine + newLine + "Thanks, " + newLine + newLine + personName + " for " + orgName
+
+    console.log(mailString)
+
+    window.location.href = mailString;
+  })
+
+</script>

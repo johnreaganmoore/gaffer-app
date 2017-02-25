@@ -25,6 +25,7 @@
 $( document ).on('turbolinks:load', function() {
 
   $(function() {
+    console.log(Materialize.updateTextFields)
     Materialize.updateTextFields();
   });
 
@@ -33,6 +34,8 @@ $( document ).on('turbolinks:load', function() {
   });
 
   $('ul.tabs').tabs();
+
+  $('.tooltipped').tooltip({delay: 50});
 
   $('.dropdown-button').dropdown({
       inDuration: 300,

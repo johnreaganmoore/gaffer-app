@@ -1,0 +1,64 @@
+header.community {
+  background-color: $white;
+  // box-shadow: 0 1px 5px 0 rgba(0,0,0,0.16);
+  box-shadow: 0 3px 2px rgba(0,0,0,0.05);
+  opacity: 0.95;
+  padding: 25px;
+  width: 100%;
+  z-index: 10;
+
+  .header-container {
+    max-width: 1080px;
+    margin: auto;
+    position: relative;
+  }
+
+  nav {
+    background-color: $white;
+    box-shadow: none;
+
+    a {
+      color: rgba(0, 0, 0, 0.87);
+      // color: $dark-font;
+    }
+  }
+
+}
+
+.header-logo {
+  height: 2rem;
+}
+
+nav.marketing {
+  background-color: $white;
+  // position: relative;
+
+  ul a {
+    color: $secondary-green;
+  }
+
+  .button-collapse i {
+    color: $primary-green;
+  }
+}
+
+.brand-logo {
+  height: 100%;
+}
+
+.logo-container {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  justify-content: center;
+}
+
+.fix-to-top {
+  position: fixed;
+  top: 0px;
+  z-index: 998;
+}
+
+.hide {
+  display: none;
+}

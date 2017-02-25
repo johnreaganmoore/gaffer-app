@@ -1,4 +1,5 @@
 class Person < ApplicationRecord
+  rolify
   include ActionView::Helpers::NumberHelper
 
   require "stripe"
@@ -26,6 +27,12 @@ class Person < ApplicationRecord
   # after_initialize :ensure_avatar
   after_update :ensure_avatar
   after_update :new_managed_account?
+
+  # after_create :assign_default_role
+  #
+  # def assign_default_role
+  #   self.add_role(:new_person) if self.roles.blank?
+  # end
 
   def self.from_omniauth(auth)
 
@@ -72,7 +79,7 @@ class Person < ApplicationRecord
 
   end
 
-  def purchase_season(team_season)
+  def purchase_season(team_season, recipient_id, expected_cost)
 
     season_participation = self.season_participations.where(team_season_id: team_season.id).first
     if season_participation != nil
@@ -86,16 +93,14 @@ class Person < ApplicationRecord
     end
 
     # check to see if person owes money for team_season
-    if amount_paid >= team_season.new_player_cost
+    if amount_paid >= expected_cost
       # Display error saying they have already signed up and paid
-      puts "You are already signed up and paid up!"
       return {success: true, already_paid: true}
     else
       # Pay balance
       # Process a transaction for the balance of the amount for the season and update the SeasonParticipation accordingly
-      amount_owed = team_season.new_player_cost - amount_paid
+      amount_owed = expected_cost - amount_paid
       comp = self.payment_composition(amount_owed, 0.05, 0)
-      puts comp
 
       customer = Stripe::Customer.retrieve(self.customer_id)
 
@@ -106,7 +111,7 @@ class Person < ApplicationRecord
         customer: customer.id,
         description: "Season Fee",
         application_fee: comp[:service_fee], # amount in cents
-        destination: team_season.treasurer.merchant_account_id
+        destination: recipient_id
         }
       )
 
@@ -120,15 +125,21 @@ class Person < ApplicationRecord
           season_participation.save
         else
         # Create season participation
-          SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed, transactions: [result.id])
+          season_participation = SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed, transactions: [result.id])
+
+          if team_season.season_participations.length > 1
+            season_participation.is_treasurer = true
+          else
+            season_participation.is_treasurer = true
+          end
+
           self.teams.push(team_season.team)
-          PersonMailer.new_team_member(self, team_season).deliver
+          # PersonMailer.new_team_member(self, team_season).deliver
         end
       end
       return result
 
     end
-
   end
 
   def new_managed_account?
@@ -150,7 +161,7 @@ class Person < ApplicationRecord
 
     if person == nil
       person = Person.create!(first_name: first_name, last_name: last_name, email: email, :password => temp_password, :password_confirmation => temp_password)
-      PersonMailer.temp_password(person, temp_password).deliver
+      # PersonMailer.temp_password(person, temp_password).deliver
     end
 
     return person
@@ -239,6 +250,26 @@ class Person < ApplicationRecord
       charge: charge,
       amount: amount
     )
+  end
+
+  def administered_orgs
+    orgs = []
+
+    self.roles.where(:resource_type == "Org").each do |role|
+      orgs.push(Org.find(role.resource_id))
+    end
+
+    return orgs
+  end
+
+  def take_admin_org
+    role = self.roles.where(:resource_type == "Org").take
+    if role != nil
+      org = Org.find(role.resource_id)
+      return org
+    else
+      return false
+    end
   end
 
   protected

@@ -1,0 +1,49 @@
+<li>
+  <div class="collapsible-header">
+    <div>Season starting <%= season.start_date.strftime("%B #{season.start_date.day.ordinalize}") %></div>
+    <!-- <div class="price"></div> -->
+  </div>
+  <div class="collapsible-body">
+    <div class="opp-section-title">Basics</div>
+    <div class="opp-section-body">
+      <div class="basic-data">
+
+          <div class="chip">
+            <%= season.league.players_per_team %> v <%= season.league.players_per_team %>
+          </div>
+          <div class="chip">
+            <%= season.league.minutes_per_game %> minute games
+          </div>
+          <div class="chip">
+            <%= season.league.facility_type %>
+          </div>
+
+      </div>
+    </div>
+    <div class="location">
+      <div class="opp-section-title">When and Where</div>
+      <div class="opp-section-body">
+        <% timeframe_array = [] %>
+        <% season.timeframes.each do |timeframe| %>
+          <% timeframe_array.push(timeframe.friendly_label)  %>
+        <% end %>
+        <ul>
+          <li style="list-style: circle inside">
+            <%= timeframe_array.to_sentence  %>
+          </li>
+          <li style="list-style: circle inside">
+            <a class="location-address" href="http://maps.google.com/maps?q=<%= season.location %>">
+              <%= season.location %>
+            </a>
+          </li>
+        </ul>
+      </div>
+    </div>
+    <div class="more-info">
+      <div class="opp-section-title">More Info</div>
+      <div class="opp-section-body last">
+        <a class="event-link btn waves-effect waves-green" href="<%= season_path(season) %>">More Info</a>
+      </div>
+    </div>
+  </div>
+</li>

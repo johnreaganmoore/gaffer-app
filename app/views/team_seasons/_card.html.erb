@@ -42,7 +42,7 @@
       <h2 style="color: <%= team_color %>;"><%= @team_season.team.name %></h2>
       <hr class="faint">
       <ul class="reg-list">
-      <% @team_season.team.player_avatars.first(5).each do |person| %>
+      <% @team_season.team.player_avatars.first(3).each do |person| %>
           <li class="reg-list__item">
              <img class="reg-list__item-avatar" src="<%= person.avatar %>">
              <div><%= person.first_name %></div>
@@ -62,9 +62,17 @@
       </div>
       <div class="section-block">
         <% if @team_season.cost != nil %>
-        <div class="detail-item">
+        <!-- <a class="btn tooltipped" data-position="right" data-delay="50" data-tooltip="I am tooltip">Hover me!</a> -->
+        <div class="detail-item tooltipped" data-position="top" data-delay="50" data-tooltip="Cost varies based on the number of players who sign up.">
           <span class="detail-label">Cost: </span>
-            <span class="detail-value"><%= number_to_currency(@payment[:charge_amount] / 100.0)  %></span>
+          <% if @team_season.max_players != nil %>
+            <span class="detail-value">
+              <%= number_to_currency(@team_season.lowest_possible_cost / 100.0) %> -
+            </span>
+          <% end %>
+            <span class="detail-value">
+              <%= number_to_currency(@payment[:charge_amount] / 100.0)  %>
+            </span>
         </div>
         <% end %>
         <% if @team_season.season.location != nil %>
@@ -93,6 +101,17 @@
         <div class="detail-item">
           <span class="detail-label">Roster Size: </span>
           <span class="detail-value"><%= @team_season.min_players %></span>
+          <% if @team_season.max_players != nil %>
+            <span class="detail-value">
+               - <%= @team_season.max_players %>
+            </span>
+          <% end %>
+        </div>
+        <% end %>
+        <% if @team_season.max_players != nil && @team_season.spots_remaining < 10 %>
+        <div class="detail-item">
+          <span class="detail-label">Spots Remaining: </span>
+          <span class="detail-value"><%= @team_season.spots_remaining %></span>
         </div>
         <% end %>
       </div>

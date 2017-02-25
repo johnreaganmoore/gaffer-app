@@ -6,8 +6,6 @@ class MarketingController < ApplicationController
   end
 
   def harrisburg
-
-
     @orgs = [
       {
         name: "Harrisburg Area Co-ed Pickup",
@@ -609,4 +607,11 @@ class MarketingController < ApplicationController
   def coming_soon
     @lead = Lead.new
   end
+
+  def subs
+  end
+
+  def register
+  end
+  
 end

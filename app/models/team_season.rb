@@ -25,8 +25,6 @@ class TeamSeason < ApplicationRecord
   has_many :playing_times
   has_many :timeframes, through: :playing_times
 
-  # has_one :default_location, :class_name => "Location"
-
   accepts_nested_attributes_for :treasurer, :season
 
   after_create :ensure_team, :ensure_min_players, :open
@@ -42,6 +40,20 @@ class TeamSeason < ApplicationRecord
     else
       return new_player_cost
     end
+  end
+
+  def lowest_possible_cost
+    if self.max_players != nil
+      base = ((self.cost * 100)  / self.max_players.to_f).ceil
+      fee = (base * 0.05).ceil
+      base + fee
+    else
+      nil
+    end
+  end
+
+  def spots_remaining
+    self.max_players - self.season_participations.length
   end
 
   def cost_divisor

@@ -46,6 +46,8 @@ $secondary-color: $secondary-green !default;
 @import "coming_soon";
 @import "onboarding";
 @import "cashed-out";
+@import "header";
+@import "subfinder-hero";
 
 
 a {
@@ -69,15 +71,19 @@ html {
   -moz-osx-font-smoothing: grayscale;
 }
 
-body {
+.app-background {
   background: $primary-bg;
+}
+
+.marketing-background {
+  background: $marketing-bg;
 }
 
 header, main, footer {
   padding-left: 300px;
 }
 
-nav {
+#nav-container {
   display: none;
 }
 
@@ -86,7 +92,7 @@ nav {
     padding-left: 0;
   }
 
-  nav {
+  #nav-container {
     display: block;
   }
 }
@@ -130,4 +136,8 @@ nav {
 
  .side-nav .divider.sans-margin {
   margin-top: 0px;
+}
+
+#slide-out {
+  background: #ffffff;
 }

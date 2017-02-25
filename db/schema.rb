@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170106031518) do
+ActiveRecord::Schema.define(version: 20170213121028) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -42,6 +42,17 @@ ActiveRecord::Schema.define(version: 20170106031518) do
     t.datetime "updated_at", null: false
   end
 
+  create_table "leagues", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "org_id"
+    t.datetime "created_at",       null: false
+    t.datetime "updated_at",       null: false
+    t.integer  "players_per_team"
+    t.integer  "minutes_per_game"
+    t.string   "facility_type"
+    t.index ["org_id"], name: "index_leagues_on_org_id", using: :btree
+  end
+
   create_table "locations", force: :cascade do |t|
     t.string   "name"
     t.text     "address"
@@ -51,6 +62,15 @@ ActiveRecord::Schema.define(version: 20170106031518) do
     t.datetime "updated_at", null: false
     t.integer  "season_id"
     t.index ["season_id"], name: "index_locations_on_season_id", using: :btree
+  end
+
+  create_table "orgs", force: :cascade do |t|
+    t.string   "name"
+    t.string   "external_link"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.string   "slug"
+    t.string   "merchant_account_id"
   end
 
   create_table "people", force: :cascade do |t|
@@ -98,6 +118,12 @@ ActiveRecord::Schema.define(version: 20170106031518) do
     t.index ["reset_password_token"], name: "index_people_on_reset_password_token", unique: true, using: :btree
   end
 
+  create_table "people_roles", id: false, force: :cascade do |t|
+    t.integer "person_id"
+    t.integer "role_id"
+    t.index ["person_id", "role_id"], name: "index_people_roles_on_person_id_and_role_id", using: :btree
+  end
+
   create_table "playing_times", force: :cascade do |t|
     t.integer  "timeframe_id"
     t.integer  "season_id"
@@ -105,6 +131,16 @@ ActiveRecord::Schema.define(version: 20170106031518) do
     t.datetime "updated_at",   null: false
     t.index ["season_id"], name: "index_playing_times_on_season_id", using: :btree
     t.index ["timeframe_id"], name: "index_playing_times_on_timeframe_id", using: :btree
+  end
+
+  create_table "roles", force: :cascade do |t|
+    t.string   "name"
+    t.string   "resource_type"
+    t.integer  "resource_id"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+    t.index ["name", "resource_type", "resource_id"], name: "index_roles_on_name_and_resource_type_and_resource_id", using: :btree
+    t.index ["name"], name: "index_roles_on_name", using: :btree
   end
 
   create_table "season_participations", force: :cascade do |t|
@@ -133,6 +169,8 @@ ActiveRecord::Schema.define(version: 20170106031518) do
     t.string   "sport"
     t.float    "location_lat"
     t.float    "location_long"
+    t.integer  "league_id"
+    t.index ["league_id"], name: "index_seasons_on_league_id", using: :btree
   end
 
   create_table "team_memberships", force: :cascade do |t|
@@ -177,11 +215,13 @@ ActiveRecord::Schema.define(version: 20170106031518) do
 
   add_foreign_key "games", "locations"
   add_foreign_key "games", "seasons"
+  add_foreign_key "leagues", "orgs"
   add_foreign_key "locations", "seasons"
   add_foreign_key "playing_times", "seasons"
   add_foreign_key "playing_times", "timeframes"
   add_foreign_key "season_participations", "people"
   add_foreign_key "season_participations", "team_seasons"
+  add_foreign_key "seasons", "leagues"
   add_foreign_key "team_memberships", "people"
   add_foreign_key "team_memberships", "teams"
   add_foreign_key "team_seasons", "seasons"

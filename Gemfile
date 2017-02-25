@@ -13,6 +13,8 @@ source 'https://rubygems.org' do
   gem 'geocoder'
   gem 'gmaps4rails'
 
+  gem 'airtable'
+
   gem 'postmark-rails'
   gem 'premailer-rails'
 
@@ -58,6 +60,7 @@ source 'https://rubygems.org' do
 
   # CanCanCan for authorization
   gem 'cancancan'
+  gem 'rolify'
 
   # invitations modules
   gem 'devise_invitable'
@@ -76,8 +79,7 @@ source 'https://rubygems.org' do
 
   gem 'stripe'
 
-
-  gem "braintree", "~> 2.66.0"
+  # gem "braintree", "~> 2.66.0"
   gem 'gon'
 
   gem 'rails-env-favicon'

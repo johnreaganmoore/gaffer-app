@@ -1,0 +1,24 @@
+<nav id="register-header" class="marketing">
+  <div class="nav-wrapper">
+     <a title="Home to Onside Harrisburg" href="/" class="brand-logo">
+       <div class="logo-container">
+         <%= image_tag "onside.svg", class: "header-logo" %>
+       </div>
+     </a>
+     <a id="register-side-menu-icon" href="#" data-activates="register-side-menu" class="button-collapse hide"><i class="material-icons">menu</i></a>
+     <ul class="right hide-on-med-and-down">
+       <li><a href="#why">Why</a></li>
+       <li><a href="#how">How</a></li>
+       <li><a href="#products">Products</a></li>
+       <li><a href="#contact">Contact</a></li>
+       <li><a href="<%= new_person_session_path %>">Sign In</a></li>
+     </ul>
+     <ul class="side-nav" id="register-side-menu">
+       <li><a href="#why">Why</a></li>
+       <li><a href="#how">How</a></li>
+       <li><a href="#products">Products</a></li>
+       <li><a href="#contact">Contact</a></li>
+       <li><a href="<%= new_person_session_path %>">Sign In</a></li>
+     </ul>
+  </div>
+</nav>

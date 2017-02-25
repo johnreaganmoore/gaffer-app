@@ -24,9 +24,6 @@ Rails.application.routes.draw do
   resources :invites
   get 'invites/:id/resend', to: 'invites#resend', as: :resend_invite
 
-  resources :onboarding
-  resources :season_creator
-
   # scope :people do
   resources :profiles
   get 'profiles/:id/leave', to: 'profiles#leave', as: :leave_team
@@ -35,9 +32,15 @@ Rails.application.routes.draw do
 
 
   resources :leads, only: [:new, :create]
+  resources :orgs
+  resources :leagues
   resources :seasons
+  get 'seasons/:id/register', to: 'seasons#register', as: :season_register
+
+
   resources :team_seasons
 
+  get 'team_seasons/:id/confirm_team', to: 'team_seasons#confirm_team', as: :team_season_confirm_team
   get 'team_seasons/:id/confirm', to: 'team_seasons#confirm', as: :confirm_team_season
   get 'team_seasons/:id/preview', to: 'team_seasons#preview', as: :preview_season
   get 'team_seasons/:id/accept', to: 'team_seasons#accept', as: :accept_season
@@ -51,6 +54,7 @@ Rails.application.routes.draw do
 
   post 'kickoff', to: 'transactions#kickoff', as: :kickoff
   post 'player_purchase', to: 'transactions#player_purchase', as: :player_purchase
+  post 'captain_signup', to: 'transactions#captain_signup', as: :captain_signup
 
   resources :locations, except: [:update, :edit, :destroy]
 
@@ -62,6 +66,28 @@ Rails.application.routes.draw do
 
 
   get '/', to: 'marketing#harrisburg', constraints: { subdomain: 'harrisburg' }
+  get '/', to: 'marketing#register', constraints: { subdomain: 'register' }
+
+  get '/onboarding', to: 'register_onboarding#profile', constraints: { subdomain: 'register' }
+  put '/onboarding', to: 'register_onboarding#update_profile', constraints: { subdomain: 'register' }
+
+  resources :onboarding
+  resources :season_creator
+
+  get '/find', to: 'subs#find', constraints: {subdomain: 'subs'}
+  get '/select', to: 'subs#select', constraints: {subdomain: 'subs'}
+  post '/select', to: 'subs#select', constraints: {subdomain: 'subs'}
+  get '/email', to: 'subs#email', constraints: {subdomain: 'subs'}
+
+  get '/find', to: 'subs#find'
+  get '/select', to: 'subs#select'
+  post '/select', to: 'subs#select'
+
+
+  get '/', to: 'marketing#subs', constraints: { subdomain: 'subs' }
+  get '/', to: 'marketing#subs', constraints: { subdomain: 'subfinder' }
+  get '/subs', to: 'marketing#subs', constraints: { subdomain: 'harrisburg' }
+  get '/subs', to: 'marketing#subs'
 
   get '/tos', to: 'marketing#tos'
 
