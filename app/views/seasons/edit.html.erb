@@ -5,9 +5,20 @@
       <div class="card-title">
         <%= @season.league.name %> starting <%= @season.start_date.strftime("%B #{@season.start_date.day.ordinalize} %Y") %>
       </div>
-      <p>
+      <!-- <p>
         Manage this season's details.
       </p>
+      <p class="flow-text">
+        Season URL
+      </p> -->
+      <p>
+        Use this link to share the season page on your website, social media, email, etc.
+      </p>
+
+      <blockquote style="background: rgba(0,0,0,0.28); padding: 1.2rem;">
+        <%= season_url(@season) %>
+      </blockquote>
+
     </div>
   </div>
 
