@@ -182,6 +182,57 @@ ul li.home-list-point {
         }
       }
 
+      .gif.season_page {
+        @include aspect-ratio(413, 733);
+
+        // max-height: 667px;
+        max-width: 400px;
+        background-size: 100%;
+        background-image: image-url("season_page_I6.png");
+        margin: auto; /*position the [div] on the center*/
+        // border: 1px solid #dddddd;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+
+        // &:hover {
+        //   cursor:pointer;
+        //   background-image: image-url("add_league.gif");
+        // }
+      }
+
+      .gif.checkout_page {
+        @include aspect-ratio(413, 733);
+
+        // max-height: 667px;
+        max-width: 400px;
+        background-size: 100%;
+        background-image: image-url("checkout_I6.png");
+        margin: auto; /*position the [div] on the center*/
+        // border: 1px solid #dddddd;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+
+        // &:hover {
+        //   cursor:pointer;
+        //   background-image: image-url("add_league.gif");
+        // }
+      }
+
+      .gif.captains_list {
+        @include aspect-ratio(413, 733);
+
+        // max-height: 667px;
+        max-width: 400px;
+        background-size: 100%;
+        background-image: image-url("captains_list_6P.png");
+        margin: auto; /*position the [div] on the center*/
+        // border: 1px solid #dddddd;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+
+        // &:hover {
+        //   cursor:pointer;
+        //   background-image: image-url("add_league.gif");
+        // }
+      }
+
 
     }
 

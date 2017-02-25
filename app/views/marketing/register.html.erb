@@ -15,26 +15,20 @@
 
   <div id="first-container" class="container">
 
-    <div class="home-section">
+    <div id="demo" class="home-section">
       <div class="home-section-header">
         <h2>You’re a commisioner, not a collector</h2>
       </div>
       <div class="home-sub-section-container">
         <div>If you would rather run a sports league than a collections agency, you can use simple online registration from Onside so that you can get more teams committed and get paid can conveniently and on time.</div>
         <div style="margin-top:50px;">
-          <iframe src="https://player.vimeo.com/video/12442982" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe>
+          <iframe width="630" height="394" src="https://www.useloom.com/embed/676856752fd44903a199d4b3f9f8477c" frameborder="0" allowfullscreen></iframe>
+          <!-- <iframe src="https://player.vimeo.com/video/12442982" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
         </div>
-
-        <ul style="text-align: left;">
-          <li style="list-style: circle inside;">Be in control of your business.</li>
-          <li style="list-style: circle inside;">Know which teams are committed up front.</li>
-          <li style="list-style: circle inside;">Get money in the bank when a team signs up.</li>
-        </ul>
-
       </div>
     </div>
 
-    <div class="home-section">
+    <div id="features" class="home-section">
       <div class="home-section-header">
         <h2>Simple Online Registration</h2>
       </div>
@@ -67,35 +61,35 @@
             <div class="home-sub-section">
               <div class="container">
                 <div class="home-sub-section-img card">
-                  <div class="gif sign_up"></div>
+                  <div class="gif season_page"></div>
                 </div>
               </div>
             </div>
 
             <div class="home-sub-section">
               <div class="home-sub-section-header">
-                <h3>When team captains signup and pay you get notified with the captain’s name and email address.</h3>
+                <h3>Team captains signup and pay. The money is deposited in your bank account in 2-3 business days.</h3>
               </div>
             </div>
 
             <div class="home-sub-section">
               <div class="container">
                 <div class="home-sub-section-img card">
-                  <div class="gif sign_up"></div>
+                  <div class="gif checkout_page"></div>
                 </div>
               </div>
             </div>
 
             <div class="home-sub-section">
               <div class="home-sub-section-header">
-                <h3>The money is deposited in your bank account in 2-3 business days.</h3>
+                <h3>You get notified with the captain’s name and email address.</h3>
               </div>
             </div>
 
             <div class="home-sub-section">
               <div class="container">
                 <div class="home-sub-section-img card">
-                  <div class="gif sign_up"></div>
+                  <div class="gif captains_list"></div>
                 </div>
               </div>
             </div>
@@ -123,7 +117,7 @@
       </div>
     </div>
 
-    <div class="home-section">
+    <div id="pricing" class="home-section">
       <div class="home-section-header">
         <h2>Straightforward Pricing</h2>
       </div>
@@ -203,15 +197,25 @@
   function startTime() {
       var now = new Date();
       var done = new Date(now.getTime() + 10*60000);
-      var h = done.getHours();
-      var m = done.getMinutes();
-      var s = done.getSeconds();
+      var hh = done.getHours();
+      var ampm = 'am';
+      var h = hh;
+      if (h >= 12) {
+          h = hh-12;
+          ampm = "pm";
+      }
+      if (h == 0) {
+          h = 12;
+      }
 
-      var ampm = h >= 12 ? 'pm' : 'am';
+
+      var m = done.getMinutes();
+      // var s = done.getSeconds();
+
       // add a zero in front of numbers<10
       m = checkTime(m);
-      s = checkTime(s);
-      document.getElementById('done-time').innerHTML = h + ":" + m + ":" + s + ampm;
+      // s = checkTime(s);
+      document.getElementById('done-time').innerHTML = h + ":" + m + ampm;
       t = setTimeout(function () {
           startTime()
       }, 500);
