@@ -17,14 +17,26 @@ class ApplicationController < ActionController::Base
       session[:admin_org] = person.take_admin_org
     end
 
+    # If they don't have a name, take them to profile creation
+    if person.first_name == nil then
+      return onboarding_path(:create_profile)
+    end
+
+    if request.subdomain == "register"
+      return orgs_path
+    end
+
+    # If no subdomain, I will need to check conditions of teams/orgs.
+    # See which they have, if neither route to account page and then allow them to choose product on the left.
+
+    
+
+    # If they already have a team, take them to their teams page.
     if person.teams.length > 0 then
       team_path(person.teams.first)
+    # Otherwise take them to create team step.
     else
-      if person.first_name != nil then
         onboarding_path(:create_team)
-      else
-        onboarding_path(:create_profile)
-      end
     end
 
     # request.env['omniauth.origin'] || stored_location_for(resource) || root_path

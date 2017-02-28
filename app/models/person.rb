@@ -127,10 +127,11 @@ class Person < ApplicationRecord
         # Create season participation
           season_participation = SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed, transactions: [result.id])
 
-          if team_season.season_participations.length > 1
+          if team_season.season_participations.length == 1
+            puts "should set treasurer"
+
             season_participation.is_treasurer = true
-          else
-            season_participation.is_treasurer = true
+            season_participation.save
           end
 
           self.teams.push(team_season.team)
