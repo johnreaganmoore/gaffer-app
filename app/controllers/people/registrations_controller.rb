@@ -105,6 +105,7 @@ class People::RegistrationsController < Devise::RegistrationsController
   def after_sign_up_path_for(person)
     # team_path(person.teams.first)
     # edit_person_registration_path(person)
+
     sign_in(person)
     onboarding_path(:create_profile)
   end
@@ -113,6 +114,7 @@ class People::RegistrationsController < Devise::RegistrationsController
   def after_inactive_sign_up_path_for(person)
     # team_path(person.teams.first)
     # edit_person_registration_path(person)
+
     sign_in(person)
     onboarding_path(:create_profile)
   end
