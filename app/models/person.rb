@@ -5,6 +5,7 @@ class Person < ApplicationRecord
   require "stripe"
   Stripe.api_key = ENV['stripe_api_key']
 
+  require "mailgun"
 
   # Include default devise modules. Others available are:
   # :lockable
@@ -18,6 +19,9 @@ class Person < ApplicationRecord
 
   has_many :season_participations
   has_many :seasons, through: :season_participations
+
+  has_many :sub_list_memberships
+  has_many :sub_lists, through: :sub_list_memberships
 
   has_many :invitations, :class_name => "Invite", :foreign_key => 'recipient_id'
   has_many :sent_invites, :class_name => "Invite", :foreign_key => 'sender_id'
@@ -33,6 +37,61 @@ class Person < ApplicationRecord
   # def assign_default_role
   #   self.add_role(:new_person) if self.roles.blank?
   # end
+
+  filterrific(
+    default_filter_params: { sorted_by: 'created_at_desc' },
+    available_filters: [
+      :sorted_by,
+      :search_query,
+      :with_any_sub_list_ids,
+      :last_contacted_before,
+      :last_subbed_after,
+      :with_created_at_gte
+    ]
+  )
+
+  scope :with_any_sub_list_ids, lambda { |list_ids|
+    # Filters players on any of the lists
+    sub_list_memberships = SubListMemberships.arel_table
+
+    where(
+      SubListMembership \
+        .where(sub_list_memberships[:person_id].eq(people[:id])) \
+        .where(sub_list_memberships[:sub_list_id].in([*list_ids].map(&:to_i))) \
+        .exists
+    )
+
+  }
+
+
+
+
+  def send_sub_email(org, recipients, subject, body)
+    puts org.inspect, recipients.inspect, subject, body
+    mg_client = Mailgun::Client.new 'key-30c362ad4107dd2bc3f9fffc67bd23b6'
+
+    # Create a Batch Message object, pass in the client and your domain.
+    mb_obj = Mailgun::BatchMessage.new(mg_client, "playonside.com")
+
+    # Define the from address.
+    mb_obj.from(self.email, {"first"=>self.first_name, "last" => self.last_name});
+
+    # Define the subject.
+    mb_obj.subject(subject);
+
+    # Define the body of the message.
+    mb_obj.body_text(body);
+
+    # Loop through all of your recipients
+    recipients.each do |recipient|
+      mb_obj.add_recipient(:to, recipient[:email], {"first" => recipient[:first_name], "last" => recipient[:last_name]});
+    end
+
+    # Call finalize to get a list of message ids and totals.
+    message_ids = mb_obj.finalize
+    # {'id1234@example.com' => 1000, 'id5678@example.com' => 15}
+
+  end
 
   def self.from_omniauth(auth)
 
@@ -100,7 +159,7 @@ class Person < ApplicationRecord
       # Pay balance
       # Process a transaction for the balance of the amount for the season and update the SeasonParticipation accordingly
       amount_owed = expected_cost - amount_paid
-      comp = self.payment_composition(amount_owed, 0.05, 0)
+      comp = self.payment_composition(amount_owed, 0, 0)
 
       customer = Stripe::Customer.retrieve(self.customer_id)
 

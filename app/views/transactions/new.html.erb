@@ -6,6 +6,7 @@
 </div>
 
 <div class="right-pane" style="padding-top: 1rem; padding-bottom: 1rem;">
+
   <div class="season-preview-container container">
     <div class="card checkout-team-card">
       <div class="card-content">
@@ -56,7 +57,25 @@
       </div>
     </div>
 
-    <div class="card checkout-team-card">
+
+
+
+    <div class="card checkout-team-card" style="position:relative;">
+      <div id="processing-indicator" style="height: 100%; width: 100%; position: absolute; top: 0px; display: none; justify-content: center; align-items: center; background-color: rgba(255,255,255, 0.8); z-index: 1000;">
+        <div class="preloader-wrapper big active">
+          <div class="spinner-layer spinner-blue-only">
+            <div class="circle-clipper left">
+              <div class="circle"></div>
+            </div><div class="gap-patch">
+              <div class="circle"></div>
+            </div><div class="circle-clipper right">
+              <div class="circle"></div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+
       <%= form_tag captain_signup_path, id: "payment-form" do %>
         <div class="card-content">
 
@@ -195,6 +214,7 @@
     $form.submit(function(event) {
       // Disable the submit button to prevent repeated clicks:
       $form.find('.submit').prop('disabled', true);
+      $("#processing-indicator").show().css('display', 'flex');
 
       // Request a token from Stripe:
       Stripe.card.createToken($form, stripeResponseHandler);
@@ -214,6 +234,7 @@
       $form.find('.payment-errors').show();
       $form.find('.payment-errors').text(response.error.message);
       $form.find('.submit').prop('disabled', false); // Re-enable submission
+      $("#processing-indicator").hide();
 
     } else { // Token was created!
 

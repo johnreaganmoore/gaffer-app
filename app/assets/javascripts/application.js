@@ -25,7 +25,6 @@
 $( document ).on('turbolinks:load', function() {
 
   $(function() {
-    console.log(Materialize.updateTextFields)
     Materialize.updateTextFields();
   });
 

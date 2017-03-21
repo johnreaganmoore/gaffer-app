@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>
+      Onside
+    </title>
+    <%= csrf_meta_tags %>
+
+    <%= include_gon %>
+    <script defer src="https://code.getmdl.io/1.1.3/material.min.js"></script>
+    <!-- <script src="//maps.google.com/maps/api/js?key=<%= ENV['google_maps_geocoding'] %>"></script> -->
+    <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/icon?family=Material+Icons">
+    <!-- <link rel="stylesheet" href="https://code.getmdl.io/1.1.3/material.green-blue.min.css"> -->
+    <link rel="stylesheet" href="https://unpkg.com/huebee@1/dist/huebee.min.css">
+    <script src="https://unpkg.com/huebee@1/dist/huebee.pkgd.min.js"></script>
+
+    <%= favicon_link_tag %>
+
+    <% if defined?(@team) && @team.color != nil %>
+      <% bg_color = @team.color %>
+    <% else %>
+      <% bg_color = "#6FA135" %>
+    <% end %>
+
+    <meta name="theme-color" content="<%= bg_color %>">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+  </head>
+
+  <body class="app-background">
+    <nav id="nav-container">
+      <%= render "layouts/primary_header", bg_color: bg_color %>
+    </nav>
+    <div id="side-nav-container">
+      <%= render "layouts/subs_side_nav", bg_color: bg_color %>
+    </div>
+    <main class="page-content">
+      <%= yield %>
+    </main>
+  </body>
+  <script src="https://cdn.smooch.io/smooch.min.js"></script>
+  <script>
+    Smooch.init({ appToken: '4uo07emseza6om3y5azyjq56e' });
+  </script>
+</html>
+<%= javascript_tag do %>
+  window.flashMessages = $.parseJSON('<%=j flash.to_hash.to_json.html_safe %>');
+<% end %>

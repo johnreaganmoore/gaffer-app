@@ -1,6 +1,6 @@
 <div class="container">
 
-  <div class="card">
+  <!-- <div class="card">
     <div class="card-content">
 
       <% if @filtered_players.length == 0 %>
@@ -13,11 +13,8 @@
          <thead>
            <tr>
                <th data-field="id">Name</th>
-               <th data-field="name">Positions</th>
-               <th data-field="experience">Experience</th>
-               <th data-field="skill-rating">Skill Rating</th>
-               <th data-field="price">Notes</th>
-               <th data-field="delete">Delete</th>
+
+               <th data-field="delete">Don't Email</th>
            </tr>
          </thead>
 
@@ -26,48 +23,55 @@
              <tr>
                <td><%= player[:first_name] %> <%= player[:last_name] %></td>
 
-               <td>
-                 <% player[:positions].each do |position| %>
-                    <div class="chip">
-                      <%= position %>
-                    </div>
-                  <% end %>
-               </td>
 
                <td>
-                 <%= player[:experience] %>
-               </td>
-
-               <td>
-                 <%= player[:skill] %>
-               </td>
-
-               <td>
-                 <% if (player[:notes].length > 1) %>
-                   <span class="tooltipped" data-position="bottom" data-delay="50" data-tooltip="<%= player[:notes] %>">
-                    <%=  truncate(player[:notes], length: 25) %>
-                   </span>
-                 <% else %>
-                    No Notes Yet
-                  <% end %>
-               </td>
-               <td>
-                 <span id="<%= player[:email] %>" class="secondary-content player-delete"><i class="material-icons" style="color: tomato;">delete</i></span>
+                 <span id="<%= player[:email] %>" class="player-delete"><i class="material-icons" style="color: tomato;">mail_outline</i></span>
                </td>
              </tr>
            <% end %>
          </tbody>
        </table>
       </div>
-      <div class="edit-profile-actions card-action">
-        <%= button_tag id: "mail_button", class: "btn waves-effect waves-light" do %>
-
-          Email Players
-        <% end %>
-      </div>
-
     <% end %>
+  </div> -->
+
+<%= form_tag email_path do %>
+
+  <div class="card">
+    <div class="card-content">
+      <div class="row">
+        <form class="col s12">
+          <div class="row">
+
+            <div class="input-field col s12">
+              <input placeholder="Subject" id="subject" name="subject" type="text" class="validate" value="We Need Subs: <%= @game_date %> at <%= @game_time %> at <%= @location %>">
+              <label for="subject">Subject</label>
+            </div>
+
+            <div class="input-field col s12">
+              <textarea id="body" name="body" class="materialize-textarea"></textarea>
+              <label for="body">Email Body</label>
+            </div>
+
+            <input id="recipients" name="recipients" type="hidden" value="" />
+            <input id="sms" name="sms" type="hidden" value="" />
+
+          </div>
+        </form>
+      </div>
+    </div>
+    <div class="edit-profile-actions card-action">
+      <a href="<%= find_subs_path %>">
+        Back to game and lists
+      </a>
+      <%= button_tag id: "mail_button", class: "btn waves-effect waves-light" do %>
+        Email <%= @filtered_players.length %> Players
+      <% end %>
+    </div>
   </div>
+
+<% end %>
+
 </div>
 
 <script>
@@ -82,8 +86,13 @@
 
   var activePlayers = [];
   <% @filtered_players.each do |player| %>
-    activePlayers.push("<%= player[:email] %>")
+    activePlayers.push("<%= player[:id] %>")
   <% end %>
+
+  var recipientsInput = $('#recipients')
+  recipientsInput.val(activePlayers)
+
+
 
   var button = $('#mail_button')
   var deleteButtons = $('.player-delete')
@@ -91,6 +100,7 @@
   deleteButtons.on("click", function(e){
     var row = e.currentTarget.closest('tr');
     remove(activePlayers, e.currentTarget.id);
+    recipientsInput.val(activePlayers)
     $(row).hide()
   });
 
@@ -111,13 +121,21 @@
   var orgName = encodeURIComponent("<%= @org.name %>".replace(/&#39;/g, "\'"));
   var newLine = "%0D%0A";
 
-  button.click(function(e) {
+  $('#body').val(
+    "Hey %recipient.first%," + '\n' + '\n' + "We need subs for a game " + "<%= @game_date %> at <%= @game_time %>" + " at " + "<%= @location %>" + ". If you are certain you can make it please let me know as soon as possible so I can put you in touch with the team captain." + '\n' + '\n' + "Thanks, " + '\n' + '\n' + "<%= @person.first_name %> <%= @person.last_name %>" + " for " + "<%= @org.name %>"
+  )
 
-    var mailString = "mailto:subs@playonside.com?bcc=" + emailString(activePlayers) + "&subject=We Need Subs: " + dayAndTime + " at " + field + "&body=Hey Guys," + newLine + newLine + " We need subs for a game this " + dayAndTime + " at " + field + ". If you are certain you can make it please let me know as soon as possible so I can put you in touch with the team captain." + newLine + newLine + "Thanks, " + newLine + newLine + personName + " for " + orgName
+  $('#sms').val(
+    "We need subs for a game " + "<%= @game_date %> at <%= @game_time %>" + " at " + "<%= @location %>" + ". If you are certain you can make it please let me know as soon as possible so I can put you in touch with the team captain." + '\n' + '\n' + "Thanks, " + '\n' + '\n' + "<%= @person.first_name %> <%= @person.last_name %>" + " for " + "<%= @org.name %>"
+  )
 
-    console.log(mailString)
-
-    window.location.href = mailString;
-  })
+  // button.click(function(e) {
+  //
+  //   var mailString = "mailto:subs@playonside.com?bcc=" + emailString(activePlayers) + "&subject=We Need Subs: " + dayAndTime + " at " + field + "&body=Hey Guys," + newLine + newLine + " We need subs for a game this " + dayAndTime + " at " + field + ". If you are certain you can make it please let me know as soon as possible so I can put you in touch with the team captain." + newLine + newLine + "Thanks, " + newLine + newLine + personName + " for " + orgName
+  //
+  //   console.log(mailString)
+  //
+  //   window.location.href = mailString;
+  // })
 
 </script>

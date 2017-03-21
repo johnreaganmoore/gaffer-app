@@ -42,6 +42,7 @@ class TeamSeasonsController < ApplicationController
 
   def confirm_team
     @season = @team_season.season
+    @captain = @team_season.treasurer
   end
 
   def accept

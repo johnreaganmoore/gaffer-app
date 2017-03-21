@@ -1,0 +1,52 @@
+<ul id="slide-out" class="side-nav fixed">
+  <li>
+    <div class="userView" style="background-color: <%= bg_color %>;">
+      <% if defined?(current_person) %>
+        <img class="circle" src="<%= current_person.avatar.thumb %>">
+      <% end %>
+    </div>
+  </li>
+  <li class="no-padding account-menu" style="background-color: <%= bg_color %>;">
+    <ul class="collapsible collapsible-accordion">
+      <li>
+        <a class="collapsible-header">
+          <%= current_person.first_name %> <%= current_person.last_name %>
+          <i class="material-icons">arrow_drop_down</i>
+        </a>
+        <div class="collapsible-body">
+          <ul>
+            <li>
+              <a href="<%= account_path(current_person) %>">
+                <i class="material-icons">account_circle</i>
+                Manage Account
+              </a>
+            </li>
+            <li>
+              <% if person_signed_in? %>
+                <a href="<%= destroy_person_session_path %>" class="team-menu-item" rel="nofollow" data-method="delete"><i class="material-icons">exit_to_app</i>Sign out</a>
+              <% else %>
+                <%= link_to "Sign In", new_person_session_path,  class: "waves-effect" %>
+              <% end %>
+            </li>
+          </ul>
+        </div>
+    </li>
+    </ul>
+  </li>
+  <% if @active_org %>
+  <% if @active_org.sub_lists.length > 0 %>
+    <li><a href="<%= find_subs_path %>"><i class="material-icons">email</i>Find Subs</a></li>
+    <li><div class="divider sans-margin"></div></li>
+    <li><a class="subheader"><b>Sub Lists</b></a></li>
+      <% @active_org.sub_lists.each do |list| %>
+        <li><div class="divider sans-margin"></div></li>
+        <li>
+          <a class="waves-effect team-menu-item" href="<%= edit_list_path(list) %>">
+            <%= list.name %>
+          </a>
+        </li>
+      <% end %>
+    <% end %>
+    <li><a href="<%= new_list_path %>"><i class="material-icons">add_circle</i>Create New List</a></li>
+  <% end %>
+</ul>

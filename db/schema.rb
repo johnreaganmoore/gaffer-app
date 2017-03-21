@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170213121028) do
+ActiveRecord::Schema.define(version: 20170316124144) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -173,6 +173,23 @@ ActiveRecord::Schema.define(version: 20170213121028) do
     t.index ["league_id"], name: "index_seasons_on_league_id", using: :btree
   end
 
+  create_table "sub_list_memberships", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "sub_list_id"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["person_id"], name: "index_sub_list_memberships_on_person_id", using: :btree
+    t.index ["sub_list_id"], name: "index_sub_list_memberships_on_sub_list_id", using: :btree
+  end
+
+  create_table "sub_lists", force: :cascade do |t|
+    t.string   "name"
+    t.integer  "org_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_id"], name: "index_sub_lists_on_org_id", using: :btree
+  end
+
   create_table "team_memberships", force: :cascade do |t|
     t.string   "position"
     t.integer  "team_id"
@@ -222,6 +239,9 @@ ActiveRecord::Schema.define(version: 20170213121028) do
   add_foreign_key "season_participations", "people"
   add_foreign_key "season_participations", "team_seasons"
   add_foreign_key "seasons", "leagues"
+  add_foreign_key "sub_list_memberships", "people"
+  add_foreign_key "sub_list_memberships", "sub_lists"
+  add_foreign_key "sub_lists", "orgs"
   add_foreign_key "team_memberships", "people"
   add_foreign_key "team_memberships", "teams"
   add_foreign_key "team_seasons", "seasons"

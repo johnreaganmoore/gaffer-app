@@ -8,18 +8,18 @@
     </div>
     <div class="card-content" style="margin-top: 80px; text-align:center;">
       <div class="flow-text">
-        Thanks for signing up, John!
+        Thanks for signing up, <%= @captain.first_name %>!
       </div>
       <br>
       <div class="flow-text">
-        You are now registered for Men's 7v7.
+        You are now registered for <%= @season.league.name %>.
       </div>
       <div class="flow-text">
-        The season is starting March 3, 2017.
+        The season is starting <%= @season.start_date.strftime("%B #{@team_season.season.start_date.day.ordinalize}") %>.
       </div>
       <br>
       <div class="flow-text">
-        We'll be in touch with you at johnreaganmoore@gmail.com.
+        We'll be in touch with you at <%= @captain.email %>.
       </div>
     </div>
   </div>
@@ -33,7 +33,7 @@
   handler.buildMap({
     provider: {
       zoom:      12,
-      center:    new google.maps.LatLng("<%= @season.default_location.latitude %>", "<%= @season.default_location.longitude %>"),
+      center:    new google.maps.LatLng("<%= @season.location_lat %>", "<%= @season.location_long %>"),
       mapTypeId: google.maps.MapTypeId.ROADMAP,
       styles:    mapStyle
     },
@@ -43,14 +43,14 @@
 
     markers = handler.addMarkers([
       {
-        "lat": "<%= @season.default_location.latitude %>",
-        "lng": "<%= @season.default_location.longitude %>",
+        "lat": "<%= @season.location_lat %>",
+        "lng": "<%= @season.location_long %>",
         "picture": {
           "url": "<%= image_path 'star-marker.png' %>",
           "width":  16,
           "height": 16
         },
-        "infowindow": "This is the default location for the season: <%= @season.default_location.address %>"
+        "infowindow": "This is where you will play!"
       }
     ]);
     handler.bounds.extendWith(markers);
