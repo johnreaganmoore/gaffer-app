@@ -32,9 +32,47 @@
         </div>
       </div>
 
-      <hr class="faint">
+      <!-- <hr class="faint">
 
-      <div class="row">
+      <h4>Contact</h4>
+      <br>
+      <p>
+        Hasn't been contacted in the last...
+        <select class="input-field inline" id="last_contacted_select">
+          <option value="any">Any time is ok.</option>
+          <option value="1-days">1 day</option>
+          <option value="2-days">2 days</option>
+          <option value="3-days">3 days</option>
+          <option value="4-days">4 days</option>
+          <option value="5-days">5 days</option>
+          <option value="1-weeks" selected >1 week</option>
+          <option value="2-weeks">2 weeks</option>
+        </select>
+      </p>
+      <p>
+        Hasn't played as a sub in the last...
+        <select class="input-field inline" id="last_subbed_select">
+          <option value="any">Any time is ok.</option>
+          <option value="1-days">1 day</option>
+          <option value="2-days">2 days</option>
+          <option value="3-days">3 days</option>
+          <option value="4-days">4 days</option>
+          <option value="5-days">5 days</option>
+          <option value="1-weeks">1 week</option>
+          <option value="2-weeks" selected >2 weeks</option>
+        </select>
+      </p> -->
+
+      <h4>List(s)</h4>
+
+      <select id="list-select" multiple>
+        <option value="" disabled selected>Select List(s)</option>
+        <% @org.sub_lists.each do |list| %>
+          <option value="<%= list.id %>"><%= list.name %></option>
+        <% end %>
+      </select>
+
+      <!-- <div class="row">
         <div class="col s12 m6 l6">
           <h4>Positions</h4>
           <br>
@@ -78,9 +116,12 @@
             </select>
           </p>
         </div>
-      </div>
+      </div> -->
 
       <input id="experience" name="experience" type="hidden" value="" />
+      <input id="last_contacted" name="last_contacted" type="hidden" value="1-weeks" />
+      <input id="last_subbed" name="last_subbed" type="hidden" value="2-weeks" />
+      <input id="lists" name="lists" type="hidden" value="" />
 
     </div>
     <div class="card-action edit-profile-actions">
@@ -91,9 +132,21 @@
 <% end %>
 
 <script>
-  $('#experience-select').on("change", function(e){
-    console.log(e.currentTarget.value)
-    $('#experience').val(e.currentTarget.value)
-    console.log($('#experience'))
+  $('#list-select').on("change", function(e){
+    $('#lists').val($('#list-select').val())
   });
+
+  $('#experience-select').on("change", function(e){
+    $('#experience').val(e.currentTarget.value)
+  });
+
+  $('#last_contacted_select').on("change", function(e){
+    $('#last_contacted').val(e.currentTarget.value)
+  });
+
+  $('#last_subbed_select').on("change", function(e){
+    $('#last_subbed').val(e.currentTarget.value)
+  });
+
+
 </script>

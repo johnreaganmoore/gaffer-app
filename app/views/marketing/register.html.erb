@@ -141,10 +141,16 @@
                 <div class="card-title">
                   Secure Payments
                 </div>
-                <p>All online payments are subject to a 2.9% + 30c processing fee from our payment processor, Stripe. Payments are processed via Stripe and are 100% PCI compliant, the highest security rating possible for online transactions.</p>
+                <p>
+                  All online payments are subject to a 2.9% + 30c processing fee from our payment processor, Stripe.
+                  Stripe is certified to PCI Service Provider Level 1, the most stringent level of certification available in the payments industry.
+                  <%= link_to "https://stripe.com/docs/security/stripe", target: "_blank", style: "color: white; text-decoration: underline;" do %>
+                    Read more about Stripe's security.
+                  <% end %>
+                </p>
                 <br>
                 <div >
-                  <%= link_to "http://stripe.com" do %>
+                  <%= link_to "http://stripe.com", target: "_blank" do %>
                     <%= image_tag "powered_by_stripe.svg" %>
                   <% end %>
                 </div>

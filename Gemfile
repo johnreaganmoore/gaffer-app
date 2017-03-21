@@ -7,16 +7,23 @@ source 'https://rubygems.org' do
   gem 'pg'
 
   gem 'foreman'
-
+  gem 'filterrific'
   gem "figaro"
+
+  gem "roo", "~> 2.7.0"
+  gem "twilio-ruby"
 
   gem 'geocoder'
   gem 'gmaps4rails'
 
   gem 'airtable'
 
+  # Transactional email
   gem 'postmark-rails'
   gem 'premailer-rails'
+
+  # Subscriber Email
+  gem 'mailgun-ruby', '~>1.1.4'
 
   # Use Puma as the app server
   gem 'puma', '~> 3.0'

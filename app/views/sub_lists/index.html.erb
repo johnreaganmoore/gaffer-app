@@ -1,0 +1,36 @@
+<div class="container">
+
+  <div class="card team-card">
+
+    <ul class="collection team">
+      <li>
+        <ul class="collapsible team" data-collapsible="accordion">
+          <% @lists.each do |list| %>
+            <li>
+              <a href="<%= edit_list_path(list) %>" class="collapsible-header team-season-item">
+                <div>
+                  <i class="material-icons">event_available</i>
+                  <%= list.name %>
+                </div>
+              </a>
+
+
+
+            </li>
+          <% end %>
+        </ul>
+      </li>
+
+
+      <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
+          <a href="<%= new_list_path %>" class="btn-floating btn waves-effect waves-light valign" style="height: 42px; width: 42px;">
+            <i class="material-icons" style="line-height: 42px;">add</i>
+          </a>
+        <%= link_to new_list_path do %>
+          <span class="valign" style="margin-left: 15px">Create Sub List</span>
+        <% end %>
+      </li>
+    </ul>
+
+  </div>
+</div>

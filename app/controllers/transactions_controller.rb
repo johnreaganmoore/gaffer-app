@@ -87,7 +87,7 @@ class TransactionsController < ApplicationController
 
     result = @captain.purchase_season(@team_season, season.league.org.merchant_account_id, season.cost)
 
-    # redirect_to confirm_team_season_path(@team_season.id)
+    redirect_to team_season_confirm_team_path(@team_season.id)
 
     flash[:success] = "Great, you're signed up. We'll be in touch with you shortly. Enjoy the season!"
 

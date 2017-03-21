@@ -1,0 +1,54 @@
+<div class="container">
+
+  <div class="card blue-grey darken-1">
+    <div class="card-content white-text">
+      <div class="card-title">
+        Manage <%= @list.name %>
+      </div>
+      <p>
+        You can review, edit and add individual list members. To add multiple members by uploading a csv use <a style="color: #ffffff; font-weight: 700; text-decoration: underline;" href="<%= list_member_batch_path(list: @list.id) %>">batch create</a>.
+      </p>
+    </div>
+  </div>
+
+  <div class="card team-card">
+
+    <table class="bordered">
+     <thead>
+       <tr>
+           <th data-field="id">Name</th>
+           <th data-field="email">Email</th>
+           <th data-field="delete">Delete</th>
+       </tr>
+     </thead>
+
+     <tbody>
+       <% @memberships.each do |membership| %>
+         <tr>
+           <td><%= membership.person.first_name %> <%= membership.person.last_name %></td>
+           <td><%= membership.person.email %></td>
+           <td>
+             <%= link_to sub_list_membership_path(membership), method: :delete do %>
+              <span id="<%= membership.person.email %>" class="player-delete"><i class="material-icons" style="color: tomato;">delete</i></span></a>
+             <% end %>
+           </td>
+         </tr>
+       <% end %>
+     </tbody>
+
+
+   </table>
+
+    <ul class="collection team">
+      <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
+          <a href="<%= new_sub_list_membership_path(list: @list.id) %>" class="btn-floating btn waves-effect waves-light valign" style="height: 42px; width: 42px;">
+            <i class="material-icons" style="line-height: 42px;">add</i>
+          </a>
+        <%= link_to new_sub_list_membership_path(list: @list.id) do %>
+          <span class="valign" style="margin-left: 15px">Add A Player</span>
+        <% end %>
+      </li>
+    </ul>
+
+  </div>
+</div>

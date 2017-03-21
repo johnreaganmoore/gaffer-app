@@ -81,10 +81,39 @@ Rails.application.routes.draw do
   get '/select', to: 'subs#select', constraints: {subdomain: 'subs'}
   post '/select', to: 'subs#select', constraints: {subdomain: 'subs'}
   get '/email', to: 'subs#email', constraints: {subdomain: 'subs'}
+  post '/email', to: 'subs#email', constraints: {subdomain: 'subs'}
 
-  get '/find', to: 'subs#find'
+  get '/lists', to: 'sub_lists#index'
+  get '/lists/new', to: 'sub_lists#new', as: :new_list
+  post '/lists/new', to: 'sub_lists#create'
+  post '/lists', to: 'sub_lists#create'
+  post '/sub_lists', to: 'sub_lists#create'
+
+  get '/lists/:id/edit', to: 'sub_lists#edit', as: :edit_list
+
+
+  get '/sub_list_memberships/batch', to: 'sub_list_memberships#batch', as: :list_member_batch
+  post '/sub_list_memberships/batch', to: 'sub_list_memberships#batch_create', as: :list_member_batch_create
+  resources :sub_list_memberships
+
+
+  # #TODO
+  #  Create a list model with a name and an airtable id.
+  #  Allow creation of new lists.
+  #  Create a list index that shows each list as a card with the actions of "Contact", and "Edit"
+  #   - "contact" goes to the find action with the list id as a param, so we can use the lists airtable id to get the right player DB.
+  #   - "Edit" is a link to the appropriate airtable
+  #     step 2, create an interface for adding and removing players from the list but use airtable still for db
+  #     step 3 , use our own db
+
+
+
+
+
+  get '/find', to: 'subs#find', as: :find_subs
   get '/select', to: 'subs#select'
   post '/select', to: 'subs#select'
+  post '/email', to: 'subs#email'
 
 
   get '/', to: 'marketing#subs', constraints: { subdomain: 'subs' }
