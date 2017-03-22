@@ -13,7 +13,7 @@ class SubsOnboardingController < ApplicationController
 
     respond_to do |format|
       if @person.update(person_params)
-        format.html { redirect_to new_sub_list_path, notice: "Great to meet you, #{@person.first_name}." }
+        format.html { redirect_to orgs_path, notice: "Great to meet you, #{@person.first_name}." }
         format.js {}
       else
         format.html { render :edit }

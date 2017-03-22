@@ -2,13 +2,10 @@ class SubListsController < ApplicationController
   layout "subs", except: [:show]
   before_action :authenticate_person!
   before_action :set_list, except: [:index, :new, :create]
-  before_action :active_org, except: [:index, :show]
+  before_action :active_org, except: [:show]
 
   def index
-    @org = Org.find(session[:admin_org]["id"])
-    puts @org.inspect
-    @lists = @org.sub_lists
-    puts @lists.inspect
+    @lists = @active_org.sub_lists
   end
 
   def new

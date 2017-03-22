@@ -1,5 +1,25 @@
 <div class="container">
 
+  <% if @lists.length == 0 %>
+
+  <div class="card blue-grey darken-1">
+    <div class="card-content white-text">
+      <div class="card-title">
+        <%= @active_org.name %> Sub Lists
+      </div>
+      <p>
+        Sub lists are how you can organize people into relevant groups.
+        For instance, you may group "NYC Soccer Players" into a list, or you may want more specific lists like "Elite Manhattan Goalkeepers", people can be on multiple lists.
+      </p>
+      <br>
+      <p>
+        To get started you need to create your first list. After you have some sub lists, they will appear below.
+      </p>
+    </div>
+  </div>
+
+  <% end %>
+
   <div class="card team-card">
 
     <ul class="collection team">

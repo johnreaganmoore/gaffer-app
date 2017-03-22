@@ -22,7 +22,15 @@ class OrgsController < ApplicationController
       org_creator = current_person
       org_creator.add_role :admin, @org
       session[:admin_org] = @org
-      redirect_to edit_org_path(@org)
+      case request.subdomain
+      when "register"
+        redirect_to leagues_path
+      when "subs"
+        redirect_to list_index_path
+      else
+        redirect_to edit_org_path(@org)
+      end
+
       flash[:success] = "Organization was successfully created!"
 
       @org.create_managed_account(current_person)
