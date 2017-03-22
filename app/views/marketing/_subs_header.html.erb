@@ -1,0 +1,22 @@
+<nav class="marketing">
+  <div class="nav-wrapper">
+     <a title="Home to Subs" href="/" class="brand-logo">
+       <div class="logo-container">
+         <%= image_tag "onside.svg", class: "header-logo" %>
+       </div>
+     </a>
+     <a href="#" data-activates="mobile-community-menu" class="button-collapse"><i class="material-icons">menu</i></a>
+     <ul class="right hide-on-med-and-down">
+       <!-- <li><a href="<%= onside_home_url %>">About Onside</a></li> -->
+       <li><a href="<%= new_person_session_path %>">Sign In</a></li>
+       <li><a href="<%= new_person_registration_path %>">Register</a></li>
+       <!-- <li><a class="waves-effect waves-light btn white-text">Sign In</a></li> -->
+     </ul>
+     <ul class="side-nav" id="mobile-community-menu">
+       <!-- <li><a href="<%= onside_home_url %>">About Onside</a></li> -->
+       <li><a href="<%= new_person_session_path %>">Sign In</a></li>
+       <li><a href="<%= new_person_registration_path %>">Register</a></li>
+       <!-- <li><a class="waves-effect waves-light btn white-text">Sign In</a></li> -->
+     </ul>
+  </div>
+</nav>

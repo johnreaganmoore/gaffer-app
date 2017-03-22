@@ -9,7 +9,7 @@
 
 .right-pane {
   width: 100%;
-  background: $primary-bg;
+  // background: $primary-bg;
 }
 
 .left-pane {
@@ -17,7 +17,7 @@
   flex-direction: column;
   width: 100%;
   justify-content: flex-start;
-  background: $primary-bg;
+  // background: $primary-bg;
 
 
   @media (max-width: $breakpoint-tablet) {

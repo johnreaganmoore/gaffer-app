@@ -1,52 +1,76 @@
-<%= render "community_header" %>
+<%= render "subs_header" %>
 <div>
-  <div id="white-cover-map">
+  <div id="register-hero-wrapper">
     <div class="subfinder-hero">
       <div class="container">
         <div class="subfinder-title">
-          NO MORE F*RF**TS
+          NO MORE FORFEITS
         </div>
         <div class="subfinder-desc flow-text">
-          Keep your league running smoothly with intelligent sub matching.
+          Keep your league running smoothly with a simple way to email subs.
+        </div>
+        <div class="center-align" style="margin-top: 50px;">
+          <%= link_to "Get Started", new_person_registration_path, class: "btn waves-effect" %>
         </div>
       </div>
     </div>
   </div>
-  <div class="container">
+  <div id="subfinder-demo-section" class="home-section">
+    <div class="home-section-header">
+      <h2>You're a responsible person, some people aren't.</h2>
+    </div>
+    <div class="home-sub-section-container">
+      <div>You can eliminate forfeits in your league by using Onside to simply and quickly contact subs in your league.</div>
 
-    <div class="home-section">
-      <!-- <div class="home-section-header">
-        <h2>Get Started</h2>
-      </div> -->
+      <div class="home-sub-section">
+        <div class="home-sub-section-header">
+          <h3>Add the basic info about the game, and select the list(s) you want to contact.</h3>
+        </div>
+      </div>
+
+      <div class="home-sub-section">
+        <div class="container">
+          <div class="home-sub-section-img card">
+            <div class="gif find-subs"></div>
+            <!-- <%= image_tag 'find-subs-vert' %> -->
+          </div>
+        </div>
+      </div>
+
+      <div class="home-sub-section">
+        <div class="home-sub-section-header">
+          <h3>Preview the email. Edit the text however you want, and hit send. Responses from subs come straight to your inbox.</h3>
+        </div>
+      </div>
+
+      <div class="home-sub-section">
+        <div class="container">
+          <div class="home-sub-section-img card">
+            <div class="gif email-subs"></div>
+            <!-- <%= image_tag 'email-subs-vert' %> -->
+          </div>
+        </div>
+      </div>
+
+
+    </div>
+
+    <div id="subfinder-second-call-section" class="home-section" style="border-top: 1px solid #dddddd; padding: 50px; background:url(<%= image_url('soccer-pattern.png') %>);">
+      <div class="home-section-header">
+        <h2>Sound Good?</h2>
+      </div>
       <div class="home-sub-section-container">
-        <div class="home-sub-section card">
-          <!-- <div class="home-sub-section-header">
-            <h3>Request a Sub</h3>
-          </div> -->
-          <!-- <div class="container"> -->
-            <iframe class="airtable-embed" src="https://airtable.com/embed/shr0e4fqYcuv9DLOC?backgroundColor=green" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent;"></iframe>
-          <!-- </div> -->
-        </div>
-        <div class="home-sub-section card">
-          <!-- <div class="home-sub-section-header">
-            <h3>Become a Sub</h3>
-          </div> -->
-          <!-- <div class="container"> -->
-            <!-- <div class="home-sub-section-img card">
-              <div class="gif sign_up"></div>
-            </div> -->
-            <iframe class="airtable-embed" src="https://airtable.com/embed/shrKjIzKTDSzO2cNT?backgroundColor=green" frameborder="0" onmousewheel="" width="100%" height="533" style="background: transparent;"></iframe>
-          <!-- </div> -->
-        </div>
+        <%= link_to "Get Started", new_person_registration_path, class: "btn waves-effect" %>
       </div>
     </div>
 
   </div>
-  <div class="home-section community-last" style="background:url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=ccf49c77862a41c128526e4260210f8a'); background-size: cover; background-position: bottom">
+
+  <div class="home-section community-last" style="margin-top: 0px; background:url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=ccf49c77862a41c128526e4260210f8a'); background-size: cover; background-position: bottom">
     <div class="community-last-overlay">
       <div class="container">
         <div class="price-line">
-          Contact us to keep your league running smoothly with SubFinder.
+          Questions? Contact us to learn about keeping your league running smoothly with Onside.
         </div>
         <!-- <div class="price-detail">
           <p class="flow-text">

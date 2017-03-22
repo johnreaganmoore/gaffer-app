@@ -74,6 +74,9 @@ Rails.application.routes.draw do
   get '/onboarding', to: 'register_onboarding#profile', constraints: { subdomain: 'register' }
   put '/onboarding', to: 'register_onboarding#update_profile', constraints: { subdomain: 'register' }
 
+  get '/onboarding', to: 'subs_onboarding#profile', constraints: { subdomain: 'subs' }
+  put '/onboarding', to: 'subs_onboarding#update_profile', constraints: { subdomain: 'subs' }
+
   resources :onboarding
   resources :season_creator
 
@@ -83,7 +86,7 @@ Rails.application.routes.draw do
   get '/email', to: 'subs#email', constraints: {subdomain: 'subs'}
   post '/email', to: 'subs#email', constraints: {subdomain: 'subs'}
 
-  get '/lists', to: 'sub_lists#index'
+  get '/lists', to: 'sub_lists#index', as: :list_index
   get '/lists/new', to: 'sub_lists#new', as: :new_list
   post '/lists/new', to: 'sub_lists#create'
   post '/lists', to: 'sub_lists#create'
