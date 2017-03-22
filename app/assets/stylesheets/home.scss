@@ -233,6 +233,40 @@ ul li.home-list-point {
         // }
       }
 
+      .gif.find-subs {
+        @include aspect-ratio(413, 733);
+
+        max-height: 700px;
+        max-width: 400px;
+        background-size: 100%;
+        background-image: image-url("find-subs-vert.png");
+        margin: auto; /*position the [div] on the center*/
+        // border: 1px solid #dddddd;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+
+        // &:hover {
+        //   cursor:pointer;
+        //   background-image: image-url("add_league.gif");
+        // }
+      }
+
+      .gif.email-subs {
+        @include aspect-ratio(413, 733);
+
+        max-height: 700px;
+        max-width: 400px;
+        background-size: 100%;
+        background-image: image-url("email-subs-vert.png");
+        margin: auto; /*position the [div] on the center*/
+        // border: 1px solid #dddddd;
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.4);
+
+        // &:hover {
+        //   cursor:pointer;
+        //   background-image: image-url("add_league.gif");
+        // }
+      }
+
 
     }
 

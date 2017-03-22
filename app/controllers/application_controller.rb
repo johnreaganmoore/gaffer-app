@@ -26,10 +26,14 @@ class ApplicationController < ActionController::Base
       return orgs_path
     end
 
+    if request.subdomain == "subs"
+      return list_index_path
+    end
+
     # If no subdomain, I will need to check conditions of teams/orgs.
     # See which they have, if neither route to account page and then allow them to choose product on the left.
 
-    
+
 
     # If they already have a team, take them to their teams page.
     if person.teams.length > 0 then
