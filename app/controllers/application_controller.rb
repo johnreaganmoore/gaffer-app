@@ -26,6 +26,10 @@ class ApplicationController < ActionController::Base
       return orgs_path
     end
 
+    if request.subdomain == "collect"
+      return orgs_path
+    end
+
     if request.subdomain == "subs"
       return list_index_path
     end
