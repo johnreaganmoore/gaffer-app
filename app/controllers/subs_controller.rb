@@ -125,7 +125,7 @@ class SubsController < ApplicationController
 
     lists = []
 
-    list_array = query_params[:lists].split(",")
+    list_array = query_params[:lists] ? query_params[:lists].split(",") : []
 
     list_array.each do |id_string|
       sub_list = SubList.find(id_string.to_i)
@@ -137,9 +137,9 @@ class SubsController < ApplicationController
       @filtered_players = @filtered_players | list.people
     end
 
-    @location = query_params[:location]
-    @game_date = query_params[:game_date]
-    @game_time = query_params[:game_time]
+    @location = query_params[:location] ? query_params[:location] : "Somewhere"
+    @game_date = query_params[:game_date] ? query_params[:game_date] : "Someday"
+    @game_time = query_params[:game_time] ? query_params[:game_time] : "Sometime"
 
     @org = Org.last
     @person = Person.with_role(:admin, @org).first
@@ -155,22 +155,22 @@ class SubsController < ApplicationController
     recipient_ids.each do |recipient|
       @player = Person.find(recipient)
 
-      if @player.phone
-        puts "PHONE"
-
-        smsBody = "Hey #{@player.first_name}," + "\n" + "\n" + email_params[:sms]
-
-        @twilio_client = Twilio::REST::Client.new ENV["twilio_sid"], ENV["twilio_token"]
-        message = @twilio_client.account.messages.create(
-          body: smsBody,
-          to: "+1#{@player.phone}",
-          from: "+19782245083"
-        )
-
-      else
-        puts "EMAIL"
+      # if @player.phone
+      #   puts "PHONE"
+      #
+      #   smsBody = "Hey #{@player.first_name}," + "\n" + "\n" + email_params[:sms]
+      #
+      #   @twilio_client = Twilio::REST::Client.new ENV["twilio_sid"], ENV["twilio_token"]
+      #   message = @twilio_client.account.messages.create(
+      #     body: smsBody,
+      #     to: "+1#{@player.phone}",
+      #     from: "+19782245083"
+      #   )
+      #
+      # else
+      #   puts "EMAIL"
         players_to_email << {email: @player.email, first_name: @player.first_name, last_name: @player.last_name}
-      end
+      # end
     end
 
     puts players_to_email.inspect

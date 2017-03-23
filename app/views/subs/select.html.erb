@@ -61,11 +61,20 @@
       </div>
     </div>
     <div class="edit-profile-actions card-action">
-      <a href="<%= find_subs_path %>">
-        Back to game and lists
-      </a>
-      <%= button_tag id: "mail_button", class: "btn waves-effect waves-light" do %>
-        Email <%= @filtered_players.length %> Players
+      <% if @filtered_players.length > 0 %>
+        <a href="<%= find_subs_path %>">
+          Back to game and lists
+        </a>
+        <%= button_tag id: "mail_button", class: "btn waves-effect waves-light" do %>
+          Email <%= @filtered_players.length %> Players
+        <% end %>
+      <% else %>
+        <div>
+          You need to select a list with players in order to send an email.
+        </div>
+        <a href="<%= find_subs_path %>">
+          Setup game and select list(s)
+        </a>
       <% end %>
     </div>
   </div>
