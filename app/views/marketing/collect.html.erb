@@ -1,4 +1,4 @@
-<div class="coming-soon" style="background:url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=ccf49c77862a41c128526e4260210f8a'); background-size: cover; background-position: bottom">
+<!-- <div class="coming-soon" style="background:url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=ccf49c77862a41c128526e4260210f8a'); background-size: cover; background-position: bottom">
   <div class="coming-soon-overlay">
     <div class="container">
       <div class="logo-container"><%= image_tag "onside_white.svg" %></div>
@@ -19,4 +19,192 @@
       </div>
     </div>
   </div>
+</div> -->
+
+
+<%= render "subs_header" %>
+<div>
+  <div id="register-hero-wrapper">
+    <div class="subfinder-hero">
+      <div class="container">
+        <div class="subfinder-title">
+          Collect club fees without the headache
+        </div>
+        <div class="subfinder-desc flow-text">
+          Simply collect club fees online. Money in the bank and no checks to lose.
+        </div>
+        <div class="center-align" style="margin-top: 50px; margin-bottom: 50px;">
+          <%= link_to "Get Started", new_person_registration_path, class: "btn waves-effect" %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="first-container" class="container">
+    <div id="subfinder-demo-section" class="home-section">
+      <div class="home-section-header">
+        <h2>You're a leader.</h2>
+      </div>
+      <div class="home-sub-section-container">
+        <div style="margin-bottom: 50px;">
+          <p class="flow-text">Use your valuable time investing in your team, not collecting and depositing checks.<p>
+          <!-- <p class="flow-text">You can rely on Onside to make sure your players make their payments and the money makes it to the bank.<p> -->
+        </div>
+
+        <!-- <div class="home-sub-section">
+          <div class="home-sub-section-header">
+            <h3>Add the basic info about the game, and select the list(s) you want to contact.</h3>
+          </div>
+        </div>
+
+        <div class="home-sub-section">
+          <div class="container">
+            <div class="home-sub-section-img card">
+              <div class="gif find-subs"></div>
+            </div>
+          </div>
+        </div>
+
+        <div class="home-sub-section">
+          <div class="home-sub-section-header">
+            <h3>Preview the email. Edit the text however you want, and hit send. Responses from subs come straight to your inbox.</h3>
+          </div>
+        </div>
+
+        <div class="home-sub-section">
+          <div class="container">
+            <div class="home-sub-section-img card">
+              <div class="gif email-subs"></div>
+            </div>
+          </div>
+        </div> -->
+
+
+      </div>
+    </div>
+  </div>
+
+
+  <div id="pricing" class="home-section">
+    <div class="home-section-header">
+      <h2>Straightforward Pricing</h2>
+    </div>
+    <div class="home-sub-section-container">
+      <div class="home-sub-section">
+        <div class="home-sub-section-header">
+          <h2 style="margin-top: 0px;">
+            <b>$30/mth</b>
+          </h2>
+          <p class="flow-text">
+            No Contracts
+            <br>
+            No Hidden Fees
+          </p>
+          <!-- <%= link_to "Get Started", new_person_registration_path, class: "btn waves-effect waves-green" %> -->
+        </div>
+      </div>
+      <div class="home-sub-section">
+        <div class="container">
+          <div class="card blue-grey darken-1">
+            <div class="card-content white-text">
+              <div class="card-title">
+                Secure Payments
+              </div>
+              <p>
+                All online payments are subject to a 2.9% + 30c processing fee from our payment processor, Stripe.
+                Stripe is certified to PCI Service Provider Level 1, the most stringent level of certification available in the payments industry.
+                <%= link_to "https://stripe.com/docs/security/stripe", target: "_blank", style: "color: white; text-decoration: underline;" do %>
+                  Read more about Stripe's security.
+                <% end %>
+              </p>
+              <br>
+              <div >
+                <%= link_to "http://stripe.com", target: "_blank" do %>
+                  <%= image_tag "powered_by_stripe.svg" %>
+                <% end %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+
+  <div id="subfinder-second-call-section" class="home-section" style="border-top: 1px solid #dddddd; padding: 50px; background:url(<%= image_url('soccer-pattern.png') %>);">
+    <div class="home-section-header">
+      <h2>Sound Good?</h2>
+      <br>
+      <p class="flow-text">Get started now, you’ll be ready to accept fees by <b><span id="done-time" style="letter-spacing: 1px"></span></b></p>
+    </div>
+
+    <div class="home-sub-section-container">
+      <%= link_to "Get Started", new_person_registration_path, class: "btn waves-effect" %>
+    </div>
+  </div>
+
+  <div class="home-section community-last" style="margin-top: 0px; background:url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=ccf49c77862a41c128526e4260210f8a'); background-size: cover; background-position: bottom">
+    <div class="community-last-overlay">
+      <div class="container">
+        <div class="price-line">
+          Questions? Contact us to learn about keeping your club running smoothly with Onside.
+        </div>
+        <!-- <div class="price-detail">
+          <p class="flow-text">
+            Harrisburg Onside strives to provide accurate, up-to-date, information about opportunites to play, watch, and participate in soccer.
+            We rely on your input to provide accurate information and provide a better experience for users.
+            Please contact us with any new listings, corrections, general feedback, questions and ideas of how we can improve the site.
+          </p>
+        </div> -->
+        <div class="action-container">
+          <div class="main-actions">
+            <div>
+              <%= link_to "Contact", "mailto:gaffer@playonside.com",  class: "btn waves-effect waves-green white" %>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
 </div>
+<script src="https://cdn.smooch.io/smooch.min.js"></script>
+<script>
+  Smooch.init({ appToken: '4uo07emseza6om3y5azyjq56e' });
+</script>
+<script>
+  function checkTime(i) {
+      if (i < 10) {
+          i = "0" + i;
+      }
+      return i;
+  }
+
+  function startTime() {
+      var now = new Date();
+      var done = new Date(now.getTime() + 10*60000);
+      var hh = done.getHours();
+      var ampm = 'am';
+      var h = hh;
+      if (h >= 12) {
+          h = hh-12;
+          ampm = "pm";
+      }
+      if (h == 0) {
+          h = 12;
+      }
+
+
+      var m = done.getMinutes();
+      // var s = done.getSeconds();
+
+      // add a zero in front of numbers<10
+      m = checkTime(m);
+      // s = checkTime(s);
+      document.getElementById('done-time').innerHTML = h + ":" + m + ampm;
+      t = setTimeout(function () {
+          startTime()
+      }, 500);
+  }
+  startTime();
+</script>

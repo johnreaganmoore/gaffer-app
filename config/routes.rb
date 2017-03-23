@@ -77,6 +77,9 @@ Rails.application.routes.draw do
   get '/onboarding', to: 'subs_onboarding#profile', constraints: { subdomain: 'subs' }
   put '/onboarding', to: 'subs_onboarding#update_profile', constraints: { subdomain: 'subs' }
 
+  get '/onboarding', to: 'collect_onboarding#profile', constraints: { subdomain: 'collect' }
+  put '/onboarding', to: 'collect_onboarding#update_profile', constraints: { subdomain: 'collect' }
+
   resources :onboarding
   resources :season_creator
 
