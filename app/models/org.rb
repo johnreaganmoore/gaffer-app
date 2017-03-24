@@ -12,6 +12,7 @@ class Org < ApplicationRecord
   # Set Relationships
   has_many :leagues
   has_many :sub_lists
+  has_many :teams
 
   def create_managed_account(admin)
     account_props = {

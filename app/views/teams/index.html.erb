@@ -1,30 +1,66 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
 
-<h1>Teams</h1>
-<table>
-  <thead>
-    <tr>
-      <th>Name</th>
-      <th>Color</th>
-      <th>Logo</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+  <% if @teams.length == 0 %>
+    <div class="card blue-grey darken-1">
+      <div class="card-content white-text">
+        <div class="card-title">
+          Your First Team
+        </div>
+        <p>
+          It looks like you haven't added any teams yet.
+          In order to add players and create fees you need to create at least one team within your club.
+          <br>
+          Click the button below to create a team!
+        </p>
+      </div>
+      <div class="edit-profile-actions card-action">
+        <a class="btn waves-effect waves-light" href="<%= new_team_path %>">New Team</a>
+      </div>
+    </div>
+  <% else %>
 
-  <tbody>
-    <% @teams.each do |team| %>
-      <tr>
-        <td><%= team.name %></td>
-        <td><%= team.color %></td>
-        <td><%= team.logo %></td>
-        <td><%= link_to 'Show', team %></td>
-        <td><%= link_to 'Edit', edit_team_path(team) %></td>
-        <td><%= link_to 'Destroy', team, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
 
-<br>
+  <div class="card blue-grey darken-1">
+    <div class="card-content white-text">
+      <div class="card-title">
+        <%= @active_org.name %>
+      </div>
+      <p>
+        Manage teams and edit the basic information of this org.
+      </p>
+    </div>
+  </div>
 
-<%= link_to 'New Team', new_team_path %>
+  <div class="card team-card">
+    <ul class="collection team">
+      <li>
+        <ul class="collapsible team" data-collapsible="accordion">
+          <% @active_org.teams.each do |team| %>
+            <li>
+              <a href="<%= team_path(team) %>" class="collapsible-header team-season-item">
+                <div>
+                  <i class="material-icons">group</i>
+                  <%= team.name %>
+                </div>
+              </a>
+            </li>
+          <% end %>
+        </ul>
+      </li>
+
+
+      <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
+          <a href="<%= new_team_path %>" class="btn-floating btn waves-effect waves-light valign" style="height: 42px; width: 42px;">
+            <i class="material-icons" style="line-height: 42px;">add</i>
+          </a>
+        <%= link_to new_team_path do %>
+          <span class="valign" style="margin-left: 15px">Create New Team</span>
+        <% end %>
+      </li>
+    </ul>
+  </div>
+
+
+  <% end %>
+
+</div>

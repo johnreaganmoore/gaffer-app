@@ -23,6 +23,8 @@ class OrgsController < ApplicationController
       org_creator.add_role :admin, @org
       session[:admin_org] = @org
       case request.subdomain
+      when "collect"
+        redirect_to teams_path
       when "register"
         redirect_to leagues_path
       when "subs"

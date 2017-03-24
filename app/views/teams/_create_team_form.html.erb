@@ -17,7 +17,6 @@
         </div>
       <% end %>
 
-
         <%= f.label :logo  do %>
           <div class="profile-avatar">
             <div class="section__circle--big large-avatar editable set-bg-elem">
@@ -41,6 +40,8 @@
             <%= f.label :team_color, class: 'active' %>
           </div>
         </div>
+
+        <%= f.hidden_field :org_id, :value => @active_org.id %>
 
     </div>
     </div>
