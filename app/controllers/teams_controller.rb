@@ -4,11 +4,12 @@ class TeamsController < ApplicationController
   # layout "team", only: [:show]
 
   before_action :set_team, only: [:show, :edit, :update, :destroy, :sweep_invites]
+  before_action :active_org
 
   # GET /teams
   # GET /teams.json
   def index
-    @teams = Team.all
+    @teams = @active_org.teams
   end
 
   # GET /teams/1
@@ -124,6 +125,7 @@ class TeamsController < ApplicationController
         :color,
         :logo,
         :person_id,
+        :org_id,
         team_seasons_attributes: [
           :id,
           :league_name,

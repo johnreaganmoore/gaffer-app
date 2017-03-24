@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170316124144) do
+ActiveRecord::Schema.define(version: 20170324004415) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -221,6 +221,8 @@ ActiveRecord::Schema.define(version: 20170316124144) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "slug"
+    t.integer  "org_id"
+    t.index ["org_id"], name: "index_teams_on_org_id", using: :btree
   end
 
   create_table "timeframes", force: :cascade do |t|
@@ -246,4 +248,5 @@ ActiveRecord::Schema.define(version: 20170316124144) do
   add_foreign_key "team_memberships", "teams"
   add_foreign_key "team_seasons", "seasons"
   add_foreign_key "team_seasons", "teams"
+  add_foreign_key "teams", "orgs"
 end
