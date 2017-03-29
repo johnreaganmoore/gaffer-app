@@ -16,9 +16,13 @@ class Person < ApplicationRecord
 
   has_many :team_memberships
   has_many :teams, through: :team_memberships
+  accepts_nested_attributes_for :team_memberships
 
   has_many :season_participations
   has_many :seasons, through: :season_participations
+
+  has_many :player_fees
+  has_many :fees, through: :player_fees
 
   has_many :sub_list_memberships
   has_many :sub_lists, through: :sub_list_memberships
@@ -331,6 +335,126 @@ class Person < ApplicationRecord
       return false
     end
   end
+
+
+  def pay_fee(player_fee)
+
+    player = player_fee.person
+    name = player.first_name + " " + player.last_name
+    team = player_fee.fee.team
+    team_name = team.name
+    org = team.org
+    recipient_id = org.merchant_account_id
+    label = player_fee.fee.label
+
+    desc = "#{name}'s #{label} for #{team_name}"
+
+    customer = Stripe::Customer.retrieve(self.customer_id)
+
+    result = Stripe::Charge.create({
+      amount: player_fee.amount,
+      currency: "usd",
+      # source: token.id,
+      customer: customer.id,
+      description: desc,
+      # application_fee: comp[:service_fee], # amount in cents
+      destination: recipient_id
+      }
+    )
+
+    # if payment goes through increment their paid amount.
+    if result.status == "succeeded"
+      player_fee.paid = true
+      player_fee.charge = result.id
+      player_fee.save
+    else
+      puts "Stripe charge failed"
+    end
+
+    return result
+  end
+
+
+
+  def purchase_season(team_season, recipient_id, expected_cost)
+
+    season_participation = self.season_participations.where(team_season_id: team_season.id).first
+    if season_participation != nil
+      if season_participation.amount_paid != nil
+        amount_paid = season_participation.amount_paid
+      else
+        amount_paid = 0
+      end
+    else
+      amount_paid = 0
+    end
+
+    # check to see if person owes money for team_season
+    if amount_paid >= expected_cost
+      # Display error saying they have already signed up and paid
+      return {success: true, already_paid: true}
+    else
+      # Pay balance
+      # Process a transaction for the balance of the amount for the season and update the SeasonParticipation accordingly
+      amount_owed = expected_cost - amount_paid
+      comp = self.payment_composition(amount_owed, 0, 0)
+
+      customer = Stripe::Customer.retrieve(self.customer_id)
+
+      result = Stripe::Charge.create({
+        amount: comp[:charge_amount],
+        currency: "usd",
+        # source: token.id,
+        customer: customer.id,
+        description: "Season Fee",
+        application_fee: comp[:service_fee], # amount in cents
+        destination: recipient_id
+        }
+      )
+
+      # if payment goes through increment their paid amount.
+      if result.status == "succeeded"
+
+        #Increment existing season
+        if season_participation != nil
+          season_participation.amount_paid = amount_paid + amount_owed
+          season_participation.transactions.push(result.id)
+          season_participation.save
+        else
+        # Create season participation
+          season_participation = SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed, transactions: [result.id])
+
+          if team_season.season_participations.length == 1
+            puts "should set treasurer"
+
+            season_participation.is_treasurer = true
+            season_participation.save
+          end
+
+          self.teams.push(team_season.team)
+          # PersonMailer.new_team_member(self, team_season).deliver
+        end
+      end
+      return result
+
+    end
+  end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
   protected
 

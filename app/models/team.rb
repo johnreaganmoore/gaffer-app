@@ -4,6 +4,7 @@ class Team < ApplicationRecord
 
   belongs_to :org
 
+  has_many :fees
   has_many :team_memberships
   has_many :people, through: :team_memberships
   has_many :invites

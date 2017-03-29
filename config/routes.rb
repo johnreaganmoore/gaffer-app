@@ -29,6 +29,11 @@ Rails.application.routes.draw do
   get 'profiles/:id/leave', to: 'profiles#leave', as: :leave_team
   get 'profiles/:id/account', to: 'profiles#account', as: :account
   # end
+  get 'players/new', to: 'players#new', as: :new_player
+  post 'players', to: 'players#create', as: :create_player
+
+  get 'players/batch', to: 'players#batch', as: :players_batch
+  post 'players/batch', to: 'players#batch_create', as: :players_batch_create
 
 
   resources :leads, only: [:new, :create]
@@ -50,10 +55,17 @@ Rails.application.routes.draw do
   get 'team_seasons/:id/dist_surplus', to: 'team_seasons#distribute_surplus', as: :dist_surplus
   get 'team_seasons/:id/cashed_out', to: 'team_seasons#cashed_out', as: :cashed_out
 
+  resources :fees
+  get 'fees/:id/confirm', to: 'fees#confirm', as: :confirm_fee
+
+  resources :player_fees
+  get 'player_fees/:id/confirm', to: 'player_fees#confirm', as: :confirm_pay_fee
+
   resources :transactions, only: [:new, :create]
 
   post 'kickoff', to: 'transactions#kickoff', as: :kickoff
   post 'player_purchase', to: 'transactions#player_purchase', as: :player_purchase
+  post 'player_fee_payment', to: 'transactions#player_fee_payment', as: :player_fee_payment
   post 'captain_signup', to: 'transactions#captain_signup', as: :captain_signup
 
   resources :locations, except: [:update, :edit, :destroy]

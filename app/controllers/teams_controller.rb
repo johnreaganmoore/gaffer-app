@@ -22,7 +22,6 @@ class TeamsController < ApplicationController
     @closed_team_seasons = @team.closed_team_seasons
     @archived_team_seasons = @team.archived_team_seasons
 
-
     @pending_invitations = @team.pending_invitations
     # @team.invites.each do |invite|
     #   unless @team.people.include?(invite.recipient) || invite.created_at != invite.updated_at
@@ -52,9 +51,13 @@ class TeamsController < ApplicationController
     # bucket.create_file file_url, params["team"]["name"]
 
     @team = Team.new(team_params)
+    @team.org_id = @active_org.id
 
     @team.save
-    @team.add_creator(current_person)
+
+    unless request.subdomain == "collect"
+      @team.add_creator(current_person)
+    end
 
     respond_to do |format|
       if @team.save

@@ -35,11 +35,11 @@
   </li>
 
   <li><a class="subheader">Teams</a></li>
-  <% current_person.teams.each do |team| %>
+  <% @active_org.teams.each do |team| %>
     <li><div class="divider sans-margin"></div></li>
     <li>
       <a class="waves-effect team-menu-item" href="<%= team_path(team) %>">
-        <%= image_tag "#{team.display_logo}", class: "circle team-logo-img set-bg-elem", style: "background-color: #{bg_color};" %>
+        <%= image_tag "#{team.display_logo}", class: "circle team-logo-img", style: "background-color: #{team.color};" %>
         <%= team.name %>
       </a>
     </li>

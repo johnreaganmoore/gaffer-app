@@ -1,7 +1,7 @@
 <div class="container">
   <div class="card">
-    <div class="card-content">
-      <%= form_for(@person, url: profile_path, method: :put) do |f| %>
+    <%= form_for(@person, url: profile_path, method: :put) do |f| %>
+      <div class="card-content">
           <%= f.label :avatar  do %>
             <% if @person.avatar.length > 1 then %>
               <div class="profile-avatar">
