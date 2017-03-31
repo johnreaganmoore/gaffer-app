@@ -141,6 +141,9 @@ Rails.application.routes.draw do
 
   get '/tos', to: 'marketing#tos'
 
+  get '/', to: 'marketing#logos', constraints: { subdomain: 'logos' }
+  get '/logos', to: 'marketing#logos'
+
   get "/", to: 'marketing#home', as: :onside_home
   root to: 'marketing#home'
   # get "/", to: 'marketing#coming_soon'

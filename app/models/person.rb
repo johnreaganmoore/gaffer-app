@@ -138,6 +138,8 @@ class Person < ApplicationRecord
       onside_net: onside_net
     }
 
+    # (((@season.cost * 100) * 1.029) + 30) / 100)
+
     # puts composition.inspect
 
   end
@@ -221,9 +223,13 @@ class Person < ApplicationRecord
   def self.create_with_temp_pass(first_name, last_name, email)
     temp_password = Devise.friendly_token.first(8)
 
-    person = Person.find_by_email(email)
+    puts email
 
-    if person == nil
+    person = Person.find_by(email: email.downcase)
+
+    puts person.inspect
+
+    unless person
       person = Person.create!(first_name: first_name, last_name: last_name, email: email, :password => temp_password, :password_confirmation => temp_password)
       # PersonMailer.temp_password(person, temp_password).deliver
     end
@@ -373,87 +379,6 @@ class Person < ApplicationRecord
 
     return result
   end
-
-
-
-  def purchase_season(team_season, recipient_id, expected_cost)
-
-    season_participation = self.season_participations.where(team_season_id: team_season.id).first
-    if season_participation != nil
-      if season_participation.amount_paid != nil
-        amount_paid = season_participation.amount_paid
-      else
-        amount_paid = 0
-      end
-    else
-      amount_paid = 0
-    end
-
-    # check to see if person owes money for team_season
-    if amount_paid >= expected_cost
-      # Display error saying they have already signed up and paid
-      return {success: true, already_paid: true}
-    else
-      # Pay balance
-      # Process a transaction for the balance of the amount for the season and update the SeasonParticipation accordingly
-      amount_owed = expected_cost - amount_paid
-      comp = self.payment_composition(amount_owed, 0, 0)
-
-      customer = Stripe::Customer.retrieve(self.customer_id)
-
-      result = Stripe::Charge.create({
-        amount: comp[:charge_amount],
-        currency: "usd",
-        # source: token.id,
-        customer: customer.id,
-        description: "Season Fee",
-        application_fee: comp[:service_fee], # amount in cents
-        destination: recipient_id
-        }
-      )
-
-      # if payment goes through increment their paid amount.
-      if result.status == "succeeded"
-
-        #Increment existing season
-        if season_participation != nil
-          season_participation.amount_paid = amount_paid + amount_owed
-          season_participation.transactions.push(result.id)
-          season_participation.save
-        else
-        # Create season participation
-          season_participation = SeasonParticipation.create(person_id: self.id, team_season_id: team_season.id, amount_paid: amount_owed, transactions: [result.id])
-
-          if team_season.season_participations.length == 1
-            puts "should set treasurer"
-
-            season_participation.is_treasurer = true
-            season_participation.save
-          end
-
-          self.teams.push(team_season.team)
-          # PersonMailer.new_team_member(self, team_season).deliver
-        end
-      end
-      return result
-
-    end
-  end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
 
   protected

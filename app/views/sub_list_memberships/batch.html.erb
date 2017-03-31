@@ -25,11 +25,10 @@
     </div>
 
     <div class="card">
-      <div class="card-content">
-        <div class="mdl-card__title mdl-card--expand">
-          <div class="profile-header">
-
-            <%= form_tag list_member_batch_create_path, multipart: true, method: :post do |f| %>
+      <%= form_tag list_member_batch_create_path, multipart: true, method: :post do |f| %>
+        <div class="card-content">
+          <div class="mdl-card__title mdl-card--expand">
+            <div class="profile-header">
               <div class="file-field input-field">
                 <div class="btn">
                   <span>File</span>
