@@ -48,7 +48,7 @@
           <div class="season-details season-signup">
             <div class="season-total-cost total-only">
               <span>Registration Cost:</span>
-              <span><%= number_to_currency(@season.cost * 1.035)  %></span>
+              <span><%= number_to_currency((((@season.cost * 100) * 1.029) + 30) / 100)  %></span>
             </div>
           </div>
         </div>

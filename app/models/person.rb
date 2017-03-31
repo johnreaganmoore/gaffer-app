@@ -16,9 +16,13 @@ class Person < ApplicationRecord
 
   has_many :team_memberships
   has_many :teams, through: :team_memberships
+  accepts_nested_attributes_for :team_memberships
 
   has_many :season_participations
   has_many :seasons, through: :season_participations
+
+  has_many :player_fees
+  has_many :fees, through: :player_fees
 
   has_many :sub_list_memberships
   has_many :sub_lists, through: :sub_list_memberships
@@ -134,6 +138,8 @@ class Person < ApplicationRecord
       onside_net: onside_net
     }
 
+    # (((@season.cost * 100) * 1.029) + 30) / 100)
+
     # puts composition.inspect
 
   end
@@ -217,9 +223,13 @@ class Person < ApplicationRecord
   def self.create_with_temp_pass(first_name, last_name, email)
     temp_password = Devise.friendly_token.first(8)
 
-    person = Person.find_by_email(email)
+    puts email
 
-    if person == nil
+    person = Person.find_by(email: email.downcase)
+
+    puts person.inspect
+
+    unless person
       person = Person.create!(first_name: first_name, last_name: last_name, email: email, :password => temp_password, :password_confirmation => temp_password)
       # PersonMailer.temp_password(person, temp_password).deliver
     end
@@ -331,6 +341,45 @@ class Person < ApplicationRecord
       return false
     end
   end
+
+
+  def pay_fee(player_fee)
+
+    player = player_fee.person
+    name = player.first_name + " " + player.last_name
+    team = player_fee.fee.team
+    team_name = team.name
+    org = team.org
+    recipient_id = org.merchant_account_id
+    label = player_fee.fee.label
+
+    desc = "#{name}'s #{label} for #{team_name}"
+
+    customer = Stripe::Customer.retrieve(self.customer_id)
+
+    result = Stripe::Charge.create({
+      amount: player_fee.amount,
+      currency: "usd",
+      # source: token.id,
+      customer: customer.id,
+      description: desc,
+      # application_fee: comp[:service_fee], # amount in cents
+      destination: recipient_id
+      }
+    )
+
+    # if payment goes through increment their paid amount.
+    if result.status == "succeeded"
+      player_fee.paid = true
+      player_fee.charge = result.id
+      player_fee.save
+    else
+      puts "Stripe charge failed"
+    end
+
+    return result
+  end
+
 
   protected
 

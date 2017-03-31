@@ -13,9 +13,6 @@
          <span class="valign"><%= person.first_name %> <%= person.last_name %></span>
        <% end %>
         <span class="secondary-content valign">
-          <!-- <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= team.color %>;">message</i></a>
-          <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= team.color %>;">chat</i></a>
-          <a class="mdl-list__item-secondary-action" href="#"><i class="material-icons" style="color: <%= team.color %>;">chat_bubble</i></a> -->
           <a class="secondary-content" href="mailto:<%= person.email %>"><i class="material-icons" style="color: <%= team.color %>;">chat_bubble_outline</i></a>
         </span>
       </li>
@@ -67,11 +64,19 @@
      <% end %>
     <% end %>
     <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
+        <a href="<%= new_player_path(:team => team.id) %>" class="btn-floating btn waves-effect waves-light valign" style="background-color: <%= team.color %>; height: 42px; width: 42px;">
+          <i class="material-icons" style="line-height: 42px;">add</i>
+        </a>
+      <%= link_to new_player_path(:team => team.id) do %>
+        <span class="valign" style="margin-left: 15px">New Player</span>
+      <% end %>
+    </li>
+    <!-- <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
         <a href="<%= new_invite_path(:team_id => team.id) %>" class="btn-floating btn waves-effect waves-light valign" style="background-color: <%= team.color %>; height: 42px; width: 42px;">
           <i class="material-icons" style="line-height: 42px;">add</i>
         </a>
       <%= link_to new_invite_path(:team_id => team.id) do %>
         <span class="valign" style="margin-left: 15px">Invite New Player</span>
       <% end %>
-    </li>
+    </li> -->
   </ul>

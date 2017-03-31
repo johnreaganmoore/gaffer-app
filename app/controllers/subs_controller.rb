@@ -169,7 +169,13 @@ class SubsController < ApplicationController
       #
       # else
       #   puts "EMAIL"
-        players_to_email << {email: @player.email, first_name: @player.first_name, last_name: @player.last_name}
+        if @player.first_name
+          players_to_email << {email: @player.email, first_name: @player.first_name, last_name: @player.last_name}
+        elsif @player.last_name
+          players_to_email << {email: @player.email, first_name: "there", last_name: @player.last_name}
+        else
+          players_to_email << {email: @player.email, first_name: "there", last_name: "player"}
+        end
       # end
     end
 

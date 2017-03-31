@@ -611,6 +611,9 @@ class MarketingController < ApplicationController
   def subs
   end
 
+  def logos
+  end
+
   def register
   end
 

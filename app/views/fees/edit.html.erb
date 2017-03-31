@@ -2,7 +2,7 @@
   <div class="team-header hide-on-med-and-down">
     <div class="team-logo-container">
       <div class="section__circle--big large-avatar">
-        <%= image_tag "#{@team.display_logo}", class: "team-logo-img", style: "background-color: #{@team.color};" %>
+        <%= image_tag "#{@team.display_logo}", class: "team-logo-img" %>
       </div>
     </div>
     <div class="center-align team-name">
@@ -12,12 +12,6 @@
       </h3>
     </div>
   </div>
-
-  <!-- <%= @active_org.teams.inspect %>
-  <% @active_org.teams.each do |team| %>
-   <%= team.name %>
-  <% end %> -->
-
 
   <div class="card team-card">
     <div class="row">

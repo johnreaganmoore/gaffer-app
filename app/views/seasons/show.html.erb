@@ -15,7 +15,7 @@
         <!-- </div> -->
         <div class="section-block">
           <div class="team-registration-price flow-text">
-            <span class="dollar-amount">$<%= @season.cost %></span>  ($<%= @season.cost_per_player_estimate %>/player for a team of <%= @season.team_size_estimate %>)
+            <span class="dollar-amount"><%= number_to_currency((((@season.cost * 100) * 1.029) + 30) / 100)  %></span>  ($<%= @season.cost_per_player_estimate %>/player for a team of <%= @season.team_size_estimate %>)
           </div>
           <!-- <div class="team-registration-deadline flow-text">
             Registration deadline: Feb. 18th

@@ -10,6 +10,13 @@ class ApplicationController < ActionController::Base
     @active_org ||= Org.find(session[:admin_org]["id"])
   end
 
+  def set_layout
+    if request.subdomain == "register"
+      return "league_admin"
+    else
+      return "app"
+    end
+  end
 
   def after_sign_in_path_for(person)
 

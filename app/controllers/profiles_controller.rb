@@ -1,7 +1,8 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_person!, :set_person
+  before_action :active_org
 
-  layout "league_admin"
+  layout :set_layout
 
   def show
     @team = @person.teams.first
@@ -58,7 +59,5 @@ class ProfilesController < ApplicationController
         :postal_code
       )
     end
-
-
 
 end

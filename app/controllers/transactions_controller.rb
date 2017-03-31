@@ -66,6 +66,26 @@ class TransactionsController < ApplicationController
     flash[:success] = "Welcome to the #{@team_season.team.name}, enjoy the season!"
   end
 
+  def player_fee_payment
+    @token = params["stripeToken"]
+    @player_fee = PlayerFee.find(params["pf"])
+
+    if current_person
+      @person = current_person
+    else
+      @person = Person.create_with_temp_pass(params["first_name"], params["last_name"], params["email"])
+    end
+
+    person_with_customer = @person.create_customer(@token)
+
+    @person.pay_fee(@player_fee)
+
+    redirect_to confirm_pay_fee_path(@player_fee.id)
+    # IDEA: Instead of flash messages, at critical points give smooch popups. May need intercom for this.
+  end
+
+
+
   def charge_customer(customer, team_season)
     result = customer.purchase_season(team_season, team_season.treasurer.merchant_account_id, team_season.new_player_cost)
   end

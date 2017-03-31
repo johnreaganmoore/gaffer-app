@@ -10,10 +10,20 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170324004415) do
+ActiveRecord::Schema.define(version: 20170325134352) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "fees", force: :cascade do |t|
+    t.string   "label"
+    t.integer  "total_amount"
+    t.integer  "player_amount"
+    t.integer  "team_id"
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.index ["team_id"], name: "index_fees_on_team_id", using: :btree
+  end
 
   create_table "games", force: :cascade do |t|
     t.integer  "season_id"
@@ -124,6 +134,18 @@ ActiveRecord::Schema.define(version: 20170324004415) do
     t.index ["person_id", "role_id"], name: "index_people_roles_on_person_id_and_role_id", using: :btree
   end
 
+  create_table "player_fees", force: :cascade do |t|
+    t.integer  "person_id"
+    t.integer  "fee_id"
+    t.boolean  "paid"
+    t.integer  "amount"
+    t.string   "charge"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["fee_id"], name: "index_player_fees_on_fee_id", using: :btree
+    t.index ["person_id"], name: "index_player_fees_on_person_id", using: :btree
+  end
+
   create_table "playing_times", force: :cascade do |t|
     t.integer  "timeframe_id"
     t.integer  "season_id"
@@ -232,10 +254,13 @@ ActiveRecord::Schema.define(version: 20170324004415) do
     t.datetime "updated_at",  null: false
   end
 
+  add_foreign_key "fees", "teams"
   add_foreign_key "games", "locations"
   add_foreign_key "games", "seasons"
   add_foreign_key "leagues", "orgs"
   add_foreign_key "locations", "seasons"
+  add_foreign_key "player_fees", "fees"
+  add_foreign_key "player_fees", "people"
   add_foreign_key "playing_times", "seasons"
   add_foreign_key "playing_times", "timeframes"
   add_foreign_key "season_participations", "people"
