@@ -118,20 +118,20 @@
     return emailString
   }
 
-  var dayAndTime = encodeURIComponent("<%= @game_date %> at <%= @game_time %>".replace(/&#39;/g, "\'"));
-  var field = encodeURIComponent(("<%= @location %>").replace(/&#39;/g, "\'"));
+  var dayAndTime = "<%= @game_date %> at <%= @game_time %>".replace(/&#39;/g, "\'");
+  var field = ("<%= @location %>").replace(/&#39;/g, "\'");
 
   // console.log("<%= @location %>")
   // console.log("<%= @location %>".replace(/&#39;/g, "'"))
   // console.log(encodeURIComponent("<%= @location %>".replace(/&#39;/g, "%27")))
   // console.log(encodeURIComponent("<%= @location %>".replace(/&#39;/g, "\'")))
 
-  var personName = encodeURIComponent("<%= @person.first_name %> <%= @person.last_name %>".replace(/&#39;/g, "\'"));
-  var orgName = encodeURIComponent("<%= @org.name %>".replace(/&#39;/g, "\'"));
+  var personName = "<%= @person.first_name %> <%= @person.last_name %>".replace(/&#39;/g, "\'");
+  var orgName = "<%= @org.name %>".replace(/&#39;/g, "\'");
   var newLine = "%0D%0A";
 
   $('#body').val(
-    "Hey %recipient.first%," + '\n' + '\n' + "We need subs for a game " + "<%= @game_date %> at <%= @game_time %>" + " at " + "<%= @location %>" + ". If you are certain you can make it please let me know as soon as possible so I can put you in touch with the team captain." + '\n' + '\n' + "Thanks, " + '\n' + '\n' + "<%= @person.first_name %> <%= @person.last_name %>" + " for " + "<%= @org.name %>"
+    "Hey %recipient.first%," + '\n' + '\n' + "We need subs for a game " + dayAndTime + " at " + field + ". If you are certain you can make it please let me know as soon as possible so I can put you in touch with the team captain." + '\n' + '\n' + "Thanks, " + '\n' + '\n' + personName + " for " + orgName
   )
 
   $('#sms').val(
