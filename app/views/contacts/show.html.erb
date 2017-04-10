@@ -1,0 +1,80 @@
+<div class="container">
+
+  <div class="row">
+    <div class="col s12 m12 l4">
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">
+            <%= @contact.first_name %> <%= @contact.last_name %>
+          </div>
+
+          <div class="tag-area">
+            <% @contact.tags.each do |tag| %>
+              <div class="chip">
+                <%= tag.name %>
+                <!-- <i class="close material-icons">close</i> -->
+              </div>
+            <% end %>
+          </div>
+
+          <p style="margin-bottom: 15px;">
+            <strong>Phone:</strong><br>
+            <%= @contact.phone %>
+          </p>
+
+          <p>
+            <strong>Email:</strong><br>
+            <a href="mailto:<%= @contact.email %>" target="_blank"><%= @contact.email %></a>
+          </p>
+
+
+        </div>
+        <div class="edit-profile-actions card-action">
+          <%= link_to 'Edit Contact', edit_contact_path(@contact), class: "btn waves-effect waves-light" %>
+        </div>
+      </div>
+
+      <div class="card">
+        <div class="card-content">
+          <div class="card-title">
+            Reminders
+          </div>
+          <% @contact.reminders.each do |reminder| %>
+            <div class="reminder-line">
+              <%= link_to reminder.label.truncate(20), edit_reminder_path(reminder) %>
+              <%= reminder.next_date.strftime("%b #{reminder.next_date.day.ordinalize}") %>
+            </div>
+          <% end %>
+
+
+        </div>
+        <div class="edit-profile-actions card-action">
+          <%= link_to 'New Reminder', new_reminder_path(contact: @contact.id), class: "btn waves-effect waves-light" %>
+        </div>
+      </div>
+    </div>
+    <div class="col s12 m12 l8">
+      <div class="section">
+        <div class="section-headline">
+          <h3>Notes</h3>
+          <%= link_to 'New Note', new_note_path(contact: @contact.id), class: "btn waves-effect waves-light" %>
+        </div>
+        <% @contact.notes.each do |note| %>
+          <div class="card">
+            <div class="card-content">
+              <%= raw(note.body) %>
+            </div>
+            <div class="card-action">
+              <div class="chip">
+                <%= note.updated_at.strftime("%B #{note.updated_at.day.ordinalize}, %Y") %>
+              </div>
+              <%= link_to edit_note_path(note) do %>
+                Edit
+              <% end %>
+            </div>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  </div>
+</div>

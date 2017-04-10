@@ -19,6 +19,7 @@
 //= require underscore
 //= require gmaps/google
 //= require materialize-sprockets
+//= require medium-editor
 //= require rails_env_favicon
 //= require_tree .
 
@@ -27,6 +28,8 @@ $( document ).on('turbolinks:load', function() {
   $(function() {
     Materialize.updateTextFields();
   });
+
+
 
   $.each( flashMessages, function(key, value){
     $.snackbar({content: value, style: key, timeout: 10000});
@@ -75,6 +78,14 @@ $( document ).on('turbolinks:load', function() {
     selectMonths: true, // Creates a dropdown to control month
     selectYears: 100, // Creates a dropdown of years without a limited range
     max: maxDate
+    // selectYears: 2 // Creates a dropdown of 2 years to control year
+  });
+
+  $('.reminder').pickadate({
+
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 3, // Creates a dropdown of years without a limited range
+    min: new Date()
     // selectYears: 2 // Creates a dropdown of 2 years to control year
   });
 

@@ -25,6 +25,36 @@ header.community {
 
 }
 
+nav.dead-simple {
+  background: $white;
+
+  .nav-wrapper {
+    display: flex;
+    justify-content: space-between;
+    max-width: 1080px;
+    margin: auto;
+    padding-left: 15px;
+    padding-right: 15px;
+
+    .dropdown-button {
+      color: rgba(66,66,66,1);
+    }
+  }
+
+}
+
+.breadcrumb {
+  color: rgba(66,66,66,0.5);
+
+  &::before {
+    color: rgba(66,66,66,0.5);
+  }
+
+  &:last-child {
+    color: rgba(66,66,66,1);
+  }
+}
+
 .header-logo {
   height: 2rem;
 }

@@ -1,0 +1,10 @@
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+        Edit note for <%= @note.contact.first_name %> <%= @note.contact.last_name %>
+      </div>
+    </div>
+    <%= render 'form', note: @note %>
+  </div>
+</div>

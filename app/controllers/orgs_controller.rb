@@ -1,6 +1,8 @@
 class OrgsController < ApplicationController
   layout "league_admin", except: [:show]
 
+  layout :set_layout, except: [:show]
+
   before_action :authenticate_person!, except: [:show]
   before_action :set_org, except: [:index, :new, :create]
   before_action :active_org, except: [:index, :show, :new, :create]
@@ -29,14 +31,16 @@ class OrgsController < ApplicationController
         redirect_to leagues_path
       when "subs"
         redirect_to list_index_path
+      when "relate"
+        redirect_to contacts_path
       else
         redirect_to edit_org_path(@org)
       end
 
       flash[:success] = "Organization was successfully created!"
 
-      @org.create_managed_account(current_person)
-      @org.record_accept_terms(request.remote_ip)
+      # @org.create_managed_account(current_person)
+      # @org.record_accept_terms(request.remote_ip)
 
     else
       render 'new'

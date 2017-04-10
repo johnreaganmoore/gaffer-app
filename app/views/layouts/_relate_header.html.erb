@@ -1,0 +1,40 @@
+<nav class="dead-simple">
+  <div class="nav-wrapper">
+    <div class="hide-on-small-only">
+      <a href="<%= contacts_path %>" class="breadcrumb">Everyone</a>
+      <% if @contact && @contact.id %>
+        <a href="<%= contact_path(@contact) %>" class="breadcrumb"><%= @contact.first_name %> <%= @contact.last_name %></a>
+      <% elsif @contact %>
+        <a href="<%= new_contact_path %>" class="breadcrumb">New Contact</a>
+      <% end %>
+
+      <% if @note && @note.id %>
+        <a href="<%= edit_note_path(@note) %>" class="breadcrumb">Edit Note</a>
+      <% elsif @note %>
+        <a href="<%= new_note_path %>" class="breadcrumb">New Note</a>
+      <% end %>
+
+      <% if @reminder && @reminder.id %>
+        <a href="<%= edit_reminder_path(@reminder) %>" class="breadcrumb">Edit Reminder</a>
+      <% elsif @reminder %>
+        <a href="<%= new_reminder_path %>" class="breadcrumb">New Reminder</a>
+      <% end %>
+    </div>
+    <a class="dropdown-button" href="#" data-beloworigin="true" data-activates="dropdown1"><%= current_person.email %><i class="material-icons right">arrow_drop_down</i></a>
+  </div>
+</nav>
+
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li>
+    <a href="<%= account_path(current_person) %>">
+      <i class="material-icons left">account_circle</i> Manage Account
+    </a>
+  </li>
+  <li class="divider"></li>
+  <li>
+    <a href="<%= destroy_person_session_path %>" rel="nofollow" data-method="delete">
+      <i class="material-icons left">exit_to_app</i> Sign out
+    </a>
+  </li>
+</ul>
