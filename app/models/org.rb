@@ -13,6 +13,41 @@ class Org < ApplicationRecord
   has_many :leagues
   has_many :sub_lists
   has_many :teams
+  has_many :contacts
+  acts_as_tagger
+
+  after_create :populate_first_contact
+
+  def populate_first_contact
+    @contact = Contact.create(
+      first_name: "John Reagan",
+      last_name: "Moore",
+      phone: "978-998-2205",
+      email: "johnreagan@playonside.com",
+      org_id: self.id
+    )
+    @contact.tag_list.add("Software Partner")
+    @contact.save
+    Reminder.create(
+      label: "Email John Reagan with any questions or feedback about the software",
+      next_date: DateTime.now.beginning_of_day + 8.hours + 7.days,
+      interval: "one-time",
+      contact_id: @contact.id
+    )
+    Note.create(
+      body: "<h3>Welcome!</h3><p><br></p><p>This is a simple way to take notes related to people. You can simply edit the formatting of the text or add links by <b>highlighting</b> it. You can also add images if you want by dragging them into this text area.<br><br>Check out <a href='http://playonside.com'><b>this video</b></a> to get a more in depth walk through of the product if you want, or you can just edit or delete this note and be on your way.<br><br>If you need any help please always feel free to contact us directly in the chat bubble at the bottom right of the screen.<br><br>Thanks,<br><br>John Reagan</p>",
+      contact_id: @contact.id
+    )
+
+  end
+
+  def admins
+    Person.with_role(:admin, self)
+  end
+
+  def primary_admin
+    Person.with_role(:admin, self).first
+  end
 
   def create_managed_account(admin)
     account_props = {

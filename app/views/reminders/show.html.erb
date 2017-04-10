@@ -1,0 +1,19 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Label:</strong>
+  <%= @reminder.label %>
+</p>
+
+<p>
+  <strong>Next date:</strong>
+  <%= @reminder.next_date %>
+</p>
+
+<p>
+  <strong>Interval:</strong>
+  <%= @reminder.interval %>
+</p>
+
+<%= link_to 'Edit', edit_reminder_path(@reminder) %> |
+<%= link_to 'Back', reminders_path %>

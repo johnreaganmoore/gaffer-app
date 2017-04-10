@@ -6,6 +6,18 @@ source 'https://rubygems.org' do
   # Use postgres as the database for Active Record
   gem 'pg'
 
+  gem 'acts-as-taggable-on', '~> 4.0'
+
+  # Use delayed job for running background jobs
+  gem 'delayed_job_active_record'
+  # Need daemons to start delayed_job
+  gem 'daemons'
+
+  # gem 'summernote-rails'
+  # gem 'bootstrap-sass'
+
+  gem 'medium-editor-rails'
+
   gem 'foreman'
   gem 'filterrific'
   gem "figaro"
@@ -82,7 +94,6 @@ source 'https://rubygems.org' do
   gem 'friendly_id', '~> 5.1.0'
 
   gem 'materialize-sass'
-
 
   gem 'stripe'
 

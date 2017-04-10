@@ -1,0 +1,67 @@
+<nav class="dead-simple">
+  <div class="nav-wrapper">
+    <div class="hide-on-small-only">
+      <a href="<%= contacts_path %>" class="breadcrumb">Everyone</a>
+      <% if @contact && @contact.id %>
+        <a href="<%= contact_path(@contact) %>" class="breadcrumb"><%= @contact.first_name %> <%= @contact.last_name %></a>
+      <% elsif @contact %>
+        <a href="<%= new_contact_path %>" class="breadcrumb">New Contact</a>
+      <% end %>
+
+      <% if @note && @note.id %>
+        <a href="<%= edit_note_path(@note) %>" class="breadcrumb">Edit Note</a>
+      <% elsif @note %>
+        <a href="<%= new_note_path %>" class="breadcrumb">New Note</a>
+      <% end %>
+
+      <% if @reminder && @reminder.id %>
+        <a href="<%= edit_reminder_path(@reminder) %>" class="breadcrumb">Edit Reminder</a>
+      <% elsif @reminder %>
+        <a href="<%= new_reminder_path %>" class="breadcrumb">New Reminder</a>
+      <% end %>
+    </div>
+    <a class="dropdown-button" href="#!" data-beloworigin="true" data-activates="dropdown1"><%= current_person.email %><i class="material-icons right">arrow_drop_down</i></a>
+  </div>
+</nav>
+
+<!-- Dropdown Structure -->
+<ul id="dropdown1" class="dropdown-content">
+  <li>
+    <a href="<%= account_path(current_person) %>">
+      <i class="material-icons left">account_circle</i> Manage Account
+    </a>
+  </li>
+  <li class="divider"></li>
+  <li>
+    <a href="<%= destroy_person_session_path %>" rel="nofollow" data-method="delete">
+      <i class="material-icons left">exit_to_app</i> Sign out
+    </a>
+  </li>
+</ul>
+
+<!-- <nav id="register-header" class="marketing">
+  <div class="nav-wrapper">
+     <a title="Home to Onside Harrisburg" href="/" class="brand-logo">
+       <div class="logo-container">
+         <%= image_tag "onside.svg", class: "header-logo" %>
+       </div>
+     </a>
+     <a id="register-side-menu-icon" href="#" data-activates="register-side-menu" class="button-collapse hide"><i class="material-icons">menu</i></a>
+     <ul class="right hide-on-med-and-down">
+       <li><a href="#demo">Demo</a></li>
+       <li><a href="#features">Features</a></li>
+       <li><a href="#pricing">Pricing</a></li>
+       <li><a href="http://playonside.com">About</a></li>
+       <li><a href="<%= new_person_session_path %>">Sign In</a></li>
+       <li><a href="<%= new_person_registration_path %>">Register</a></li>
+     </ul>
+     <ul class="side-nav" id="register-side-menu">
+       <li><a href="#demo">Demo</a></li>
+       <li><a href="#features">Features</a></li>
+       <li><a href="#pricing">Pricing</a></li>
+       <li><a href="http://playonside.com">About</a></li>
+       <li><a href="<%= new_person_session_path %>">Sign In</a></li>
+       <li><a href="<%= new_person_registration_path %>">Register</a></li>
+     </ul>
+  </div>
+</nav> -->

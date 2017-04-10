@@ -49,7 +49,16 @@ $secondary-color: $secondary-green !default;
 @import "header";
 @import "subfinder-hero";
 @import "sub_list_membership";
+@import "notes";
+@import "contacts";
 
+@import "medium-editor/medium-editor";
+@import "medium-editor/themes/flat";
+
+
+.note-editor .btn {
+  background: #424242;
+}
 
 a {
   text-decoration: none;
@@ -96,6 +105,10 @@ header, main, footer {
   #nav-container {
     display: block;
   }
+}
+
+.section {
+  margin-top: 1rem;
 }
 
 .side-nav.fixed .account-menu {

@@ -1,4 +1,32 @@
 Rails.application.routes.draw do
+
+
+
+
+
+
+
+
+
+  resources :reminders
+  resources :notes
+  resources :contacts
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
   get 'transactions/new'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -91,6 +119,9 @@ Rails.application.routes.draw do
 
   get '/onboarding', to: 'collect_onboarding#profile', constraints: { subdomain: 'collect' }
   put '/onboarding', to: 'collect_onboarding#update_profile', constraints: { subdomain: 'collect' }
+
+  get '/onboarding', to: 'relate_onboarding#profile', constraints: { subdomain: 'relate' }
+  put '/onboarding', to: 'relate_onboarding#update_profile', constraints: { subdomain: 'relate' }
 
   resources :onboarding
   resources :season_creator

@@ -11,8 +11,10 @@ class ApplicationController < ActionController::Base
   end
 
   def set_layout
-    if request.subdomain == "register"
+    if request.subdomain == "register" || request.subdomain == "subs" || request.subdomain == "collect"
       return "league_admin"
+    elsif request.subdomain == "relate"
+      return "relate"
     else
       return "app"
     end
@@ -34,6 +36,10 @@ class ApplicationController < ActionController::Base
     end
 
     if request.subdomain == "collect"
+      return orgs_path
+    end
+
+    if request.subdomain == "relate"
       return orgs_path
     end
 

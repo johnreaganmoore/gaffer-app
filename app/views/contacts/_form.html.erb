@@ -1,0 +1,131 @@
+
+
+    <%= form_for(contact) do |f| %>
+      <div class="card-content">
+
+        <% if contact.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(contact.errors.count, "error") %> prohibited this contact from being saved:</h2>
+
+            <ul>
+            <% contact.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+
+        <div class="field">
+          <%= f.label :first_name %>
+          <%= f.text_field :first_name %>
+        </div>
+
+        <div class="field">
+          <%= f.label :last_name %>
+          <%= f.text_field :last_name %>
+        </div>
+
+        <div class="field">
+          <%= f.label :phone %>
+          <%= f.text_field :phone %>
+        </div>
+
+        <div class="field">
+          <%= f.label :email %>
+          <%= f.text_field :email %>
+        </div>
+
+        <%= f.hidden_field :tag_list %>
+        <div class="chips chips-autocomplete tags-input"></div>
+
+      </div>
+
+      <div class="edit-profile-actions card-action">
+        <%= button_tag(id: "submit", type: 'submit', class: "btn waves-effect waves-light") do %>
+          Save
+        <% end %>
+      </div>
+    <% end %>
+
+<script>
+
+$( document ).on('turbolinks:load', function() {
+
+    var contactExistingTags = []
+    <% contact.all_tags_list.each do |tag| %>
+      contactExistingTags.push(
+        { tag: "<%= tag %>"}
+      )
+    <% end %>
+
+    var orgTags = []
+    <% @active_org.owned_tags.each do |tag| %>
+      orgTags.push(
+        { tag: "<%= tag.name %>", id: <%= tag.id %>}
+      )
+    <% end %>
+
+    var autocompleteTags = {}
+    $.each(orgTags, function(index, value) {
+      autocompleteTags[value.tag] = null;
+    });
+
+    //
+    $('.chips-autocomplete').material_chip({
+      data: contactExistingTags,
+      placeholder: 'Enter a tag',
+      secondaryPlaceholder: '+Tag',
+      autocompleteData: autocompleteTags
+    });
+
+    $('#contact_tag_list').val(contactExistingTags)
+
+    $('.chips').on('chip.add', function(e, chip){
+      // you have the added chip here
+      contactExistingTags.push(
+        chip
+      )
+      $('#contact_tag_list').val(contactExistingTags)
+    });
+
+    $('.chips').on('chip.delete', function(e, chip){
+      // you have the deleted chip here
+      $.each(contactExistingTags, function(i){
+          if(contactExistingTags[i].tag === chip.tag) {
+              contactExistingTags.splice(i,1);
+              return false;
+          }
+      });
+
+      $('#contact_tag_list').val(contactExistingTags)
+    });
+
+    // $('.chips').on('chip.select', function(e, chip){
+    //   // you have the selected chip here
+    //   console.log('Selecting chip', chip)
+    // });
+
+    $('#edit_contact_<%= contact.id %>').submit(function( event ) {
+      var tagStringArray = []
+      $.each(contactExistingTags, function(i){
+        tagStringArray.push(
+          contactExistingTags[i].tag
+        )
+      });
+      $('#contact_tag_list').val(tagStringArray)
+    });
+
+    $('#new_contact').submit(function( event ) {
+      var tagStringArray = []
+      $.each(contactExistingTags, function(i){
+        tagStringArray.push(
+          contactExistingTags[i].tag
+        )
+      });
+      $('#contact_tag_list').val(tagStringArray)
+    });
+
+});
+
+</script>

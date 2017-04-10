@@ -39,6 +39,8 @@ GEM
       i18n (~> 0.7)
       minitest (~> 5.1)
       tzinfo (~> 1.1)
+    acts-as-taggable-on (4.0.0)
+      activerecord (>= 4.0)
     addressable (2.4.0)
     airtable (0.0.9)
       httparty
@@ -70,7 +72,13 @@ GEM
     concurrent-ruby (1.0.2)
     css_parser (1.4.5)
       addressable
+    daemons (1.2.4)
     debug_inspector (0.0.2)
+    delayed_job (4.1.2)
+      activesupport (>= 3.0, < 5.1)
+    delayed_job_active_record (4.1.1)
+      activerecord (>= 3.0, < 5.1)
+      delayed_job (>= 3.0, < 5)
     devise (4.2.0)
       bcrypt (~> 3.0)
       orm_adapter (~> 0.1)
@@ -262,6 +270,8 @@ GEM
       rest-client (~> 2.0)
     materialize-sass (0.97.7)
       sass (~> 3.3)
+    medium-editor-rails (2.3.1)
+      railties (>= 3.0)
     method_source (0.8.2)
     mime-types (3.1)
       mime-types-data (~> 3.2015)
@@ -426,6 +436,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  acts-as-taggable-on (~> 4.0)!
   airtable!
   better_errors!
   binding_of_caller!
@@ -433,6 +444,8 @@ DEPENDENCIES
   cancancan!
   carrierwave!
   coffee-rails (~> 4.2)!
+  daemons!
+  delayed_job_active_record!
   devise!
   devise_invitable!
   figaro!
@@ -448,6 +461,7 @@ DEPENDENCIES
   listen (~> 3.0.5)!
   mailgun-ruby (~> 1.1.4)!
   materialize-sass!
+  medium-editor-rails!
   mini_magick!
   omniauth!
   omniauth-facebook!
