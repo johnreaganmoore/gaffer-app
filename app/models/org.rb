@@ -35,7 +35,7 @@ class Org < ApplicationRecord
       contact_id: @contact.id
     )
     Note.create(
-      body: "<h3>Welcome!</h3><p><br></p><p>This is a simple way to take notes related to people. You can simply edit the formatting of the text or add links by <b>highlighting</b> it. You can also add images if you want by dragging them into this text area.<br><br>Check out <a href='http://playonside.com'><b>this video</b></a> to get a more in depth walk through of the product if you want, or you can just edit or delete this note and be on your way.<br><br>If you need any help please always feel free to contact us directly in the chat bubble at the bottom right of the screen.<br><br>Thanks,<br><br>John Reagan</p>",
+      body: "<h3>Welcome!</h3><p><br></p><p>This is a simple way to take notes related to people. You can simply edit the formatting of the text or add links by <b>highlighting</b> it. You can also add images if you want by dragging them into this text area.<br><br>You can just edit or delete this note and be on your way. If you need any help please always feel free to contact us directly in the chat bubble at the bottom right of the screen.<br><br>Thanks,<br><br>John Reagan</p>",
       contact_id: @contact.id
     )
 
