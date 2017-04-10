@@ -40,7 +40,11 @@ class ApplicationController < ActionController::Base
     end
 
     if request.subdomain == "relate"
-      return orgs_path
+      if self.active_org
+        return contacts_path
+      else
+        return orgs_path
+      end
     end
 
     if request.subdomain == "subs"
