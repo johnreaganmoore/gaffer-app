@@ -5,29 +5,61 @@
         Edit reminder for <%= @reminder.contact.first_name %> <%= @reminder.contact.last_name %>
       </div>
     </div>
-    <%= render 'form', reminder: @reminder %>
+
+    <%= form_for(@reminder) do |f| %>
+      <div class="card-content">
+        <% if @reminder.errors.any? %>
+          <div id="error_explanation">
+            <h2><%= pluralize(@reminder.errors.count, "error") %> prohibited this reminder from being saved:</h2>
+
+            <ul>
+            <% @reminder.errors.full_messages.each do |message| %>
+              <li><%= message %></li>
+            <% end %>
+            </ul>
+          </div>
+        <% end %>
+
+        <div class="field">
+          <%= f.hidden_field :contact_id, value: @contact.id %>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.text_field :label %>
+            <%= f.label :label %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12 m6 l6">
+            <%= f.date_field :next_date, class: "datepicker reminder", required: true %>
+            <%= f.label :next_date %>
+          </div>
+
+          <div class="input-field col s12 m6 l6">
+            <%= f.select :interval, options_for_select([
+              ['One Time', "one-time", {disabled: false, selected: true}],
+              ['Daily','daily'],
+              ['Weekly', 'weekly'],
+              ['Monthly','monthly'],
+              ['Yearly','annually']
+              ]) %>
+            <%= f.label :repeat %>
+          </div>
+        </div>
+      </div>
+      <div class="edit-profile-actions card-action">
+        <% if @reminder.id %>
+          <%= link_to 'Delete This Reminder', @reminder, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
+
+        <%= button_tag(id: "submit", type: 'submit', class: "btn waves-effect waves-light") do %>
+          Save
+        <% end %>
+      </div>
+    <% end %>
+
+
   </div>
 </div>
-
-<script>
-!function() {
-  var t;
-  if (t = window.driftt = window.drift = window.driftt || [], !t.init) return t.invoked ? void (window.console && console.error && console.error("Drift snippet included twice.")) : (t.invoked = !0,
-  t.methods = [ "identify", "config", "track", "reset", "debug", "show", "ping", "page", "hide", "off", "on" ],
-  t.factory = function(e) {
-    return function() {
-      var n;
-      return n = Array.prototype.slice.call(arguments), n.unshift(e), t.push(n), t;
-    };
-  }, t.methods.forEach(function(e) {
-    t[e] = t.factory(e);
-  }), t.load = function(t) {
-    var e, n, o, i;
-    e = 3e5, i = Math.ceil(new Date() / e) * e, o = document.createElement("script"),
-    o.type = "text/javascript", o.async = !0, o.crossorigin = "anonymous", o.src = "https://js.driftt.com/include/" + i + "/" + t + ".js",
-    n = document.getElementsByTagName("script")[0], n.parentNode.insertBefore(o, n);
-  });
-}();
-drift.SNIPPET_VERSION = '0.3.1';
-drift.load('t6dywwwcugsg');
-</script>

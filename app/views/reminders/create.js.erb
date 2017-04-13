@@ -1,0 +1,25 @@
+$("#activity_list_container").html("<%= escape_javascript(render partial: 'contacts/activity_list', locals: { activities: @reminder.contact.activities } ) %>");
+$("#new-task").html("<%= escape_javascript(render partial: 'reminders/form', locals: { reminder: @blank_reminder, contact: @reminder.contact } ) %>");
+$("#task_list_container").html("<%= escape_javascript(render partial: 'contacts/task_list', locals: { reminders: @reminder.contact.reminders, truncate_length: 20 } ) %>");
+
+$("ul.tabs").tabs({
+  onShow: function(tab) {
+    $('select').material_select();
+    $('.reminder').pickadate({
+
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 3, // Creates a dropdown of years without a limited range
+      min: new Date()
+      // selectYears: 2 // Creates a dropdown of 2 years to control year
+    });
+  }
+});
+
+$('select').material_select();
+$('.reminder').pickadate({
+
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 3, // Creates a dropdown of years without a limited range
+  min: new Date()
+  // selectYears: 2 // Creates a dropdown of 2 years to control year
+});

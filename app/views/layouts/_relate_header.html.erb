@@ -8,7 +8,7 @@
         <a href="<%= new_contact_path %>" class="breadcrumb">New Contact</a>
       <% end %>
 
-      <% if @note && @note.id %>
+      <!-- <% if @note && @note.id %>
         <a href="<%= edit_note_path(@note) %>" class="breadcrumb">Edit Note</a>
       <% elsif @note %>
         <a href="<%= new_note_path %>" class="breadcrumb">New Note</a>
@@ -18,7 +18,7 @@
         <a href="<%= edit_reminder_path(@reminder) %>" class="breadcrumb">Edit Reminder</a>
       <% elsif @reminder %>
         <a href="<%= new_reminder_path %>" class="breadcrumb">New Reminder</a>
-      <% end %>
+      <% end %> -->
     </div>
     <a class="dropdown-button" href="#" data-beloworigin="true" data-activates="dropdown1"><%= current_person.email %><i class="material-icons right">arrow_drop_down</i></a>
   </div>

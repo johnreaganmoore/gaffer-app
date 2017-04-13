@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
+  before_action :authenticate_person!
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
-
   before_action :active_org
 
   layout "relate"
@@ -9,11 +9,31 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     @contacts = @active_org.contacts
+
+      # @filterrific = initialize_filterrific(
+      #   Contact,
+      #   params[:filterrific],
+      #   :select_options => {
+      #     sorted_by: Contact.options_for_sorted_by,
+      #   }
+      # ) or return
+      # @contacts = @filterrific.find #.page(params[:page])
+
+      @tasks = Reminder.where(contact_id: @contacts.ids).order(:next_date)
+
+      respond_to do |format|
+        format.html
+        format.js
+      end
   end
 
   # GET /contacts/1
   # GET /contacts/1.json
   def show
+    @reminder = Reminder.new
+    @note = Note.new
+    @email = {}
+    @activities = @contact.activities
   end
 
   # GET /contacts/new
@@ -30,8 +50,6 @@ class ContactsController < ApplicationController
   def create
     @contact = Contact.new(contact_params)
     @contact.org_id = @active_org.id
-
-    puts @contact.tag_list.inspect
 
     respond_to do |format|
       if @contact.save
@@ -71,6 +89,17 @@ class ContactsController < ApplicationController
     end
   end
 
+  def send_email
+    @contact = Contact.find(email_params[:contact_id])
+    @contact.send_email(email_params[:subject], email_params[:body], current_person)
+
+    respond_to do |format|
+      format.html { redirect_to @contact, notice: "Email sent to #{@contact.email}"  }
+      format.json { head :no_content }
+    end
+
+  end
+
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_contact
@@ -80,5 +109,9 @@ class ContactsController < ApplicationController
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
       params.require(:contact).permit(:first_name, :last_name, :phone, :email, :tag_list)
+    end
+
+    def email_params
+      params.permit(:contact_id, :subject, :body)
     end
 end

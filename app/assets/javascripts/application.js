@@ -64,8 +64,6 @@ $( document ).on('turbolinks:load', function() {
     //complete: function() { alert('Closed'); } // Callback for Modal close
   });
 
-
-
   // Materialize initializers
   $('select').material_select();
   $('.season-date').pickadate({

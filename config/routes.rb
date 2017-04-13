@@ -11,7 +11,7 @@ Rails.application.routes.draw do
   resources :reminders
   resources :notes
   resources :contacts
-
+  post 'contact_email', to: 'contacts#send_email', as: :contact_email
 
 
 

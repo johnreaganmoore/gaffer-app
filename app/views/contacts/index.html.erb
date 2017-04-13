@@ -1,53 +1,37 @@
 <div class="container">
   <div class="card team-card">
-    <table class="bordered">
-     <thead>
-       <tr>
-           <th data-field="name">Name</th>
-           <th data-field="tags">Tags</th>
-           <th data-field="next_reminder">Next Reminder</th>
-           <th data-field="last_active">Last Activity</th>
-       </tr>
-     </thead>
+    <div class="row">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s6"><a class="active" href="#tasks">Tasks</a></li>
+          <li class="tab col s6"><a href="#contacts">People</a></li>
+        </ul>
+      </div>
+      <div id="tasks" class="col s12">
+        <div class="card-content">
+          <div id="task_list_container">
+            <%= render 'task_list', reminders: @tasks, truncate_length: 50 %>
+          </div>
+        </div>
+      </div>
+      <div id="contacts" class="col s12">
+        <%= render(
+          partial: 'contacts/list',
+          locals: { contacts: @contacts }
+        ) %>
 
-     <tbody>
-       <% @contacts.each do |contact| %>
-        <tr>
-          <td>
-            <%= link_to contact_path(contact.id) do %>
-              <%= contact.first_name %> <%= contact.last_name %>
+        <ul class="collection team">
+          <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
+              <a href="<%= new_contact_path %>" class="btn-floating btn waves-effect waves-light valign" style="height: 42px; width: 42px;">
+                <i class="material-icons" style="line-height: 42px;">add</i>
+              </a>
+            <%= link_to new_contact_path do %>
+              <span class="valign" style="margin-left: 15px">Add A Contact</span>
             <% end %>
-          </td>
-           <td>
-             <% contact.tags.each do |tag| %>
-               <div class="chip">
-                 <%= tag.name %>
-               </div>
-             <% end %>
-           </td>
-           <td>
-             <% if contact.next_reminder %>
-               <%= contact.next_reminder.strftime("%b %e")%>
-             <% end %>
-           </td>
-           <td><%= time_ago_in_words(contact.latest_activity) %> ago</td>
-        </tr>
-       <% end %>
-     </tbody>
-
-
-   </table>
-
-    <ul class="collection team">
-      <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
-          <a href="<%= new_contact_path %>" class="btn-floating btn waves-effect waves-light valign" style="height: 42px; width: 42px;">
-            <i class="material-icons" style="line-height: 42px;">add</i>
-          </a>
-        <%= link_to new_contact_path do %>
-          <span class="valign" style="margin-left: 15px">Add A Contact</span>
-        <% end %>
-      </li>
-    </ul>
+          </li>
+        </ul>
+      </div>
+    </div>
 
   </div>
 </div>

@@ -1,4 +1,6 @@
 class NotesController < ApplicationController
+  before_action :authenticate_person!
+
   before_action :set_note, only: [:show, :edit, :update, :destroy]
 
   before_action :active_org
@@ -31,20 +33,24 @@ class NotesController < ApplicationController
 
   # POST /notes
   # POST /notes.json
+
   def create
     @note = Note.new(note_params)
+    @empty_note = Note.new
 
     respond_to do |format|
       if @note.save
-
-        format.html { redirect_to @note.contact, notice: 'Note was successfully created.' }
-        format.json { render :show, status: :created, location: @note }
+        format.html { redirect_to @note.contact, notice: 'User was successfully created.' }
+        format.js   {}
+        format.json { render json: @note, status: :created, location: @note }
       else
-        format.html { render :new }
+        format.html { render action: "new" }
         format.json { render json: @note.errors, status: :unprocessable_entity }
       end
     end
   end
+
+
 
   # PATCH/PUT /notes/1
   # PATCH/PUT /notes/1.json
