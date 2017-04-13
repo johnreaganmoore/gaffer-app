@@ -1,6 +1,6 @@
 class ContactsController < ApplicationController
+  before_action :authenticate_person!
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
-
   before_action :active_org
 
   layout "relate"
