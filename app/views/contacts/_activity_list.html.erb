@@ -1,0 +1,33 @@
+<% activities.each do |activity| %>
+  <div class="card">
+    <div style="padding:15px;">
+      <div class="chip" >
+        <%= activity.updated_at.strftime("%B #{activity.updated_at.day.ordinalize}, %Y") %>
+      </div>
+    </div>
+    <% if activity.class == Note %>
+      <div class="card-content">
+        <%= raw(activity.body) %>
+      </div>
+      <div class="card-action">
+        <%= link_to edit_note_path(activity) do %>
+          Edit
+        <% end %>
+      </div>
+    <% elsif activity.class == Reminder %>
+      <div class="card-content">
+        <b>Task created:</b> <%= activity.label %>
+      </div>
+      <div class="card-action">
+        <%= link_to edit_reminder_path(activity) do %>
+          Edit
+        <% end %>
+      </div>
+    <% else %>
+      <div class="card-content">
+        Unknown Activity
+      </div>
+    <% end %>
+
+  </div>
+<% end %>

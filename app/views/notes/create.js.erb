@@ -1,0 +1,17 @@
+$("#activity_list_container").html("<%= escape_javascript(render partial: 'contacts/activity_list', locals: { activities: @note.contact.activities } ) %>");
+$("#new-note").html("<%= escape_javascript(render partial: 'notes/form', locals: { note: @empty_note, contact: @note.contact } ) %>");
+
+  var editor = new MediumEditor('.editable', {
+    // options go here
+    placeholder: {
+        /* This example includes the default options for placeholder,
+           if nothing is passed this is what it used */
+        text: 'Start typing here.',
+        hideOnClick: true
+    }
+  });
+
+  editor.subscribe('editableInput', function (event, editable) {
+    // Do some work
+    $('#note_body').val($(editable).html())
+  });

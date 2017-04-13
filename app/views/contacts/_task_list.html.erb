@@ -1,0 +1,44 @@
+<% if reminders.length == 0 %>
+  <div style="width: 100%; text-align: center;">Good work. <br> No outstanding tasks. </div>
+<% else %>
+
+  <% reminders.each do |reminder| %>
+
+    <% unless reminder.status == "archived" %>
+      <div class="task-line">
+        <% if reminder.status == "complete" %>
+          <div class="task-check-label">
+            <%= link_to reminder_path(reminder, reminder: {status: "incomplete"}), method: :put, remote: true do %>
+              <input type="checkbox" checked id="<%= reminder.id %>_check" />
+              <label class="tooltipped" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check"><del><%= reminder.label.truncate(truncate_length) %></del></label>
+            <% end %>
+          </div>
+        <% elsif reminder.status == "incomplete" %>
+          <div class="task-check-label">
+            <%= link_to reminder_path(reminder, reminder: {status: "complete"}), method: :put, remote: true do %>
+              <input type="checkbox" id="<%= reminder.id %>_check" />
+              <label class="tooltipped" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check"><%= reminder.label.truncate(truncate_length) %></label>
+            <% end %>
+          </div>
+        <% end %>
+        <div class="task-due-edit">
+          <div class="date">
+            <%= reminder.next_date.strftime("%b #{reminder.next_date.day.ordinalize}") %>
+          </div>
+          <div>
+            <%= link_to edit_reminder_path(reminder) do %>
+              <i class="material-icons" style="display: inline;">mode_edit</i>
+            <% end %>
+          </div>
+          <% if reminder.status == "complete" %>
+            <div>
+              <%= link_to reminder_path(reminder, reminder: {status: "archived"}), method: :put, remote: true do %>
+                <i class="material-icons" style="display: inline;">archive</i>
+              <% end %>
+            </div>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+  <% end %>
+<% end %>

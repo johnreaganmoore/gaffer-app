@@ -1,0 +1,23 @@
+$("#task_list_container").html("<%= escape_javascript(render partial: 'contacts/task_list', locals: { reminders: @reminders, truncate_length: @truncate_length } ) %>");
+
+$("ul.tabs").tabs({
+  onShow: function(tab) {
+    $('select').material_select();
+    $('.reminder').pickadate({
+
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 3, // Creates a dropdown of years without a limited range
+      min: new Date()
+      // selectYears: 2 // Creates a dropdown of 2 years to control year
+    });
+  }
+});
+
+$('select').material_select();
+$('.reminder').pickadate({
+
+  selectMonths: true, // Creates a dropdown to control month
+  selectYears: 3, // Creates a dropdown of years without a limited range
+  min: new Date()
+  // selectYears: 2 // Creates a dropdown of 2 years to control year
+});

@@ -5,6 +5,6 @@
         Edit note for <%= @note.contact.first_name %> <%= @note.contact.last_name %>
       </div>
     </div>
-    <%= render 'form', note: @note %>
+    <%= render 'form', note: @note, contact: @note.contact %>
   </div>
 </div>

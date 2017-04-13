@@ -1,7 +1,8 @@
-<div class="container">
+
+<!-- <div class="container"> -->
 
   <div class="row">
-    <div class="col s12 m12 l4">
+    <div class="col s12 m4 l4">
       <div class="card">
         <div class="card-content">
           <div class="card-title">
@@ -36,45 +37,75 @@
 
       <div class="card">
         <div class="card-content">
-          <div class="card-title">
-            Reminders
+          <div class="card-title" style="margin-bottom: 15px;">
+            Tasks
           </div>
-          <% @contact.reminders.each do |reminder| %>
-            <div class="reminder-line">
-              <%= link_to reminder.label.truncate(20), edit_reminder_path(reminder) %>
-              <%= reminder.next_date.strftime("%b #{reminder.next_date.day.ordinalize}") %>
-            </div>
-          <% end %>
-
-
-        </div>
-        <div class="edit-profile-actions card-action">
-          <%= link_to 'New Reminder', new_reminder_path(contact: @contact.id), class: "btn waves-effect waves-light" %>
+          <div id="task_list_container">
+            <%= render 'task_list', reminders: @contact.reminders, truncate_length: 20 %>
+          </div>
         </div>
       </div>
     </div>
-    <div class="col s12 m12 l8">
-      <div class="section">
-        <div class="section-headline">
+
+    <div class="col s12 m8 l8">
+      <div class="card">
+        <div class="row">
+          <div class="col s12" style="padding: 0px;">
+            <ul class="tabs">
+              <li class="tab col s4"><a class="active" href="#new-email">New Email</a></li>
+              <li class="tab col s4"><a href="#new-task">New Task</a></li>
+              <li class="tab col s4"><a href="#new-note">New Note</a></li>
+            </ul>
+          </div>
+          <div id="new-email" class="col s12" style="padding: 0px;">
+            <%= render 'email_form', email: @email, contact: @contact %>
+          </div>
+          <div id="new-task" class="col s12" style="padding: 0px;">
+            <%= render 'reminders/form', reminder: @reminder, contact: @contact %>
+          </div>
+          <div id="new-note" class="col s12" style="padding: 0px;">
+            <%= render 'notes/form', note: @note, contact: @contact %>
+          </div>
+
+        </div>
+      </div>
+
+      <!-- <div class="section"> -->
+        <!-- <div class="section-headline">
           <h3>Notes</h3>
           <%= link_to 'New Note', new_note_path(contact: @contact.id), class: "btn waves-effect waves-light" %>
+        </div> -->
+        <div id="activity_list_container">
+          <%= render 'activity_list', activities: @activities %>
         </div>
-        <% @contact.notes.each do |note| %>
-          <div class="card">
-            <div class="card-content">
-              <%= raw(note.body) %>
-            </div>
-            <div class="card-action">
-              <div class="chip">
-                <%= note.updated_at.strftime("%B #{note.updated_at.day.ordinalize}, %Y") %>
-              </div>
-              <%= link_to edit_note_path(note) do %>
-                Edit
-              <% end %>
-            </div>
-          </div>
-        <% end %>
-      </div>
+      <!-- </div> -->
     </div>
   </div>
-</div>
+<!-- </div> -->
+
+<script>
+  $( document ).on('turbolinks:load', function() {
+    $("ul.tabs").tabs({
+      onShow: function(tab) {
+        $('select').material_select();
+        $('.reminder').pickadate({
+
+          selectMonths: true, // Creates a dropdown to control month
+          selectYears: 3, // Creates a dropdown of years without a limited range
+          min: new Date()
+          // selectYears: 2 // Creates a dropdown of 2 years to control year
+        });
+      }
+    });
+  });
+
+  $(':checkbox').change(function(event) {
+
+    // console.log(event)
+    // console.log(this.id, this.checked)
+    // console.log(event.id, event.checked)
+          // do stuff here. It will fire on any checkbox change
+
+  });
+
+</script>

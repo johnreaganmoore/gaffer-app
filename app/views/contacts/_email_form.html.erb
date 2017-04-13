@@ -1,31 +1,31 @@
-<%= form_for(note, remote: true) do |f| %>
+<%= form_tag('/contact_email') do |f| %>
   <div class="card-content">
-    <% if note.errors.any? %>
-      <div id="error_explanation">
-        <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+    <div class="field">
+      <%= hidden_field_tag :contact_id, contact.id %>
+    </div>
 
-        <ul>
-        <% note.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
-        <% end %>
-        </ul>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= text_field_tag :subject %>
+        <%= label_tag :subject %>
       </div>
-    <% end %>
+    </div>
 
-    <%= f.hidden_field :contact_id, value: contact.id %>
-    <%= f.hidden_field :body %>
+    <div class="row">
+      <div class="input-field col s12">
+        <%= text_area_tag :body, nil, class: "materialize-textarea" %>
+        <%= label_tag :body %>
+      </div>
+    </div>
+    <!-- <%= hidden_field_tag :body %>
 
     <div class="editable">
-      <%= raw(note.body) %>
-    </div>
+    </div> -->
+
   </div>
   <div class="edit-profile-actions card-action">
-    <% if note.id %>
-      <%= link_to 'Delete This Note', note, method: :delete, data: { confirm: 'Are you sure?' } %>
-    <% end %>
-
     <%= button_tag(id: "submit", type: 'submit', class: "btn waves-effect waves-light") do %>
-      Save
+      Send Email
     <% end %>
   </div>
 <% end %>
@@ -44,7 +44,7 @@
 
     editor.subscribe('editableInput', function (event, editable) {
       // Do some work
-      $('#note_body').val($(editable).html())
+      $('#email_body').val($(editable).html())
     });
   });
 </script>
