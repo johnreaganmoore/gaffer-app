@@ -5,6 +5,8 @@ class People::RegistrationsController < Devise::RegistrationsController
   # GET /resource/sign_up
   def new
     super do |person|
+      @plan = params[:plan]
+
       @token = params[:invitation_token]
       if params[:team] != nil
         @team = Team.friendly.find(params[:team])
@@ -52,6 +54,9 @@ class People::RegistrationsController < Devise::RegistrationsController
       end
       @person.save
     end
+
+
+
   end
 
   # GET /resource/edit
@@ -107,7 +112,8 @@ class People::RegistrationsController < Devise::RegistrationsController
     # edit_person_registration_path(person)
 
     sign_in(person)
-    onboarding_path(:create_profile)
+    onboarding_path(:create_profile, plan: params[:plan])
+    # person.goggle
   end
 
   # The path used after sign up for inactive people.
@@ -116,7 +122,7 @@ class People::RegistrationsController < Devise::RegistrationsController
     # edit_person_registration_path(person)
 
     sign_in(person)
-    onboarding_path(:create_profile)
+    onboarding_path(:create_profile, plan: params[:plan])
   end
 
 end

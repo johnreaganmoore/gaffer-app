@@ -19,6 +19,9 @@
               <% if @team != nil %>
                 <%= hidden_field_tag :team, @team.slug %>
               <% end %>
+              <% if @plan != nil %>
+                <%= hidden_field_tag :plan, @plan %>
+              <% end %>
               <div>
                 <!-- <%= link_to(person_facebook_omniauth_authorize_path) do %>
                   <%= button_tag(type: 'button', class: "waves-effect waves-light btn facebook-button") do %>

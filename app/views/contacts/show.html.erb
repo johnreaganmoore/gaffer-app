@@ -18,16 +18,26 @@
             <% end %>
           </div>
 
-          <p style="margin-bottom: 15px;">
-            <strong>Phone:</strong><br>
-            <%= @contact.phone %>
+          <p style="display: flex; justify-content: space-between;">
+            Phone:
+            <strong><%= number_to_phone(@contact.phone) %></strong>
           </p>
 
-          <p>
-            <strong>Email:</strong><br>
-            <a href="mailto:<%= @contact.email %>" target="_blank"><%= @contact.email %></a>
+          <p style="margin-bottom: 15px; display: flex; justify-content: space-between;">
+            Email:
+            <strong><a href="mailto:<%= @contact.email %>" target="_blank"><%= @contact.email %></a></strong>
           </p>
 
+          <% if @contact.contact_values.length > 0 %>
+            <hr style="margin-bottom: 15px;">
+          <% end %>
+
+          <% @contact.contact_values.each do |value| %>
+            <p style="display: flex; justify-content: space-between;">
+              <%= value.contact_property.property %>:
+              <strong><%= value.value %></strong>
+            </p>
+          <% end %>
 
         </div>
         <div class="edit-profile-actions card-action">
@@ -84,19 +94,22 @@
 <!-- </div> -->
 
 <script>
-  $( document ).on('turbolinks:load', function() {
-    $("ul.tabs").tabs({
-      onShow: function(tab) {
-        $('select').material_select();
-        $('.reminder').pickadate({
 
-          selectMonths: true, // Creates a dropdown to control month
-          selectYears: 3, // Creates a dropdown of years without a limited range
-          min: new Date()
-          // selectYears: 2 // Creates a dropdown of 2 years to control year
-        });
-      }
-    });
+  $("ul.tabs").tabs({
+    onShow: function(tab) {
+
+      console.log($('select').hasClass("initilialized"))
+
+      $('select').material_select('destroy');
+      $('select').material_select();
+      $('.reminder').pickadate({
+
+        selectMonths: true, // Creates a dropdown to control month
+        selectYears: 3, // Creates a dropdown of years without a limited range
+        min: new Date()
+        // selectYears: 2 // Creates a dropdown of 2 years to control year
+      });
+    }
   });
 
   $(':checkbox').change(function(event) {

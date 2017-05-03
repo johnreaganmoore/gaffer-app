@@ -6,6 +6,8 @@ class RelateOnboardingController < ApplicationController
 
   def profile
     @person = current_person
+    @plan = params[:plan]
+    # @person.goggle
   end
 
   def update_profile

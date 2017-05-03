@@ -1,0 +1,27 @@
+<%= form_for(contact_property) do |f| %>
+  <div class="card-content">
+    <% if contact_property.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(contact_property.errors.count, "error") %> prohibited this contact_property from being saved:</h2>
+
+        <ul>
+        <% contact_property.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <div class="field">
+      <%= f.label :property %>
+      <%= f.text_field :property %>
+    </div>
+
+  </div>
+  <div class="edit-profile-actions card-action">
+    <%= button_tag(id: "submit", type: 'submit', class: "btn waves-effect waves-light") do %>
+      Save
+    <% end %>
+  </div>
+
+<% end %>

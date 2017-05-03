@@ -21,6 +21,8 @@
 //= require materialize-sprockets
 //= require medium-editor
 //= require rails_env_favicon
+//= require filter
+//= require moment
 //= require_tree .
 
 $( document ).on('turbolinks:load', function() {

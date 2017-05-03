@@ -1,0 +1,82 @@
+.container
+  .card.team-card
+    .row
+      .col.s12
+        %ul.tabs
+          %li.tab.col.s6
+            %a.active{:href => "#tasks"} Tasks
+          %li.tab.col.s6
+            %a{:href => "#contacts"} People
+      #tasks.col.s12
+        .card-content
+          #task_list_container
+            = render 'task_list', reminders: @tasks, truncate_length: 50
+      #contacts.col.s12
+        %nav
+          #search-nav-wrapper.nav-wrapper
+            %form{:onsubmit => "event.preventDefault()"}
+              .input-field
+                %input#search{:required => "", :style => "height: 64px !important;", :type => "search"}/
+                %label.label-icon{:for => "search"}
+                  %i.material-icons search
+                %i.material-icons close
+        %table.bordered
+          %thead
+            %tr
+              <th data-field="name">Name</th>
+              <th data-field="tags">Tags</th>
+              <th data-field="next_reminder">Next Reminder</th>
+              <th data-field="last_active">Last Activity</th>
+          %tbody#contacts-list
+        %ul.collection.team
+          %li.collection-item.avatar.valign-wrapper{:style => "padding-left: 15px;"}
+            %a.btn-floating.btn.waves-effect.waves-light.valign{:href => new_contact_path, :style => "height: 42px; width: 42px;"}
+              %i.material-icons{:style => "line-height: 42px;"} add
+            = link_to new_contact_path do
+              %span.valign{:style => "margin-left: 15px"} Add A Contact
+
+%script#contact-template{:type => "text/html"}
+  :cdata
+    <tr>
+      <td>
+        <a href="http://localhost:3000/contacts/<%= id %>"><%= first_name %> <%= last_name %></a>
+      </td>
+      <td>
+        <% tags.forEach(function(tag) { %>
+          <div class="chip">
+            <%= tag %>
+          </div>
+        <% }); %>
+      </td>
+      <td>
+        <% if (moment(next_reminder).isValid()) { %>
+          <%= moment(next_reminder).format("MMM Do") %>
+        <% } %>
+      </td>
+      <td>
+        <%= moment(latest_activity).fromNow() %>
+      </td>
+    </tr>
+
+%script#tag_template{:type => "text/html"}
+  :cdata
+    <div class="checkbox">
+      <label>
+        <input type="checkbox" value="<%= tag %>"> <%= tag %>
+      </label>
+    </div>
+
+%script
+
+  var contacts = #{raw(@js_contacts)}
+  $('#contacts-list').empty();
+
+  var FJS = FilterJS(contacts, '#contacts-list', {
+  template: '#contact-template',
+  search: { ele: '#search' },
+  callbacks: {
+  afterFilter: function(result){
+  $('#total_contacts').text(result.length);
+  }
+  }
+  });
