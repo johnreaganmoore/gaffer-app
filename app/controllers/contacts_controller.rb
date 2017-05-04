@@ -8,17 +8,7 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    # @contacts = @active_org.contacts
-
-    @filterrific = initialize_filterrific(
-      Contact,
-      params[:filterrific],
-      :select_options => {
-        sorted_by: Contact.options_for_sorted_by,
-        has_tags: Contact.options_for_tag_list
-      },
-    ) or return
-    @contacts = @filterrific.find.where({ org_id: @active_org.id }) #.page(params[:page])
+    @contacts = @active_org.contacts
     @contact_list = @contacts.map do |c|
 
       if c.next_reminder != nil && c.next_reminder < Date.today
