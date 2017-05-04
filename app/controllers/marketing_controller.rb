@@ -617,6 +617,12 @@ class MarketingController < ApplicationController
   def register
   end
 
+  def connect
+  end
+
+  def relate
+  end
+
   def tryout
     @lead = Lead.new
   end

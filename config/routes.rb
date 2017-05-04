@@ -8,6 +8,7 @@ Rails.application.routes.draw do
 
 
 
+  resources :contact_properties
   resources :reminders
   resources :notes
   resources :contacts
@@ -96,6 +97,8 @@ Rails.application.routes.draw do
   post 'player_fee_payment', to: 'transactions#player_fee_payment', as: :player_fee_payment
   post 'captain_signup', to: 'transactions#captain_signup', as: :captain_signup
 
+  post 'connect_subscribe', to: 'transactions#connect_subscribe', as: :connect_payment
+
   resources :locations, except: [:update, :edit, :destroy]
 
   # Special new team page for registration
@@ -106,7 +109,8 @@ Rails.application.routes.draw do
 
 
   get '/', to: 'marketing#harrisburg', constraints: { subdomain: 'harrisburg' }
-
+  get '/', to: 'marketing#connect', constraints: { subdomain: 'connect' }, as: :connect_home
+  get '/', to: 'marketing#relate', constraints: { subdomain: 'relate' }, as: :relate_home
   get '/', to: 'marketing#register', constraints: { subdomain: 'register' }, as: :register_home
   get '/', to: 'marketing#tryout', constraints: { subdomain: 'tryout' }, as: :tryout_home
   get '/', to: 'marketing#collect', constraints: { subdomain: 'collect' }, as: :collect_home

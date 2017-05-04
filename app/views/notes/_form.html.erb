@@ -31,20 +31,18 @@
 <% end %>
 
 <script>
-  $( document ).on('turbolinks:load', function() {
-    var editor = new MediumEditor('.editable', {
-      // options go here
-      placeholder: {
-          /* This example includes the default options for placeholder,
-             if nothing is passed this is what it used */
-          text: 'Start typing here.',
-          hideOnClick: true
-      }
-    });
+  var editor = new MediumEditor('.editable', {
+    // options go here
+    placeholder: {
+        /* This example includes the default options for placeholder,
+           if nothing is passed this is what it used */
+        text: 'Start typing here.',
+        hideOnClick: true
+    }
+  });
 
-    editor.subscribe('editableInput', function (event, editable) {
-      // Do some work
-      $('#note_body').val($(editable).html())
-    });
+  editor.subscribe('editableInput', function (event, editable) {
+    // Do some work
+    $('#note_body').val($(editable).html())
   });
 </script>

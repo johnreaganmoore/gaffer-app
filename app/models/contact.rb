@@ -4,6 +4,8 @@ class Contact < ApplicationRecord
 
   has_many :notes
   has_many :reminders
+  has_many :contact_values, inverse_of: :contact
+  accepts_nested_attributes_for :contact_values
 
   before_save :set_tag_owner
   def set_tag_owner
@@ -60,6 +62,7 @@ class Contact < ApplicationRecord
             :available_filters => %w[
               sorted_by
               search_query
+              has_tags
             ]
 
   scope :search_query, lambda { |query|
@@ -101,11 +104,25 @@ class Contact < ApplicationRecord
     end
   }
 
+  scope :has_tags, lambda { |tag_ids|
+    puts tag_ids
+    Contact.tagged_with(tag_ids, :any => true)
+  }
+
   def self.options_for_sorted_by
     [
       ['Name (a-z)', 'name_asc'],
       ['Newest updated (newest first)', 'updated_at_desc'],
       ['Oldest Update (oldest first)', 'updated_at_asc'],
+    ]
+  end
+
+  def self.options_for_tag_list
+    [
+      "Software Partner",
+      "Recruit",
+      "Player",
+      "Alumnus"
     ]
   end
 

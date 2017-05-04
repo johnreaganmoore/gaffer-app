@@ -16,6 +16,19 @@ class TransactionsController < ApplicationController
     result = self.purchase_team_season(@season)
   end
 
+  def connect_subscribe
+    @token = params["stripeToken"]
+    @person = current_person
+
+    person_with_customer = @person.create_customer(@token)
+
+    person_with_customer.subscribe_to_plan(params[:plan])
+
+    redirect_to orgs_path
+    # IDEA: Instead of flash messages, at critical points give smooch popups. May need intercom for this.
+    # flash[:success] = "Welcome to Onside!"
+  end
+
 
 =begin
   First season

@@ -208,6 +208,15 @@ class Person < ApplicationRecord
     end
   end
 
+  def subscribe_to_plan(plan)
+    if plan
+      Stripe::Subscription.create(
+        :customer => self.customer_id,
+        :plan => plan,
+      )
+    end
+  end
+
   def new_managed_account?
 
     if self.date_of_birth_changed?(from: nil) && self.merchant_account_id == nil

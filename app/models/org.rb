@@ -14,6 +14,7 @@ class Org < ApplicationRecord
   has_many :sub_lists
   has_many :teams
   has_many :contacts
+  has_many :contact_properties
   acts_as_tagger
 
   after_create :populate_first_contact
@@ -32,7 +33,8 @@ class Org < ApplicationRecord
       label: "Email John Reagan with any questions or feedback about the software",
       next_date: DateTime.now.beginning_of_day + 8.hours + 7.days,
       interval: "one-time",
-      contact_id: @contact.id
+      contact_id: @contact.id,
+      status: "incomplete"
     )
     Note.create(
       body: "<h3>Welcome!</h3><p><br></p><p>This is a simple way to take notes related to people. You can simply edit the formatting of the text or add links by <b>highlighting</b> it. You can also add images if you want by dragging them into this text area.<br><br>You can just edit or delete this note and be on your way. If you need any help please always feel free to contact us directly in the chat bubble at the bottom right of the screen.<br><br>Thanks,<br><br>John Reagan</p>",

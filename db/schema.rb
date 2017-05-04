@@ -10,10 +10,28 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170413122146) do
+ActiveRecord::Schema.define(version: 20170427131035) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
+
+  create_table "contact_properties", force: :cascade do |t|
+    t.string   "property"
+    t.integer  "org_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_id"], name: "index_contact_properties_on_org_id", using: :btree
+  end
+
+  create_table "contact_values", force: :cascade do |t|
+    t.integer  "contact_id"
+    t.integer  "contact_property_id"
+    t.string   "value"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["contact_id"], name: "index_contact_values_on_contact_id", using: :btree
+    t.index ["contact_property_id"], name: "index_contact_values_on_contact_property_id", using: :btree
+  end
 
   create_table "contacts", force: :cascade do |t|
     t.integer  "org_id"
@@ -324,6 +342,9 @@ ActiveRecord::Schema.define(version: 20170413122146) do
     t.datetime "updated_at",  null: false
   end
 
+  add_foreign_key "contact_properties", "orgs"
+  add_foreign_key "contact_values", "contact_properties"
+  add_foreign_key "contact_values", "contacts"
   add_foreign_key "fees", "teams"
   add_foreign_key "games", "locations"
   add_foreign_key "games", "seasons"

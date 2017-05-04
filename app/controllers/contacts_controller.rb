@@ -9,22 +9,33 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     @contacts = @active_org.contacts
+    @contact_list = @contacts.map do |c|
 
-      # @filterrific = initialize_filterrific(
-      #   Contact,
-      #   params[:filterrific],
-      #   :select_options => {
-      #     sorted_by: Contact.options_for_sorted_by,
-      #   }
-      # ) or return
-      # @contacts = @filterrific.find #.page(params[:page])
-
-      @tasks = Reminder.where(contact_id: @contacts.ids).order(:next_date)
-
-      respond_to do |format|
-        format.html
-        format.js
+      if c.next_reminder != nil && c.next_reminder < Date.today
+        next_date = nil
+      else
+        next_date = c.next_reminder
       end
+
+      c_tags = c.tags.map {|tag| tag.name }
+
+      {
+        id: c.id,
+        first_name: c.first_name,
+        last_name: c.last_name,
+        tags: c_tags,
+        next_reminder: next_date,
+        latest_activity: c.latest_activity
+      }
+    end
+    @js_contacts = @contact_list.to_json
+
+    @tasks = Reminder.where(contact_id: @contacts.ids).order(:next_date)
+
+    respond_to do |format|
+      format.html
+      format.js
+    end
   end
 
   # GET /contacts/1
@@ -39,6 +50,11 @@ class ContactsController < ApplicationController
   # GET /contacts/new
   def new
     @contact = Contact.new
+
+    @active_org.contact_properties.each do |cp|
+      @contact.contact_values.build(contact_property_id: cp.id)
+    end
+
   end
 
   # GET /contacts/1/edit
@@ -67,9 +83,7 @@ class ContactsController < ApplicationController
   def update
     respond_to do |format|
       if @contact.update(contact_params)
-
-        puts @contact.tag_list.inspect
-
+        @contact.touch
         format.html { redirect_to @contact, notice: 'Contact was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact }
       else
@@ -108,7 +122,7 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:first_name, :last_name, :phone, :email, :tag_list)
+      params.require(:contact).permit(:first_name, :last_name, :phone, :email, :tag_list, :contact_values_attributes => [:id, :value, :contact_property_id])
     end
 
     def email_params

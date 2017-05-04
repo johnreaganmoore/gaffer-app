@@ -15,6 +15,19 @@
         </div>
       </div>
       <div id="contacts" class="col s12">
+        <nav style="background-color: #ffffff;">
+          <div class="nav-wrapper" id="search-nav-wrapper">
+            <form onsubmit="event.preventDefault()">
+              <div class="input-field">
+                <input id="search" class="search" style="height: 64px !important;" type="search"></input>
+                <label class="label-icon" for="search">
+                  <i class="material-icons" style="">search</i>
+                </label>
+                <i class="material-icons">close</i>
+              </div>
+            </form>
+          </div>
+        </nav>
         <%= render(
           partial: 'contacts/list',
           locals: { contacts: @contacts }
@@ -35,3 +48,16 @@
 
   </div>
 </div>
+
+<!-- <th data-field="name">Name</th>
+<th data-field="tags">Tags</th>
+<th data-field="next_reminder">Next Reminder</th>
+<th data-field="last_active">Last Activity</th> -->
+
+<script>
+  var options = {
+      valueNames: [ 'name', 'tags', 'next_reminder', 'last_active' ]
+  };
+
+  var hackerList = new List('contacts', options);
+</script>

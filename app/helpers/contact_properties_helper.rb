@@ -1,0 +1,2 @@
+module ContactPropertiesHelper
+end

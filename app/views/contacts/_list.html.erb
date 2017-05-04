@@ -1,22 +1,22 @@
 <table class="bordered">
  <thead>
    <tr>
-       <th data-field="name">Name</th>
-       <th data-field="tags">Tags</th>
-       <th data-field="next_reminder">Next Reminder</th>
-       <th data-field="last_active">Last Activity</th>
+       <th class="sort" data-sort="name" data-field="name">Name</th>
+       <th class="sort" data-sort="tags" data-field="tags">Tags</th>
+       <th class="sort" data-sort="next_reminder" data-field="next_reminder">Next Reminder</th>
+       <th class="sort" data-sort="last_active" data-field="last_active">Last Activity</th>
    </tr>
  </thead>
 
- <tbody>
+ <tbody class="list">
    <% contacts.each do |contact| %>
     <tr>
       <td>
-        <%= link_to contact_path(contact.id) do %>
+        <%= link_to contact_path(contact.id), class: "name" do %>
           <%= contact.first_name %> <%= contact.last_name %>
         <% end %>
       </td>
-       <td>
+      <td class="tags">
          <% contact.tags.each do |tag| %>
            <div class="chip">
              <%= tag.name %>
@@ -24,11 +24,28 @@
          <% end %>
        </td>
        <td>
-         <% if contact.next_reminder %>
+         <% if contact.next_reminder && contact.next_reminder == Date.tomorrow %>
+            <div class="next_reminder" style="display: none;"><%= contact.next_reminder %></div>
+            <div class="chip" style="background-color: rgba(0,0,255,0.25);;">
+              Tomorrow
+            </div>
+         <% elsif contact.next_reminder && contact.next_reminder == Date.today %>
+           <div class="next_reminder" style="display: none;"><%= contact.next_reminder %></div>
+           <div class="chip" style="background-color: rgba(0,128,0,0.3);">
+              Today
+           </div>
+         <% elsif contact.next_reminder && contact.next_reminder > Date.today %>
+            <div class="next_reminder" style="display: none;"><%= contact.next_reminder %></div>
            <%= contact.next_reminder.strftime("%b %e")%>
+         <% elsif contact.next_reminder && contact.next_reminder < Date.today %>
+            <div class="next_reminder" style="display: none;"><%= contact.next_reminder %></div>
+           <div class="chip" style="background-color: rgba(255, 88, 58, 0.34);">
+             <%= contact.next_reminder.strftime("%b %e")%>
+           </div>
+         <% else %>
          <% end %>
        </td>
-       <td><%= time_ago_in_words(contact.latest_activity) %> ago</td>
+       <td class="last_active"><%= time_ago_in_words(contact.latest_activity) %> ago</td>
     </tr>
    <% end %>
  </tbody>

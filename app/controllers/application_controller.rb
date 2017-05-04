@@ -28,7 +28,7 @@ class ApplicationController < ActionController::Base
 
     # If they don't have a name, take them to profile creation
     if person.first_name == nil then
-      return onboarding_path(:create_profile)
+      return onboarding_path(:create_profile, plan: params[:plan])
     end
 
     if request.subdomain == "register"
@@ -40,6 +40,9 @@ class ApplicationController < ActionController::Base
     end
 
     if request.subdomain == "relate"
+      # if person.first_name == nil then
+      #   return onboarding_path(:create_profile, params[:plan])
+      # end
       if self.active_org
         return contacts_path
       else

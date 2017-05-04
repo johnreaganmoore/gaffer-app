@@ -39,9 +39,21 @@
         <%= f.hidden_field :tag_list %>
         <div class="chips chips-autocomplete tags-input"></div>
 
+        <%= f.fields_for :contact_values do |value_form| %>
+
+          <div class="input-field">
+            <%= value_form.hidden_field :id, value: value_form.object.id %>
+            <%= value_form.hidden_field :contact_property_id, value: value_form.object.contact_property_id %>
+            <%= value_form.text_field :value %>
+            <%= value_form.label :value, "#{ContactProperty.find(value_form.object.contact_property_id).property}" %>
+          </div>
+        <% end %>
+
       </div>
 
       <div class="edit-profile-actions card-action">
+        <%= link_to 'New Contact Property', new_contact_property_path %>
+
         <%= button_tag(id: "submit", type: 'submit', class: "btn waves-effect waves-light") do %>
           Save
         <% end %>
@@ -50,7 +62,7 @@
 
 <script>
 
-$( document ).on('turbolinks:load', function() {
+// $( document ).on('turbolinks:load', function() {
 
     var contactExistingTags = []
     <% contact.all_tags_list.each do |tag| %>
@@ -126,6 +138,6 @@ $( document ).on('turbolinks:load', function() {
       $('#contact_tag_list').val(tagStringArray)
     });
 
-});
+// });
 
 </script>

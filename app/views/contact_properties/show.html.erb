@@ -1,0 +1,14 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <strong>Property:</strong>
+  <%= @contact_property.property %>
+</p>
+
+<p>
+  <strong>Org:</strong>
+  <%= @contact_property.org %>
+</p>
+
+<%= link_to 'Edit', edit_contact_property_path(@contact_property) %> |
+<%= link_to 'Back', contact_properties_path %>
