@@ -18,8 +18,10 @@ class Contact < ApplicationRecord
   def next_reminder
     next_overall_date = nil
     self.reminders.each do |reminder|
-      if next_overall_date == nil || reminder.next_date > next_overall_date
-        next_overall_date = reminder.next_date
+      if reminder.status != "archived"
+        if next_overall_date == nil || reminder.next_date > next_overall_date
+          next_overall_date = reminder.next_date
+        end
       end
     end
     return next_overall_date

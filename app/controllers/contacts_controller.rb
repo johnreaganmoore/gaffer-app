@@ -30,7 +30,7 @@ class ContactsController < ApplicationController
     end
     @js_contacts = @contact_list.to_json
 
-    @tasks = Reminder.where(contact_id: @contacts.ids).order(:next_date)
+    @tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").order(:next_date)
 
     respond_to do |format|
       format.html
@@ -45,6 +45,7 @@ class ContactsController < ApplicationController
     @note = Note.new
     @email = {}
     @activities = @contact.activities
+    @tasks = @contact.reminders.where.not(status: "archived").order(:next_date)
   end
 
   # GET /contacts/new
