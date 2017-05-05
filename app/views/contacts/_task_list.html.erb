@@ -10,14 +10,25 @@
           <div class="task-check-label">
             <%= link_to reminder_path(reminder, reminder: {status: "incomplete"}), method: :put, remote: true do %>
               <input type="checkbox" checked id="<%= reminder.id %>_check" />
-              <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check"><del><strong><%= reminder.contact.first_name[0] %>. <%= reminder.contact.last_name %></strong>: <%= reminder.label.truncate(truncate_length) %></del></label>
+              <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check">
+                  <del>
+                    <% if truncate_length > 49 %>
+                      <strong><%= reminder.contact.first_name[0] %>. <%= reminder.contact.last_name %></strong>:
+                    <% end %>
+                    <%= reminder.label.truncate(truncate_length) %>
+                  </del>
+              </label>
             <% end %>
           </div>
         <% elsif reminder.status == "incomplete" %>
           <div class="task-check-label">
             <%= link_to reminder_path(reminder, reminder: {status: "complete"}), method: :put, remote: true do %>
               <input type="checkbox" id="<%= reminder.id %>_check" />
-              <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check"><strong><%= reminder.contact.first_name[0] %>. <%= reminder.contact.last_name %></strong>: <%= reminder.label.truncate(truncate_length) %></label>
+              <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check">
+                <% if truncate_length > 49 %>
+                  <strong><%= reminder.contact.first_name[0] %>. <%= reminder.contact.last_name %></strong>: 
+                <% end %>
+                <%= reminder.label.truncate(truncate_length) %></label>
             <% end %>
           </div>
         <% end %>
