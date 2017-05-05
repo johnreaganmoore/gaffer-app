@@ -33,10 +33,12 @@
           <% end %>
 
           <% @contact.contact_values.each do |value| %>
-            <p style="display: flex; justify-content: space-between;">
-              <%= value.contact_property.property %>:
-              <strong><%= value.value %></strong>
-            </p>
+            <% if value.value && value.value.length > 0 %>
+              <p style="display: flex; justify-content: space-between;">
+                <%= value.contact_property.property %>:
+                <strong><%= value.value %></strong>
+              </p>
+            <% end %>
           <% end %>
 
         </div>
