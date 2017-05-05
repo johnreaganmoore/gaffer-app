@@ -6,10 +6,6 @@ class Reminder < ApplicationRecord
   after_save :notify
 
   def notify
-    puts "Sending a reminder"
-    puts self.next_date
-    puts self.next_date.beginning_of_day
-    puts self.next_date + 60
 
     recipient_email = self.contact.org.primary_admin.email
     recipient = self.contact.org.primary_admin
@@ -46,7 +42,7 @@ class Reminder < ApplicationRecord
       self.next_date = self.next_date + 1.year
       self.save
     else
-      self.delete
+      # self.delete
     end
   end
 
