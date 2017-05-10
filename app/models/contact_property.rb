@@ -1,6 +1,6 @@
 class ContactProperty < ApplicationRecord
   belongs_to :org
-  has_many :contact_values
+  has_many :contact_values, dependent: :destroy
 
   after_create :set_defaults_on_existing_contacts
 

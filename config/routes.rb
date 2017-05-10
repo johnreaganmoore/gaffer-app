@@ -11,8 +11,10 @@ Rails.application.routes.draw do
   resources :contact_properties
   resources :reminders
   resources :notes
-  resources :contacts
+  get 'contacts/batch', to: 'contacts#batch', as: :contacts_batch
+  post 'contacts/batch', to: 'contacts#batch_create', as: :contacts_batch_create
   post 'contact_email', to: 'contacts#send_email', as: :contact_email
+  resources :contacts
 
 
 

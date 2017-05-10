@@ -79,6 +79,122 @@ class ContactsController < ApplicationController
     end
   end
 
+  def batch_create
+    # @list = SubList.find(params[:list])
+    puts batch_params[:file]
+
+    file = batch_params[:file]
+    org_id = batch_params[:org_id]
+
+    puts file.inspect
+    puts org_id
+
+    # First Name":"Ian"
+    # "Last Name":"Zogg"
+    # "Email":nil
+    # "Phone":nil
+    #
+    # "Last Contact Date":nil
+    # "Last Contact Note":nil
+    # "Class":"2019"
+    # "Birthday":nil
+    # "Xtain?":"?"
+    # "Position":"HM"
+    # "PE":"1.5"
+    # "City":nil
+    # "State":nil
+    # "Address":nil
+    # "Club Team":"GPS Maine '01"
+    # "High School":nil
+    # "Comments":"Saw game on 4/9/17, Not too many notes, but caught my eye somehow."
+
+    CSV.foreach(file.path, headers: true) do |row|
+      puts "Isnpecting row:"
+      puts row.inspect
+      puts row.headers[0], row[1], row[2]
+
+
+      @contact = Contact.create(
+        org_id: org_id,
+        first_name: row[0],
+        last_name: row[1],
+        email: row[2],
+        phone: row[3]
+      )
+
+      @contact.tag_list.add("Recruit")
+      @contact.save
+
+      @class_prop = ContactProperty.find_or_create_by(org_id: org_id, property: "Class")
+      # ContactValue.create(contact: @contact, contact_property: @class_prop, value: row[6])
+      cv = ContactValue.where(contact: @contact, contact_property: @class_prop,).first_or_initialize
+      cv.value = row[6]
+      cv.save
+
+      @birthday_prop = ContactProperty.find_or_create_by(org_id: org_id, property: "Birthday")
+      cv = ContactValue.where(contact: @contact, contact_property: @birthday_prop,).first_or_initialize
+      cv.value = row[7]
+      cv.save
+
+      @x_prop = ContactProperty.find_or_create_by(org_id: org_id, property: "Christian?")
+      cv = ContactValue.where(contact: @contact, contact_property: @x_prop,).first_or_initialize
+      cv.value = row[8]
+      cv.save
+
+      @position_prop = ContactProperty.find_or_create_by(org_id: org_id, property: "Position")
+      cv = ContactValue.where(contact: @contact, contact_property: @position_prop,).first_or_initialize
+      cv.value = row[9]
+      cv.save
+
+      @pe_prop = ContactProperty.find_or_create_by(org_id: org_id, property: "PE")
+      cv = ContactValue.where(contact: @contact, contact_property: @pe_prop,).first_or_initialize
+      cv.value = row[10]
+      cv.save
+
+      @city_prop = ContactProperty.find_or_create_by(org_id: org_id, property: "City")
+      cv = ContactValue.where(contact: @contact, contact_property: @city_prop,).first_or_initialize
+      cv.value = row[11]
+      cv.save
+
+      @state_prop = ContactProperty.find_or_create_by(org_id: org_id, property: "State")
+      cv = ContactValue.where(contact: @contact, contact_property: @state_prop,).first_or_initialize
+      cv.value = row[12]
+      cv.save
+
+      @address_prop = ContactProperty.find_or_create_by(org_id: org_id, property: "Address")
+      cv = ContactValue.where(contact: @contact, contact_property: @address_prop,).first_or_initialize
+      cv.value = row[13]
+      cv.save
+
+      @club_prop = ContactProperty.find_or_create_by(org_id: org_id, property: "Club Team")
+      cv = ContactValue.where(contact: @contact, contact_property: @club_prop,).first_or_initialize
+      cv.value = row[14]
+      cv.save
+
+      @hs_prop = ContactProperty.find_or_create_by(org_id: org_id, property: "High School")
+      cv = ContactValue.where(contact: @contact, contact_property: @hs_prop,).first_or_initialize
+      cv.value = row[15]
+      cv.save
+
+      if row[16]
+        @comments =  Note.create(contact: @contact, body: row[16])
+      end
+
+      last_contact_date = nil
+      if row[4]
+        last_contact_date = DateTime.parse(row[4])
+        @last_contact_note = Note.create(contact: @contact, body: row[5], updated_at: last_contact_date)
+
+        @last_contact_note.touch(time: last_contact_date)
+        @contact.touch(time: last_contact_date)
+      end
+
+    end
+
+    redirect_to contacts_path, notice: 'You successfully added contacts. Great job!'
+  end
+
+
   # PATCH/PUT /contacts/1
   # PATCH/PUT /contacts/1.json
   def update
@@ -128,5 +244,9 @@ class ContactsController < ApplicationController
 
     def email_params
       params.permit(:contact_id, :subject, :body)
+    end
+
+    def batch_params
+      params.permit(:file, :org_id)
     end
 end
