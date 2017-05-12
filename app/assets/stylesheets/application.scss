@@ -24,8 +24,8 @@
 @import "colors";
 // From materialize docs, this is how you can overide color defaults.
 @import "materialize/components/color";
-$primary-color: $primary-green !default;
-$secondary-color: $secondary-green !default;
+$primary-color: $primary-color !default;
+$secondary-color: $secondary-color !default;
 @import 'materialize';
 
 @import "font-types";

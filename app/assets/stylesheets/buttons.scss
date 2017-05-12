@@ -21,10 +21,10 @@
   color: rgb(255,255,255);
   text-transform: none;
 
-  background-color: $primary-green;
+  background-color: $primary-color;
 
   &:hover {
-    background-color: $secondary-green;
+    background-color: $secondary-color;
   }
 
 }
@@ -80,4 +80,12 @@ nav {
   border-radius: 8px;
   background: none;
   outline: none;
+}
+
+.btn-floating {
+  background-color: $primary-color;
+}
+
+.btn {
+  background-color: $primary-color;
 }
