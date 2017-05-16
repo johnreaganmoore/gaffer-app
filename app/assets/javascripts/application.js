@@ -25,17 +25,6 @@
 //= require moment
 //= require_tree .
 
-function setCookie(key, value) {
-  var expires = new Date();
-  expires.setTime(expires.getTime() + (24 * 60 * 60 * 1000));
-  document.cookie = key + '=' + value + ';expires=' + expires.toUTCString();
-}
-
-jQuery(function() {
-  var tz = jstz.determine().name();
-  setCookie('timezone', tz);
-})
-
 $( document ).on('turbolinks:load', function() {
 
   $(function() {
