@@ -26,9 +26,10 @@
               <input type="checkbox" id="<%= reminder.id %>_check" />
               <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check">
                 <% if truncate_length > 49 %>
-                  <strong><%= reminder.contact.first_name[0] %>. <%= reminder.contact.last_name %></strong>: 
+                  <strong><%= reminder.contact.first_name[0] %>. <%= reminder.contact.last_name %></strong>:
                 <% end %>
-                <%= reminder.label.truncate(truncate_length) %></label>
+                <%= reminder.label.truncate(truncate_length) %>
+              </label>
             <% end %>
           </div>
         <% end %>
