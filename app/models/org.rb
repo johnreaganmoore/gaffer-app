@@ -5,6 +5,7 @@ class Org < ApplicationRecord
 
   require "stripe"
   Stripe.api_key = ENV['stripe_api_key']
+  require "mailgun"
 
   # Enable setting rolify roles
   resourcify
@@ -49,6 +50,52 @@ class Org < ApplicationRecord
 
   def primary_admin
     Person.with_role(:admin, self).first
+  end
+
+  def send_reminder_email
+
+    mg_client = Mailgun::Client.new 'key-30c362ad4107dd2bc3f9fffc67bd23b6'
+
+    email_main = ""
+
+    tasks = []
+
+    self.contacts.each do |contact|
+      tasks += contact.reminders.where("status = ? AND next_date <= ?", "incomplete", Date.today)
+    end
+
+    task_strings = []
+    tasks.each do |task|
+      task_strings.push("\n - #{task.contact.first_name} #{task.contact.last_name}: #{task.label}")
+    end
+
+    puts task_strings.inspect
+
+    if tasks.length == 1
+      email_main =
+      "\nHere is your task for the day: #{task_strings[0]}"
+    else
+      email_main =
+      "\nHere are your tasks for the day: #{task_strings.join('')}"
+    end
+
+    # puts task_strings[0]
+    # puts self.primary_admin.inspect
+    # puts self.admins.inspect
+
+      # Define your message parameters
+    message_params =  { from: 'reminders@playonside.com',
+                        to:   self.primary_admin.email,
+                        subject: "your tasks for the day",
+                        text: "Hey #{self.primary_admin.first_name},
+                        #{email_main}
+                        \nYou got this!
+                        "
+                      }
+
+    # Send your message through the client
+    mg_client.send_message 'playonside.com', message_params
+
   end
 
   def create_managed_account(admin)

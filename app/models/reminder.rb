@@ -3,7 +3,9 @@ class Reminder < ApplicationRecord
 
   require "mailgun"
 
-  after_save :notify
+  # after_save :notify
+
+  after_update :handle_status_change
 
   def notify
 
@@ -47,7 +49,31 @@ class Reminder < ApplicationRecord
   end
 
   def when_to_run
-    self.next_date.beginning_of_day + 8.hours
+    self.next_date.beginning_of_day + 6.hours
+  end
+
+  def handle_status_change
+    if self.status == "archived" && self.interval != "one-time"
+      self.delete
+    else
+      self.reset
+    end
+  end
+
+  def reset
+    case self.interval
+    when "daily"
+      self.next_date = self.next_date + 1.day
+    when "weekly"
+      self.next_date = self.next_date + 1.week
+    when "monthly"
+      self.next_date = self.next_date + 1.month
+    else
+      self.next_date = self.next_date + 1.year
+    end
+
+    self.status = "incomplete"
+    self.save
   end
 
   handle_asynchronously :notify, :run_at => Proc.new { |i| i.when_to_run }

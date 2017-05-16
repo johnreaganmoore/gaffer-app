@@ -31,9 +31,9 @@
                 <div class="secondary-content valign">
 
                   <% if person.season_participations.where(team_season_id: @team_season.id).first.amount_paid > @team_season.last_player_cost %>
-                    <span class="secondary-content" style="color: #6FA135;">Refund: <%= number_to_currency((person.season_participations.where(team_season_id: @team_season.id).first.amount_paid - @team_season.last_player_cost) / 100.0)%></span>
+                    <span class="secondary-content" style="color: #4a4a4a;">Refund: <%= number_to_currency((person.season_participations.where(team_season_id: @team_season.id).first.amount_paid - @team_season.last_player_cost) / 100.0)%></span>
                   <% elsif person.season_participations.where(team_season_id: @team_season.id).first.amount_paid == @team_season.last_player_cost %>
-                    <span class="secondary-content" style="color: #6FA135;">Paid</span>
+                    <span class="secondary-content" style="color: #4a4a4a;">Paid</span>
                   <% else %>
                     <span class="secondary-content" style="color: tomato;">Unpaid</span>
                   <% end %>
