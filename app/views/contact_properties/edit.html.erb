@@ -1,6 +1,15 @@
-<h1>Editing Contact Property</h1>
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+        Edit contact property
+      </div>
+    </div>
+    <%= render 'form', contact_property: @contact_property %>
+  </div>
+</div>
 
-<%= render 'form', contact_property: @contact_property %>
-
-<%= link_to 'Show', @contact_property %> |
-<%= link_to 'Back', contact_properties_path %>
+<script>
+  $('select').material_select('destroy');
+  $('select').material_select();
+</script>

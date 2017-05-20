@@ -8,7 +8,7 @@ class ContactPropertiesController < ApplicationController
   # GET /contact_properties
   # GET /contact_properties.json
   def index
-    @contact_properties = ContactProperty.all
+    @contact_properties = @active_org.contact_properties
   end
 
   # GET /contact_properties/1
@@ -48,7 +48,7 @@ class ContactPropertiesController < ApplicationController
 
     respond_to do |format|
       if @contact_property.update(contact_property_params)
-        format.html { redirect_to @contact_property, notice: 'Contact property was successfully updated.' }
+        format.html { redirect_to contact_properties_path, notice: 'Contact property was successfully updated.' }
         format.json { render :show, status: :ok, location: @contact_property }
       else
         format.html { render :edit }
@@ -75,6 +75,6 @@ class ContactPropertiesController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_property_params
-      params.require(:contact_property).permit(:property, :org_id)
+      params.require(:contact_property).permit(:property, :data_type, :show_in_table, :org_id)
     end
 end

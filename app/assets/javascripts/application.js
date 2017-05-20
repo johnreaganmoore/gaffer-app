@@ -31,8 +31,6 @@ $( document ).on('turbolinks:load', function() {
     Materialize.updateTextFields();
   });
 
-
-
   $.each( flashMessages, function(key, value){
     $.snackbar({content: value, style: key, timeout: 10000});
   });

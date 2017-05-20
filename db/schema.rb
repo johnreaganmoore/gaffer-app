@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170427131035) do
+ActiveRecord::Schema.define(version: 20170519215657) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -18,8 +18,10 @@ ActiveRecord::Schema.define(version: 20170427131035) do
   create_table "contact_properties", force: :cascade do |t|
     t.string   "property"
     t.integer  "org_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",    null: false
+    t.datetime "updated_at",    null: false
+    t.string   "data_type"
+    t.boolean  "show_in_table"
     t.index ["org_id"], name: "index_contact_properties_on_org_id", using: :btree
   end
 
@@ -29,6 +31,8 @@ ActiveRecord::Schema.define(version: 20170427131035) do
     t.string   "value"
     t.datetime "created_at",          null: false
     t.datetime "updated_at",          null: false
+    t.datetime "date_value"
+    t.float    "number_value"
     t.index ["contact_id"], name: "index_contact_values_on_contact_id", using: :btree
     t.index ["contact_property_id"], name: "index_contact_values_on_contact_property_id", using: :btree
   end

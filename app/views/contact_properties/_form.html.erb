@@ -12,10 +12,35 @@
       </div>
     <% end %>
 
-    <div class="field">
-      <%= f.label :property %>
-      <%= f.text_field :property %>
+    <div class="row">
+
+      <div class="input-field col s12 m12 l12">
+        <%= f.label :property %>
+        <%= f.text_field :property %>
+      </div>
+
+      <div class="input-field col s12 m6 l6">
+        <%= f.select :data_type, options_for_select([
+          ['Text', "text", {disabled: false, selected: true}],
+          ['Date','date'],
+          ['Number', 'number']
+          ]) %>
+        <%= f.label :type %>
+      </div>
+
+      <div class="input-field col s12 m6 l6">
+        <div id="tableSwitch" class="switch">
+          <label>
+            Hide from table
+            <%= f.check_box :show_in_table %>
+            <span class="lever"></span>
+            Show on table
+          </label>
+        </div>
+      </div>
+
     </div>
+
 
   </div>
   <div class="edit-profile-actions card-action">
@@ -25,3 +50,7 @@
   </div>
 
 <% end %>
+
+<script>
+  $('#tableSwitch').prop('checked')
+</script>

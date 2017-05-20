@@ -9,26 +9,28 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     @contacts = @active_org.contacts
-    @contact_list = @contacts.map do |c|
+    # @contact_list = @contacts.map do |c|
+    #
+    #   if c.next_reminder != nil && c.next_reminder < Date.today
+    #     next_date = nil
+    #   else
+    #     next_date = c.next_reminder
+    #   end
+    #
+    #   c_tags = c.tags.map {|tag| tag.name }
+    #
+    #   {
+    #     id: c.id,
+    #     first_name: c.first_name,
+    #     last_name: c.last_name,
+    #     tags: c_tags,
+    #     next_reminder: next_date,
+    #     latest_activity: c.latest_activity
+    #   }
+    # end
+    # @js_contacts = @contact_list.to_json
 
-      if c.next_reminder != nil && c.next_reminder < Date.today
-        next_date = nil
-      else
-        next_date = c.next_reminder
-      end
-
-      c_tags = c.tags.map {|tag| tag.name }
-
-      {
-        id: c.id,
-        first_name: c.first_name,
-        last_name: c.last_name,
-        tags: c_tags,
-        next_reminder: next_date,
-        latest_activity: c.latest_activity
-      }
-    end
-    @js_contacts = @contact_list.to_json
+    @table_property_names = @active_org.contact_properties.ids
 
     @tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").order(:next_date)
 
@@ -220,15 +222,26 @@ class ContactsController < ApplicationController
     end
   end
 
+  def new_email
+    # @contact = Contact.new
+    @email = {}
+
+    @contacts = @active_org.contacts
+    @contact_select_options = [['Select Contact', "0", {disabled: true, selected: true}]]
+
+    @contacts.each do |contact|
+      @contact_select_options << ["#{contact.first_name} #{contact.last_name}","#{contact.id}"]
+    end
+  end
+
   def send_email
     @contact = Contact.find(email_params[:contact_id])
     @contact.send_email(email_params[:subject], email_params[:body], current_person)
 
     respond_to do |format|
-      format.html { redirect_to @contact, notice: "Email sent to #{@contact.email}"  }
+      format.html { redirect_to @contact, notice: "You are keeping relationships alive! Email sent to #{@contact.email}."  }
       format.json { head :no_content }
     end
-
   end
 
   private
@@ -239,7 +252,7 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
-      params.require(:contact).permit(:first_name, :last_name, :phone, :email, :tag_list, :contact_values_attributes => [:id, :value, :contact_property_id])
+      params.require(:contact).permit(:first_name, :last_name, :phone, :email, :tag_list, :contact_values_attributes => [:id, :value, :date_value, :number_value, :contact_property_id])
     end
 
     def email_params
