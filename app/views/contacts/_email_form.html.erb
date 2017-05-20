@@ -1,8 +1,16 @@
 <%= form_tag('/contact_email') do |f| %>
   <div class="card-content">
-    <div class="field">
+
+    <% if contact %>
       <%= hidden_field_tag :contact_id, contact.id %>
-    </div>
+    <% else %>
+
+      <div class="row">
+        <div class="input-field col s12 m12 l12">
+          <%= select_tag :contact_id, options_for_select(@contact_select_options) %>
+        </div>
+      </div>
+    <% end %>
 
     <div class="row">
       <div class="input-field col s12">
@@ -47,4 +55,8 @@
       $('#email_body').val($(editable).html())
     });
   });
+
+
+  $('#contact_id').select2();
+
 </script>

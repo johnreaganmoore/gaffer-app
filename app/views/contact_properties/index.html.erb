@@ -1,13 +1,14 @@
-<p id="notice"><%= notice %></p>
+<div class="container">
+  <div class="card team-card">
+    <div class="card-content">
 
-<h1>Contact Properties</h1>
-
-<table>
+<table class="bordered">
   <thead>
     <tr>
       <th>Property</th>
-      <th>Org</th>
-      <th colspan="3"></th>
+      <th>Type</th>
+      <th>Display</th>
+      <th colspan="2"></th>
     </tr>
   </thead>
 
@@ -15,8 +16,9 @@
     <% @contact_properties.each do |contact_property| %>
       <tr>
         <td><%= contact_property.property %></td>
-        <td><%= contact_property.org %></td>
-        <td><%= link_to 'Show', contact_property %></td>
+        <td><%= contact_property.data_type %></td>
+        <td><%= contact_property.show_in_table.to_s %></td>
+        <!-- <td><%= link_to 'Show', contact_property %></td> -->
         <td><%= link_to 'Edit', edit_contact_property_path(contact_property) %></td>
         <td><%= link_to 'Destroy', contact_property, method: :delete, data: { confirm: 'Are you sure?' } %></td>
       </tr>
@@ -24,6 +26,12 @@
   </tbody>
 </table>
 
-<br>
+    </div>
+  </div>
+</div>
 
-<%= link_to 'New Contact Property', new_contact_property_path %>
+<div class="fixed-action-btn">
+  <a href="<%= new_contact_property_path %>" class="btn-floating btn-large">
+    <i class="large material-icons">add</i>
+  </a>
+</div>

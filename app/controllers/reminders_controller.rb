@@ -21,8 +21,21 @@ class RemindersController < ApplicationController
   # GET /reminders/new
   def new
     @reminder = Reminder.new
-    @contact = Contact.find(params[:contact])
-    @contact_id = params[:contact]
+
+    if params[:contact]
+      @contact = Contact.find(params[:contact])
+      @contact_id = params[:contact]
+    else
+      @contacts = @active_org.contacts
+
+      @contact_select_options = [['Select Contact', "0", {disabled: true, selected: true}]]
+
+      @contacts.each do |contact|
+        @contact_select_options << ["#{contact.first_name} #{contact.last_name}","#{contact.id}"]
+      end
+
+    end
+
   end
 
   # GET /reminders/1/edit

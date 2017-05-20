@@ -13,7 +13,9 @@ Rails.application.routes.draw do
   resources :notes
   get 'contacts/batch', to: 'contacts#batch', as: :contacts_batch
   post 'contacts/batch', to: 'contacts#batch_create', as: :contacts_batch_create
+  get 'contacts/new_email', to: 'contacts#new_email', as: :contact_new_email
   post 'contact_email', to: 'contacts#send_email', as: :contact_email
+
   resources :contacts
 
 

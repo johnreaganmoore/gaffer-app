@@ -5,6 +5,11 @@
        <th class="sort" data-sort="tags" data-field="tags">Tags</th>
        <th class="sort" data-sort="next_reminder" data-field="next_reminder">Next Reminder</th>
        <th class="sort" data-sort="last_active" data-field="last_active">Last Activity</th>
+       <% @active_org.contact_properties.each do |cp| %>
+          <% if cp.show_in_table %>
+            <th class="sort" class="sort" data-sort="<%= cp.id %>" data-field="<%= cp.id %>"><%= cp.property %></th>
+          <% end %>
+       <% end %>
    </tr>
  </thead>
  <tbody class="list">
@@ -45,9 +50,16 @@
          <% end %>
        </td>
        <td class="last_active"><%= time_ago_in_words(contact.latest_activity) %> ago</td>
+
+       <% @active_org.contact_properties.each do |cp| %>
+        <% if cp.show_in_table %>
+          <td class="<%= cp.id %>"><%= ContactValue.where(contact: contact, contact_property_id: cp.id)[0].display_value %></td>
+        <% end %>
+       <% end %>
+
     </tr>
+
    <% end %>
  </tbody>
-
 
 </table>
