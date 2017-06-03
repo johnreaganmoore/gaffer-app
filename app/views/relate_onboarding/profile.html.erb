@@ -2,6 +2,8 @@
 <!-- <div class="profile-page"> -->
 <div class="container">
 
+  <% if @plan %>
+
     <div class="card blue-grey darken-1">
       <div class="card-content white-text">
         <div class="card-title">
@@ -16,6 +18,8 @@
         </p>
       </div>
     </div>
+
+    <% end %>
 
     <div class="card" style="background: #f9f9f9;">
 
@@ -44,7 +48,7 @@
 
           <!-- <hr class="faint"> -->
 
-
+        <% if @plan %>
 
           <p class="debit-explanation">
             Card Info
@@ -83,6 +87,8 @@
           <p class="agreement-line">
             By registering you agree to our <%= link_to 'terms of service', tos_path, target: '_blank' %>.
           </p>
+
+        <% end %>
 
         </div>
         <div class="card-action edit-profile-actions">
@@ -136,6 +142,7 @@
     validateDetails();
   });
 
+  <% if @plan %>
 
   $(function() {
     var $form = $('#payment-form');
@@ -151,6 +158,8 @@
       return false;
     });
   });
+
+  <% end %>
 
   function stripeResponseHandler(status, response) {
     // Grab the form:

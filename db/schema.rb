@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170519215657) do
+ActiveRecord::Schema.define(version: 20170603182729) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -63,6 +63,15 @@ ActiveRecord::Schema.define(version: 20170519215657) do
     t.index ["priority", "run_at"], name: "delayed_jobs_priority", using: :btree
   end
 
+  create_table "email_templates", force: :cascade do |t|
+    t.text     "body"
+    t.string   "name"
+    t.integer  "org_id"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_id"], name: "index_email_templates_on_org_id", using: :btree
+  end
+
   create_table "fees", force: :cascade do |t|
     t.string   "label"
     t.integer  "total_amount"
@@ -92,6 +101,8 @@ ActiveRecord::Schema.define(version: 20170519215657) do
     t.string   "token"
     t.datetime "created_at",   null: false
     t.datetime "updated_at",   null: false
+    t.integer  "org_id"
+    t.index ["org_id"], name: "index_invites_on_org_id", using: :btree
   end
 
   create_table "leads", force: :cascade do |t|
@@ -127,6 +138,7 @@ ActiveRecord::Schema.define(version: 20170519215657) do
     t.text     "body"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
+    t.integer  "creator_id"
     t.index ["contact_id"], name: "index_notes_on_contact_id", using: :btree
   end
 
@@ -219,6 +231,7 @@ ActiveRecord::Schema.define(version: 20170519215657) do
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false
     t.string   "status"
+    t.integer  "creator_id"
     t.index ["contact_id"], name: "index_reminders_on_contact_id", using: :btree
   end
 
@@ -349,9 +362,11 @@ ActiveRecord::Schema.define(version: 20170519215657) do
   add_foreign_key "contact_properties", "orgs"
   add_foreign_key "contact_values", "contact_properties"
   add_foreign_key "contact_values", "contacts"
+  add_foreign_key "email_templates", "orgs"
   add_foreign_key "fees", "teams"
   add_foreign_key "games", "locations"
   add_foreign_key "games", "seasons"
+  add_foreign_key "invites", "orgs"
   add_foreign_key "leagues", "orgs"
   add_foreign_key "locations", "seasons"
   add_foreign_key "player_fees", "fees"

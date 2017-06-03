@@ -1,0 +1,27 @@
+<ul class="collection team">
+  <% org.admins.each do |person| %>
+    <li class="collection-item avatar valign-wrapper">
+     <!-- <%= link_to profile_path(person) do %> -->
+       <% if person.avatar.length > 2 then %>
+       <img class="circle" src="<%= person.avatar %>">
+       <% else %>
+       <i class="material-icons circle valign">account_circle</i>
+       <% end %>
+     <!-- <% end %> -->
+     <!-- <%= link_to profile_path(person) do %> -->
+       <span class="valign"><%= person.email %> (<%= person.first_name %> <%= person.last_name %>)</span>
+     <!-- <% end %> -->
+      <!-- <span class="secondary-content valign">
+        <a class="secondary-content" href="mailto:<%= person.email %>"><i class="material-icons">chat_bubble_outline</i></a>
+      </span> -->
+    </li>
+  <% end %>
+  <li class="collection-item avatar valign-wrapper" style="padding-left: 15px;">
+      <a href="<%= new_invite_path(:org_id => org.id) %>" class="btn-floating btn waves-effect waves-light valign" style="height: 42px; width: 42px;">
+        <i class="material-icons" style="line-height: 42px;">add</i>
+      </a>
+    <%= link_to new_invite_path(:org_id => org.id) do %>
+      <span class="valign" style="margin-left: 15px">New Admin</span>
+    <% end %>
+  </li>
+</ul>

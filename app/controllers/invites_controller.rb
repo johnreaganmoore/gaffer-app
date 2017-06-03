@@ -1,12 +1,18 @@
 class InvitesController < ApplicationController
-  layout "app"
+  layout "relate"
 
   before_action :authenticate_person!, :only => :create
   # skip_filter :require_no_authentication, :only => :edit
 
   def new
     @invite = Invite.new
-    @team = Team.find(params[:team_id])
+
+    if params[:team_id]
+      @team = Team.find(params[:team_id])
+    elsif params[:org_id]
+      @org = Org.find(params[:org_id])
+    end
+
   end
 
 
@@ -24,11 +30,11 @@ class InvitesController < ApplicationController
         #Add the person to the team
         @invite.recipient.team_memberships.push(@invite.team_membership)
       else
-        InviteMailer.new_person_invite(@invite, new_person_registration_path(:invitation_token => @invite.token)).deliver
+        InviteMailer.new_person_invite(@invite, new_person_registration_url(:invitation_token => @invite.token)).deliver
       end
 
       respond_to do |format|
-        format.html { redirect_to team_path(@invite.team), notice: 'Invitation sent successfully' }
+        format.html { redirect_to contacts_path, notice: 'Invitation sent successfully' }
         format.json { head :no_content }
         format.js {}
       end
@@ -68,6 +74,6 @@ class InvitesController < ApplicationController
   private
 
   def invite_params
-    params.require(:invite).permit(:first_name, :last_name, :team_id, :email)
+    params.require(:invite).permit(:first_name, :last_name, :team_id, :org_id, :email)
   end
 end

@@ -1,5 +1,6 @@
 class Invite < ApplicationRecord
   belongs_to :team
+  belongs_to :org
   belongs_to :sender, :class_name => 'Person'
   belongs_to :recipient, :class_name => 'Person'
 

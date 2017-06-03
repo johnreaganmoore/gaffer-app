@@ -18,7 +18,7 @@
     <script src="//maps.google.com/maps/api/js?key=<%= ENV['google_maps_geocoding'] %>"></script>
     <script src="//cdn.rawgit.com/mahnunchik/markerclustererplus/master/dist/markerclusterer.min.js"></script>
 
-    <% if defined?(@team) && @team.color != nil %>
+    <% if @team && @team.color != nil %>
       <% bg_color = @team.color %>
     <% else %>
       <% bg_color = "#4a4a4a" %>

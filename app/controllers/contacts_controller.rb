@@ -48,6 +48,15 @@ class ContactsController < ApplicationController
     @email = {}
     @activities = @contact.activities
     @tasks = @contact.reminders.where.not(status: "archived").order(:next_date)
+
+    @email_templates = @active_org.email_templates
+
+    @template_select_options = [['Blank Email', "0", {disabled: false, selected: true}]]
+
+    @active_org.email_templates.each do |template|
+      @template_select_options << ["#{template.name}","#{template.id}"]
+    end
+
   end
 
   # GET /contacts/new
@@ -226,12 +235,21 @@ class ContactsController < ApplicationController
     # @contact = Contact.new
     @email = {}
 
+    @email_templates = @active_org.email_templates
+
     @contacts = @active_org.contacts
     @contact_select_options = [['Select Contact', "0", {disabled: true, selected: true}]]
 
     @contacts.each do |contact|
       @contact_select_options << ["#{contact.first_name} #{contact.last_name}","#{contact.id}"]
     end
+
+    @template_select_options = [['Blank Email', "0", {disabled: false, selected: true}]]
+
+    @active_org.email_templates.each do |template|
+      @template_select_options << ["#{template.name}","#{template.id}"]
+    end
+
   end
 
   def send_email

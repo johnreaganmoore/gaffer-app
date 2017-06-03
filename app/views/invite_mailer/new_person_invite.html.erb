@@ -9,24 +9,14 @@
     <div class="container">
       <div class="card">
         <div class="card-content">
-          <div class="profile-avatar email">
-            <div class="section__circle--big large-avatar email">
-                <img class="team-logo-img" src="<%= @invite.team.logo %>">
-            </div>
-          </div>
-          <div class="center-align flow-text">
-            <h5><%= @invite.team.name %></h5>
-          <div>
-          <hr>
           <p class="email-text flow-text">
-            Congratulations <%= @invite.first_name %>!
+            Hi <%= @invite.first_name %>!
           </p>
           <p class="email-text flow-text">
-            <%= @sender.first_name %> thinks you have what it takes.
-            You are invited to join the <%= @invite.team.name %>.
+            <%= @sender.first_name %> has invited you to join <%= @invite.org.name %> on DeadSimple.
           </p>
           <p class="email-text flow-text">
-            To join the team and get ready to play soccer, click this button:
+            To accept their invitation and create your account, click this button:
           </p>
           <div class="email-action-container">
             <%=
