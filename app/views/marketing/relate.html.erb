@@ -1,14 +1,20 @@
 <%= render "connect_header" %>
 <div>
   <div id="register-hero-wrapper">
-    <div class="subfinder-hero">
+    <div class="relate-hero">
       <div class="container">
-        <div class="subfinder-title">
-          Master your relationships.
+
+        <div style="display: flex; justify-content: center; margin-top: 30px; margin-bottom: 30px;">
+          <%= image_tag "ds-tongue", style: "max-height: 250px;", width: "auto"  %>
         </div>
-        <div class="subfinder-desc flow-text">
+
+        <div class="relate-title">
+          For real live humans, not salespeople.
+        </div>
+        <!-- <div class="relate-desc flow-text">
           Use our dead simple system to connect with your people.
-        </div>
+        </div> -->
+
         <div class="center-align" style="margin-top: 50px; margin-bottom: 50px;">
           <%= link_to "Get Started", "#pricing", class: "btn waves-effect" %>
         </div>
@@ -19,14 +25,12 @@
   <div id="first-container" class="container">
     <div id="subfinder-demo-section" class="home-section">
       <div class="home-section-header">
-        <h2>We handle the basics</h2>
+        <h2>Connect with your people.</h2>
       </div>
       <div class="home-sub-section-container">
         <div>
           <p class="flow-text">
-            If you want a tool designed for sales, keep looking.<br>
-            <br>
-            If you want all the latest bells and whistles, keep looking.<br>
+            If you want a tool designed for sales, with all the bells and whistles keep looking.<br>
             <br>
             If you want something <b>simple</b> that just helps you stay on top of your important <b>relationships</b>, give us a shot.
           <p>
@@ -44,18 +48,31 @@
       <p>
         If you aren't happy working with us, we'll give you all your money back.
       </p>
+      <!-- <div class="input-field col s12 m6 l6"> -->
+        <div id="pricing-frequency" class="switch">
+          <label>
+            Pay Monthly
+            <%= check_box_tag :pricing_frequency%>
+            <span class="lever"></span>
+            Pay Annually
+          </label>
+        </div>
+      <!-- </div> -->
     </div>
-    <div class="home-sub-section-container">
+    <div id="monthly-pricing" class="home-sub-section-container monthly">
 
-      <div class="home-sub-section">
+      <div class="">
         <div class="home-sub-section-header">
           <div class="card hover" style="background: #f9f9f9; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
             <div class="card-content">
-              <p class="flow-text" style="margin-bottom: 20px;">
-                Pay Monthly
+              <p class="flow-text" style="margin-bottom: 15px;">
+                Individual
+              </p>
+              <p style="margin-bottom: 15px;">
+                Just You
               </p>
               <h2 style="margin-top: 0px;">
-                <b>$50/mth</b>
+                <b>$30/mth</b>
               </h2>
               <div class="home-sub-section-container">
                 <%= link_to "Get Started", new_person_registration_path(plan: "connect-basic-monthly"), class: "btn waves-effect waves-green" %>
@@ -64,15 +81,62 @@
           </div>
         </div>
       </div>
-      <div class="home-sub-section">
+      <div class="">
         <div class="home-sub-section-header">
           <div class="card hover" style="background: #f9f9f9; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
             <div class="card-content">
-              <p class="flow-text" style="margin-bottom: 20px;">
-                Pay Annually
+              <p class="flow-text" style="margin-bottom: 15px;">
+                Team
+              </p>
+              <p style="margin-bottom: 15px;">
+                5 Users
               </p>
               <h2 style="margin-top: 0px;">
-                <b>$35/mth</b>
+                <b>$50/mth</b>
+              </h2>
+              <div class="home-sub-section-container">
+                <%= link_to "Get Started", new_person_registration_path(plan: "connect-team-monthly"), class: "btn waves-effect waves-green" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="home-sub-section-header">
+          <div class="card hover" style="background: #f9f9f9; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
+            <div class="card-content">
+              <p class="flow-text" style="margin-bottom: 15px;">
+                Business
+              </p>
+              <p style="margin-bottom: 15px;">
+                Unlimited Users
+              </p>
+              <h2 style="margin-top: 0px;">
+                <b>$135/mth</b>
+              </h2>
+              <div class="home-sub-section-container">
+                <%= link_to "Get Started", new_person_registration_path(plan: "connect-business-monthly"), class: "btn waves-effect waves-green" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div id="annual-pricing" class="home-sub-section-container annually">
+
+      <div class="">
+        <div class="home-sub-section-header">
+          <div class="card hover" style="background: #f9f9f9; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
+            <div class="card-content">
+              <p class="flow-text" style="margin-bottom: 15px;">
+                Individual
+              </p>
+              <p style="margin-bottom: 15px;">
+                Just You
+              </p>
+              <h2 style="margin-top: 0px;">
+                <b>$19/mth</b>
               </h2>
               <div class="home-sub-section-container">
                 <%= link_to "Get Started", new_person_registration_path(plan: "connect-basic-yearly"), class: "btn waves-effect waves-green" %>
@@ -81,7 +145,48 @@
           </div>
         </div>
       </div>
+      <div class="">
+        <div class="home-sub-section-header">
+          <div class="card hover" style="background: #f9f9f9; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
+            <div class="card-content">
+              <p class="flow-text" style="margin-bottom: 15px;">
+                Team
+              </p>
+              <p style="margin-bottom: 15px;">
+                5 Users
+              </p>
+              <h2 style="margin-top: 0px;">
+                <b>$39/mth</b>
+              </h2>
+              <div class="home-sub-section-container">
+                <%= link_to "Get Started", new_person_registration_path(plan: "connect-team-yearly"), class: "btn waves-effect waves-green" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="">
+        <div class="home-sub-section-header">
+          <div class="card hover" style="background: #f9f9f9; box-shadow: 0 2px 2px 0 rgba(0, 0, 0, 0.14), 0 1px 5px 0 rgba(0, 0, 0, 0.12), 0 3px 1px -2px rgba(0, 0, 0, 0.2);">
+            <div class="card-content">
+              <p class="flow-text" style="margin-bottom: 15px;">
+                Business
+              </p>
+              <p style="margin-bottom: 15px;">
+                Unlimited Users
+              </p>
+              <h2 style="margin-top: 0px;">
+                <b>$99/mth</b>
+              </h2>
+              <div class="home-sub-section-container">
+                <%= link_to "Get Started", new_person_registration_path(plan: "connect-business-yearly"), class: "btn waves-effect waves-green" %>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
+
     <p class="flow-text" style="margin-bottom: 50px;">Get started now, you’ll be all set by <b><span id="done-time" style="letter-spacing: 1px"></span></b></p>
   </div>
 
@@ -138,4 +243,21 @@
       }, 500);
   }
   startTime();
+
+  $('#annual-pricing').hide()
+
+  $('#pricing-frequency').change(function () {
+
+    console.log('toggle pricing')
+
+    console.log($('#pricing_frequency').is(':checked'))
+
+    if ($('#pricing_frequency').is(':checked')) {
+      $('#monthly-pricing').hide()
+      $('#annual-pricing').show()
+    } else {
+      $('#monthly-pricing').show()
+      $('#annual-pricing').hide()
+    }
+  });
 </script>

@@ -1,9 +1,17 @@
 <% activities.each do |activity| %>
   <div class="card">
     <% if activity.class == Note %>
-      <div style="padding:15px;">
-        <div class="chip" >
+      <div style="display: flex; justify-content: space-between; padding:15px;">
+        <div class="chip" style="margin-bottom: 0px;">
           <%= activity.updated_at.strftime("%B #{activity.updated_at.day.ordinalize}, %Y") %>
+        </div>
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <% if activity.creator.avatar.length > 2 then %>
+          <img class="circle" style="height: 32px; width: auto;" src="<%= activity.creator.avatar.thumb %>">
+          <% else %>
+          <i class="material-icons circle valign">account_circle</i>
+          <% end %>
+          <span style="padding-left: 10px;"><%= activity.creator.first_name %></span>
         </div>
       </div>
       <div class="card-content">
@@ -15,17 +23,29 @@
         <% end %>
       </div>
     <% elsif activity.class == Reminder %>
-      <div style="padding:15px;">
-        <div class="chip" >
-          <%= activity.next_date.strftime("%B #{activity.next_date.day.ordinalize}, %Y") %>
+      <div style="display: flex; justify-content: space-between; align-items: center; padding:15px;">
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <div class="chip" style="margin-bottom: 0px;">
+            <%= activity.next_date.strftime("%B #{activity.next_date.day.ordinalize}, %Y") %>
+          </div>
+          <span
+            class="new badge"
+            data-badge-caption="<%= activity.status %>"
+            <% if activity.status && activity.status == "incomplete" %>
+              style="background-color: rgba(255, 88, 58, 0.5);"
+            <% end %>
+          ></span>
         </div>
-        <span
-          class="new badge"
-          data-badge-caption="<%= activity.status %>"
-          <% if activity.status && activity.status == "incomplete" %>
-            style="background-color: rgba(255, 88, 58, 0.5);"
+
+        <div style="display: flex; justify-content: space-between; align-items: center;">
+          <% if activity.creator.avatar.length > 2 then %>
+          <img class="circle" style="height: 32px; width: auto;" src="<%= activity.creator.avatar.thumb %>">
+          <% else %>
+          <i class="material-icons circle valign">account_circle</i>
           <% end %>
-        ></span>
+          <span style="padding-left: 10px;"><%= activity.creator.first_name %></span>
+        </div>
+
       </div>
       <div class="card-content">
         <b>Task created:</b> <%= activity.label %>

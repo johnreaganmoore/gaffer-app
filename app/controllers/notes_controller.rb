@@ -47,6 +47,7 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(note_params)
+    @note.creator_id = current_person.id
     @empty_note = Note.new
 
     respond_to do |format|

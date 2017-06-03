@@ -1,13 +1,6 @@
 Rails.application.routes.draw do
 
-
-
-
-
-
-
-
-
+  resources :email_templates
   resources :contact_properties
   resources :reminders
   resources :notes
@@ -17,20 +10,6 @@ Rails.application.routes.draw do
   post 'contact_email', to: 'contacts#send_email', as: :contact_email
 
   resources :contacts
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 
   get 'transactions/new'
 
@@ -64,6 +43,9 @@ Rails.application.routes.draw do
   # end
   get 'players/new', to: 'players#new', as: :new_player
   post 'players', to: 'players#create', as: :create_player
+
+  get 'admins/new', to: 'admins#new', as: :new_admin
+  post 'admins', to: 'admins#create', as: :create_admin
 
   get 'players/batch', to: 'players#batch', as: :players_batch
   post 'players/batch', to: 'players#batch_create', as: :players_batch_create

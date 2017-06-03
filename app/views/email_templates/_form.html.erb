@@ -1,0 +1,28 @@
+<%= form_for(email_template) do |f| %>
+  <div class="card-content">
+    <div class="row">
+
+      <div class="input-field col s12 m12 l12">
+        <%= f.label :name %>
+        <%= f.text_field :name %>
+      </div>
+
+      <div class="input-field col s12 m12 l12">
+        <%= f.label :body %>
+        <%= f.text_area :body, class: 'materialize-textarea' %>
+      </div>
+
+    </div>
+
+  </div>
+  <div class="edit-profile-actions card-action">
+    <%= button_tag(id: "submit", type: 'submit', class: "btn waves-effect waves-light") do %>
+      Save
+    <% end %>
+  </div>
+
+<% end %>
+
+<script>
+  $('#email_template_body').trigger('autoresize');
+</script>

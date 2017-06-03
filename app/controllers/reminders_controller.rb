@@ -49,6 +49,7 @@ class RemindersController < ApplicationController
   def create
     @reminder = Reminder.new(reminder_params)
     @reminder.status = "incomplete"
+    @reminder.creator_id = current_person.id
     @blank_reminder = Reminder.new
 
     respond_to do |format|

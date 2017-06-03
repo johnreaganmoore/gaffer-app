@@ -1,8 +1,7 @@
-Welcome to <%= @invite.team.name %>
-===============================================
+Hi  <%= @invite.first_name %>!
 
-You have been invited by <%= @sender.first_name %> <%= @sender.last_name %>
+<%= @sender.first_name %> <%= @sender.last_name %> has invited you to join <%= @invite.org.name %> on DeadSimple
 
-To login to the site, just follow this link: localhost:3000<%= @url %>.
+To login to the site, just follow this link: <% @url %>.
 
 Thanks for joining and have a great day!

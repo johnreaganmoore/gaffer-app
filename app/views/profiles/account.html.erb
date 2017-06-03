@@ -1,150 +1,84 @@
 <div class="container">
-  <div class="card">
-    <%= form_for(@person, url: profile_path, method: :put) do |f| %>
-      <div class="card-content">
-          <%= f.label :avatar  do %>
-            <% if @person.avatar.length > 1 then %>
-              <div class="profile-avatar">
-                <div class="section__circle--big large-avatar editable">
-                    <img id="avatar" src="<%= @person.avatar %>">
-                    <div class="change-label">Change</div>
-                </div>
-              </div>
-            <% else %>
-              <div class="profile-avatar">
-                <div class="section__circle--big large-avatar editable">
-                    <%= image_tag "anonymous_material.png", id: "avatar" %>
-                    <div class="change-label">Change</div>
-                </div>
-              </div>
-            <% end %>
-          <% end %>
-          <%= f.file_field :avatar, style: "display: none;", class: 'photo_upload', onchange: "loadFile(event)" %>
 
-          <div class="container">
+    <div class="col s12 m8 l8">
+      <div class="card">
+        <div class="row">
+          <div class="col s12">
+            <ul class="tabs">
+              <li class="tab col s4"><a class="active" href="#profile">Profile</a></li>
+              <li class="tab col s4"><a href="#org">Org</a></li>
+              <li class="tab col s4"><a href="#users">Users</a></li>
+              <!-- <li class="tab col s3"><a href="#billing">Billing</a></li> -->
+            </ul>
+          </div>
+          <div id="profile" class="col s12">
+              <%= form_for(@person, url: profile_path, method: :put) do |f| %>
+                <div class="card-content">
+                    <%= f.label :avatar  do %>
+                      <% if @person.avatar.length > 1 then %>
+                        <div class="profile-avatar">
+                          <div class="section__circle--big large-avatar editable">
+                              <img id="avatar" src="<%= @person.avatar %>">
+                              <div class="change-label">Change</div>
+                          </div>
+                        </div>
+                      <% else %>
+                        <div class="profile-avatar">
+                          <div class="section__circle--big large-avatar editable">
+                              <%= image_tag "anonymous_material.png", id: "avatar" %>
+                              <div class="change-label">Change</div>
+                          </div>
+                        </div>
+                      <% end %>
+                    <% end %>
+                    <%= f.file_field :avatar, style: "display: none;", class: 'photo_upload', onchange: "loadFile(event)" %>
 
-            <div class="row">
-              <div class="input-field col s12">
-                <%= f.text_field :first_name, class: "mdl-textfield__input" %>
-                <%= f.label :first_name, class: "mdl-textfield__label" %>
-              </div>
-            </div>
+                    <!-- <div class="container"> -->
 
-            <div class="row">
-              <div class="input-field col s12">
-                <%= f.text_field :last_name, class: "mdl-textfield__input" %>
-                <%= f.label :last_name, class: "mdl-textfield__label" %>
-              </div>
-            </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <%= f.text_field :first_name, class: "mdl-textfield__input" %>
+                          <%= f.label :first_name, class: "mdl-textfield__label" %>
+                        </div>
+                      </div>
 
-            <div class="row">
-              <div class="input-field col s12">
-                <%= f.email_field :email, class: "mdl-textfield__input" %>
-                <%= f.label :email, class: "mdl-textfield__label" %>
-              </div>
-            </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <%= f.text_field :last_name, class: "mdl-textfield__input" %>
+                          <%= f.label :last_name, class: "mdl-textfield__label" %>
+                        </div>
+                      </div>
 
-            <div class="row">
-              <div class="input-field col s12">
-                <%= f.text_field :phone, class: "mdl-textfield__input" %>
-                <%= f.label :phone, class: "mdl-textfield__label" %>
-              </div>
-            </div>
+                      <div class="row">
+                        <div class="input-field col s12">
+                          <%= f.email_field :email, class: "mdl-textfield__input" %>
+                          <%= f.label :email, class: "mdl-textfield__label" %>
+                        </div>
+                      </div>
 
-            <div class="row">
-              <div class="input-field col s12">
-                <%= f.date_field :date_of_birth, class: "datepicker birthdate" %>
-                <%= f.label :date_of_birth %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <%= f.text_field :street_address %>
-                <%= f.label :street_address %>
-              </div>
-            </div>
-            <div class="row">
-              <div class="input-field col s12">
-                <%= f.text_field :locality %>
-                <%= f.label :city %>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-field col s12">
-                <%= f.select :region, options_for_select([
-                  ['Select State', "", {disabled: true, selected: true}],
-                  ['AL', 'AL'],
-                  ['AK','AK'],
-                  ['AZ','AZ'],
-                  ['AR','AR'],
-                  ['CA','CA'],
-                  ['CO','CO'],
-                  ['CT','CT'],
-                  ['DE','DE'],
-                  ['FL','FL'],
-                  ['GA','GA'],
-                  ['HI','HI'],
-                  ['ID','ID'],
-                  ['IL','IL'],
-                  ['IN','IN'],
-                  ['IA','IA'],
-                  ['KS','KS'],
-                  ['KY','KY'],
-                  ['LA','LA'],
-                  ['ME','ME'],
-                  ['MD','MD'],
-                  ['MA','MA'],
-                  ['MI','MI'],
-                  ['MN','MN'],
-                  ['MS','MS'],
-                  ['MO','MO'],
-                  ['MT','MT'],
-                  ['NE','NE'],
-                  ['NV','NV'],
-                  ['NH','NH'],
-                  ['NJ','NJ'],
-                  ['NM','NM'],
-                  ['NY','NY'],
-                  ['NC','NC'],
-                  ['ND','ND'],
-                  ['OH','OH'],
-                  ['OK','OK'],
-                  ['OR','OR'],
-                  ['PA','PA'],
-                  ['RI','RI'],
-                  ['SC','SC'],
-                  ['SD','SD'],
-                  ['TN','TN'],
-                  ['TX','TX'],
-                  ['UT','UT'],
-                  ['VT','VT'],
-                  ['VA','VA'],
-                  ['WA','WA'],
-                  ['WV','WV'],
-                  ['WI','WI'],
-                  ['WY','WY']
-                  ]) %>
-                <%= f.label :state %>
-              </div>
-            </div>
-
-            <div class="row">
-              <div class="input-field col s12">
-                <%= f.text_field :postal_code %>
-                <%= f.label :zip %>
-              </div>
-            </div>
+                    <!-- </div> -->
+                  </div>
+                  <div class="edit-profile-actions card-action">
+                    <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
+                      Save
+                    <% end %>
+                  </div>
+              <% end %>
 
           </div>
+          <div id="org" class="col s12">
+            <%= render 'orgs/form', org: @active_org %>
+          </div>
+          <div id="users" class="col s12">
+            <%= render 'orgs/admins_list', org: @active_org %>
+          </div>
+          <!-- <div id="billing" class="col s12">
+            asfdasd
+          </div> -->
         </div>
-        <div class="edit-profile-actions card-action">
-          <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
-            Save
-          <% end %>
-        </div>
-      <% end %>
+      </div>
     </div>
+
   </div>
 </div>
 
