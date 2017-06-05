@@ -34,6 +34,22 @@ class TransactionsController < ApplicationController
     # flash[:success] = "Welcome to Onside!"
   end
 
+  def update_subscription
+    @plan = params["plan"]
+    @token = params["stripeToken"]
+    @person = current_person
+
+    unless @person.customer_id
+      @person.create_customer(@token)
+    end
+
+    subscription = @person.update_subscription(@plan)
+
+    redirect_to account_path(current_person)
+    flash[:success] = "Great, you updated your plan"
+
+  end
+
 
 =begin
   First season

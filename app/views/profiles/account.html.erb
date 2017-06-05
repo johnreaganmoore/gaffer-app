@@ -5,10 +5,16 @@
         <div class="row">
           <div class="col s12">
             <ul class="tabs">
+              <% if @person == @active_org.primary_admin %>
+                <li class="tab col s3"><a class="active" href="#profile">Profile</a></li>
+                <li class="tab col s3"><a href="#org">Org</a></li>
+                <li class="tab col s3"><a href="#users">Users</a></li>
+                <li class="tab col s3"><a href="#billing">Billing</a></li>
+              <% else %>
               <li class="tab col s4"><a class="active" href="#profile">Profile</a></li>
               <li class="tab col s4"><a href="#org">Org</a></li>
               <li class="tab col s4"><a href="#users">Users</a></li>
-              <!-- <li class="tab col s3"><a href="#billing">Billing</a></li> -->
+              <% end %>
             </ul>
           </div>
           <div id="profile" class="col s12">
@@ -72,9 +78,94 @@
           <div id="users" class="col s12">
             <%= render 'orgs/admins_list', org: @active_org %>
           </div>
-          <!-- <div id="billing" class="col s12">
-            asfdasd
-          </div> -->
+          <% if @person == @active_org.primary_admin %>
+            <div id="billing" class="col s12">
+              <%= form_tag update_subscription_path, id: "payment-form" do %>
+                <div class="card-content">
+                  <p class="debit-explanation">
+                    Plan
+                  </p>
+
+                  <div id="pricing-frequency" class="switch" style="margin-bottom: 20px;">
+                    <label>
+                      Pay Monthly
+                      <%= check_box_tag :pricing_frequency%>
+                      <span class="lever"></span>
+                      Pay Annually
+                    </label>
+                  </div>
+
+                  <div id="monthly-pricing">
+                    <p>
+                      <input class="with-gap" name="group1" type="radio" id="connect-basic-monthly" value="connect-basic-monthly"/>
+                      <label for="connect-basic-monthly">$30/mth Individual Plan(1 user)</label>
+                    </p>
+                    <p>
+                      <input class="with-gap" name="group1" type="radio" id="connect-team-monthly" value="connect-team-monthly"/>
+                      <label for="connect-team-monthly">$50/mth Team Plan(5 users)</label>
+                    </p>
+                    <p>
+                      <input class="with-gap" name="group1" type="radio" id="connect-business-monthly" value="connect-business-monthly"/>
+                      <label for="connect-business-monthly">$135/mth Business Plan(unlimited users)</label>
+                    </p>
+                  </div>
+
+                  <div id="annual-pricing">
+                    <p>
+                      <input class="with-gap" name="group1" type="radio" id="connect-basic-yearly" value="connect-basic-yearly"/>
+                      <label for="connect-basic-yearly">$228/yr Individual Plan(1 user)</label>
+                    </p>
+                    <p>
+                      <input class="with-gap" name="group1" type="radio" id="connect-team-yearly" value="connect-team-yearly"/>
+                      <label for="connect-team-yearly">$468/yr Team Plan(5 users)</label>
+                    </p>
+                    <p>
+                      <input class="with-gap" name="group1" type="radio" id="connect-business-yearly" value="connect-business-yearly" />
+                      <label for="connect-business-yearly">$1188/yr Business Plan(unlimited users)</label>
+                    </p>
+                  </div>
+                </div>
+                <div class="card-content">
+                  <p class="debit-explanation">
+                    Card Info
+                  </p>
+                  <span class="payment-errors"></span>
+                  <div class="row">
+                    <div class="input-field col s12 m12 l12">
+                      <input class="ccInput cc-num" type="tel" size="20" placeholder="&#8226;&#8226;&#8226;&#8226;  &#8226;&#8226;&#8226;&#8226;  &#8226;&#8226;&#8226;&#8226;  &#8226;&#8226;&#8226;&#8226;" autocompletetype="cc-number" data-stripe="number">
+                      <span class="card-icon" aria-hidden="true"></span>
+                      <label>
+                        Card Number
+                      </label>
+                    </div>
+                  </div>
+
+                  <div class="row">
+                    <div class="input-field col s6 m6 l6">
+                      <input class="ccInput cc-exp" type="tel" size="2" placeholder="MM/YY" autocompletetype="cc-exp" data-stripe="exp">
+                      <label>
+                        Expiration
+                      </label>
+                    </div>
+                    <div class="input-field col s6 m6 l6">
+                      <input class="ccInput cc-cvc" type="tel" size="4" placeholder="&#8226;&#8226;&#8226;" autocomplete="off" data-stripe="cvc">
+                      <label>
+                        CVC
+                      </label>
+                    </div>
+                  </div>
+
+                  <%# TODO: Change this currency to be a select as I add more countries %>
+                  <input type="hidden" value="usd" data-stripe="currency">
+                  <input id="hidden-plan-id" type="hidden" name="plan" value="<%= @plan %>">
+
+                </div>
+                <div class="card-action edit-profile-actions">
+                  <input type="submit" class="submit btn waves-effect waves-light" value="Save Subscription">
+                </div>
+              <% end %>
+            </div>
+          <% end %>
         </div>
       </div>
     </div>
@@ -83,7 +174,134 @@
 </div>
 
 <script>
-  $("#payment-switch").click(function(){
-     $(".sub-merchant-form").toggle();
-  })
+
+
+  console.log("<%= @plan %>")
+
+  <% case @plan %>
+  <% when "connect-basic-monthly" %>
+    $('#annual-pricing').hide()
+    $('#connect-basic-monthly').attr('checked', true);
+  <% when "connect-team-monthly" %>
+    $('#annual-pricing').hide()
+    $('#connect-team-monthly').attr('checked', true);
+  <% when "connect-business-monthly" %>
+    $('#annual-pricing').hide()
+    $('#connect-business-monthly').attr('checked', true);
+  <% when "connect-basic-yearly" %>
+    $('#monthly-pricing').hide()
+    $('#connect-basic-yearly').attr('checked', true);
+    $('#pricing_frequency').attr('checked', true);
+  <% when "connect-team-yearly" %>
+    $('#monthly-pricing').hide()
+    $('#connect-team-yearly').attr('checked', true);
+    $('#pricing_frequency').attr('checked', true);
+  <% when "connect-business-yearly" %>
+    $('#monthly-pricing').hide()
+    $('#connect-business-yearly').attr('checked', true);
+    $('#pricing_frequency').attr('checked', true);
+  <% end %>
+
+
+  $('#pricing-frequency').change(function () {
+
+    if ($('#pricing_frequency').is(':checked')) {
+      $('#monthly-pricing').hide()
+      $('#annual-pricing').show()
+    } else {
+      $('#monthly-pricing').show()
+      $('#annual-pricing').hide()
+    }
+  });
+
+  $('#payment-form input[type=radio]').on('change', function() {
+    $('#hidden-plan-id').val($('#payment-form input[type=radio]:checked').val())
+  });
+
+  Stripe.setPublishableKey("<%= ENV['stripe_publishable_key'] %>");
+  $('input.cc-num').payment('formatCardNumber');
+  $('input.cc-exp').payment('formatCardExpiry');
+  $('input.cc-cvc').payment('formatCardCVC');
+
+  var validateDetails = function() {
+
+    var expiry = $('.cc-exp').payment('cardExpiryVal');
+    var validateExpiry = $.payment.validateCardExpiry(expiry["month"], expiry["year"]);
+    var validateCVC = $.payment.validateCardCVC($('.cc-cvc').val());
+
+    if (validateExpiry) {
+      $('.cc-exp').addClass('identified');
+      $('.cc-exp').addClass('valid');
+    } else {
+      $('.cc-exp').removeClass('identified');
+      $('.cc-exp').removeClass('valid');
+    }
+
+    if (validateCVC) {
+      $('.cc-cvc').addClass('identified');
+      $('.cc-cvc').addClass('valid');
+    } else {
+      $('.cc-cvc').removeClass('identified');
+      $('.cc-cvc').removeClass('valid');
+    }
+
+
+    if (Stripe.validateCardNumber($('input.cc-num').val())) {
+      $('.cc-num').addClass("valid");
+      $('.cc-num').removeClass("invalid");
+    } else {
+      $('.cc-num').removeClass("valid");
+      $('.cc-num').addClass("invalid");
+    }
+
+  }
+
+  $('.ccInput').bind('change paste keyup', function() {
+    validateDetails();
+  });
+
+  $(function() {
+    var $form = $('#payment-form');
+
+    $form.submit(function(event) {
+      // Disable the submit button to prevent repeated clicks:
+      $form.find('.submit').prop('disabled', true);
+      $('')
+
+      $('#payment-form input[type=radio]').on('change', function() {
+        console.log($('#payment-form input[type=radio]:checked').val())
+         alert($('#payment-form input[type=radio]:checked').val());
+      });
+
+      // Request a token from Stripe:
+      Stripe.card.createToken($form, stripeResponseHandler);
+
+      // Prevent the form from being submitted:
+      return false;
+    });
+  });
+
+  function stripeResponseHandler(status, response) {
+    // Grab the form:
+    var $form = $('#payment-form');
+
+    if (response.error) { // Problem!
+
+      // Show the errors on the form:
+      $form.find('.payment-errors').show();
+      $form.find('.payment-errors').text(response.error.message);
+      $form.find('.submit').prop('disabled', false); // Re-enable submission
+
+    } else { // Token was created!
+
+      // Get the token ID:
+      var token = response.id;
+      // Insert the token ID into the form so it gets submitted to the server:
+      $form.append($('<input type="hidden" name="stripeToken">').val(token));
+
+      // Submit the form:
+      $form.get(0).submit();
+    }
+  };
+
 </script>
