@@ -2,9 +2,26 @@
   <div class="card">
     <div class="card-content">
       <div class="card-title">
-        New reminder for <%= @contact.first_name %> <%= @contact.last_name %>
+        New reminder<% if @contact %> for <%= @contact.first_name %> <%= @contact.last_name %> <% end %>
       </div>
     </div>
-    <%= render 'form', reminder: @reminder %>
+    <%= render 'html_form', reminder: @reminder, contact: @contact %>
   </div>
 </div>
+
+<script>
+
+  // $( document ).ready(function() {
+
+    $('#reminder_contact_id').select2();
+    $('#reminder_interval').material_select('destroy');
+    $('#reminder_interval').material_select();
+    $('.reminder').pickadate({
+
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: 3, // Creates a dropdown of years without a limited range
+      min: new Date()
+      // selectYears: 2 // Creates a dropdown of 2 years to control year
+    });
+  // });
+</script>

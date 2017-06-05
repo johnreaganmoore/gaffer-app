@@ -33,12 +33,24 @@
           <% end %>
 
           <% @contact.contact_values.each do |value| %>
-            <% if value.value && value.value.length > 0 %>
+            <% if value.date_value %>
               <p style="display: flex; justify-content: space-between;">
                 <%= value.contact_property.property %>:
-                <strong><%= value.value %></strong>
+                <strong><%= value.display_value.strftime("%B #{value.display_value.day.ordinalize}, %Y") %></strong>
               </p>
+            <% elsif value.number_value %>
+              <p style="display: flex; justify-content: space-between;">
+                <%= value.contact_property.property %>:
+                <strong><%= value.display_value %></strong>
+              </p>
+            <% elsif value.value && value.value.length > 0 %>
+              <p style="display: flex; justify-content: space-between;">
+                <%= value.contact_property.property %>:
+                <strong><%= value.display_value %></strong>
+              </p>
+            <% else %>
             <% end %>
+
           <% end %>
 
         </div>

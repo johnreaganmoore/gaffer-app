@@ -12,8 +12,22 @@
       </div>
     <% end %>
 
-    <%= f.hidden_field :contact_id, value: contact.id %>
-    <%= f.hidden_field :body %>
+    <% if contact %>
+      <%= f.hidden_field :contact_id, value: contact.id %>
+    <% else %>
+
+      <div class="row">
+        <div class="input-field col s12 m12 l12">
+          <%= f.select :contact_id, options_for_select(@contact_select_options) %>
+        </div>
+      </div>
+
+    <% end %>
+    <div class="row">
+      <div class="col s12 m12 l12">
+        <%= f.hidden_field :body %>
+      </div>
+    </div>
 
     <div class="editable">
       <%= raw(note.body) %>
@@ -45,4 +59,14 @@
     // Do some work
     $('#note_body').val($(editable).html())
   });
+
+  // $( document ).ready(function() {
+  //   $('select').material_select('destroy');
+  //   $('select').material_select();
+  // });
+
+  $( document ).ready(function() {
+    $('#note_contact_id').select2();
+  });
+
 </script>

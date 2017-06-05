@@ -1,34 +1,44 @@
-<div class="guts--narrow__centered">
+
   <div id="invite-form">
     <%= form_for @invite , :url => invites_path do |f| %>
+      <div class="card-content">
+        <div class="card-title">
+          Invite a new user
+        </div>
 
-      <%= f.hidden_field :team_id, :value => @team.id %>
+        <% if @team %>
+          <%= f.hidden_field :team_id, :value => @team.id %>
+        <% elsif @org %>
+          <%= f.hidden_field :org_id, :value => @org.id %>
+        <% end %>
 
-      <div class="row">
-        <div class="input-field col s12">
-          <%= f.text_field :first_name, autofocus: true %>
-          <%= f.label :first_name %>
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.text_field :first_name, autofocus: true %>
+            <%= f.label :first_name %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.text_field :last_name %>
+            <%= f.label :last_name %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <%= f.email_field :email %>
+            <%= f.label :email %>
+          </div>
         </div>
       </div>
 
-      <div class="row">
-        <div class="input-field col s12">
-          <%= f.text_field :last_name %>
-          <%= f.label :last_name %>
-        </div>
+      <div class="edit-profile-actions card-action">
+        <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
+          Send Invitation
+        <% end %>
       </div>
-
-      <div class="row">
-        <div class="input-field col s12">
-          <%= f.email_field :email %>
-          <%= f.label :email %>
-        </div>
-      </div>
-
-      <%= button_tag(type: 'submit', class: "btn waves-effect waves-light") do %>
-        Send Invitation
-      <% end %>
 
     <% end %>
   </div>
-</div>

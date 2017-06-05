@@ -11,11 +11,13 @@ class Org < ApplicationRecord
   resourcify
 
   # Set Relationships
+  has_many :invites
   has_many :leagues
   has_many :sub_lists
   has_many :teams
   has_many :contacts
   has_many :contact_properties
+  has_many :email_templates
   acts_as_tagger
 
   after_create :populate_first_contact

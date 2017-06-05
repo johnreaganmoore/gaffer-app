@@ -17,6 +17,7 @@ class People::RegistrationsController < Devise::RegistrationsController
       if @token != nil
         @invite = Invite.find_by_token(@token)
         @team = @invite.team
+        @org = @invite.org
       end
     end
   end
@@ -43,7 +44,13 @@ class People::RegistrationsController < Devise::RegistrationsController
         person.invitation_token = invitation.token
         person.first_name = invitation.first_name
         person.last_name = invitation.last_name
-        person.teams.push(invitation.team)
+
+        if invitation.team
+          person.teams.push(invitation.team)
+        else
+          person.add_role :admin, invitation.org
+          session[:admin_org] = invitation.org
+        end
         person.save
         person.accept_invitation!
       else

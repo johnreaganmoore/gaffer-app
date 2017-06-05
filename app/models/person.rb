@@ -27,6 +27,9 @@ class Person < ApplicationRecord
   has_many :sub_list_memberships
   has_many :sub_lists, through: :sub_list_memberships
 
+  has_many :notes, foreign_key: 'creator_id'
+  has_many :reminders, foreign_key: 'creator_id'
+
   has_many :invitations, :class_name => "Invite", :foreign_key => 'recipient_id'
   has_many :sent_invites, :class_name => "Invite", :foreign_key => 'sender_id'
 
@@ -207,12 +210,44 @@ class Person < ApplicationRecord
   end
 
   def subscribe_to_plan(plan)
+
     if plan
-      Stripe::Subscription.create(
+      subscription = Stripe::Subscription.create(
         :customer => self.customer_id,
         :plan => plan,
       )
     end
+
+    self.subscriptions.push(subscription.id)
+    self.save
+
+  end
+
+  def plan_id_from_stripe
+    if self.subscriptions.length > 0
+      Stripe::Subscription.retrieve(self.subscriptions[0]).plan.id
+    else
+      'free'
+    end
+  end
+
+  def update_subscription(plan_id)
+
+    if self.subscriptions.length > 0
+      subscription = Stripe::Subscription.retrieve(self.subscriptions[0])
+      subscription.plan = plan_id
+      subscription.save
+    else
+      subscription = Stripe::Subscription.create(
+        :customer => self.customer_id,
+        :plan => plan_id,
+      )
+      self.subscriptions.push(subscription.id)
+      self.save
+    end
+
+    return subscription
+
   end
 
   def new_managed_account?

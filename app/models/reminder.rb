@@ -1,11 +1,18 @@
 class Reminder < ApplicationRecord
   belongs_to :contact, touch: true
 
+  belongs_to :person, :foreign_key => 'creator_id'
+
   require "mailgun"
 
   # after_save :notify
 
+
   after_update :handle_status_change
+
+  def creator
+    Person.find(self.creator_id)
+  end
 
   # def notify
   #

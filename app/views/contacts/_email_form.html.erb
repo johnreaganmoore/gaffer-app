@@ -1,7 +1,24 @@
 <%= form_tag('/contact_email') do |f| %>
   <div class="card-content">
-    <div class="field">
+
+    <% if contact %>
       <%= hidden_field_tag :contact_id, contact.id %>
+    <% else %>
+
+      <div class="row">
+        <div class="input-field col s12 m12 l12">
+          <%= select_tag :contact_id, options_for_select(@contact_select_options) %>
+        </div>
+      </div>
+    <% end %>
+
+    <div class="row" style="display: flex; align-items: baseline;">
+      <div class="input-field col s8 m8 l8">
+        <%= select_tag :template_select, options_for_select(@template_select_options) %>
+      </div>
+      <div class="input-field col s4 m4 l4">
+        <%= link_to 'Email Templates', email_templates_path %>
+      </div>
     </div>
 
     <div class="row">
@@ -31,20 +48,52 @@
 <% end %>
 
 <script>
-  $( document ).on('turbolinks:load', function() {
-    var editor = new MediumEditor('.editable', {
-      // options go here
-      placeholder: {
-          /* This example includes the default options for placeholder,
-             if nothing is passed this is what it used */
-          text: 'Start typing here.',
-          hideOnClick: true
-      }
-    });
+  // $( document ).on('turbolinks:load', function() {
+  //   var editor = new MediumEditor('.editable', {
+  //     // options go here
+  //     placeholder: {
+  //         /* This example includes the default options for placeholder,
+  //            if nothing is passed this is what it used */
+  //         text: 'Start typing here.',
+  //         hideOnClick: true
+  //     }
+  //   });
+  //
+  //   editor.subscribe('editableInput', function (event, editable) {
+  //     // Do some work
+  //     $('#body').val($(editable).html())
+  //   });
+  // });
 
-    editor.subscribe('editableInput', function (event, editable) {
-      // Do some work
-      $('#email_body').val($(editable).html())
-    });
+  $( document ).on('ready', function() {
+    $('#template_select').material_select('destroy');
+    $('#template_select').material_select();
   });
+
+  var email_templates = <%= raw json_escape(@email_templates.to_json) %>
+
+  console.log(email_templates)
+
+  <% unless contact %>
+    $('#contact_id').select2();
+  <% end %>
+
+  $('#template_select').material_select('destroy');
+  $('#template_select').material_select();
+
+  $('#template_select').change(function() {
+
+    var template = $.grep(email_templates, function(e){ return e.id == $('#template_select').val(); })[0];
+    // console.log($('#template_select').val());
+
+    var template_body = $.parseHTML(`<div>${template.body}</div>`)
+
+    $('#body').val(template.body)
+    $('#body').trigger('autoresize');
+    $('#body').focus();
+
+    console.log(template_body)
+
+  });
+
 </script>

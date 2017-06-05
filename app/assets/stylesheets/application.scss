@@ -52,6 +52,7 @@ $secondary-color: $secondary-color !default;
 @import "notes";
 @import "contacts";
 @import "reminders";
+@import "relate-home";
 
 @import "medium-editor/medium-editor";
 @import "medium-editor/themes/flat";
@@ -167,4 +168,8 @@ header, main, footer {
 
 #search-nav-wrapper {
   padding-right: 0px;
+}
+
+.select2-container {
+  max-width: 100%;
 }

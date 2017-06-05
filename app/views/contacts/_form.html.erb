@@ -42,10 +42,20 @@
         <%= f.fields_for :contact_values do |value_form| %>
 
           <div class="input-field">
+            <% cp = ContactProperty.find(value_form.object.contact_property_id) %>
+
             <%= value_form.hidden_field :id, value: value_form.object.id %>
             <%= value_form.hidden_field :contact_property_id, value: value_form.object.contact_property_id %>
-            <%= value_form.text_field :value %>
-            <%= value_form.label :value, "#{ContactProperty.find(value_form.object.contact_property_id).property}" %>
+            <% if cp.data_type == "date" %>
+              <%= value_form.text_field :date_value, class: "datepicker" %>
+              <%= value_form.label :date_value, "#{cp.property}" %>
+            <% elsif cp.data_type == "number" %>
+              <%= value_form.number_field :number_value, step: :any %>
+              <%= value_form.label :number_value, "#{cp.property}" %>
+            <% else %>
+              <%= value_form.text_field :value %>
+              <%= value_form.label :value, "#{cp.property}" %>
+            <% end %>
           </div>
         <% end %>
 
@@ -136,6 +146,13 @@
         )
       });
       $('#contact_tag_list').val(tagStringArray)
+    });
+
+    $('.datepicker').pickadate({
+
+      selectMonths: true, // Creates a dropdown to control month
+      selectYears: true, // Creates a dropdown of years without a limited range
+      // selectYears: 2 // Creates a dropdown of 2 years to control year
     });
 
 // });

@@ -21,8 +21,19 @@ class NotesController < ApplicationController
   # GET /notes/new
   def new
     @note = Note.new
-    @contact = Contact.find(params[:contact])
-    @contact_id = params[:contact]
+    if params[:contact]
+      @contact = Contact.find(params[:contact])
+      @contact_id = params[:contact]
+    else
+      @contacts = @active_org.contacts
+
+      @contact_select_options = [['Select Contact', "0", {disabled: true, selected: true}]]
+
+      @contacts.each do |contact|
+        @contact_select_options << ["#{contact.first_name} #{contact.last_name}","#{contact.id}"]
+      end
+
+    end
   end
 
   # GET /notes/1/edit
@@ -36,11 +47,12 @@ class NotesController < ApplicationController
 
   def create
     @note = Note.new(note_params)
+    @note.creator_id = current_person.id
     @empty_note = Note.new
 
     respond_to do |format|
       if @note.save
-        format.html { redirect_to @note.contact, notice: 'User was successfully created.' }
+        format.html { redirect_to @note.contact, notice: 'You added a note! Keeping up to date in your relationships is great.' }
         format.js   {}
         format.json { render json: @note, status: :created, location: @note }
       else

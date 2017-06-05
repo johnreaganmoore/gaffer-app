@@ -24,9 +24,30 @@ class TransactionsController < ApplicationController
 
     person_with_customer.subscribe_to_plan(params[:plan])
 
-    redirect_to orgs_path
+    if @token
+      redirect_to orgs_path
+    else
+      redirect_to contacts_path
+    end
+
     # IDEA: Instead of flash messages, at critical points give smooch popups. May need intercom for this.
     # flash[:success] = "Welcome to Onside!"
+  end
+
+  def update_subscription
+    @plan = params["plan"]
+    @token = params["stripeToken"]
+    @person = current_person
+
+    unless @person.customer_id
+      @person.create_customer(@token)
+    end
+
+    subscription = @person.update_subscription(@plan)
+
+    redirect_to account_path(current_person)
+    flash[:success] = "Great, you updated your plan"
+
   end
 
 

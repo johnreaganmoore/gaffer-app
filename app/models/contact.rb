@@ -144,6 +144,7 @@ class Contact < ApplicationRecord
     mg_client.send_message 'playonside.com', message_params
 
     Note.create(
+      creator_id: sender.id,
       contact_id: self.id,
       body: "<b><h3>Sent Email</h3></b><br>
             <br>

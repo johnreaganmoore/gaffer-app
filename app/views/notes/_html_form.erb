@@ -1,0 +1,72 @@
+<%= form_for(note) do |f| %>
+  <div class="card-content">
+    <% if note.errors.any? %>
+      <div id="error_explanation">
+        <h2><%= pluralize(note.errors.count, "error") %> prohibited this note from being saved:</h2>
+
+        <ul>
+        <% note.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+        </ul>
+      </div>
+    <% end %>
+
+    <% if contact %>
+      <%= f.hidden_field :contact_id, value: contact.id %>
+    <% else %>
+
+      <div class="row">
+        <div class="input-field col s12 m12 l12">
+          <%= f.select :contact_id, options_for_select(@contact_select_options) %>
+        </div>
+      </div>
+
+    <% end %>
+    <div class="row">
+      <div class="col s12 m12 l12">
+        <%= f.hidden_field :body %>
+      </div>
+    </div>
+
+    <div class="editable">
+      <%= raw(note.body) %>
+    </div>
+  </div>
+  <div class="edit-profile-actions card-action">
+    <% if note.id %>
+      <%= link_to 'Delete This Note', note, method: :delete, data: { confirm: 'Are you sure?' } %>
+    <% end %>
+
+    <%= button_tag(id: "submit", type: 'submit', class: "btn waves-effect waves-light") do %>
+      Save
+    <% end %>
+  </div>
+<% end %>
+
+<script>
+  var editor = new MediumEditor('.editable', {
+    // options go here
+    placeholder: {
+        /* This example includes the default options for placeholder,
+           if nothing is passed this is what it used */
+        text: 'Start typing here.',
+        hideOnClick: true
+    }
+  });
+
+  editor.subscribe('editableInput', function (event, editable) {
+    // Do some work
+    $('#note_body').val($(editable).html())
+  });
+
+  // $( document ).ready(function() {
+  //   $('select').material_select('destroy');
+  //   $('select').material_select();
+  // });
+
+  $( document ).ready(function() {
+    $('#note_contact_id').select2();
+  });
+
+</script>

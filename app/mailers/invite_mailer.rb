@@ -9,7 +9,7 @@ class InviteMailer < ApplicationMailer
 
     mail(
       to: @invite.email,
-      subject: "#{@sender.first_name} #{@sender.last_name} wants to play soccer",
+      subject: "#{@sender.first_name} #{@sender.last_name} invited you to join DeadSimple",
       tag: 'new-invite',
       track_opens: 'true'
     )
