@@ -84,6 +84,7 @@ Rails.application.routes.draw do
   post 'captain_signup', to: 'transactions#captain_signup', as: :captain_signup
 
   post 'connect_subscribe', to: 'transactions#connect_subscribe', as: :connect_payment
+  post 'update_subscription', to: 'transactions#update_subscription', as: :update_subscription
 
   resources :locations, except: [:update, :edit, :destroy]
 
