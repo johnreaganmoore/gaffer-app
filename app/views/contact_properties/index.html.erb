@@ -13,6 +13,10 @@
   </thead>
 
   <tbody>
+    <div id="default-properties-container">
+      <%= render 'default_property_rows' %>
+    </div>
+
     <% @contact_properties.each do |contact_property| %>
       <tr>
         <td><%= contact_property.property %></td>
@@ -35,3 +39,68 @@
     <i class="large material-icons">add</i>
   </a>
 </div>
+
+<script>
+document.addEventListener('turbolinks:load', function() {
+
+  $("#tagsSwitch").bind('change', function(){
+
+    $.ajax({
+      url: '/profiles/<%= current_person.id %>/toggle',
+      type: 'POST',
+      data: {
+        "property": "show_contact_tags_in_table",
+        "value": $('#tagsSwitch input[type=checkbox]').prop('checked')
+      }
+    });
+  });
+
+  $("#phoneSwitch").on('change', function(){
+
+    $.ajax({
+      url: '/profiles/<%= current_person.id %>/toggle',
+      type: 'POST',
+      data: {
+        "property": "show_contact_phone_in_table",
+        "value": $('#phoneSwitch input[type=checkbox]').prop('checked')
+      }
+    });
+  });
+
+  $("#emailSwitch").on('change', function(){
+
+    $.ajax({
+      url: '/profiles/<%= current_person.id %>/toggle',
+      type: 'POST',
+      data: {
+        "property": "show_contact_email_in_table",
+        "value": $('#emailSwitch input[type=checkbox]').prop('checked')
+      }
+    });
+  });
+
+  $("#nextTaskSwitch").on('change', function(){
+
+    $.ajax({
+      url: '/profiles/<%= current_person.id %>/toggle',
+      type: 'POST',
+      data: {
+        "property": "show_contact_next_task_in_table",
+        "value": $('#nextTaskSwitch input[type=checkbox]').prop('checked')
+      }
+    });
+  });
+
+  $("#lastActivitySwitch").on('change', function(){
+
+    $.ajax({
+      url: '/profiles/<%= current_person.id %>/toggle',
+      type: 'POST',
+      data: {
+        "property": "show_contact_last_activity_in_table",
+        "value": $('#lastActivitySwitch input[type=checkbox]').prop('checked')
+      }
+    });
+  });
+});
+</script>

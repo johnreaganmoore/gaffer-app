@@ -25,6 +25,18 @@ class ProfilesController < ApplicationController
     # @plan = "connect-team-yearly"
   end
 
+  def toggle
+    @person = Person.find(params[:id])
+
+    puts params.inspect
+
+    if @person.update_attributes(params[:property].to_sym => params[:value])
+
+    else
+      # ... update failed
+    end
+  end
+
   def update
     respond_to do |format|
       if @person.update(person_params)
