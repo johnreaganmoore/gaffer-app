@@ -20,9 +20,10 @@ class TransactionsController < ApplicationController
     @token = params["stripeToken"]
     @person = current_person
 
-    person_with_customer = @person.create_customer(@token)
-
-    person_with_customer.subscribe_to_plan(params[:plan])
+    if params[:plan]
+      person_with_customer = @person.create_customer(@token)
+      person_with_customer.subscribe_to_plan(params[:plan])
+    end
 
     if @token
       redirect_to orgs_path

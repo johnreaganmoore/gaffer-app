@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170607225531) do
+ActiveRecord::Schema.define(version: 20170608162550) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -152,14 +152,14 @@ ActiveRecord::Schema.define(version: 20170607225531) do
   end
 
   create_table "people", force: :cascade do |t|
-    t.datetime "created_at",                                       null: false
-    t.datetime "updated_at",                                       null: false
-    t.string   "email",                               default: "", null: false
-    t.string   "encrypted_password",                  default: "", null: false
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.string   "email",                               default: "",    null: false
+    t.string   "encrypted_password",                  default: "",    null: false
     t.string   "reset_password_token"
     t.datetime "reset_password_sent_at"
     t.datetime "remember_created_at"
-    t.integer  "sign_in_count",                       default: 0,  null: false
+    t.integer  "sign_in_count",                       default: 0,     null: false
     t.datetime "current_sign_in_at"
     t.datetime "last_sign_in_at"
     t.string   "current_sign_in_ip"
@@ -189,12 +189,12 @@ ActiveRecord::Schema.define(version: 20170607225531) do
     t.string   "region"
     t.string   "postal_code"
     t.string   "merchant_account_id"
-    t.string   "subscriptions",                       default: [],              array: true
-    t.boolean  "show_contact_tags_in_table"
-    t.boolean  "show_contact_phone_in_table"
-    t.boolean  "show_contact_email_in_table"
-    t.boolean  "show_contact_next_task_in_table"
-    t.boolean  "show_contact_last_activity_in_table"
+    t.string   "subscriptions",                       default: [],                 array: true
+    t.boolean  "show_contact_tags_in_table",          default: true
+    t.boolean  "show_contact_phone_in_table",         default: false
+    t.boolean  "show_contact_email_in_table",         default: false
+    t.boolean  "show_contact_next_task_in_table",     default: true
+    t.boolean  "show_contact_last_activity_in_table", default: true
     t.index ["email"], name: "index_people_on_email", unique: true, using: :btree
     t.index ["invitation_token"], name: "index_people_on_invitation_token", unique: true, using: :btree
     t.index ["invitations_count"], name: "index_people_on_invitations_count", using: :btree
