@@ -22,7 +22,6 @@ class ProfilesController < ApplicationController
   def account
     @profile = Person.find(params[:id])
     @plan = @profile.plan_id_from_stripe
-    # @plan = "connect-team-yearly"
   end
 
   def toggle

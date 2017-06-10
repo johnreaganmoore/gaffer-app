@@ -7,7 +7,11 @@ class ApplicationController < ActionController::Base
   end
 
   def active_org
-    @active_org ||= Org.find(session[:admin_org]["id"])
+    if session[:admin_org]
+      @active_org ||= Org.find(session[:admin_org]["id"])
+    else
+      @active_org = Org.new
+    end
   end
 
   def set_layout
