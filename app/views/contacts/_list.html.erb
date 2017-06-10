@@ -2,9 +2,21 @@
  <thead>
    <tr>
        <th class="sort" data-sort="name" data-field="name">Name</th>
-       <th class="sort" data-sort="tags" data-field="tags">Tags</th>
-       <th class="sort" data-sort="next_reminder" data-field="next_reminder">Next Reminder</th>
+       <% if current_person.show_contact_tags_in_table %>
+         <th class="sort" data-sort="tags" data-field="tags">Tags</th>
+       <% end %>
+       <% if current_person.show_contact_phone_in_table %>
+       <th class="sort" data-sort="default-phone" data-field="default-phone">Phone</th>
+       <% end %>
+       <% if current_person.show_contact_email_in_table %>
+       <th class="sort" data-sort="default-email" data-field="default-email">Email</th>
+       <% end %>
+       <% if current_person.show_contact_next_task_in_table %>
+       <th class="sort" data-sort="next_reminder" data-field="next_reminder">Next Task</th>
+       <% end %>
+       <% if current_person.show_contact_last_activity_in_table %>
        <th class="sort" data-sort="last_active" data-field="last_active">Last Activity</th>
+       <% end %>
        <% @active_org.contact_properties.each do |cp| %>
           <% if cp.show_in_table %>
             <th class="sort" class="sort" data-sort="<%= cp.id %>" data-field="<%= cp.id %>"><%= cp.property %></th>
@@ -17,16 +29,29 @@
     <tr>
       <td>
         <%= link_to contact_path(contact.id), class: "name" do %>
-          <%= contact.first_name %> <%= contact.last_name %>
+          <%= contact.last_name %>, <%= contact.first_name %>
         <% end %>
       </td>
-      <td class="tags">
-         <% contact.tags.each do |tag| %>
-           <div class="chip">
-             <%= tag.name %>
-           </div>
-         <% end %>
+      <% if current_person.show_contact_tags_in_table %>
+        <td class="tags">
+           <% contact.tags.each do |tag| %>
+             <div class="chip">
+               <%= tag.name %>
+             </div>
+           <% end %>
+         </td>
+      <% end %>
+      <% if current_person.show_contact_phone_in_table %>
+       <td class="default-phone">
+         <%= contact.phone %>
        </td>
+      <% end %>
+      <% if current_person.show_contact_email_in_table %>
+       <td class="default-email">
+          <%= contact.email %>
+       </td>
+      <% end %>
+      <% if current_person.show_contact_next_task_in_table %>
        <td>
          <% if contact.next_reminder && contact.next_reminder == Date.tomorrow %>
             <div class="next_reminder" style="display: none;"><%= contact.next_reminder %></div>
@@ -49,8 +74,10 @@
          <% else %>
          <% end %>
        </td>
+       <% end %>
+       <% if current_person.show_contact_last_activity_in_table %>
        <td class="last_active"><%= time_ago_in_words(contact.latest_activity) %> ago</td>
-
+       <% end %>
        <% @active_org.contact_properties.each do |cp| %>
         <% if cp.show_in_table %>
           <td class="<%= cp.id %>"><%= ContactValue.where(contact: contact, contact_property_id: cp.id)[0].display_value %></td>

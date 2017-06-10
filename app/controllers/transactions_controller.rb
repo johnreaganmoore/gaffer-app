@@ -20,9 +20,10 @@ class TransactionsController < ApplicationController
     @token = params["stripeToken"]
     @person = current_person
 
-    person_with_customer = @person.create_customer(@token)
-
-    person_with_customer.subscribe_to_plan(params[:plan])
+    if params[:plan]
+      person_with_customer = @person.create_customer(@token)
+      person_with_customer.subscribe_to_plan(params[:plan])
+    end
 
     if @token
       redirect_to orgs_path
@@ -67,16 +68,19 @@ class TransactionsController < ApplicationController
 
   def kickoff
 
-    @token = params["stripeToken"]
-    @team_season = TeamSeason.find(params["ts"])
-
-    current_person.record_accept_terms(request.remote_ip)
-    current_person.create_customer(@token)
-    current_person.add_external_account
-    current_person.purchase_season(@team_season)
+    # @token = params["stripeToken"]
+    # @team_season = TeamSeason.find(params["ts"])
+    #
+    # current_person.record_accept_terms(request.remote_ip)
+    # current_person.create_customer(@token)
+    # current_person.add_external_account
+    # current_person.purchase_season(@team_season)
 
     # redirect_to team_path(@team_season.team)
-    redirect_to preview_season_path(@team_season)
+    # redirect_to preview_season_path(@team_season)
+
+    redirect_to contacts_path
+
     # IDEA: Instead of flash messages, at critical points give smooch popups. May need intercom for this.
     flash[:success] = "Welcome to the Onside, enjoy the season!"
   end

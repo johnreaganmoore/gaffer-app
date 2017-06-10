@@ -25,7 +25,7 @@
 //= require moment
 //= require_tree .
 
-$( document ).on('turbolinks:load', function() {
+$( document ).on('ready turbolinks:load', function() {
 
   $(function() {
     Materialize.updateTextFields();

@@ -40,6 +40,8 @@ Rails.application.routes.draw do
   resources :profiles
   get 'profiles/:id/leave', to: 'profiles#leave', as: :leave_team
   get 'profiles/:id/account', to: 'profiles#account', as: :account
+  post 'profiles/:id/toggle', to: 'profiles#toggle', as: :toggle
+
   # end
   get 'players/new', to: 'players#new', as: :new_player
   post 'players', to: 'players#create', as: :create_player
