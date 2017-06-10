@@ -200,6 +200,9 @@
     $('#monthly-pricing').hide()
     $('#connect-business-yearly').attr('checked', true);
     $('#pricing_frequency').attr('checked', true);
+  <% else %>
+    $('#annual-pricing').hide()
+    $('#hidden-plan-id').val("free")
   <% end %>
 
 
