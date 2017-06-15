@@ -1,5 +1,13 @@
 Rails.application.routes.draw do
 
+  #api
+  namespace :api do
+    namespace :v1 do
+      resources :contacts, only: [:index, :create, :show, :update, :destroy]
+      # resources :microposts, only: [:index, :create, :show, :update, :destroy]
+    end
+  end
+
   resources :email_templates
   resources :contact_properties
   resources :reminders
