@@ -1,4 +1,4 @@
-class Api::V1::SessionSerializer < Api::V1::BaseSerializer
+class Api::V1::SessionSerializer < ActiveModel::Serializer
   #just some basic attributes
   attributes :id, :email, :name, :admin, :token
 
