@@ -1,4 +1,6 @@
 class Person < ApplicationRecord
+  acts_as_token_authenticatable
+
   rolify
   include ActionView::Helpers::NumberHelper
 
