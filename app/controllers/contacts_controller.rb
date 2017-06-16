@@ -76,6 +76,9 @@ class ContactsController < ApplicationController
   # POST /contacts
   # POST /contacts.json
   def create
+
+    puts contact_params.inspect
+
     @contact = Contact.new(contact_params)
     @contact.org_id = @active_org.id
 
@@ -270,6 +273,9 @@ class ContactsController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def contact_params
+      # puts params[:contact_values_attributes].inspect
+      # puts params.inspect
+
       params.require(:contact).permit(:first_name, :last_name, :phone, :email, :tag_list, :contact_values_attributes => [:id, :value, :date_value, :number_value, :contact_property_id])
     end
 
