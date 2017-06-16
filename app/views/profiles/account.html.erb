@@ -69,6 +69,27 @@
                       Save
                     <% end %>
                   </div>
+
+                  <div class="card-content">
+
+                    <div class="card blue-grey darken-1">
+                      <div class="card-content white-text">
+                        <div class="card-title">
+                          API Token
+                        </div>
+                        <p>
+                          You can use this to setup integrations with hundreds of applications via <a href="https://zapier.com" style="color: white; text-decoration:underline;">Zapier</a>.
+                        </p>
+
+                        <blockquote style="background: rgba(0,0,0,0.28); padding: 1.2rem;">
+                          <%= @person.authentication_token %>
+                        </blockquote>
+
+                      </div>
+                    </div>
+                  </div>
+
+
               <% end %>
 
           </div>
