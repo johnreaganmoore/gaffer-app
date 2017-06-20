@@ -1,5 +1,5 @@
 class Api::V1::ContactPropertySerializer < ActiveModel::Serializer
-  attributes :id, :type, :key, :required
+  attributes :id, :type, :key, :required, :label
 
 
 
@@ -15,12 +15,18 @@ class Api::V1::ContactPropertySerializer < ActiveModel::Serializer
   end
 
   def key
-    return object.property
+    return "contact__contact_values_attributes__#{object.property.downcase.tr(' ', '_')}"
   end
 
   def required
-    "false"
+    false
   end
+
+  def label
+    return object.property
+  end
+
+
 
 
   def created_at
