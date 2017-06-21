@@ -1,11 +1,17 @@
 class LeaguesController < ApplicationController
-  layout "league_admin", except: [:show]
-  before_action :authenticate_person!, except: [:show]
+  # layout "league_admin", except: [:show]
+  before_action :authenticate_person!, except: [:index, :show]
   before_action :set_league, except: [:index, :new, :create]
   before_action :active_org, except: [:index, :show]
+  layout :set_layout
 
   def index
-    @leagues = League.order('created_at DESC')
+    if current_person and session[:admin_org]
+      @active_org ||= Org.find(session[:admin_org]["id"])
+      @leagues = @active_org.leagues
+    else
+      @leagues = League.order('created_at DESC')
+    end
   end
 
   def new

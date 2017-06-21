@@ -19,20 +19,23 @@
 //= require underscore
 //= require gmaps/google
 //= require materialize-sprockets
+//= require materialize
 //= require medium-editor
 //= require rails_env_favicon
 //= require filter
 //= require moment
 //= require_tree .
 
+$( document ).on('turbolinks:load', function() {
+  $.each( flashMessages, function(key, value){
+    $.snackbar({content: value, style: key, timeout: 10000});
+  });
+});
+
 $( document ).on('ready turbolinks:load', function() {
 
   $(function() {
     Materialize.updateTextFields();
-  });
-
-  $.each( flashMessages, function(key, value){
-    $.snackbar({content: value, style: key, timeout: 10000});
   });
 
   $('ul.tabs').tabs();
@@ -52,16 +55,6 @@ $( document ).on('ready turbolinks:load', function() {
 
   $('.collapsible').collapsible({
     // accordion : false // A setting that changes the collapsible behavior to expandable instead of the default accordion style
-  });
-  $('.modal-trigger').leanModal({
-    dismissible: true, // Modal can be dismissed by clicking outside of the modal
-    opacity: .5, // Opacity of modal background
-    in_duration: 300, // Transition in duration
-    out_duration: 200, // Transition out duration
-    starting_top: '4%', // Starting top style attribute
-    ending_top: '10%' // Ending top style attribute
-    //ready: function() { alert('Ready'); }, // Callback for Modal open
-    //complete: function() { alert('Closed'); } // Callback for Modal close
   });
 
   // Materialize initializers
@@ -87,12 +80,26 @@ $( document ).on('ready turbolinks:load', function() {
     // selectYears: 2 // Creates a dropdown of 2 years to control year
   });
 
-  // $('.datepicker').pickadate({
-  //   selectMonths: true, // Creates a dropdown to control month
-  //   selectYears: 100 // Creates a dropdown of years without a limited range
-  //   // selectYears: 2 // Creates a dropdown of 2 years to control year
-  // });
+  $('.datepicker').pickadate({
+    selectMonths: true, // Creates a dropdown to control month
+    selectYears: 100 // Creates a dropdown of years without a limited range
+    // selectYears: 2 // Creates a dropdown of 2 years to control year
+  });
+
   $(".button-collapse").sideNav();
+
+ if ($('.modal-trigger').length > 0) {
+   $('.modal-trigger').leanModal({
+     dismissible: true, // Modal can be dismissed by clicking outside of the modal
+     opacity: .5, // Opacity of modal background
+     in_duration: 300, // Transition in duration
+     out_duration: 200, // Transition out duration
+     starting_top: '4%', // Starting top style attribute
+     ending_top: '10%' // Ending top style attribute
+     //ready: function() { alert('Ready'); }, // Callback for Modal open
+     //complete: function() { alert('Closed'); } // Callback for Modal close
+   });
+ }
 
 })
 
