@@ -5,6 +5,9 @@
 <table class="bordered">
   <thead>
     <tr>
+      <% if current_person.has_role?(:super_admin) %>
+      <th>Org</th>
+      <% end %>
       <th>Property</th>
       <th>Type</th>
       <th>Display</th>
@@ -19,6 +22,9 @@
 
     <% @contact_properties.each do |contact_property| %>
       <tr>
+        <% if current_person.has_role?(:super_admin) %>
+          <td><%= contact_property.org.name %></td>
+        <% end %>
         <td><%= contact_property.property %></td>
         <td><%= contact_property.data_type %></td>
         <td><%= contact_property.show_in_table.to_s %></td>
