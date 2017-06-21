@@ -9,6 +9,10 @@ class ContactPropertiesController < ApplicationController
   # GET /contact_properties.json
   def index
     @contact_properties = @active_org.contact_properties
+
+    if current_person.has_role?(:super_admin)
+      @contact_properties = ContactProperty.all
+    end
   end
 
   # GET /contact_properties/1
