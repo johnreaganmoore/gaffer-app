@@ -1,7 +1,7 @@
 <ul id="slide-out" class="side-nav fixed">
   <li>
     <div class="userView" style="background-color: <%= bg_color %>;">
-      <% if defined?(current_person) %>
+      <% if person_signed_in? %>
         <img class="circle" src="<%= current_person.avatar.thumb %>">
       <% end %>
     </div>
