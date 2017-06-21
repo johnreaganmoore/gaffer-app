@@ -1,5 +1,13 @@
+<% unless @active_org %>
+<div id="cover-map">
+  <div class="registration-header">
+    <div class="registration-title">
+      Available Leagues
+    </div>
+  </div>
+</div>
+<% end %>
 <div class="container">
-
   <% if @leagues.length == 0 %>
     <div class="card blue-grey darken-1">
       <div class="card-content white-text">
@@ -17,9 +25,12 @@
       </div>
     </div>
   <% else %>
-    <% @leagues.each do |league| %>
-      <%= render "list_item", league: league %>
-    <% end %>
+
+    <ul class="collapsible popout" data-collapsible="accordion">
+      <% @leagues.each do |league| %>
+        <%= render "list_item", league: league %>
+      <% end %>
+    </ul>
   <% end %>
 
 </div>

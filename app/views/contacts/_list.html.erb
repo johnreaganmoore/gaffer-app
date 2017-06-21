@@ -80,7 +80,11 @@
        <% end %>
        <% @active_org.contact_properties.each do |cp| %>
         <% if cp.show_in_table %>
-          <td class="<%= cp.id %>"><%= ContactValue.where(contact: contact, contact_property_id: cp.id)[0].display_value %></td>
+          <td class="<%= cp.id %>">
+            <% if ContactValue.where(contact: contact, contact_property_id: cp.id)[0] %>
+              <%= ContactValue.where(contact: contact, contact_property_id: cp.id)[0].display_value %>
+            <% end %>
+          </td>
         <% end %>
        <% end %>
 
