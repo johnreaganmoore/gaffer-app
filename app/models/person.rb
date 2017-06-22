@@ -369,7 +369,7 @@ class Person < ApplicationRecord
   def administered_orgs
     orgs = []
 
-    self.roles.where(:resource_type == "Org").each do |role|
+    self.roles.where(resource_type: "Org").each do |role|
       orgs.push(Org.find(role.resource_id))
     end
 
@@ -377,7 +377,7 @@ class Person < ApplicationRecord
   end
 
   def take_admin_org
-    role = self.roles.where(:resource_type == "Org").take
+    role = self.roles.where(resource_type: "Org").take
     if role != nil
       org = Org.find(role.resource_id)
       return org

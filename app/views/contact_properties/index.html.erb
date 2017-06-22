@@ -6,6 +6,7 @@
   <thead>
     <tr>
       <% if current_person.has_role?(:super_admin) %>
+      <th>ID</th>
       <th>Org</th>
       <% end %>
       <th>Property</th>
@@ -23,6 +24,7 @@
     <% @contact_properties.each do |contact_property| %>
       <tr>
         <% if current_person.has_role?(:super_admin) %>
+          <td><%= contact_property.id %></td>
           <td><%= contact_property.org.name %></td>
         <% end %>
         <td><%= contact_property.property %></td>
