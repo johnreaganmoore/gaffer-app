@@ -4,7 +4,7 @@ class Contact < ApplicationRecord
 
   has_many :notes
   has_many :reminders
-  has_many :contact_values, inverse_of: :contact
+  has_many :contact_values, inverse_of: :contact, dependent: :destroy
   accepts_nested_attributes_for :contact_values
 
   before_save :set_tag_owner
