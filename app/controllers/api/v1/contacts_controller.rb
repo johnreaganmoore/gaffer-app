@@ -27,37 +27,21 @@ class Api::V1::ContactsController < Api::V1::BaseController
   def create
     @active_org = current_person.administered_orgs[0]
 
-    # puts params[:contact_values_attributes].inspect
-
-    # params[:contact_values_attributes].each do |cv|
-    #   puts cv.inspect
-    #   con_val = ContactValue.create(cv)
-    #   puts con_val
-    # end
-
-    # puts "Contact params inspection:", contact_params.inspect
-
-    puts "Yo0oooooooooooooooo:", contact_params[:contact_values_attributes].inspect
-
     contact_values_array = []
 
-    contact_params[:contact_values_attributes].each do |k,v|
-      puts "Key", k
+    if contact_params[:contact_values_attributes]
+      contact_params[:contact_values_attributes].each do |k,v|
 
-      @cp = ContactProperty.find_by(org_id: @active_org.id, property: k.titleize.tr('_', ' '))
+        @cp = ContactProperty.find_by(org_id: @active_org.id, property: k.titleize.tr('_', ' '))
 
-      puts @cp.inspect
-
-      puts "value:", v
-
-      if @cp.data_type == "number"
-        contact_values_array << {contact_property_id: @cp.id, number_value: v}
-      elsif @cp.data_type == "date"
-         contact_values_array << {contact_property_id: @cp.id, date_value: v}
-      else
-        contact_values_array << {contact_property_id: @cp.id, value: v}
+        if @cp.data_type == "number"
+          contact_values_array << {contact_property_id: @cp.id, number_value: v}
+        elsif @cp.data_type == "date"
+           contact_values_array << {contact_property_id: @cp.id, date_value: v}
+        else
+          contact_values_array << {contact_property_id: @cp.id, value: v}
+        end
       end
-
     end
 
     formatted_params = contact_params
