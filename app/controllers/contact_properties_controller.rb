@@ -81,4 +81,5 @@ class ContactPropertiesController < ApplicationController
     def contact_property_params
       params.require(:contact_property).permit(:property, :data_type, :show_in_table, :org_id)
     end
+
 end
