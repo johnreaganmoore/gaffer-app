@@ -19,7 +19,7 @@ class Reminder < ApplicationRecord
   #   recipient_email = self.contact.org.primary_admin.email
   #   recipient = self.contact.org.primary_admin
   #
-  #   mg_client = Mailgun::Client.new 'key-30c362ad4107dd2bc3f9fffc67bd23b6'
+  #   mg_client = Mailgun::Client.new ENV['mailgun_api_key']
   #
   #     # Define your message parameters
   #   message_params =  { from: 'reminders@playonside.com',

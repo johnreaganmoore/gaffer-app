@@ -2,7 +2,8 @@ class Api::V1::ContactsController < Api::V1::BaseController
   include ActiveHashRelation
 
   def index
-    @contacts = Contact.all
+    @active_org = current_person.administered_orgs[0]
+    @contacts = @active_org.contacts.order('updated_at DESC')
     @contacts = apply_filters(@contacts, params)
 
     serialized_array = []
