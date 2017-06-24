@@ -5,7 +5,7 @@ Rails.application.routes.draw do
     namespace :v1 do
       resources :contacts, only: [:index, :create, :show, :update, :destroy]
       resources :contact_properties, only: [:index, :create, :show, :update, :destroy]
-      # resources :microposts, only: [:index, :create, :show, :update, :destroy]
+      resources :submissions, only: [:index, :create, :show, :update, :destroy]
     end
   end
 
@@ -17,6 +17,8 @@ Rails.application.routes.draw do
   post 'contacts/batch', to: 'contacts#batch_create', as: :contacts_batch_create
   get 'contacts/new_email', to: 'contacts#new_email', as: :contact_new_email
   post 'contact_email', to: 'contacts#send_email', as: :contact_email
+
+  get 'submissions', to: 'submissions#index', as: :submissions
 
   resources :contacts
 

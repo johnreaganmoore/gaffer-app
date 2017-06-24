@@ -16,6 +16,7 @@ class Org < ApplicationRecord
   has_many :sub_lists
   has_many :teams
   has_many :contacts
+  has_many :submissions
   has_many :contact_properties
   has_many :email_templates
   acts_as_tagger
@@ -56,7 +57,7 @@ class Org < ApplicationRecord
 
   def send_reminder_email
 
-    mg_client = Mailgun::Client.new 'key-30c362ad4107dd2bc3f9fffc67bd23b6'
+    mg_client = Mailgun::Client.new ENV['mailgun_api_key']
 
     email_main = ""
 
