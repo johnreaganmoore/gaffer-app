@@ -29,8 +29,8 @@ class Api::V1::SubmissionsController < Api::V1::BaseController
 
     submission_values_array = []
 
-    if submission_params[:submission_values_attributes]
-      submission_params[:submission_values_attributes].each do |k,v|
+    if submission_params[:contact_values_attributes]
+      submission_params[:contact_values_attributes].each do |k,v|
 
         @cp = ContactProperty.find_by(org_id: @active_org.id, property: k.titleize.tr('_', ' '))
 
@@ -67,6 +67,6 @@ class Api::V1::SubmissionsController < Api::V1::BaseController
       keys << cp.property.downcase.tr(' ', '_')
     end
 
-    params.require(:submission).permit(:first_name, :last_name, :phone, :email, :status, submission_values_attributes: keys)
+    params.require(:submission).permit(:first_name, :last_name, :phone, :email, :status, contact_values_attributes: keys)
   end
 end
