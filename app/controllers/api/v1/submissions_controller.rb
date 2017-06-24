@@ -67,6 +67,6 @@ class Api::V1::SubmissionsController < Api::V1::BaseController
       keys << cp.property.downcase.tr(' ', '_')
     end
 
-    params.require(:submission).permit(:first_name, :last_name, :phone, :email, :status, contact_values_attributes: keys)
+    params.require(:contact).permit(:first_name, :last_name, :phone, :email, :status, contact_values_attributes: keys)
   end
 end
