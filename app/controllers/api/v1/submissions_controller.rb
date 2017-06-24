@@ -46,6 +46,7 @@ class Api::V1::SubmissionsController < Api::V1::BaseController
 
     formatted_params = submission_params
     formatted_params[:submission_values_attributes] = submission_values_array
+    formatted_params.delete(:contact_values_attributes)
 
     @submission = Submission.new(formatted_params)
     @submission.org_id = @active_org.id
