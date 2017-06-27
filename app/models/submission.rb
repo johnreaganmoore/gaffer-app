@@ -25,7 +25,35 @@ class Submission < ApplicationRecord
     end
 
     return false
+  end
 
+  def notify_zapier
+
+    body = {
+      submission: self.id,
+      status: self.status
+    }.to_json
+
+    headers = {
+      'Content-Type': 'application/json'
+    }
+
+    admins = self.org.admins
+
+    hooks = []
+    admins.each.do |admin|
+      hook = Hook.find_by(person_id: admin.id)
+      hooks << hooks
+    end
+
+    hooks.each.do |hook|
+      response = HTTParty.post(
+        hook.target_url,
+        body,
+        headers
+      )
+      puts response.inspect
+    end
   end
 
 

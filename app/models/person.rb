@@ -32,6 +32,8 @@ class Person < ApplicationRecord
   has_many :notes, foreign_key: 'creator_id'
   has_many :reminders, foreign_key: 'creator_id'
 
+  has_many :hooks
+
   has_many :invitations, :class_name => "Invite", :foreign_key => 'recipient_id'
   has_many :sent_invites, :class_name => "Invite", :foreign_key => 'sender_id'
 
