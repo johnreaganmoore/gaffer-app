@@ -3,6 +3,7 @@ class Submission < ApplicationRecord
 
   has_many :submission_values, inverse_of: :submission, dependent: :destroy
   accepts_nested_attributes_for :submission_values
+  after_update :notify_zapier
 
 
   def iframely(property)
@@ -29,10 +30,7 @@ class Submission < ApplicationRecord
 
   def notify_zapier
 
-    body = {
-      submission: self.id,
-      status: self.status
-    }.to_json
+    body = self.to_json
 
     headers = {
       'Content-Type': 'application/json'
