@@ -5,46 +5,45 @@ class Submission < ApplicationRecord
   accepts_nested_attributes_for :submission_values
   after_update :notify_zapier
 
-
   def iframely(property)
-    response = HTTParty.get("http://iframe.ly/api/iframely?url=#{property}&api_key=#{ENV['iframely_api_key']}")
 
+    key = ENV['iframely_api_key']
+
+    response = HTTParty.get("http://iframe.ly/api/iframely?url=#{property}&api_key=#{key}")
     if response.code == 200
       return response.parsed_response["html"].html_safe
     else
       return false
     end
-
   end
 
   def embed
     self.submission_values.each do |value|
       result = self.iframely(value.display_value)
-      if result
-        return result
-      end
+      return result
     end
-
-    return false
   end
 
   def notify_zapier
-
     body = self.to_json
-
     headers = {
-      'Content-Type': 'application/json'
+      "Content-Type": "application/json"
     }
-
     admins = self.org.admins
 
     hooks = []
-    admins.each.do |admin|
+
+    admins.each do |admin|
+
       hook = Hook.find_by(person_id: admin.id)
-      hooks << hooks
+
+      if hook
+        hooks << hook
+      end
+
     end
 
-    hooks.each.do |hook|
+    hooks.each do |hook|
       response = HTTParty.post(
         hook.target_url,
         body,
@@ -52,7 +51,6 @@ class Submission < ApplicationRecord
       )
       puts response.inspect
     end
+
   end
-
-
 end
