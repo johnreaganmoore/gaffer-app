@@ -3,6 +3,7 @@ class Submission < ApplicationRecord
 
   has_many :submission_values, inverse_of: :submission, dependent: :destroy
   accepts_nested_attributes_for :submission_values
+  after_update :notify_zapier
 
 
   def iframely(property)
@@ -25,7 +26,32 @@ class Submission < ApplicationRecord
     end
 
     return false
+  end
 
+  def notify_zapier
+
+    body = self.to_json
+
+    headers = {
+      'Content-Type': 'application/json'
+    }
+
+    admins = self.org.admins
+
+    hooks = []
+    admins.each.do |admin|
+      hook = Hook.find_by(person_id: admin.id)
+      hooks << hooks
+    end
+
+    hooks.each.do |hook|
+      response = HTTParty.post(
+        hook.target_url,
+        body,
+        headers
+      )
+      puts response.inspect
+    end
   end
 
 

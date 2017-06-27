@@ -1,58 +1,11 @@
-<div class="container">
-  <% @submissions.each do |sub| %>
+<div id="submission-list-container" class="container">
+  <% if @submissions.length == 0 %>
     <div class="card">
-      <% if sub.embed %>
-        <%= sub.embed %>
-      <% end %>
-      <div style="background: #f1f1f1;">
-        <div class="card-content">
-          <div class="card-title">
-            <%= sub.first_name %> <%= sub.last_name %>
-          </div>
-          <div style="display: flex; justify-content: space-between; ">
-            <div>
-              <div>
-                <%= sub.email %>
-              </div>
-              <div>
-                <%= sub.phone %>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
       <div class="card-content">
-        <% sub.submission_values.each do |value| %>
-          <% if value.date_value %>
-            <p style="display: flex; justify-content: space-between;">
-              <%= value.contact_property.property %>:
-              <strong><%= value.display_value.strftime("%B #{value.display_value.day.ordinalize}, %Y") %></strong>
-            </p>
-          <% elsif value.number_value %>
-            <p style="display: flex; justify-content: space-between;">
-              <%= value.contact_property.property %>:
-              <strong><%= value.display_value %></strong>
-            </p>
-          <% elsif value.value && value.value.length > 0 %>
-            <p style="display: flex; justify-content: space-between;">
-              <%= value.contact_property.property %>:
-              <%= value.display_value %>
-            </p>
-          <% else %>
-          <% end %>
-
-        <% end %>
+        <p>No new submissions. You're all done here!</p>
       </div>
-      <div style="background: #f1f1f1;">
-        <div class="card-content" style="display:flex; justify-content: center;">
-          <div>
-            <a style="margin: 20px;" class="waves-effect waves-light btn green">Yes</a>
-            <a style="margin: 10px;" class="waves-effect waves-light btn red">No</a>
-            <a style="margin: 20px;" class="waves-effect waves-light btn grey">Maybe</a>
-          </div>
-        </div>
-      </div>
-
     </div>
+  <% else %>
+    <%= render 'list', submissions: @submissions %>
   <% end %>
 </div>
