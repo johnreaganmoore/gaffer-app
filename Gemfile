@@ -6,6 +6,8 @@ source 'https://rubygems.org' do
   # Use postgres as the database for Active Record
   gem 'pg'
 
+  gem 'httparty'
+
   gem 'active_model_serializers'
   gem 'active_hash_relation'
   gem 'simple_token_authentication', '~> 1.0'

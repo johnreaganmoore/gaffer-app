@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170614124046) do
+ActiveRecord::Schema.define(version: 20170627023615) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -89,6 +89,15 @@ ActiveRecord::Schema.define(version: 20170614124046) do
     t.datetime "updated_at",  null: false
     t.index ["location_id"], name: "index_games_on_location_id", using: :btree
     t.index ["season_id"], name: "index_games_on_season_id", using: :btree
+  end
+
+  create_table "hooks", force: :cascade do |t|
+    t.integer  "person_id"
+    t.string   "target_url"
+    t.string   "event"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["person_id"], name: "index_hooks_on_person_id", using: :btree
   end
 
   create_table "invites", force: :cascade do |t|
@@ -300,6 +309,30 @@ ActiveRecord::Schema.define(version: 20170614124046) do
     t.index ["org_id"], name: "index_sub_lists_on_org_id", using: :btree
   end
 
+  create_table "submission_values", force: :cascade do |t|
+    t.integer  "submission_id"
+    t.integer  "contact_property_id"
+    t.string   "value"
+    t.float    "number_value"
+    t.datetime "date_value"
+    t.datetime "created_at",          null: false
+    t.datetime "updated_at",          null: false
+    t.index ["contact_property_id"], name: "index_submission_values_on_contact_property_id", using: :btree
+    t.index ["submission_id"], name: "index_submission_values_on_submission_id", using: :btree
+  end
+
+  create_table "submissions", force: :cascade do |t|
+    t.integer  "org_id"
+    t.string   "first_name"
+    t.string   "last_name"
+    t.string   "email"
+    t.string   "phone"
+    t.string   "status"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["org_id"], name: "index_submissions_on_org_id", using: :btree
+  end
+
   create_table "taggings", force: :cascade do |t|
     t.integer  "tag_id"
     t.string   "taggable_type"
@@ -374,6 +407,7 @@ ActiveRecord::Schema.define(version: 20170614124046) do
   add_foreign_key "fees", "teams"
   add_foreign_key "games", "locations"
   add_foreign_key "games", "seasons"
+  add_foreign_key "hooks", "people"
   add_foreign_key "invites", "orgs"
   add_foreign_key "leagues", "orgs"
   add_foreign_key "locations", "seasons"
@@ -387,6 +421,9 @@ ActiveRecord::Schema.define(version: 20170614124046) do
   add_foreign_key "sub_list_memberships", "people"
   add_foreign_key "sub_list_memberships", "sub_lists"
   add_foreign_key "sub_lists", "orgs"
+  add_foreign_key "submission_values", "contact_properties"
+  add_foreign_key "submission_values", "submissions"
+  add_foreign_key "submissions", "orgs"
   add_foreign_key "team_memberships", "people"
   add_foreign_key "team_memberships", "teams"
   add_foreign_key "team_seasons", "seasons"

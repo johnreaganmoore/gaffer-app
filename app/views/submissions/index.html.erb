@@ -1,0 +1,11 @@
+<div id="submission-list-container" class="container">
+  <% if @submissions.length == 0 %>
+    <div class="card">
+      <div class="card-content">
+        <p>No new submissions. You're all done here!</p>
+      </div>
+    </div>
+  <% else %>
+    <%= render 'list', submissions: @submissions %>
+  <% end %>
+</div>

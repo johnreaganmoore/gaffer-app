@@ -5,7 +5,7 @@ class PlayerFee < ApplicationRecord
   belongs_to :fee
 
   def notify(sender)
-    mg_client = Mailgun::Client.new 'key-30c362ad4107dd2bc3f9fffc67bd23b6'
+    mg_client = Mailgun::Client.new ENV['mailgun_api_key']
 
     mb_obj = Mailgun::MessageBuilder.new()
 

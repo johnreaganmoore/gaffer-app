@@ -491,6 +491,7 @@ DEPENDENCIES
   gmaps4rails!
   gon!
   haml!
+  httparty!
   jbuilder (~> 2.5)!
   jquery-rails!
   listen (~> 3.0.5)!
