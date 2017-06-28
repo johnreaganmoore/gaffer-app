@@ -26,7 +26,15 @@ class Submission < ApplicationRecord
 
   def notify_zapier
 
-    body = Api::V1::SubmissionSerializer.new(self).to_json
+    body_hash = self.attributes
+
+
+    self.submission_values.each do |sv|
+      body_hash["#{sv.contact_property.property}"] = sv.display_value
+    end
+
+    body = body_hash.to_json
+
     headers = {
       "Content-Type": "application/json"
     }
