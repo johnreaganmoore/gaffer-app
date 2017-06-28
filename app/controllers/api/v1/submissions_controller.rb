@@ -4,23 +4,18 @@ class Api::V1::SubmissionsController < Api::V1::BaseController
   def index
     @active_org = current_person.administered_orgs[0]
     @submissions = @active_org.submissions.order('updated_at DESC')
-
     @submissions = apply_filters(@submissions, params)
 
     serialized_array = []
-
     @submissions.each do |con|
       serialized_array.push(Api::V1::SubmissionSerializer.new(con))
     end
 
     render json: serialized_array.to_json
-
   end
 
   def show
-
     @submission = Submission.find(params[:id])
-
     render(json: Api::V1::SubmissionSerializer.new(@submission).to_json)
   end
 

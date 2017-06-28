@@ -25,7 +25,8 @@ class Submission < ApplicationRecord
   end
 
   def notify_zapier
-    body = self.to_json
+
+    body = Api::V1::SubmissionSerializer.new(self).to_json
     headers = {
       "Content-Type": "application/json"
     }
