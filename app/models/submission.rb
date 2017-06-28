@@ -45,9 +45,7 @@ class Submission < ApplicationRecord
 
     hooks.each do |hook|
       response = HTTParty.post(
-        hook.target_url,
-        body,
-        headers
+        hook.target_url, { body: body, headers: headers }
       )
       puts response.inspect
     end

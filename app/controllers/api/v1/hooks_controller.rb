@@ -4,7 +4,7 @@ class Api::V1::HooksController < Api::V1::BaseController
   def subscribe
 
     @hook = Hook.create(hook_params)
-
+    @hook.person_id = current_person.id
     if @hook.save
       render json: @hook, status: 201
       # format.json { render :show, status: :created, location: @contact }
