@@ -32,8 +32,8 @@ class ContactsController < ApplicationController
 
     @table_property_names = @active_org.contact_properties.ids
 
-    @current_person_tasks = Reminder.where(contact_id: @contacts.ids, assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
-    @other_tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").where.not(assignee_id: current_person.id).order(:next_date)
+    @current_person_tasks = Reminder.where(assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
+    @unassigned_tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").where(assignee_id: nil).order(:next_date)
 
     respond_to do |format|
       format.html
