@@ -1,7 +1,8 @@
 class Reminder < ApplicationRecord
   belongs_to :contact, touch: true
 
-  belongs_to :person, :foreign_key => 'creator_id'
+  belongs_to :creator, class_name: 'Person', foreign_key: 'creator_id'
+  belongs_to :assignee, class_name: 'Person', foreign_key: 'assignee_id'
 
   require "mailgun"
 
@@ -19,7 +20,7 @@ class Reminder < ApplicationRecord
   #   recipient_email = self.contact.org.primary_admin.email
   #   recipient = self.contact.org.primary_admin
   #
-  #   mg_client = Mailgun::Client.new 'key-30c362ad4107dd2bc3f9fffc67bd23b6'
+  #   mg_client = Mailgun::Client.new ENV['mailgun_api_key']
   #
   #     # Define your message parameters
   #   message_params =  { from: 'reminders@playonside.com',

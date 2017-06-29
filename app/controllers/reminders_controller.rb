@@ -22,6 +22,20 @@ class RemindersController < ApplicationController
   def new
     @reminder = Reminder.new
 
+    available_admins = @active_org.admins
+    # available_admins.delete(current_person)
+
+    # @admins_options = [
+    #   ["#{current_person.first_name} #{current_person.last_name}", current_person.id, {disabled: false, selected: true}],
+    # ]
+    @admins_options = []
+
+    available_admins.each do |admin|
+      @admins_options << ["#{admin.first_name} #{admin.last_name}", admin.id]
+    end
+
+    puts @admins_options
+
     if params[:contact]
       @contact = Contact.find(params[:contact])
       @contact_id = params[:contact]
@@ -42,6 +56,15 @@ class RemindersController < ApplicationController
   def edit
     @contact = @reminder.contact
     @contact_id = @reminder.contact.id
+
+    available_admins = @active_org.admins
+
+    @admins_options = []
+
+    available_admins.each do |admin|
+      @admins_options << ["#{admin.first_name} #{admin.last_name}", admin.id]
+    end
+
   end
 
   # POST /reminders
@@ -51,6 +74,14 @@ class RemindersController < ApplicationController
     @reminder.status = "incomplete"
     @reminder.creator_id = current_person.id
     @blank_reminder = Reminder.new
+
+    available_admins = @active_org.admins
+
+    @admins_options = []
+
+    available_admins.each do |admin|
+      @admins_options << ["#{admin.first_name} #{admin.last_name}", admin.id]
+    end
 
     respond_to do |format|
       if @reminder.save
@@ -109,6 +140,6 @@ class RemindersController < ApplicationController
 
     # Never trust parameters from the scary internet, only allow the white list through.
     def reminder_params
-      params.require(:reminder).permit(:label, :next_date, :interval, :contact_id, :status)
+      params.require(:reminder).permit(:label, :next_date, :interval, :contact_id, :status, :assignee_id)
     end
 end

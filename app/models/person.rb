@@ -31,6 +31,9 @@ class Person < ApplicationRecord
 
   has_many :notes, foreign_key: 'creator_id'
   has_many :reminders, foreign_key: 'creator_id'
+  has_many :reminders, foreign_key: 'assignee_id'
+
+  has_many :hooks
 
   has_many :invitations, :class_name => "Invite", :foreign_key => 'recipient_id'
   has_many :sent_invites, :class_name => "Invite", :foreign_key => 'sender_id'
@@ -75,7 +78,7 @@ class Person < ApplicationRecord
 
   def send_sub_email(org, recipients, subject, body)
     puts org.inspect, recipients.inspect, subject, body
-    mg_client = Mailgun::Client.new 'key-30c362ad4107dd2bc3f9fffc67bd23b6'
+    mg_client = Mailgun::Client.new ENV['mailgun_api_key']
 
     # Create a Batch Message object, pass in the client and your domain.
     mb_obj = Mailgun::BatchMessage.new(mg_client, "playonside.com")

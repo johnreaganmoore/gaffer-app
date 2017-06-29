@@ -1,0 +1,15 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/FixtureSet.html
+
+one:
+  submission: one
+  contact_property: one
+  value: MyString
+  number_value: 1.5
+  date_value: 2017-06-23 08:45:17
+
+two:
+  submission: two
+  contact_property: two
+  value: MyString
+  number_value: 1.5
+  date_value: 2017-06-23 08:45:17

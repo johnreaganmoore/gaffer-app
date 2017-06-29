@@ -64,6 +64,9 @@
       <div class="edit-profile-actions card-action">
         <%= link_to 'New Contact Property', new_contact_property_path %>
 
+        <% if contact.id %>
+          <%= link_to 'Delete Contact', contact, method: :delete, data: { confirm: 'Are you sure?' } %>
+        <% end %>
         <%= button_tag(id: "submit", type: 'submit', class: "btn waves-effect waves-light") do %>
           Save
         <% end %>

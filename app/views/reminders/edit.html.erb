@@ -48,6 +48,14 @@
             <%= f.label :repeat %>
           </div>
         </div>
+
+        <div class="row">
+          <div class="input-field col s12 m12 l12">
+            <%= f.select :assignee_id, options_for_select(@admins_options) %>
+            <%= f.label :assign %>
+          </div>
+        </div>
+
       </div>
       <div class="edit-profile-actions card-action">
         <% if @reminder.id %>

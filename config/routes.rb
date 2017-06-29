@@ -3,9 +3,14 @@ Rails.application.routes.draw do
   #api
   namespace :api do
     namespace :v1 do
-      resources :contacts, only: [:index, :create, :show, :update, :destroy]
-      resources :contact_properties, only: [:index, :create, :show, :update, :destroy]
-      # resources :microposts, only: [:index, :create, :show, :update, :destroy]
+      resources :contacts, only: [:index, :create, :show, :update]
+      resources :contact_properties, only: [:index, :create, :show, :update]
+      resources :submissions, only: [:index, :create, :show, :update]
+      resources :reminders, only: [:index, :create, :show, :update]
+
+      post 'hooks', to: 'hooks#subscribe', as: :hook_subscribe
+      delete 'hooks', to: 'hooks#unsubscribe', as: :hook_unsubscribe
+
     end
   end
 
@@ -18,7 +23,11 @@ Rails.application.routes.draw do
   get 'contacts/new_email', to: 'contacts#new_email', as: :contact_new_email
   post 'contact_email', to: 'contacts#send_email', as: :contact_email
 
+  resources :submissions
+  # get 'submissions', to: 'submissions#index', as: :submissions
+
   resources :contacts
+
 
   get 'transactions/new'
 
