@@ -10,7 +10,21 @@
       <div id="tasks" class="col s12">
         <div class="card-content">
           <div id="task_list_container">
-            <%= render 'task_list', reminders: @current_person_tasks, truncate_length: 50 %>
+
+            <% if @current_person_tasks.length == 0 && @unassigned_tasks.length == 0 %>
+              <div style="width: 100%; text-align: center;">Good work. <br> No outstanding tasks. </div>
+            <% else %>
+              <div class="task-line">
+                <div style="display: flex; width: 100%; justify-content: center;"><strong>Your Tasks</strong></div>
+              </div>
+              <%= render 'task_list', reminders: @current_person_tasks, truncate_length: 50 %>
+              <% if @unassigned_tasks.length > 0 %>
+                <div class="task-line">
+                  <div style="display: flex; width: 100%; justify-content: center;"><strong>Unassigned Tasks</strong></div>
+                </div>
+                <%= render 'task_list', reminders: @unassigned_tasks, truncate_length: 50 %>
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>
