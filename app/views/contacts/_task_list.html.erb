@@ -1,73 +1,68 @@
-<% if reminders.length == 0 %>
-  <div style="width: 100%; text-align: center;">Good work. <br> No outstanding tasks. </div>
-<% else %>
+<% reminders.each do |reminder| %>
 
-  <% reminders.each do |reminder| %>
+  <% unless reminder.status == "archived" %>
+    <div class="task-line">
+      <% if reminder.status == "complete" %>
+        <div class="task-check-label">
+          <%= link_to reminder_path(reminder, reminder: {status: "incomplete"}), method: :put, remote: true do %>
+            <input type="checkbox" checked id="<%= reminder.id %>_check" />
+            <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check">
+                <del>
+                  <% if truncate_length > 49 && reminder.contact && reminder.contact %>
+                    <strong><%= reminder.contact.first_name[0] %>. <%= reminder.contact.last_name %></strong>:
+                  <% end %>
+                  <%= reminder.label.truncate(truncate_length) %>
+                </del>
+            </label>
+          <% end %>
+        </div>
+      <% elsif reminder.status == "incomplete" %>
+        <div class="task-check-label">
+          <%= link_to reminder_path(reminder, reminder: {status: "complete"}), method: :put, remote: true do %>
+            <input type="checkbox" id="<%= reminder.id %>_check" />
+            <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check">
+              <% if truncate_length > 49 && reminder.contact %>
+                <strong><%= reminder.contact.first_name[0] %>. <%= reminder.contact.last_name %></strong>:
+              <% end %>
+              <%= reminder.label.truncate(truncate_length) %>
+            </label>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="task-due-edit">
+        <div class="date">
+          <% if reminder.next_date && reminder.next_date == Date.tomorrow %>
+             <div class="chip" style="background-color: rgba(0,0,255,0.25);;">
+               Tomorrow
+             </div>
+          <% elsif reminder.next_date && reminder.next_date == Date.today %>
+            <div class="chip" style="background-color: rgba(0,128,0,0.3);">
+               Today
+            </div>
+          <% elsif reminder.next_date && reminder.next_date > Date.today %>
+            <%= reminder.next_date.strftime("%b %e")%>
+          <% elsif reminder.next_date && reminder.next_date < Date.today %>
+            <div class="chip" style="background-color: rgba(255, 88, 58, 0.34);">
+              <%= reminder.next_date.strftime("%b %e")%>
+            </div>
+          <% else %>
+          <% end %>
 
-    <% unless reminder.status == "archived" %>
-      <div class="task-line">
+          <!-- <%= reminder.next_date.strftime("%b #{reminder.next_date.day.ordinalize}") %> -->
+        </div>
+        <div>
+          <%= link_to edit_reminder_path(reminder) do %>
+            <i class="material-icons" style="display: inline;">mode_edit</i>
+          <% end %>
+        </div>
         <% if reminder.status == "complete" %>
-          <div class="task-check-label">
-            <%= link_to reminder_path(reminder, reminder: {status: "incomplete"}), method: :put, remote: true do %>
-              <input type="checkbox" checked id="<%= reminder.id %>_check" />
-              <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check">
-                  <del>
-                    <% if truncate_length > 49 %>
-                      <strong><%= reminder.contact.first_name[0] %>. <%= reminder.contact.last_name %></strong>:
-                    <% end %>
-                    <%= reminder.label.truncate(truncate_length) %>
-                  </del>
-              </label>
-            <% end %>
-          </div>
-        <% elsif reminder.status == "incomplete" %>
-          <div class="task-check-label">
-            <%= link_to reminder_path(reminder, reminder: {status: "complete"}), method: :put, remote: true do %>
-              <input type="checkbox" id="<%= reminder.id %>_check" />
-              <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= reminder.label %>" for="<%= reminder.id %>_check">
-                <% if truncate_length > 49 %>
-                  <strong><%= reminder.contact.first_name[0] %>. <%= reminder.contact.last_name %></strong>:
-                <% end %>
-                <%= reminder.label.truncate(truncate_length) %>
-              </label>
+          <div>
+            <%= link_to reminder_path(reminder, reminder: {status: "archived"}), method: :put, remote: true do %>
+              <i class="material-icons" style="display: inline;">archive</i>
             <% end %>
           </div>
         <% end %>
-        <div class="task-due-edit">
-          <div class="date">
-            <% if reminder.next_date && reminder.next_date == Date.tomorrow %>
-               <div class="chip" style="background-color: rgba(0,0,255,0.25);;">
-                 Tomorrow
-               </div>
-            <% elsif reminder.next_date && reminder.next_date == Date.today %>
-              <div class="chip" style="background-color: rgba(0,128,0,0.3);">
-                 Today
-              </div>
-            <% elsif reminder.next_date && reminder.next_date > Date.today %>
-              <%= reminder.next_date.strftime("%b %e")%>
-            <% elsif reminder.next_date && reminder.next_date < Date.today %>
-              <div class="chip" style="background-color: rgba(255, 88, 58, 0.34);">
-                <%= reminder.next_date.strftime("%b %e")%>
-              </div>
-            <% else %>
-            <% end %>
-
-            <!-- <%= reminder.next_date.strftime("%b #{reminder.next_date.day.ordinalize}") %> -->
-          </div>
-          <div>
-            <%= link_to edit_reminder_path(reminder) do %>
-              <i class="material-icons" style="display: inline;">mode_edit</i>
-            <% end %>
-          </div>
-          <% if reminder.status == "complete" %>
-            <div>
-              <%= link_to reminder_path(reminder, reminder: {status: "archived"}), method: :put, remote: true do %>
-                <i class="material-icons" style="display: inline;">archive</i>
-              <% end %>
-            </div>
-          <% end %>
-        </div>
       </div>
-    <% end %>
+    </div>
   <% end %>
 <% end %>

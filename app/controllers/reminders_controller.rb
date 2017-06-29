@@ -99,10 +99,18 @@ class RemindersController < ApplicationController
   # PATCH/PUT /reminders/1.json
   def update
     @contact = @reminder.contact
+    @contacts = @active_org.contacts
+
+    @current_person_tasks = Reminder.where(assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
+    @unassigned_tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").where(assignee_id: nil).order(:next_date)
+
+
 
     if request.referer.present? && URI(request.referer).path == '/contacts'
-      @contacts = @contact.org.contacts
-      @reminders = Reminder.where(contact_id: @contacts.ids).order(:next_date)
+      @reminders = Reminder.where(assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
+      @current_person_tasks = Reminder.where(assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
+      @unassigned_tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").where(assignee_id: nil).order(:next_date)
+
       @truncate_length = 50
     else
       @reminders = @contact.reminders
