@@ -32,7 +32,8 @@ class ContactsController < ApplicationController
 
     @table_property_names = @active_org.contact_properties.ids
 
-    @tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").order(:next_date)
+    @current_person_tasks = Reminder.where(contact_id: @contacts.ids, assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
+    @other_tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").where.not(assignee_id: current_person.id).order(:next_date)
 
     respond_to do |format|
       format.html
@@ -48,6 +49,20 @@ class ContactsController < ApplicationController
     @email = {}
     @activities = @contact.activities
     @tasks = @contact.reminders.where.not(status: "archived").order(:next_date)
+
+    available_admins = @active_org.admins
+    # available_admins.delete(current_person)
+
+    # @admins_options = [
+    #   ["#{current_person.first_name} #{current_person.last_name}", current_person.id, {disabled: false, selected: true}],
+    # ]
+    @admins_options = []
+
+    available_admins.each do |admin|
+      @admins_options << ["#{admin.first_name} #{admin.last_name}", admin.id]
+    end
+
+    puts @admins_options
 
     @email_templates = @active_org.email_templates
 

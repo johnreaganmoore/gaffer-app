@@ -10,7 +10,7 @@
       <div id="tasks" class="col s12">
         <div class="card-content">
           <div id="task_list_container">
-            <%= render 'task_list', reminders: @tasks, truncate_length: 50 %>
+            <%= render 'task_list', reminders: @current_person_tasks, truncate_length: 50 %>
           </div>
         </div>
       </div>

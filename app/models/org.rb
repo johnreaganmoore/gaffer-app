@@ -29,7 +29,7 @@ class Org < ApplicationRecord
       last_name: "Moore",
       phone: "978-998-2205",
       email: "johnreagan@playonside.com",
-      org_id: self.id
+      org_id: self.id,
     )
     @contact.tag_list.add("Software Partner")
     @contact.save
@@ -38,11 +38,13 @@ class Org < ApplicationRecord
       next_date: DateTime.now.beginning_of_day + 8.hours + 7.days,
       interval: "one-time",
       contact_id: @contact.id,
-      status: "incomplete"
+      status: "incomplete",
+      creator_id: self.primary_admin.id
     )
     Note.create(
       body: "<h3>Welcome!</h3><p><br></p><p>This is a simple way to take notes related to people. You can simply edit the formatting of the text or add links by <b>highlighting</b> it. You can also add images if you want by dragging them into this text area.<br><br>You can just edit or delete this note and be on your way. If you need any help please always feel free to contact us directly in the chat bubble at the bottom right of the screen.<br><br>Thanks,<br><br>John Reagan</p>",
-      contact_id: @contact.id
+      contact_id: @contact.id,
+      creator_id: self.primary_admin.id
     )
 
   end
