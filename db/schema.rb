@@ -10,7 +10,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20170627023615) do
+ActiveRecord::Schema.define(version: 20170628182528) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -245,10 +245,11 @@ ActiveRecord::Schema.define(version: 20170627023615) do
     t.string   "label"
     t.date     "next_date"
     t.string   "interval"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
     t.string   "status"
     t.integer  "creator_id"
+    t.integer  "assignee_id"
     t.index ["contact_id"], name: "index_reminders_on_contact_id", using: :btree
   end
 

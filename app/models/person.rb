@@ -31,6 +31,7 @@ class Person < ApplicationRecord
 
   has_many :notes, foreign_key: 'creator_id'
   has_many :reminders, foreign_key: 'creator_id'
+  has_many :reminders, foreign_key: 'assignee_id'
 
   has_many :hooks
 

@@ -3,9 +3,10 @@ Rails.application.routes.draw do
   #api
   namespace :api do
     namespace :v1 do
-      resources :contacts, only: [:index, :create, :show, :update, :destroy]
-      resources :contact_properties, only: [:index, :create, :show, :update, :destroy]
-      resources :submissions, only: [:index, :create, :show, :update, :destroy]
+      resources :contacts, only: [:index, :create, :show, :update]
+      resources :contact_properties, only: [:index, :create, :show, :update]
+      resources :submissions, only: [:index, :create, :show, :update]
+      resources :reminders, only: [:index, :create, :show, :update]
 
       post 'hooks', to: 'hooks#subscribe', as: :hook_subscribe
       delete 'hooks', to: 'hooks#unsubscribe', as: :hook_unsubscribe
