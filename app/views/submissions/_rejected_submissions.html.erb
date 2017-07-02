@@ -1,0 +1,9 @@
+<% if rejected_submissions.length == 0 %>
+  <div class="card">
+    <div class="card-content">
+      <p>No rejected submissions.</p>
+    </div>
+  </div>
+<% else %>
+  <%= render 'list', submissions: rejected_submissions %>
+<% end %>

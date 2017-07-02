@@ -1,33 +1,19 @@
 <div style="margin: 20px;">
-  <div class="card team-card">
-    <div class="row">
-      <div class="col s12">
-        <ul class="tabs">
-          <li class="tab col s6"><a class="active" href="#tasks">Tasks</a></li>
-          <li class="tab col s6"><a href="#contacts">People</a></li>
-        </ul>
-      </div>
-      <div id="tasks" class="col s12">
-        <div class="card-content">
-          <div id="task_list_container">
 
-            <% if @current_person_tasks.length == 0 && @unassigned_tasks.length == 0 %>
-              <div style="width: 100%; text-align: center;">Good work. <br> No outstanding tasks. </div>
-            <% else %>
-              <div class="task-line">
-                <div style="display: flex; width: 100%; justify-content: center;"><strong>Your Tasks</strong></div>
-              </div>
-              <%= render 'task_list', reminders: @current_person_tasks, truncate_length: 50 %>
-              <% if @unassigned_tasks.length > 0 %>
-                <div class="task-line">
-                  <div style="display: flex; width: 100%; justify-content: center;"><strong>Unassigned Tasks</strong></div>
-                </div>
-                <%= render 'task_list', reminders: @unassigned_tasks, truncate_length: 50 %>
-              <% end %>
-            <% end %>
-          </div>
+  <!-- <% if @new_submissions.length > 0 %>
+    <div class="container">
+      <div class="card blue-grey darken-1">
+        <div class="card-content white-text">
+          <p>
+            You have <%= @new_submissions.length %> new submission<% if @new_submissions.length > 1 %>s<% end %>. <a href="<%= submissions_path %>" style="color: white; text-decoration:underline;">Check <% if @new_submissions.length > 1 %>them<% else %>it<% end %> out</a>.
+          </p>
         </div>
       </div>
+    </div>
+  <% end %> -->
+
+  <div class="card team-card">
+    <div class="row">
       <div id="contacts" class="col s12" style="position: relative;">
         <nav style="background-color: #ffffff;">
           <div class="nav-wrapper" id="search-nav-wrapper">

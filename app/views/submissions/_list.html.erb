@@ -1,9 +1,9 @@
-<% @submissions.each do |sub| %>
+<% submissions.each do |sub| %>
   <div class="card">
-    <% if sub.embed %>
+    <% if sub.embed && sub.embed != [] %>
       <%= sub.embed %>
     <% end %>
-    <div style="background: #f1f1f1;">
+    <div style="background: #ffffff;">
       <div class="card-content">
         <div class="card-title">
           <%= sub.first_name %> <%= sub.last_name %>
@@ -20,42 +20,49 @@
         </div>
       </div>
     </div>
-    <div class="card-content">
-      <% sub.submission_values.each do |value| %>
-        <% if value.date_value %>
-          <p style="display: flex; justify-content: space-between;">
-            <%= value.contact_property.property %>:
-            <strong><%= value.display_value.strftime("%B #{value.display_value.day.ordinalize}, %Y") %></strong>
-          </p>
-        <% elsif value.number_value %>
-          <p style="display: flex; justify-content: space-between;">
-            <%= value.contact_property.property %>:
-            <strong><%= value.display_value %></strong>
-          </p>
-        <% elsif value.value && value.value.length > 0 %>
-          <p style="display: flex; justify-content: space-between;">
-            <%= value.contact_property.property %>:
-            <%= value.display_value %>
-          </p>
-        <% else %>
+    <div style="background: #ffffff;" class="card-content">
+
+      <table>
+        <tbody>
+
+        <% sub.submission_values.each do |value| %>
+          <% if value.date_value %>
+            <tr>
+              <td><%= value.contact_property.property %>:</td>
+              <td><strong><%= value.display_value.strftime("%B #{value.display_value.day.ordinalize}, %Y") %></strong></td>
+            </tr>
+          <% elsif value.number_value %>
+              <tr>
+                <td><%= value.contact_property.property %>:</td>
+                <td><strong><%= value.display_value %></strong></td>
+              </tr>
+          <% elsif value.value && value.value.length > 0 %>
+            <tr>
+              <td style="color: #7d7d7d;"><%= value.contact_property.property %>:</td>
+              <td><strong><%= value.display_value %></strong></td>
+            </tr>
+          <% else %>
+          <% end %>
+
         <% end %>
 
-      <% end %>
+        </tbody>
+      </table>
     </div>
-    <div style="background: #f1f1f1;">
+    <div style="background: #ffffff;">
       <div class="card-content" style="display:flex; justify-content: center;">
         <div>
 
-          <%= link_to submission_path(sub, submission: {status: "yes"}), method: :put, remote: true, style: "margin: 20px;", class: "waves-effect waves-light btn green" do %>
-            Yes
+          <%= link_to submission_path(sub, submission: {status: "approved"}), method: :put, remote: true, style: "margin: 20px;", class: "waves-effect waves-light btn green-text white" do %>
+            <span>👍	&nbsp; 	&nbsp;I approve</span>
           <% end %>
 
-          <%= link_to submission_path(sub, submission: {status: "No"}), method: :put, remote: true, style: "margin: 20px;", class: "waves-effect waves-light btn red" do %>
-            No
+          <%= link_to submission_path(sub, submission: {status: "rejected"}), method: :put, remote: true, style: "margin: 20px;", class: "waves-effect waves-light btn red-text white" do %>
+            👎 	&nbsp; &nbsp; I'll pass
           <% end %>
 
-          <%= link_to submission_path(sub, submission: {status: "Maybe"}), method: :put, remote: true, style: "margin: 20px;", class: "waves-effect waves-light btn grey" do %>
-            Maybe
+          <%= link_to submission_path(sub, submission: {status: "maybe"}), method: :put, remote: true, style: "margin: 20px;", class: "waves-effect waves-light btn grey-text white" do %>
+            🤔 	&nbsp; 	&nbsp; Maybe
           <% end %>
 
         </div>
@@ -64,3 +71,27 @@
 
   </div>
 <% end %>
+
+<script>
+
+  $(".btn").click(function(){
+    // Holds the product ID of the clicked element
+    // $(this).closest(".card").hide('slide',{direction:'right'},1000);
+
+    $(this).closest(".card").animate(
+                        {
+                            'margin-left':'3000px',
+                            'opacity':'0'
+                        },1300,
+                        function(){
+                            $(this).slideUp('fast');
+                        }
+                        );
+
+
+    // $(this).closest(".card").animate({right: 0, opacity: 0}, 'slow', function() {
+    //     $(this).closest(".card").remove();
+    // });
+  });
+
+</script>

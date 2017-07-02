@@ -1,0 +1,9 @@
+<% if approved_submissions.length == 0 %>
+  <div class="card">
+    <div class="card-content">
+      <p>No approved submissions. :( </p>
+    </div>
+  </div>
+<% else %>
+  <%= render 'list', submissions: approved_submissions %>
+<% end %>

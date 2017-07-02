@@ -2,8 +2,7 @@ class RemindersController < ApplicationController
   before_action :authenticate_person!
 
   before_action :set_reminder, only: [:show, :edit, :update, :destroy]
-
-  before_action :active_org
+  before_action :active_org, :set_current_person_tasks, :set_unassigned_tasks, :set_new_submissions, :get_due_tasks
 
   layout "relate"
 
@@ -11,6 +10,9 @@ class RemindersController < ApplicationController
   # GET /reminders.json
   def index
     @reminders = Reminder.all
+
+    @contacts = @active_org.contacts
+
   end
 
   # GET /reminders/1
@@ -28,13 +30,11 @@ class RemindersController < ApplicationController
     # @admins_options = [
     #   ["#{current_person.first_name} #{current_person.last_name}", current_person.id, {disabled: false, selected: true}],
     # ]
-    @admins_options = []
+    @admins_options = [["Unnassigned", nil]]
 
     available_admins.each do |admin|
       @admins_options << ["#{admin.first_name} #{admin.last_name}", admin.id]
     end
-
-    puts @admins_options
 
     if params[:contact]
       @contact = Contact.find(params[:contact])
@@ -55,11 +55,10 @@ class RemindersController < ApplicationController
   # GET /reminders/1/edit
   def edit
     @contact = @reminder.contact
-    @contact_id = @reminder.contact.id
 
     available_admins = @active_org.admins
 
-    @admins_options = []
+    @admins_options = [["Unnassigned", nil]]
 
     available_admins.each do |admin|
       @admins_options << ["#{admin.first_name} #{admin.last_name}", admin.id]
@@ -77,15 +76,21 @@ class RemindersController < ApplicationController
 
     available_admins = @active_org.admins
 
-    @admins_options = []
+    @admins_options = [["Unnassigned", nil]]
 
     available_admins.each do |admin|
       @admins_options << ["#{admin.first_name} #{admin.last_name}", admin.id]
     end
 
+    redirect = reminders_path
+
+    if @reminder.contact
+      redirect = @reminder.contact
+    end
+
     respond_to do |format|
       if @reminder.save
-        format.html { redirect_to @reminder.contact, notice: 'Reminder was successfully created.' }
+        format.html { redirect_to redirect, notice: 'Reminder was successfully created.' }
         format.js   {}
         format.json { render :show, status: :created, location: @reminder }
       else
@@ -101,25 +106,25 @@ class RemindersController < ApplicationController
     @contact = @reminder.contact
     @contacts = @active_org.contacts
 
-    @current_person_tasks = Reminder.where(assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
-    @unassigned_tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").where(assignee_id: nil).order(:next_date)
-
-
-
-    if request.referer.present? && URI(request.referer).path == '/contacts'
+    if request.referer.present? && URI(request.referer).path == '/reminders'
       @reminders = Reminder.where(assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
-      @current_person_tasks = Reminder.where(assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
-      @unassigned_tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").where(assignee_id: nil).order(:next_date)
 
       @truncate_length = 50
     else
-      @reminders = @contact.reminders
+
+      if @contact
+        @reminders = @contact.reminders.where.not(status: "archived").order(:next_date)
+      else
+        @reminders = []
+      end
+
+
       @truncate_length = 20
     end
 
     respond_to do |format|
       if @reminder.update(reminder_params)
-        format.html { redirect_to @contact, notice: 'Reminder was successfully updated.' }
+        format.html { redirect_to reminders_path, notice: 'Reminder was successfully updated.' }
         format.js   {}
         format.json { render :show, status: :ok, location: @reminder }
       else
@@ -132,10 +137,15 @@ class RemindersController < ApplicationController
   # DELETE /reminders/1
   # DELETE /reminders/1.json
   def destroy
-    @contact = @reminder.contact
+
+    redirect = reminders_path
+    if @reminder.contact
+      redirect = @reminder.contact
+    end
+
     @reminder.destroy
     respond_to do |format|
-      format.html { redirect_to @contact, notice: 'Reminder was successfully destroyed.' }
+      format.html { redirect_to redirect, notice: 'Reminder was successfully destroyed.' }
       format.json { head :no_content }
     end
   end

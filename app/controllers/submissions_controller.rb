@@ -2,10 +2,16 @@ class SubmissionsController < ApplicationController
   layout "relate"
 
   before_action :authenticate_person!
-  before_action :active_org
+  before_action :active_org, :set_current_person_tasks, :set_unassigned_tasks, :set_new_submissions, :get_due_tasks
 
   def index
-    @submissions = @active_org.submissions.where(status: "new").order('updated_at DESC')
+    # @new_submissions = @active_org.submissions.where(status: "new").order('updated_at DESC')
+    @approved_submissions = @active_org.submissions.where(status: "approved").order('updated_at DESC')
+    @rejected_submissions = @active_org.submissions.where(status: "rejected").order('updated_at DESC')
+    @maybe_submissions = @active_org.submissions.where(status: "maybe").order('updated_at DESC')
+
+    @contacts = @active_org.contacts
+
   end
 
   def update
@@ -37,7 +43,12 @@ class SubmissionsController < ApplicationController
 
     respond_to do |format|
       if @submission.update(formatted_params)
-        @submissions = @active_org.submissions.where(status: "new").order('updated_at DESC')
+
+        @new_submissions = @active_org.submissions.where(status: "new").order('updated_at DESC')
+        @approved_submissions = @active_org.submissions.where(status: "approved").order('updated_at DESC')
+        @rejected_submissions = @active_org.submissions.where(status: "rejected").order('updated_at DESC')
+        @maybe_submissions = @active_org.submissions.where(status: "maybe").order('updated_at DESC')
+
         format.js {}
       else
         format.html { render :index }
