@@ -1,6 +1,6 @@
 class ProfilesController < ApplicationController
   before_action :authenticate_person!, :set_person
-  before_action :active_org
+  before_action :active_org, :set_current_person_tasks, :set_unassigned_tasks, :set_new_submissions, :get_due_tasks
 
   layout :set_layout
 
