@@ -137,10 +137,15 @@ class RemindersController < ApplicationController
   # DELETE /reminders/1
   # DELETE /reminders/1.json
   def destroy
-    @contact = @reminder.contact
+
+    redirect = reminders_path
+    if @reminder.contact
+      redirect = @reminder.contact
+    end
+
     @reminder.destroy
     respond_to do |format|
-      format.html { redirect_to @contact, notice: 'Reminder was successfully destroyed.' }
+      format.html { redirect_to redirect, notice: 'Reminder was successfully destroyed.' }
       format.json { head :no_content }
     end
   end
