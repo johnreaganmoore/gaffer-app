@@ -1,1 +1,4 @@
-$("#submission-list-container").html("<%= escape_javascript(render partial: 'list', locals: { submissions: @submissions } ) %>");
+$("#new-submission-list-container").html("<%= escape_javascript(render partial: 'new_submissions', locals: { new_submissions: @new_submissions } ) %>");
+$("#approved-submission-list-container").html("<%= escape_javascript(render partial: 'approved_submissions', locals: { approved_submissions: @approved_submissions } ) %>");
+$("#rejected-submission-list-container").html("<%= escape_javascript(render partial: 'rejected_submissions', locals: { rejected_submissions: @rejected_submissions } ) %>");
+$("#maybe-submission-list-container").html("<%= escape_javascript(render partial: 'maybe_submissions', locals: { maybe_submissions: @maybe_submissions } ) %>");

@@ -20,8 +20,13 @@ class Submission < ApplicationRecord
   def embed
     self.submission_values.each do |value|
       result = self.iframely(value.display_value)
-      return result
+      if result
+        return result
+      end
     end
+
+    false
+
   end
 
   def notify_zapier

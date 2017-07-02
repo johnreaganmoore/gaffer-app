@@ -1,11 +1,40 @@
-<div id="submission-list-container" class="container">
-  <% if @submissions.length == 0 %>
-    <div class="card">
-      <div class="card-content">
-        <p>No new submissions. You're all done here!</p>
+<div style="margin: 0px;">
+
+  <!-- <div class="card team-card" style="margin: 0px;"> -->
+    <div class="row" style="background: #ffffff;">
+      <div class="col s12">
+        <ul class="tabs">
+          <li class="tab col s3">
+            <a class="active" href="#new">
+              New
+            </a>
+          </li>
+          <li class="tab col s3"><a href="#approved">Approved</a></li>
+          <li class="tab col s3"><a href="#rejected">Rejected</a></li>
+          <li class="tab col s3"><a href="#maybe">Maybe</a></li>
+        </ul>
+      </div>
+      <div id="new" class="col s12" style="position: relative; background: #f8f6f8;">
+        <div id="new-submission-list-container" class="container">
+          <%= render 'new_submissions', new_submissions: @new_submissions %>
+        </div>
+      </div>
+      <div id="approved" class="col s12" style="position: relative; background: #f8f6f8;">
+        <div id="approved-submission-list-container" class="container">
+          <%= render 'approved_submissions', approved_submissions: @approved_submissions %>
+        </div>
+      </div>
+      <div id="rejected" class="col s12" style="position: relative; background: #f8f6f8;">
+        <div id="rejected-submission-list-container" class="container">
+          <%= render 'rejected_submissions', rejected_submissions: @rejected_submissions %>
+        </div>
+      </div>
+      <div id="maybe" class="col s12" style="position: relative; background: #f8f6f8;">
+        <div id="maybe-submission-list-container" class="container">
+          <%= render 'maybe_submissions', maybe_submissions: @maybe_submissions %>
+        </div>
       </div>
     </div>
-  <% else %>
-    <%= render 'list', submissions: @submissions %>
-  <% end %>
+
+  <!-- </div> -->
 </div>

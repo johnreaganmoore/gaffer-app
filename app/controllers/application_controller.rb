@@ -14,6 +14,30 @@ class ApplicationController < ActionController::Base
     end
   end
 
+  def set_current_person_tasks
+    @current_person_tasks = Reminder.where(assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
+  end
+
+  def set_unassigned_tasks
+    @unassigned_tasks = Reminder.where(contact_id: @active_org.contacts.ids).where.not(status: "archived").where(assignee_id: nil).order(:next_date)
+  end
+
+  def set_new_submissions
+    @new_submissions = @active_org.submissions.where(status: "new").order('updated_at DESC')
+  end
+
+  def get_due_tasks
+    @due_tasks = []
+
+    @current_person_tasks.where(status: "incomplete").each do |task|
+      if task.next_date <= Date.today
+        @due_tasks << task
+      end
+    end
+
+    @due_tasks
+  end
+
   def set_layout
     if request.subdomain == "register" && current_person
       return "league_admin"

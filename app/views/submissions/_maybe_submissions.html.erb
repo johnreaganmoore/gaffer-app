@@ -1,0 +1,9 @@
+<% if maybe_submissions.length == 0 %>
+  <div class="card">
+    <div class="card-content">
+      <p>No maybe submissions. You're all done here! :) </p>
+    </div>
+  </div>
+<% else %>
+  <%= render 'list', submissions: maybe_submissions %>
+<% end %>
