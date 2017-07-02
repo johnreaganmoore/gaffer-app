@@ -1,31 +1,54 @@
-<p id="notice"><%= notice %></p>
+<div class="row" style="background: #ffffff;">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s6"><a class="active" href="#my-tasks">My Tasks</a></li>
+      <li class="tab col s6"><a href="#unassigned">Unassigned</a></li>
+    </ul>
+  </div>
+</div>
 
-<h1>Reminders</h1>
+<div class="container">
+  <div id="my-tasks" class="col s12">
+    <div class="card team-card">
+      <div class="card-content">
+        <div id="cp_task_list_container">
 
-<table>
-  <thead>
-    <tr>
-      <th>Label</th>
-      <th>Next date</th>
-      <th>Interval</th>
-      <th colspan="3"></th>
-    </tr>
-  </thead>
+          <% if @current_person_tasks.length == 0 %>
+            <div style="width: 100%; text-align: center;">Good work. <br>You have no outstanding tasks. </div>
+          <% else %>
+            <%= render 'contacts/task_list', reminders: @current_person_tasks, truncate_length: 50 %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div id="unassigned" class="col s12" style="position: relative;">
 
-  <tbody>
-    <% @reminders.each do |reminder| %>
-      <tr>
-        <td><%= reminder.label %></td>
-        <td><%= reminder.next_date %></td>
-        <td><%= reminder.interval %></td>
-        <td><%= link_to 'Show', reminder %></td>
-        <td><%= link_to 'Edit', edit_reminder_path(reminder) %></td>
-        <td><%= link_to 'Destroy', reminder, method: :delete, data: { confirm: 'Are you sure?' } %></td>
-      </tr>
-    <% end %>
-  </tbody>
-</table>
+    <div class="card team-card">
+      <div class="card-content">
+        <div id="ua_task_list_container">
 
-<br>
+          <% if @unassigned_tasks.length == 0 %>
+            <div style="width: 100%; text-align: center;">No unassigned tasks. </div>
+          <% else %>
+            <%= render 'contacts/task_list', reminders: @unassigned_tasks, truncate_length: 50 %>
+          <% end %>
 
-<%= link_to 'New Reminder', new_reminder_path %>
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large">
+    <i class="large material-icons">add</i>
+  </a>
+  <ul>
+    <li><a class="btn-floating tooltipped" data-position="left" data-delay="70" data-tooltip="Contact" href="<%= new_contact_path %>"><i class="material-icons">person_add</i></a></li>
+    <li><a class="btn-floating tooltipped" data-position="left" data-delay="70" data-tooltip="Task" href="<%= new_reminder_path %>"><i class="material-icons">check_box</i></a></li>
+    <li><a class="btn-floating tooltipped" data-position="left" data-delay="70" data-tooltip="Email" href="<%= contact_new_email_path %>"><i class="material-icons">mail_outline</i></a></li>
+    <li><a class="btn-floating tooltipped" data-position="left" data-delay="70" data-tooltip="Note" href="<%= new_note_path %>"><i class="material-icons">note_add</i></a></li>
+  </ul>
+</div>

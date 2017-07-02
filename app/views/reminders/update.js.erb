@@ -1,4 +1,6 @@
-$("#task_list_container").html("<%= escape_javascript(render partial: 'contacts/task_list', locals: { reminders: @reminders, truncate_length: @truncate_length } ) %>");
+$("#cp_task_list_container").html("<%= escape_javascript(render partial: 'contacts/task_list', locals: { reminders: @current_person_tasks, truncate_length: @truncate_length } ) %>");
+$("#ua_task_list_container").html("<%= escape_javascript(render partial: 'contacts/task_list', locals: { reminders: @unassigned_tasks, truncate_length: @truncate_length } ) %>");
+$("#contact_task_list_container").html("<%= escape_javascript(render partial: 'contacts/task_list', locals: { reminders: @reminders, truncate_length: @truncate_length } ) %>");
 
 $("ul.tabs").tabs({
   onShow: function(tab) {

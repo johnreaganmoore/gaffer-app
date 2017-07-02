@@ -1,7 +1,7 @@
 class ContactsController < ApplicationController
   before_action :authenticate_person!
   before_action :set_contact, only: [:show, :edit, :update, :destroy]
-  before_action :active_org
+  before_action :active_org, :set_current_person_tasks, :set_unassigned_tasks, :set_new_submissions, :get_due_tasks
 
   layout "relate"
 
@@ -9,31 +9,8 @@ class ContactsController < ApplicationController
   # GET /contacts.json
   def index
     @contacts = @active_org.contacts
-    # @contact_list = @contacts.map do |c|
-    #
-    #   if c.next_reminder != nil && c.next_reminder < Date.today
-    #     next_date = nil
-    #   else
-    #     next_date = c.next_reminder
-    #   end
-    #
-    #   c_tags = c.tags.map {|tag| tag.name }
-    #
-    #   {
-    #     id: c.id,
-    #     first_name: c.first_name,
-    #     last_name: c.last_name,
-    #     tags: c_tags,
-    #     next_reminder: next_date,
-    #     latest_activity: c.latest_activity
-    #   }
-    # end
-    # @js_contacts = @contact_list.to_json
 
     @table_property_names = @active_org.contact_properties.ids
-
-    @current_person_tasks = Reminder.where(assignee_id: current_person.id).where.not(status: "archived").order(:next_date)
-    @unassigned_tasks = Reminder.where(contact_id: @contacts.ids).where.not(status: "archived").where(assignee_id: nil).order(:next_date)
 
     respond_to do |format|
       format.html
@@ -56,7 +33,7 @@ class ContactsController < ApplicationController
     # @admins_options = [
     #   ["#{current_person.first_name} #{current_person.last_name}", current_person.id, {disabled: false, selected: true}],
     # ]
-    @admins_options = []
+    @admins_options = [["Unnassigned", nil]]
 
     available_admins.each do |admin|
       @admins_options << ["#{admin.first_name} #{admin.last_name}", admin.id]

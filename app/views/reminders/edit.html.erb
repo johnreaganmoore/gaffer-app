@@ -2,7 +2,7 @@
   <div class="card">
     <div class="card-content">
       <div class="card-title">
-        Edit reminder for <%= @reminder.contact.first_name %> <%= @reminder.contact.last_name %>
+        Edit task
       </div>
     </div>
 
@@ -20,9 +20,12 @@
           </div>
         <% end %>
 
-        <div class="field">
-          <%= f.hidden_field :contact_id, value: @contact.id %>
-        </div>
+
+        <% if @contact %>
+          <div class="field">
+            <%= f.hidden_field :contact_id, value: @contact.id %>
+          </div>
+        <% end %>
 
         <div class="row">
           <div class="input-field col s12">
