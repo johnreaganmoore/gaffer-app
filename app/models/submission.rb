@@ -61,6 +61,7 @@ class Submission < ApplicationRecord
     hooks.each do |hook|
 
       puts body.inspect
+      puts headers.inspect
       puts hook.inspect
 
       response = HTTParty.post(
