@@ -40,7 +40,7 @@ class Submission < ApplicationRecord
     body = body_hash.to_json
 
     headers = {
-      "Content-Type" => "application/json"
+      'Content-Type' => 'application/json'
     }
     admins = self.org.admins
 
@@ -61,11 +61,10 @@ class Submission < ApplicationRecord
     hooks.each do |hook|
 
       puts body.inspect
-      puts headers.inspect
       puts hook.inspect
 
       response = HTTParty.post(
-        hook.target_url, { body: body, headers: headers }
+        hook.target_url, { body: body }
       )
     end
 
