@@ -33,7 +33,6 @@ class Submission < ApplicationRecord
 
     body_hash = self.attributes
 
-
     self.submission_values.each do |sv|
       body_hash["#{sv.contact_property.property}"] = sv.display_value
     end
@@ -46,6 +45,8 @@ class Submission < ApplicationRecord
     admins = self.org.admins
 
     hooks = []
+
+    puts body.inspect
 
     admins.each do |admin|
 
@@ -61,7 +62,6 @@ class Submission < ApplicationRecord
       response = HTTParty.post(
         hook.target_url, { body: body, headers: headers }
       )
-      puts response.inspect
     end
 
   end

@@ -1,7 +1,7 @@
 class EmailTemplatesController < ApplicationController
   before_action :authenticate_person!
   before_action :set_email_template, only: [:show, :edit, :update, :destroy]
-  before_action :active_org
+  before_action :active_org, :set_current_person_tasks, :set_unassigned_tasks, :set_new_submissions, :get_due_tasks
 
   layout "relate"
 
