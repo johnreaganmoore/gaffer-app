@@ -153,6 +153,32 @@ class Contact < ApplicationRecord
           )
   end
 
+  def send_batch_email(recipients, subject, body, sender)
+    puts org.inspect, recipients.inspect, subject, body
+    mg_client = Mailgun::Client.new ENV['mailgun_api_key']
+
+    # Create a Batch Message object, pass in the client and your domain.
+    mb_obj = Mailgun::BatchMessage.new(mg_client, "playonside.com")
+
+    # Define the from address.
+    mb_obj.from(sender.email, {"first"=>sender.first_name, "last" => sender.last_name});
+
+    # Define the subject.
+    mb_obj.subject(subject);
+
+    # Define the body of the message.
+    mb_obj.body_text(body);
+
+    # Loop through all of your recipients
+    recipients.each do |recipient|
+      mb_obj.add_recipient(:to, recipient[:email], {"first" => recipient.first_name, "last" => recipient.last_name});
+    end
+
+    # Call finalize to get a list of message ids and totals.
+    message_ids = mb_obj.finalize
+    # {'id1234@example.com' => 1000, 'id5678@example.com' => 15}
+
+  end
 
 
 end

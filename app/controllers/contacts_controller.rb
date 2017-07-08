@@ -299,13 +299,19 @@ class ContactsController < ApplicationController
         format.json { head :no_content }
       end
     elsif email_params[:contact_list]
+
+      recipientsArr = []
+
       ActiveSupport::JSON.decode(email_params[:contact_list]).each do |contact_id|
         recipient = Contact.find(contact_id)
 
         if recipient.email.length > 0
-          recipient.send_email(email_params[:subject], email_params[:body], current_person)
+          recipientsArr << recipient
+          # recipient.send_email(email_params[:subject], email_params[:body], current_person)
         end
       end
+
+      current_person.send_batch_email(recipientsArr, email_params[:subject], email_params[:body], current_person)
 
       redirect_to :contacts, notice: "You are keeping relationships alive! Email sent to #{email_params[:contact_list].length} contacts."
 
