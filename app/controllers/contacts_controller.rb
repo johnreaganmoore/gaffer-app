@@ -305,7 +305,7 @@ class ContactsController < ApplicationController
       ActiveSupport::JSON.decode(email_params[:contact_list]).each do |contact_id|
         recipient = Contact.find(contact_id)
 
-        if recipient.email.length > 0
+        if recipient && recipient.email.length > 0
           recipientsArr << recipient
           # recipient.send_email(email_params[:subject], email_params[:body], current_person)
         end
