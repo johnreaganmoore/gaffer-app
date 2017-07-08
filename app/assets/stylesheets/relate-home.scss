@@ -1,3 +1,20 @@
+@mixin aspect-ratio($width, $height) {
+  position: relative;
+  &:before {
+    display: block;
+    content: "";
+    width: 100%;
+    padding-top: ($height / $width) * 100%;
+  }
+  > .content {
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+  }
+}
+
 .relate-hero {
   background-color: #393939;
   min-height: 400px;
@@ -7,7 +24,7 @@
 
 .relate-title {
   color: #f2f2f2;
-  font-size: 3rem;
+  font-size: 2.5rem;
   font-weight: 600;
   text-align: center;
 }
@@ -26,7 +43,21 @@
   color: #f2f2f2;
 }
 
-
 .home-sub-section .pricing {
   width: auto;
+}
+
+.gif.submission {
+  @include aspect-ratio(864, 1386);
+
+  // max-height: 667px;
+  // max-width: 300px;
+  background-size: 100%;
+  background-image: image-url("submission.png");
+  margin: auto; /*position the [div] on the center*/
+
+  &:hover {
+    cursor:pointer;
+    background-image: image-url("submission.png");
+  }
 }

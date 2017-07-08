@@ -1,6 +1,10 @@
 <table class="bordered responsive-table highlight">
  <thead>
    <tr>
+       <th>
+         <input type="checkbox" id="select-all" />
+         <label for="select-all"></label>
+       </th>
        <th class="sort" data-sort="name" data-field="name">Name</th>
        <% if current_person.show_contact_tags_in_table %>
          <th class="sort" data-sort="tags" data-field="tags">Tags</th>
@@ -27,6 +31,10 @@
  <tbody class="list">
    <% contacts.each do |contact| %>
     <tr>
+      <td style="display: flex; justify-content: center; align-items: center;">
+        <input type="checkbox" id="select-<%= contact.id %>" />
+        <label for="select-<%= contact.id %>"></label>
+      </td>
       <td>
         <%= link_to contact_path(contact.id), class: "name" do %>
           <%= contact.last_name %>, <%= contact.first_name %>
@@ -94,3 +102,52 @@
  </tbody>
 
 </table>
+
+
+<script>
+
+  function remove(arr, what) {
+    var found = arr.indexOf(what);
+    while (found !== -1) {
+        arr.splice(found, 1);
+        found = arr.indexOf(what);
+    }
+  }
+
+  var idsArray = []
+
+  $( 'input[type=checkbox]' ).change(function() {
+      var checkboxes = document.getElementsByTagName('input');
+      if (this.id == "select-all") {
+         if (this.checked) {
+             for (var i = 0; i < checkboxes.length; i++) {
+                 if (checkboxes[i].type == 'checkbox') {
+                     checkboxes[i].checked = true;
+                     if (checkboxes[i].id !== 'select-all') {
+                        idsArray.push(checkboxes[i].id.replace('select-',''))
+                     }
+                 }
+             }
+         } else {
+             for (var i = 0; i < checkboxes.length; i++) {
+                 if (checkboxes[i].type == 'checkbox') {
+                     checkboxes[i].checked = false;
+
+                     if (checkboxes[i].id !== 'select-all') {
+                       remove(idsArray, checkboxes[i].id.replace('select-',''))
+                     }
+
+                 }
+             }
+         }
+      } else {
+
+        if (this.checked) {
+          idsArray.push(this.id.replace('select-',''))
+        } else {
+          remove(idsArray, this.id.replace('select-',''))
+        }
+
+      }
+  });
+</script>
