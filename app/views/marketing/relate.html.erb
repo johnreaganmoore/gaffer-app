@@ -4,38 +4,157 @@
     <div class="relate-hero">
       <div class="container">
 
-        <div style="display: flex; justify-content: center; margin-top: 30px; margin-bottom: 30px;">
-          <%= image_tag "ds-tongue.png", style: "max-height: 250px;", width: "auto"  %>
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 60px; margin-bottom: 60px;">
+          <div class="relate-title" style="width: 100%;">
+            Dead simple recruiting for real live coaches
+          </div>
+
+          <div class="relate-desc flow-text" style="width: 100%;">
+            Focus on building your program. We've got the boring 🤓 stuff covered.
+          </div>
         </div>
 
-        <div class="relate-title">
-          For real live humans, not salespeople.
-        </div>
-        <!-- <div class="relate-desc flow-text">
-          Use our dead simple system to connect with your people.
-        </div> -->
+        <%= image_tag "players-shot.png", style: "width: 100%; margin-top: 30px; margin-bottom: 30px;"  %>
 
-        <div class="center-align" style="margin-top: 50px; margin-bottom: 50px;">
-          <%= link_to "Get Started", "#pricing", class: "btn waves-effect" %>
-        </div>
       </div>
     </div>
   </div>
 
-  <div id="first-container" class="container">
-    <div id="subfinder-demo-section" class="home-section">
-      <div class="home-section-header">
-        <h2>Connect with your people.</h2>
-      </div>
-      <div class="home-sub-section-container">
-        <div>
-          <p class="flow-text">
-            If you want a tool designed for sales, with all the bells and whistles keep looking.<br>
-            <br>
-            If you want something <b>simple</b> that just helps you stay on top of your important <b>relationships</b>, give us a shot.
-          <p>
+  <div id="social-proof" class="container">
+    <div class="card row" style="padding:30px; background-color: #f3f3f3;">
+        <div style="display: flex; flex-direction: column; justify-content: center; align-items: center;" class="col s12 m4 l3">
+          <%= image_tag "horth.jpg", style: "width: 100px; margin-top: 30px; margin-bottom: 30px; border-radius:100%;"  %>
+          <div>Matt Horth </div>
+          <div>Men's Soccer Coach </div>
+          <div>Gordon College </div>
         </div>
+        <div style="padding: 60px; text-align: center;" class="flow-text col s12 m8 l9">
+          "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco."
+        </div>
+    </div>
+  </div>
+
+
+  <div class="container">
+    <div class="home-section">
+      <div class="home-sub-section-container">
+        <p class="flow-text" style="margin-bottom: 50px;">Simplify your recruiting process now, you’ll be all set by <b><span id="done-time" style="letter-spacing: 1px"></span></b></p>
+        <%= link_to "Start Free Trial", new_person_registration_path(plan: "free"), class: "btn blue white-text waves-effect waves-blue" %>
       </div>
+    </div>
+  </div>
+
+
+  <div id="features" class="home-section">
+    <!-- <div class="home-section-header">
+      <h2>Simple Online Registration</h2>
+    </div> -->
+    <div class="home-sub-section-container">
+      <!-- <div style="margin-bottom: 50px;">We believe a simple and effective tool is more powerful than a complex tool with lots of bells and whistles. With Onside you can have online registration without changing your infrastructure or workflow.</div> -->
+
+      <!-- <div class="row">
+        <div class="col l8 m8 s12"> -->
+          <div class="home-sub-section">
+            <div class="home-sub-section-header" style="text-align: left; align-items: left;">
+              <h2 style="text-align: left;">Quickly review recruit profiles</h2>
+              <h3 style="text-align: left; margin-top: 30px;">Watch highlight videos, review stats and basic info easily on your computer or on your phone, and quickly decide if they are a fit for your program.</h3>
+            </div>
+          </div>
+
+
+          <div class="home-sub-section">
+            <div class="container">
+              <div class="home-sub-section-img card">
+                <div class="gif submission"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-sub-section">
+            <div class="home-sub-section-header">
+              <h2>Simple recruit database</h2>
+              <h3>Keep track of everyone in your pipeline.</h3>
+            </div>
+          </div>
+
+          <div class="home-sub-section">
+            <div class="container">
+              <div class="home-sub-section-img card">
+                <div class="gif season_page"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-sub-section">
+            <div class="home-sub-section-header">
+              <h2>Streamline your emailing process</h2>
+              <h3>Use email templates, email tracking, and automated emails to stay on top of your recruit communication.</h3>
+            </div>
+          </div>
+
+          <div class="home-sub-section">
+            <div class="container">
+              <div class="home-sub-section-img card">
+                <div class="gif checkout_page"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-sub-section">
+            <div class="home-sub-section-header">
+              <h2>Assign tasks to your team</h2>
+              <h3>Assign tasks to you and your staff. Get reminders when the due date is coming up.</h3>
+            </div>
+          </div>
+
+          <div class="home-sub-section">
+            <div class="container">
+              <div class="home-sub-section-img card">
+                <div class="gif captains_list"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-sub-section">
+            <div class="home-sub-section-header">
+              <h2>Track info on a recruit with notes.</h2>
+              <h3>See all activity for a recruit in a stream of notes, tasks and emails.</h3>
+            </div>
+          </div>
+
+          <div class="home-sub-section">
+            <div class="container">
+              <div class="home-sub-section-img card">
+                <div class="gif captains_list"></div>
+              </div>
+            </div>
+          </div>
+
+          <div class="home-sub-section">
+              <h2>Easily integrate with hundreds of tools you already know and love.</h2>
+              <h3>See all activity for a recruit in a stream of notes, tasks and emails.</h3>
+          </div>
+
+        <!-- </div> -->
+        <!-- <div class="home-sub-section"> -->
+
+          <div class="container">
+            <div class="card blue-grey darken-1">
+              <div class="card-image">
+                <img src="<%= image_path 'foosball.jpg' %>">
+                <span class="card-title" style="background: rgba(84,110,122,0.4); width: 100%;">We are on your team</span>
+              </div>
+              <div class="card-content white-text">
+                <p>We believe that our customers are partners in the soccer business. Your success is our success.</p><br>
+                <p>We are available via live chat on the site, by email, or by phone to help you.</p><br>
+                <p> We want you to be successful, and we want to help. Please get in touch with any questions.</p>
+              </div>
+            </div>
+          </div>
+        <!-- </div> -->
+
+      <!-- </div> -->
+
     </div>
   </div>
 

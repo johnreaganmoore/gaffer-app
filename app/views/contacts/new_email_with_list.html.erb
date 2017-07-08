@@ -1,0 +1,80 @@
+<div class="container">
+  <div class="card">
+    <div class="card-content">
+      <div class="card-title">
+        Send an email
+      </div>
+    </div>
+
+    <%= form_tag('/contact_email') do |f| %>
+      <div class="card-content">
+
+        <%= @contacts.inspect %>
+
+        <div class="row" style="display: flex; align-items: baseline;">
+          <div class="input-field col s8 m8 l8">
+            <%= select_tag :template_select, options_for_select(@template_select_options) %>
+          </div>
+          <div class="input-field col s4 m4 l4">
+            <%= link_to 'Email Templates', email_templates_path %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <%= text_field_tag :subject %>
+            <%= label_tag :subject %>
+          </div>
+        </div>
+
+        <div class="row">
+          <div class="input-field col s12">
+            <%= text_area_tag :body, nil, class: "materialize-textarea" %>
+            <%= label_tag :body %>
+          </div>
+        </div>
+        <!-- <%= hidden_field_tag :body %>
+
+        <div class="editable">
+        </div> -->
+
+      </div>
+      <div class="edit-profile-actions card-action">
+        <%= button_tag(id: "submit", type: 'submit', class: "btn waves-effect waves-light") do %>
+          Send Email
+        <% end %>
+      </div>
+    <% end %>
+
+    <script>
+
+      $( document ).on('ready', function() {
+        $('#template_select').material_select('destroy');
+        $('#template_select').material_select();
+      });
+
+      var email_templates = <%= raw json_escape(@email_templates.to_json) %>
+
+      $('#template_select').material_select('destroy');
+      $('#template_select').material_select();
+
+      $('#template_select').change(function() {
+
+        var template = $.grep(email_templates, function(e){ return e.id == $('#template_select').val(); })[0];
+        // console.log($('#template_select').val());
+
+        var template_body = $.parseHTML(`<div>${template.body}</div>`)
+
+        $('#body').val(template.body)
+        $('#body').trigger('autoresize');
+        $('#body').focus();
+
+        console.log(template_body)
+
+      });
+
+    </script>
+
+
+  </div>
+</div>

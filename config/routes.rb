@@ -21,6 +21,8 @@ Rails.application.routes.draw do
   get 'contacts/batch', to: 'contacts#batch', as: :contacts_batch
   post 'contacts/batch', to: 'contacts#batch_create', as: :contacts_batch_create
   get 'contacts/new_email', to: 'contacts#new_email', as: :contact_new_email
+  get 'contacts/draft_list_email', to: 'contacts#draft_list_email', as: :draft_list_email
+  post 'contacts/new_email_with_list', to: 'contacts#new_email_with_list', as: :post_contact_new_email
   post 'contact_email', to: 'contacts#send_email', as: :contact_email
 
   resources :submissions
@@ -121,6 +123,7 @@ Rails.application.routes.draw do
   get '/', to: 'marketing#register', constraints: { subdomain: 'register' }, as: :register_home
   get '/', to: 'marketing#tryout', constraints: { subdomain: 'tryout' }, as: :tryout_home
   get '/', to: 'marketing#collect', constraints: { subdomain: 'collect' }, as: :collect_home
+  get '/', to: 'marketing#training', constraints: { subdomain: 'training' }, as: :training_home
 
   get '/onboarding', to: 'register_onboarding#profile', constraints: { subdomain: 'register' }
   put '/onboarding', to: 'register_onboarding#update_profile', constraints: { subdomain: 'register' }

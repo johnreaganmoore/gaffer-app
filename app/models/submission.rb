@@ -33,7 +33,6 @@ class Submission < ApplicationRecord
 
     body_hash = self.attributes
 
-
     self.submission_values.each do |sv|
       body_hash["#{sv.contact_property.property}"] = sv.display_value
     end
@@ -41,11 +40,13 @@ class Submission < ApplicationRecord
     body = body_hash.to_json
 
     headers = {
-      "Content-Type": "application/json"
+      'Content-Type' => 'application/json'
     }
     admins = self.org.admins
 
     hooks = []
+
+    puts body.inspect
 
     admins.each do |admin|
 
@@ -58,10 +59,14 @@ class Submission < ApplicationRecord
     end
 
     hooks.each do |hook|
+
+      puts body.inspect
+      puts headers.inspect
+      puts hook.inspect
+
       response = HTTParty.post(
-        hook.target_url, { body: body, headers: headers }
+        hook.target_url, { body: body }
       )
-      puts response.inspect
     end
 
   end

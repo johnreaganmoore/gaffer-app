@@ -608,6 +608,10 @@ class MarketingController < ApplicationController
     @lead = Lead.new
   end
 
+  def training
+    @lead = Lead.new
+  end
+
   def subs
   end
 
