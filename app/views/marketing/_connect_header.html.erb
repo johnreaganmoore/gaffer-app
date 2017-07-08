@@ -1,28 +1,27 @@
 <nav id="connect-header" class="marketing">
   <div class="nav-wrapper">
-     <!-- <a title="Home to Onside Harrisburg" href="/" class="brand-logo">
+     <a title="Home to Onside Harrisburg" href="/" class="brand-logo">
        <div class="logo-container">
-         <%= image_tag "onside.svg", class: "header-logo" %>
+         <%= image_tag "ds-tongue.png", class: "header-logo" %>
        </div>
-     </a> -->
-     <!-- <a id="register-side-menu-icon" href="#" data-activates="connect-side-menu" class="button-collapse hide"><i class="material-icons">menu</i></a> -->
-     <ul class="right">
+     </a>
+     <a id="register-side-menu-icon" href="#" data-activates="connect-side-menu" class="button-collapse"><i class="material-icons" style="color: white;">menu</i></a>
+     <ul class="right hide-on-med-and-down">
        <!-- <li><a href="#demo">Demo</a></li>
        <li><a href="#features">Features</a></li>
        <li><a href="#pricing">Pricing</a></li> -->
-       <li><a href="http://playonside.com">About</a></li>
+       <!-- <li><a href="http://playonside.com">About</a></li> -->
        <li><a href="#pricing">Pricing</a></li>
        <li><a href="<%= new_person_session_path %>">Sign In</a></li>
-       <!-- <li><a class="waves-effect waves-light btn white-text">Sign In</a></li> -->
+       <li><a class="waves-effect waves-light btn blue white-text">Free Trial</a></li>
      </ul>
      <ul class="side-nav" id="connect-side-menu">
        <!-- <li><a href="#demo">Demo</a></li>
        <li><a href="#features">Features</a></li>
        <li><a href="#pricing">Pricing</a></li> -->
-       <li><a href="http://playonside.com">About</a></li>
-       <li><a href="#pricing">Pricing</a></li>
-       <li><a href="<%= new_person_session_path %>">Sign In</a></li>
-       <!-- <li><a class="waves-effect waves-light btn white-text">Sign In</a></li> -->
+       <!-- <li><a href="http://playonside.com">About</a></li> -->
+       <li><a href="<%= new_person_session_path %>" style="color: #424242;">Sign In</a></li>
+       <li><a class="waves-effect waves-light btn white-text">Free Trial</a></li>
      </ul>
   </div>
 </nav>

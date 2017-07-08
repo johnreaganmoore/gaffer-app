@@ -1,0 +1,1 @@
+$("#contacts").html("<%= escape_javascript(render partial: 'contacts/list_email', locals: { contacts: @contacts, template_select_options: @template_select_options, email_templates: @email_templates } ) %>");

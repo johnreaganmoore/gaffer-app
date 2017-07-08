@@ -12,6 +12,13 @@ class ContactsController < ApplicationController
 
     @table_property_names = @active_org.contact_properties.ids
 
+    @email_templates = @active_org.email_templates
+    @template_select_options = [['Blank Email', "0", {disabled: false, selected: true}]]
+    @active_org.email_templates.each do |template|
+      @template_select_options << ["#{template.name}","#{template.id}"]
+    end
+
+
     respond_to do |format|
       format.html
       format.js
@@ -228,6 +235,7 @@ class ContactsController < ApplicationController
 
   def new_email
     # @contact = Contact.new
+
     @email = {}
 
     @email_templates = @active_org.email_templates
@@ -247,14 +255,71 @@ class ContactsController < ApplicationController
 
   end
 
-  def send_email
-    @contact = Contact.find(email_params[:contact_id])
-    @contact.send_email(email_params[:subject], email_params[:body], current_person)
+  def new_email_with_list
 
-    respond_to do |format|
-      format.html { redirect_to @contact, notice: "You are keeping relationships alive! Email sent to #{@contact.email}."  }
-      format.json { head :no_content }
+    @email = {}
+
+    @contacts = []
+
+    ActiveSupport::JSON.decode(params[:contacts]).each do |c_id|
+      @contacts << Contact.find(c_id)
     end
+
+    @email_templates = @active_org.email_templates
+    @template_select_options = [['Blank Email', "0", {disabled: false, selected: true}]]
+    @active_org.email_templates.each do |template|
+      @template_select_options << ["#{template.name}","#{template.id}"]
+    end
+
+    # respond_to do |format|
+    #   format.html { render template: 'contacts/draft_list_email' }
+    #   format.js {}
+    #   format.json { head :no_content }
+    # end
+  end
+
+
+  def send_email
+
+    @contacts = @active_org.contacts
+
+    @table_property_names = @active_org.contact_properties.ids
+
+    @email_templates = @active_org.email_templates
+    @template_select_options = [['Blank Email', "0", {disabled: false, selected: true}]]
+    @active_org.email_templates.each do |template|
+      @template_select_options << ["#{template.name}","#{template.id}"]
+    end
+
+    if email_params[:contact_id]
+      @contact = Contact.find(email_params[:contact_id])
+      @contact.send_email(email_params[:subject], email_params[:body], current_person)
+      respond_to do |format|
+        format.html { redirect_to @contact, notice: "You are keeping relationships alive! Email sent to #{@contact.email}."  }
+        format.json { head :no_content }
+      end
+    elsif email_params[:contact_list]
+
+      recipientsArr = []
+
+      ActiveSupport::JSON.decode(email_params[:contact_list]).each do |contact_id|
+        recipient = Contact.find(contact_id)
+
+        if recipient.email && recipient.email.length > 0
+          recipientsArr << recipient
+          # recipient.send_email(email_params[:subject], email_params[:body], current_person)
+        end
+      end
+
+      current_person.send_batch_email(recipientsArr, email_params[:subject], email_params[:body], current_person)
+
+      redirect_to :contacts, notice: "You are keeping relationships alive! Email sent to #{email_params[:contact_list].length} contacts."
+
+    else
+      redirect_to :contacts, error: "You need to specify a specific contact or contacts to send an email."
+    end
+
+
   end
 
   private
@@ -272,7 +337,7 @@ class ContactsController < ApplicationController
     end
 
     def email_params
-      params.permit(:contact_id, :subject, :body)
+      params.permit(:contact_id, :subject, :body, :contact_list)
     end
 
     def batch_params

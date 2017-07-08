@@ -23,7 +23,11 @@
        <li><a href="<%= reminders_path %>" style="color: #424242;">Tasks <% if @due_tasks.length > 0 %><span class="new badge blue" data-badge-caption="due"><%= @due_tasks.length %></span><% end %></a></li>
        <li><a href="<%= submissions_path %>" style="color: #424242;">Submissions <% if @new_submissions.length > 0 %><span class="new badge blue "><%= @new_submissions.length %></span><% end %></a></li>
      </ul>
-     <a class="dropdown-button hide-on-med-and-down" href="#" data-beloworigin="true" data-activates="dropdown1"><%= current_person.email %><i class="material-icons right">arrow_drop_down</i></a>
+     <span style="display: flex; align-items: center;">
+       <span class="changelog-badge"></span>
+       <a class="dropdown-button hide-on-med-and-down" style="display: inline;" href="#" data-beloworigin="true" data-activates="dropdown1"><%= current_person.email %><i class="material-icons right">arrow_drop_down</i></a>
+     </span>
+
      <ul class="side-nav" id="mobile-demo">
        <li><a href="<%= contacts_path %>" style="color: #424242;">People</a></li>
        <li><a href="<%= reminders_path %>" style="color: #424242;">Tasks <% if @due_tasks.length > 0 %><span class="new badge blue" data-badge-caption="due"><%= @due_tasks.length %></span><% end %></a></li>
