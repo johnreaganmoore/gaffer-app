@@ -21,14 +21,14 @@ class Org < ApplicationRecord
   has_many :email_templates
   acts_as_tagger
 
-  after_create :populate_first_contact
+  # after_create :populate_first_contact
 
-  def populate_first_contact
+  def populate_first_contact(creator)
     @contact = Contact.create(
       first_name: "John Reagan",
       last_name: "Moore",
       phone: "978-998-2205",
-      email: "johnreagan@playonside.com",
+      email: "johnreaganmoore@gmail.com",
       org_id: self.id,
     )
     @contact.tag_list.add("Software Partner")
@@ -39,12 +39,12 @@ class Org < ApplicationRecord
       interval: "one-time",
       contact_id: @contact.id,
       status: "incomplete",
-      creator_id: self.primary_admin.id
+      creator_id: creator.id
     )
     Note.create(
       body: "<h3>Welcome!</h3><p><br></p><p>This is a simple way to take notes related to people. You can simply edit the formatting of the text or add links by <b>highlighting</b> it. You can also add images if you want by dragging them into this text area.<br><br>You can just edit or delete this note and be on your way. If you need any help please always feel free to contact us directly in the chat bubble at the bottom right of the screen.<br><br>Thanks,<br><br>John Reagan</p>",
       contact_id: @contact.id,
-      creator_id: self.primary_admin.id
+      creator_id: creator.id
     )
 
   end
