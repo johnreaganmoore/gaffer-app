@@ -23,6 +23,9 @@ class OrgsController < ApplicationController
     if @org.save
       org_creator = current_person
       org_creator.add_role :admin, @org
+
+      @org.populate_first_contact(org_creator)
+
       session[:admin_org] = @org
       case request.subdomain
       when "collect"
