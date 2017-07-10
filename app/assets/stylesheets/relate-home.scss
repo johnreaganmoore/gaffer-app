@@ -48,16 +48,61 @@
 }
 
 .gif.submission {
-  @include aspect-ratio(864, 1386);
+  @include aspect-ratio(800, 1240);
 
   // max-height: 667px;
   // max-width: 300px;
   background-size: 100%;
-  background-image: image-url("submission.png");
+  background-image: image-url("submission-phone.png");
   margin: auto; /*position the [div] on the center*/
 
   &:hover {
     cursor:pointer;
-    background-image: image-url("submission.png");
+    background-image: image-url("submission-phone.png");
+  }
+}
+
+.gif.people-tab {
+  @include aspect-ratio(800, 1240);
+
+  // max-height: 667px;
+  // max-width: 300px;
+  background-size: 100%;
+  background-image: image-url("people-tab-phone.png");
+  margin: auto; /*position the [div] on the center*/
+
+  &:hover {
+    cursor:pointer;
+    background-image: image-url("people-tab-phone.png");
+  }
+}
+
+.gif.contact-email {
+  @include aspect-ratio(800, 1244);
+
+  // max-height: 667px;
+  // max-width: 300px;
+  background-size: 100%;
+  background-image: image-url("contact-email-phone.png");
+  margin: auto; /*position the [div] on the center*/
+
+  &:hover {
+    cursor:pointer;
+    background-image: image-url("contact-email-phone.png");
+  }
+}
+
+.gif.activity {
+  @include aspect-ratio(800, 1244);
+
+  // max-height: 667px;
+  // max-width: 300px;
+  background-size: 100%;
+  background-image: image-url("activity-phone.png");
+  margin: auto; /*position the [div] on the center*/
+
+  &:hover {
+    cursor:pointer;
+    background-image: image-url("activity-phone.png");
   }
 }
