@@ -1,7 +1,8 @@
 <!-- <div class="mini-header"></div> -->
+<%= render "training_header" %>
 <div>
   <div class="hero" style="
-    height: 400px;
+    min-height: 400px;
     background-image:
     linear-gradient(
       rgba(0, 0, 0, 0.5),
@@ -10,205 +11,186 @@
     url('https://images.unsplash.com/photo-1431324155629-1a6deb1dec8d?ixlib=rb-0.3.5&q=80&fm=jpg&crop=entropy&cs=tinysrgb&s=ccf49c77862a41c128526e4260210f8a'); background-size: cover; background-position: bottom">
 
     <div class="container">
-      <div class="community-title" style="display: flex; justify-content: center; align-items: center; color: white;">
+      <div class="community-title" style="text-align: center; display: flex; justify-content: center; align-items: center; color: white;">
         High-Level Soccer Training for Ambitious Players
       </div>
 
-      <h4>Do you train on your own? Get our individual training newsletter</h4>
+      <div style="text-align: center; color: #ffffff; margin-top: 100px;" class="flow-text">Get our weekly training newsletter, designed to help you become a better player.</div>
 
-      <div id="coming-soon-email-container">
-        <%= render "input_area", lead: @lead %>
-      </div>
+      <div id="newsletter-email-container">
 
-      <!-- <div class="logo-container"><%= image_tag "onside_white.svg" %></div> -->
-      <!-- <h4>Play Together</h4> -->
-
-      <!-- <div class="action-container">
-        <div class="main-actions">
-          <div>
-            <%= link_to "Register", new_person_registration_path,  class: "btn waves-effect waves-green white" %>
-          </div>
-          <div>
-            <%= link_to "Sign In", new_person_session_path,  class: "btn-flat waves-effect waves-light" %>
-          </div>
+        <!-- Begin MailChimp Signup Form -->
+        <div id="mc_embed_signup">
+          <form action="//applyance.us7.list-manage.com/subscribe/post?u=a1794c38d0a94a032de2b7336&amp;id=7b6d122700" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+            <div id="mc_embed_signup_scroll">
+              <div class="row coming-soon-email-input-area">
+                <div class="mc-field-group input-field col s12">
+                	<label style="color: #ffffff;" for="mce-EMAIL">Email</label>
+                	<input style="color: #ffffff;" type="email" value="" name="EMAIL" class="required email" id="mce-EMAIL">
+                </div>
+              	<div id="mce-responses" class="clear">
+              		<div class="response" id="mce-error-response" style="display:none"></div>
+              		<div class="response" id="mce-success-response" style="display:none"></div>
+              	</div>    <!-- real people should not fill this in and expect good things - do not remove this or risk form bot signups-->
+                <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_a1794c38d0a94a032de2b7336_7b6d122700" tabindex="-1" value=""></div>
+                <div class="clear"><input type="submit" value="Send Me Training Plans" name="subscribe" id="mc-embedded-subscribe" class="btn waves-effect waves-light white"></div>
+              </div>
+            </div>
+          </form>
         </div>
-      </div> -->
+
+        <!--End mc_embed_signup-->
+
+      </div>
     </div>
   </div>
-  <%= render "home_header" %>
-  <div id="first-container" class="container">
-    <div id="why" class="home-section">
+  <div id="first-container" class="">
+
+    <div id="philosophy" class="home-section">
       <div class="home-section-header">
-        <h2>Why Onside?</h2>
+        <h2>We Love Soccer</h2>
       </div>
       <div class="home-sub-section-container">
+        <div>And we are dedicated to cultivating players who have a passion for the game and skills to excel.</div>
 
-          <div class="card blue-grey darken-1 hide-on-large-only">
-            <div class="card-image">
-              <%= image_tag "jr-hor.jpg" %>
-              <span class="card-title">A word from the founder</span>
-            </div>
-            <div class="card-content white-text left-align">
-              <p>
-                Hi, I’m John Reagan, the founder of Onside.
-              </p>
-              <br>
-              <p>
-                I love soccer. I love playing soccer and I love watching soccer.
-                I also enjoy helping businesses deliver more value to their customers.
-                So I created Onside to help soccer related business run smoothly and make more money.
-              </p>
-              <br>
-              <p>
-                We have a few different <a href="#products" style="color: white; font-weight: 700;">products</a> you can checkout designed
-                to be simple and to help you manage your business.
-              </p>
-              <br>
-              <p>I want to help you as you make the beautiful
-                game possible for all of us. If you have any questions or just
-                want to chat you can connect with us directly by clicking the
-                chat bubble in the bottom right of the screen.
-              </p>
-            </div>
-          </div>
+        <div class="row">
 
-
-        <div class="card blue-grey darken-1 horizontal hoverable hide-on-med-and-down">
-          <div class="card-image">
-            <%= image_tag "jr-vert.jpg" %>
-          </div>
-          <div class="card-stacked">
-            <div class="card-content white-text">
-              <div class="card-title white-text left-align">
-                A word from the founder
-              </div>
-              <div class="card-content left-align">
-                <p>
-                  Hi, I’m John Reagan, the founder of Onside.
-                </p>
-                <br>
-                <p>
-                  I love soccer. I love playing soccer and I love watching soccer.
-                  I also enjoy helping businesses deliver more value to their customers.
-                  So I created Onside to help soccer related business run smoothly and make more money.
-                </p>
-                <br>
-                <p>
-                  We have a few different <a href="#products" style="color: white; font-weight: 700;">products</a> you can checkout designed
-                  to be simple and to help you manage your business.
-                </p>
-                <br>
-                <p>I want to help you as you make the beautiful
-                  game possible for all of us. If you have any questions or just
-                  want to chat you can connect with us directly by clicking the
-                  chat bubble in the bottom right of the screen.
-                </p>
+          <div class="col s12 m12 l4">
+            <div class="card hoverable" style="width: 100%">
+              <div class="card-content" style="text-align: center; background-color: #f8f8f8;">
+                <div class="card-title">
+                  Physical
+                </div>
+                <div><b>We believe that we must serve with humility in order to serve effectively</b></div>
+                <ul style="text-align: left;">
+                  <li style="list-style: circle inside;">Partners listen to each other</li>
+                  <li style="list-style: circle inside;">Partners care about each other's success</li>
+                  <li style="list-style: circle inside;">Partners share a common goal</li>
+                  <li style="list-style: circle inside;">Partners develop lasting relationships</li>
+                </ul>
               </div>
             </div>
           </div>
-        </div>
-        <!-- <p class="flow-text">A word from the founder.</p>
-        <iframe src="https://player.vimeo.com/video/205706562" width="640" height="360" frameborder="0" webkitallowfullscreen mozallowfullscreen allowfullscreen></iframe> -->
-      </div>
-    </div>
-    <div id="how" class="home-section">
-      <div class="home-section-header">
-        <h2>How Onside Works</h2>
-      </div>
-      <div class="home-sub-section-container">
-        <div>We focus on helping soccer businesses according to our principles:</div>
 
-        <div class="card hoverable" style="width: 100%">
-          <div class="card-content" style="text-align: left; background-color: #f8f8f8;">
-            <div class="card-title">
-              Serve With Humility
+          <div class="col s12 m12 l4">
+            <div class="card hoverable" style="width: 100%">
+              <div class="card-content" style="text-align: center; background-color: #f8f8f8;">
+                <div class="card-title">
+                  Technical
+                </div>
+                <div><b>Relationships are more important than margin</b></div>
+                <ul style="text-align: left;">
+                  <li style="list-style: circle inside;">Partners listen to each other</li>
+                  <li style="list-style: circle inside;">Partners care about each other's success</li>
+                  <li style="list-style: circle inside;">Partners share a common goal</li>
+                  <li style="list-style: circle inside;">Partners develop lasting relationships</li>
+                </ul>
+              </div>
             </div>
-            <div><b>We believe that we must serve with humility in order to serve effectively</b></div>
-            <ul>
-              <li style="list-style: circle inside;">Humility means believing that we don't know all the answers</li>
-              <li style="list-style: circle inside;">Humility means we must listen to and respond to our customers</li>
-              <li style="list-style: circle inside;">Humility means no task that is important to our customers is too small or unimportant for us to do with excellence</li>
-            </ul>
           </div>
-        </div>
 
-        <div class="card hoverable" style="width: 100%">
-          <div class="card-content" style="text-align: left; background-color: #f8f8f8;">
-            <div class="card-title">
-              Partner With Customers
+          <div class="col s12 m12 l4">
+            <div class="card hoverable" style="width: 100%">
+              <div class="card-content" style="text-align: center; background-color: #f8f8f8;">
+                <div class="card-title">
+                  Mental
+                </div>
+                <div><b>Improving strengths is the path to overcoming weakness</b></div>
+                <ul style="text-align: left;">
+                  <li style="list-style: circle inside;">We enhance our partner’s strengths</li>
+                  <li style="list-style: circle inside;">We improve upon existing processes</li>
+                  <li style="list-style: circle inside;">We don’t replace things that are working well</li>
+                  <!-- <li style="list-style: circle inside;">We don’t fix things that are broken</li> -->
+                </ul>
+              </div>
             </div>
-            <div><b>Relationships are more important than margin</b></div>
-            <ul>
-              <li style="list-style: circle inside;">Partners listen to each other</li>
-              <li style="list-style: circle inside;">Partners care about each other's success</li>
-              <li style="list-style: circle inside;">Partners share a common goal</li>
-              <li style="list-style: circle inside;">Partners develop lasting relationships</li>
-            </ul>
           </div>
-        </div>
 
-        <div class="card hoverable" style="width: 100%">
-          <div class="card-content" style="text-align: left; background-color: #f8f8f8;">
-            <div class="card-title">
-              Enhance Existing Strengths
-            </div>
-            <div><b>Improving strengths is the path to overcoming weakness</b></div>
-            <ul>
-              <li style="list-style: circle inside;">We enhance our partner’s strengths</li>
-              <li style="list-style: circle inside;">We improve upon existing processes</li>
-              <li style="list-style: circle inside;">We don’t replace things that are working well</li>
-              <!-- <li style="list-style: circle inside;">We don’t fix things that are broken</li> -->
-            </ul>
-          </div>
-        </div>
-
-        <div class="card hoverable" style="width: 100%">
-          <div class="card-content" style="text-align: left; background-color: #f8f8f8;">
-            <div class="card-title">
-              KISS - Keep it simple, stupid
-            </div>
-            <div><b>Simple and effective is better than complex and powerful</b></div>
-            <ul>
-              <li style="list-style: circle inside;">Simple means easy to understand</li>
-              <li style="list-style: circle inside;">Products should be small and effective</li>
-              <li style="list-style: circle inside;">Products should be simple to get data into and out of for easy integrations</li>
-            </ul>
-          </div>
-        </div>
-
-        <div class="card hoverable" style="width: 100%">
-          <div class="card-content" style="text-align: left; background-color: #f8f8f8;">
-            <div class="card-title">
-              Focus on increasing revenue
-            </div>
-            <div><b>Revenue is the life force of a business </b></div>
-            <ul>
-              <li style="list-style: circle inside;">We help soccer businesses make more money</li>
-              <li style="list-style: circle inside;">Making more money is better than reducing costs</li>
-            </ul>
-          </div>
         </div>
 
       </div>
     </div>
-    <div id="products" class="home-section">
-      <div class="home-section-header">
-        <h2>What Onside Offers</h2>
+    <div id="training" class="home-section">
+      <div class="home-section-header container">
+        <!-- <h2>What Onside Offers</h2> -->
+        <h2>Pursue More.</h2>
       </div>
+
       <div class="home-sub-section-container">
-        <div>We craft products to help your business run smoothly. Our products are designed specifically for businesses like yours and they are very easy to use.</div>
+        <div class="container">
+          <div class="flow-text">We believe that people are capable of more than others expect of them.</div><br>
+          <div class="flow-text">We believe that with vision, hope, courage and deliberate hard work players can acheive success beyond their own expectactions.</div><br>
+          <div class="flow-text">In everything we do we challenge players to train at a higher level, to have vision for their development as a player and diligently train themselves to become better.</div><br>
+        </div>
+        <!-- <div class="container">We craft products to help your business run smoothly. Our products are designed specifically for businesses like yours and they are very easy to use.</div> -->
 
-        <ul class="collection with-header" style="text-align: left; background-color: #f8f8f8; width: 100%; margin-top: 50px;">
-          <li class="collection-item"><a href="<%= register_home_url %>"><b>Register:</b>   Simple online league registration<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
-          <li class="collection-item"><a href="<%= collect_home_url %>"><b>Collect:</b>     Team fee collection for clubs<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
-          <li class="collection-item"><a href="<%= tryout_home_url %>"><b>Tryout:</b>       Simple tryout logistics<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
-          <!-- <li class="collection-item"><a href="http://schedule.playonside.com"><b>Schedule:</b>   Simple and flexible scheduling for leagues and tournaments<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
-          <li class="collection-item"><a href="http://practice.playonside.com"><b>Practice:</b>   Track player performance in practices and games<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
-          <li class="collection-item"><a href="http://fields.playonside.com"><b>Field Market:</b> Buy and sell field time<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
-          <li class="collection-item"><a href="http://sub.playonside.com"><b>Subfinder:</b>       No more forfeits in your leagues<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
-          <li class="collection-item"><a href="http://ticketsun.playonside.com"><b>TicketSun:</b> Sell more tickets online<span class="secondary-content"><i class="material-icons">launch</i></span></a></li> -->
-        </ul>
+        <div class="row">
 
+          <div class="col s12 m12 l4">
+            <div class="card hoverable" style="width: 100%">
+              <div class="card-content" style="text-align: center; background-color: #f8f8f8;">
+                <div class="card-title">
+                  Physical
+                </div>
+                <div><b>We believe that we must serve with humility in order to serve effectively</b></div>
+                <ul style="text-align: left;">
+                  <li style="list-style: circle inside;">Partners listen to each other</li>
+                  <li style="list-style: circle inside;">Partners care about each other's success</li>
+                  <li style="list-style: circle inside;">Partners share a common goal</li>
+                  <li style="list-style: circle inside;">Partners develop lasting relationships</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m12 l4">
+            <div class="card hoverable" style="width: 100%">
+              <div class="card-content" style="text-align: center; background-color: #f8f8f8;">
+                <div class="card-title">
+                  Technical
+                </div>
+                <div><b>Relationships are more important than margin</b></div>
+                <ul style="text-align: left;">
+                  <li style="list-style: circle inside;">Partners listen to each other</li>
+                  <li style="list-style: circle inside;">Partners care about each other's success</li>
+                  <li style="list-style: circle inside;">Partners share a common goal</li>
+                  <li style="list-style: circle inside;">Partners develop lasting relationships</li>
+                </ul>
+              </div>
+            </div>
+          </div>
+
+          <div class="col s12 m12 l4">
+            <div class="card hoverable" style="width: 100%">
+              <div class="card-content" style="text-align: center; background-color: #f8f8f8;">
+                <div class="card-title">
+                  Mental
+                </div>
+                <div><b>Improving strengths is the path to overcoming weakness</b></div>
+                <ul style="text-align: left;">
+                  <li style="list-style: circle inside;">We enhance our partner’s strengths</li>
+                  <li style="list-style: circle inside;">We improve upon existing processes</li>
+                  <li style="list-style: circle inside;">We don’t replace things that are working well</li>
+                  <!-- <li style="list-style: circle inside;">We don’t fix things that are broken</li> -->
+                </ul>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        <div class="container">
+          <ul class="collection with-header" style="text-align: left; background-color: #f8f8f8; width: 100%; margin-top: 50px;">
+            <li class="collection-item"><a href="<%= register_home_url %>"><b>Personal Training:</b>   Simple online league registration<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
+            <li class="collection-item"><a href="<%= collect_home_url %>"><b>Small Sided Teams:</b>     Team fee collection for clubs<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
+            <li class="collection-item"><a href="<%= tryout_home_url %>"><b>Camps and Clinics:</b>       Simple tryout logistics<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
+            <!-- <li class="collection-item"><a href="http://schedule.playonside.com"><b>Schedule:</b>   Simple and flexible scheduling for leagues and tournaments<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
+            <li class="collection-item"><a href="http://practice.playonside.com"><b>Practice:</b>   Track player performance in practices and games<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
+            <li class="collection-item"><a href="http://fields.playonside.com"><b>Field Market:</b> Buy and sell field time<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
+            <li class="collection-item"><a href="http://sub.playonside.com"><b>Subfinder:</b>       No more forfeits in your leagues<span class="secondary-content"><i class="material-icons">launch</i></span></a></li>
+            <li class="collection-item"><a href="http://ticketsun.playonside.com"><b>TicketSun:</b> Sell more tickets online<span class="secondary-content"><i class="material-icons">launch</i></span></a></li> -->
+          </ul>
+        </div>
       </div>
     </div>
   </div>

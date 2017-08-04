@@ -21,7 +21,7 @@ class Org < ApplicationRecord
   has_many :email_templates
   acts_as_tagger
 
-  # after_create :populate_first_contact
+  after_create :populate_first_contact
 
   def populate_first_contact(creator)
     @contact = Contact.create(
