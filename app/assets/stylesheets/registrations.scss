@@ -81,7 +81,7 @@
     height: 100%;
     // padding-bottom: 150px;
     // background-color: $primary-color;
-    background-color: $white;
+    background-color: $dark-background;
 
     /* will be "on top", if browser supports it */
     // background-image: linear-gradient($primary-color, $secondary-color);
@@ -121,7 +121,7 @@
     right: 0px;
     width: 50%;
     min-height: 100%;
-    background-color: $secondary-color;
+    background-color: $dark-background;;
   }
 
   h1 {

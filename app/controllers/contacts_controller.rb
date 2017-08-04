@@ -25,6 +25,22 @@ class ContactsController < ApplicationController
     end
   end
 
+  def filter
+    @contacts = get_filtered_contacts(filter_params)
+
+    puts "filter action"
+    puts @contacts.inspect
+
+    @contacts
+
+    respond_to do |format|
+        format.html { redirect_to contacts_path, notice: "That filter probably didn't work. Try again or maybe try different criteria." }
+        format.js   {}
+    end
+
+  end
+
+
   # GET /contacts/1
   # GET /contacts/1.json
   def show
@@ -343,4 +359,54 @@ class ContactsController < ApplicationController
     def batch_params
       params.permit(:file, :org_id)
     end
+
+    def filter_params
+
+      keys = []
+      @active_org.contact_properties.each do |cp|
+        keys << "#{cp.id}-value"
+      end
+
+      params.permit(:org, :filter_tags_value, :next_date_start, :next_date_end, :last_activity_start, :last_activity_end, keys)
+    end
+
+    def get_filtered_contacts(filter_params)
+      @org = filter_params[:org]
+      filtered_contacts = Contact.where(org_id: @active_org.id)
+
+      if filter_params[:filter_tags_value] && filter_params[:filter_tags_value] != ""
+        filtered_contacts = filtered_contacts.tagged_with(filter_params[:filter_tags_value], :match_all => true)
+      end
+
+      # puts filter_params.inspect
+      @active_org.contact_properties.each do |cp|
+
+        if filter_params["#{cp.id}-value".to_sym]
+          values_array = filter_params["#{cp.id}-value".to_sym].split(',')
+
+          if values_array && values_array.length > 0
+            filtered_contacts = filtered_contacts & contacts_filtered_by_value(cp, values_array)
+          end
+        end
+      end
+
+      return filtered_contacts
+
+    end
+
+
+    def contacts_filtered_by_value(contact_property, values_array)
+
+      contacts = []
+
+      if contact_property.data_type == "number"
+        contacts = Contact.where(org_id: @active_org.id).includes(:contact_values).where(contact_values: { contact_property_id: contact_property.id }).where('contact_values.number_value >= ?', values_array[0].to_f).references(:contact_values).where('contact_values.number_value <= ?', values_array[1].to_f).references(:contact_values)
+      else
+        contacts = Contact.where(org_id: @active_org.id).includes(:contact_values).where(contact_values: { contact_property_id: contact_property.id }).where('contact_values.value IN (?)', values_array).references(:contact_values)
+      end
+
+      return contacts
+
+    end
+
 end

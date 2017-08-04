@@ -1,82 +1,86 @@
 
 
 <!-- <div class="mini-header"></div> -->
-<div>
+<!-- <div>
   <div class="left-pane">
     <div class="container">
-      <div class="logo-container"><%= image_tag "onside.svg" %></div>
-      <!-- <h4>Play Together</h4> -->
+      <div class="logo-container"><%= image_tag "ds-tongue.png" %></div>
     </div>
   </div>
   <div class="right-pane">
-    <div class="container">
-      <div class="card">
-      <div class="card-content">
-        <div class="guts--narrow__centered">
 
-          <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
+  </div>
+</div> -->
 
-            <!-- <%= link_to(person_facebook_omniauth_authorize_path) do %>
-              <%= button_tag(type: 'button', class: "waves-effect waves-light btn facebook-button") do %>
-                <i class="material-icons left button-icon">
-                  <%= image_tag "facebook-icon.svg" %>
-                </i>
-                Sign in with Facebook
-              <% end %>
-            <% end %> -->
+<div style="background: #393939;position: fixed;display: flex;justify-content: center;align-items: center;height: 100%;width: 100%;">
+  <div class="container">
+    <div class="card" style="max-width: 600px; margin-left: auto; margin-right: auto;">
 
-            <!-- <%= link_to(person_google_oauth2_omniauth_authorize_path) do %>
-              <%= button_tag(type: 'button', class: "waves-effect waves-light btn google-button") do %>
-                <i class="material-icons left button-icon">
-                  <%= image_tag "google-icon.svg" %>
-                </i>
-                Sign in with Google
-              <% end %>
-            <% end %>
+    <div class="card-content">
+      <div class="guts--narrow__centered">
 
-            <div class="or-divider">or</div> -->
+        <%= form_for(resource, as: resource_name, url: session_path(resource_name)) do |f| %>
 
-            <div class="row">
-              <div class="input-field col s12">
-                <%= f.email_field :email, autofocus: true %>
-                <%= f.label :email %>
-              </div>
-
-              <div class="input-field col s12">
-                <%= f.password_field :password, autocomplete: "off" %>
-                <%= f.label :password %>
-              </div>
-            </div>
-
-            <% if devise_mapping.rememberable? -%>
-
-              <%= hidden_field_tag :remember_me, true %>
-
-              <!-- <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember_me">
-                <input type="checkbox" id="remember_me" class="mdl-checkbox__input" checked>
-                <span class="mdl-checkbox__label">Remember me</span>
-              </label> -->
-
-              <!-- <div class="field">
-                <%= f.check_box :remember_me %>
-                <%= f.label :remember_me %>
-              </div> -->
-            <% end -%>
-
-            <%= button_tag(type: 'submit', class: "waves-effect waves-light btn email-sign-up-button") do %>
+          <!-- <%= link_to(person_facebook_omniauth_authorize_path) do %>
+            <%= button_tag(type: 'button', class: "waves-effect waves-light btn facebook-button") do %>
               <i class="material-icons left button-icon">
-                <%= image_tag "email-icon.svg" %>
+                <%= image_tag "facebook-icon.svg" %>
               </i>
-              Sign in with Email
+              Sign in with Facebook
+            <% end %>
+          <% end %> -->
+
+          <!-- <%= link_to(person_google_oauth2_omniauth_authorize_path) do %>
+            <%= button_tag(type: 'button', class: "waves-effect waves-light btn google-button") do %>
+              <i class="material-icons left button-icon">
+                <%= image_tag "google-icon.svg" %>
+              </i>
+              Sign in with Google
             <% end %>
           <% end %>
-          <div class="or-divider">
-            New to the team?<br>
-            <%= link_to "Register here", new_person_registration_path,  class: "waves-effect waves-green btn-flat" %>
+
+          <div class="or-divider">or</div> -->
+
+          <div class="row">
+            <div class="input-field col s12">
+              <%= f.email_field :email, autofocus: true %>
+              <%= f.label :email %>
+            </div>
+
+            <div class="input-field col s12">
+              <%= f.password_field :password, autocomplete: "off" %>
+              <%= f.label :password %>
+            </div>
           </div>
+
+          <% if devise_mapping.rememberable? -%>
+
+            <%= hidden_field_tag :remember_me, true %>
+
+            <!-- <label class="mdl-checkbox mdl-js-checkbox mdl-js-ripple-effect" for="remember_me">
+              <input type="checkbox" id="remember_me" class="mdl-checkbox__input" checked>
+              <span class="mdl-checkbox__label">Remember me</span>
+            </label> -->
+
+            <!-- <div class="field">
+              <%= f.check_box :remember_me %>
+              <%= f.label :remember_me %>
+            </div> -->
+          <% end -%>
+
+          <%= button_tag(type: 'submit', class: "waves-effect waves-light btn email-sign-up-button") do %>
+            <i class="material-icons left button-icon">
+              <%= image_tag "email-icon.svg" %>
+            </i>
+            Sign in with Email
+          <% end %>
+        <% end %>
+        <div class="or-divider">
+          New to the team?<br>
+          <%= link_to "Register here", new_person_registration_path,  class: "waves-effect waves-green btn-flat" %>
         </div>
       </div>
     </div>
-    </div>
+  </div>
   </div>
 </div>

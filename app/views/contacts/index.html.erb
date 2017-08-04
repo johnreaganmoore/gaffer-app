@@ -12,9 +12,14 @@
     </div>
   <% end %> -->
 
-  <div class="card team-card">
+  <div id="filter-container" class="card team-card">
+    <%= render 'contacts/filter' %>
+  </div>
+
+  <div id="contacts" class="card team-card">
+
     <div class="row">
-      <div id="contacts" class="col s12" style="position: relative;">
+      <div class="col s12 m12 l12" style="padding:0px;">
         <nav style="background-color: #ffffff;">
           <div class="nav-wrapper" id="search-nav-wrapper">
             <form onsubmit="event.preventDefault()">
@@ -28,6 +33,11 @@
             </form>
           </div>
         </nav>
+      </div>
+    </div>
+
+    <div class="row">
+      <div id="contacts-list-container" class="col s12" style="position: relative;">
         <%= render(
           partial: 'contacts/list',
           locals: { contacts: @contacts }
@@ -37,6 +47,7 @@
 
   </div>
 </div>
+
 
 <!-- Modal Structure -->
 <div id="modal1" class="modal modal-fixed-footer">
@@ -109,20 +120,6 @@
 
 <script>
 
-
-  $( document ).on('ready turbolinks:load', function() {
-     // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
-     $('.modal').modal();
-
-     $('#email-submit').on('click', function() {
-
-         console.log($('#contact_list').val())
-         console.log($('#contact_list'))
-
-        $('#contact_list').val(JSON.stringify(idsArray))
-     });
-   });
-
   var setRubyArray = function() {
     $.ajax({
           url : "<%= post_contact_new_email_url %>",
@@ -147,6 +144,14 @@
   var hackerList = new List('contacts', options);
 
 
+  $( document ).on('ready turbolinks:load', function() {
+     // the "href" attribute of the modal trigger must specify the modal ID that wants to be triggered
+     $('.modal').modal();
+
+     $('#email-submit').on('click', function() {
+        $('#contact_list').val(JSON.stringify(idsArray))
+     });
+   });
 
 
   $( document ).on('ready', function() {
@@ -174,5 +179,5 @@
 
   });
 
-
 </script>
+<!--  -->

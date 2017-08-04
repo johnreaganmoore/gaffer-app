@@ -1,0 +1,169 @@
+<ul id="filter-collapsible" class="collapsible" data-collapsible="accordion" style="border: none;">
+  <li>
+    <div class="collapsible-header"><span>Filter<i class="material-icons">filter_list</i></span><i class="material-icons right">arrow_drop_down</i></div>
+    <div class="collapsible-body" style="padding: 0px;">
+
+      <%= form_tag '/filter_contacts', remote: true do |f| %>
+            <div class="card-content">
+
+              <%= hidden_field_tag "filter_tags_value" %>
+
+              Tags:
+              <div style="padding: 25px;">
+                <div id="filter-tags" class="chips chips-autocomplete"></div>
+              </div>
+
+
+              <% @active_org.contact_properties.each do |cp| %>
+                 <% if cp.show_in_table %>
+
+                        <%= hidden_field_tag "#{cp.id}-value" %>
+
+                        <% if cp.data_type == "number" && cp.low_value != cp.high_value %>
+                          <%= cp.property %>:
+                          <div>
+                            <div style="padding: 25px;">
+                              <span id="slider-low-<%= cp.id %>"></span> to <span id="slider-high-<%= cp.id %>"></span>
+                            </div>
+                            <div style="padding: 25px;">
+                              <div id="slider-<%= cp.id %>"></div>
+                            </div>
+                          </div>
+                        <% elsif cp.data_type == "text" %>
+                          <%= cp.property %>:
+                          <div style="padding: 20px;">
+                            <div id="filter-<%= cp.id %>" class="chips chips-autocomplete"></div>
+                          </div>
+                        <% end %>
+
+                 <% end %>
+              <% end %>
+
+            </div>
+        <div class="card-action edit-profile-actions">
+          <%= link_to 'Clear Filter', contacts_path %>
+          <%= button_tag(id: "filter-submit", type: 'submit', class: "btn waves-effect waves-light") do %>
+            Filter Contacts
+          <% end %>
+        </div>
+      <% end %>
+
+    </div>
+  </li>
+</ul>
+
+<script>
+  $( document ).on('ready turbolinks:load', function() {
+
+
+    var orgTags = []
+    <% @active_org.owned_tags.each do |tag| %>
+      orgTags.push(
+        { tag: "<%= tag.name %>", id: <%= tag.id %>}
+      )
+    <% end %>
+
+    var autocompleteTags = {}
+    $.each(orgTags, function(index, value) {
+      autocompleteTags[value.tag] = null;
+    });
+
+    //
+    $('#filter-tags').material_chip({
+      data: [],
+      placeholder: 'Enter a tag',
+      secondaryPlaceholder: '+Tag',
+      limit: Infinity,
+      autocompleteData: autocompleteTags
+    });
+
+    $('#filter-tags').on('chip.add chip.delete', function(e, chip){
+      chips = $('#filter-tags').material_chip('data')
+      stringValues = chips.map(function(i) {return i.tag;});
+
+      $('#filter_tags_value').val(stringValues)
+      var hidden_val = $('#filter_tags_value').val()
+      console.log(hidden_val)
+    });
+
+
+
+    <% @active_org.contact_properties.each do |cp| %>
+
+      <% if cp.data_type == "text" %>
+        var Arr = []
+
+        <% cp.contact_values.each do |cv| %>
+          Arr.push(
+            { tag: "<%= cv.value %>", id: <%= cv.id %>}
+          )
+        <% end %>
+
+        var autocompleteTags = {}
+        $.each(Arr, function(index, value) {
+          autocompleteTags[value.tag] = null;
+        });
+
+        $('#filter-<%= cp.id %>').material_chip({
+          data: [],
+          placeholder: 'Search',
+          secondaryPlaceholder: '+ <%= cp.property %>',
+          limit: Infinity,
+          autocompleteData: autocompleteTags
+        });
+
+        $('#filter-<%= cp.id %>').on('chip.add chip.delete', function(e, chip){
+          console.log($('#filter-<%= cp.id %>').material_chip('data'))
+          var hidden_field = $('#<%= cp.id %>-value')
+          console.log(hidden_field)
+
+          chips = $('#filter-<%= cp.id %>').material_chip('data')
+
+          stringValues = chips.map(function(i) {return i.tag;});
+
+          console.log(stringValues)
+          console.log(stringValues.join(","))
+
+          // $('#<%= cp.id %>-value').val($('#filter-<%= cp.id %>').material_chip('data'))
+          // $('#<%= cp.id %>-value').val(stringValues.join(","))
+          $('#<%= cp.id %>-value').val(stringValues)
+          // $('#<%= cp.id %>-value').val(chips)
+          var hidden_val = $('#<%= cp.id %>-value').val()
+          console.log(hidden_val)
+        });
+
+
+      <% elsif cp.data_type == "number" && cp.show_in_table == true && cp.low_value != cp.high_value %>
+
+        var slider<%= cp.id %> = document.getElementById('slider-<%= cp.id %>');
+        noUiSlider.create(slider<%= cp.id %>, {
+         start: [<%= cp.low_value %>, <%= cp.high_value %>],
+         connect: true,
+         step: 0.1,
+         tooltips: [ true, true ],
+         range: {
+           'min': <%= cp.low_value %>,
+           'max': <%= cp.high_value %>
+         },
+         format: wNumb({
+           decimals: 1
+         })
+        });
+
+        var lowValue<%= cp.id %> = document.getElementById('slider-low-<%= cp.id %>');
+        var highValue<%= cp.id %> = document.getElementById('slider-high-<%= cp.id %>');
+
+         slider<%= cp.id %>.noUiSlider.on('update', function( values, handle ) {
+           console.log(values,handle)
+           lowValue<%= cp.id %>.innerHTML = values[0];
+           highValue<%= cp.id %>.innerHTML = values[1]
+
+           $('#<%= cp.id %>-value').val(`${values[0]},${values[1]}`)
+           console.log($('#<%= cp.id %>-value').val())
+         });
+
+      <% end %>
+    <% end %>
+
+  });
+</script>
