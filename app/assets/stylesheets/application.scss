@@ -27,6 +27,7 @@
 $primary-color: $primary-color !default;
 $secondary-color: $secondary-color !default;
 @import 'materialize';
+@import "materialize/extras/nouislider";
 
 @import "font-types";
 @import "layout";

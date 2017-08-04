@@ -16,4 +16,12 @@ class ContactProperty < ApplicationRecord
     self.property = self.property.titleize
   end
 
+  def high_value
+    self.contact_values.maximum("number_value")
+  end
+
+  def low_value
+    self.contact_values.minimum("number_value")
+  end
+
 end

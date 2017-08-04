@@ -6,7 +6,7 @@ class ContactValue < ApplicationRecord
     if self.contact_property.data_type == "number"
       return self.number_value
     elsif self.contact_property.data_type == "date" && self.date_value
-      return self.date_value.strftime("%m/%d/%Y")
+      return self.date_value
     else
       return self.value
     end
