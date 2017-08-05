@@ -24,6 +24,7 @@ Rails.application.routes.draw do
   get 'contacts/draft_list_email', to: 'contacts#draft_list_email', as: :draft_list_email
   post 'contacts/new_email_with_list', to: 'contacts#new_email_with_list', as: :post_contact_new_email
   post 'contact_email', to: 'contacts#send_email', as: :contact_email
+  post 'filter_contacts', to: 'contacts#filter', as: :filter_contacts
 
   resources :submissions
   # get 'submissions', to: 'submissions#index', as: :submissions

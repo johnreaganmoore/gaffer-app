@@ -20,6 +20,7 @@
 //= require gmaps/google
 //= require materialize-sprockets
 //= require materialize
+//= require materialize/extras/nouislider
 //= require medium-editor
 //= require rails_env_favicon
 //= require filter

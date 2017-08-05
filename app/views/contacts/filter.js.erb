@@ -1,0 +1,102 @@
+$("#contacts-list-container").html("<%= escape_javascript(render partial: 'contacts/list', locals: { contacts: @contacts } ) %>");
+$("#filter-container").html("<%= escape_javascript(render partial: 'contacts/filter' ) %>");
+$("#filter-collapsible").collapsible();
+
+var orgTags = []
+<% @active_org.owned_tags.each do |tag| %>
+  orgTags.push(
+    { tag: "<%= tag.name %>", id: <%= tag.id %>}
+  )
+<% end %>
+
+var autocompleteTags = {}
+$.each(orgTags, function(index, value) {
+  autocompleteTags[value.tag] = null;
+});
+
+//
+$('#filter-tags').material_chip({
+  data: [],
+  placeholder: 'Enter a tag',
+  secondaryPlaceholder: '+Tag',
+  limit: Infinity,
+  autocompleteData: autocompleteTags
+});
+
+$('#filter-tags').on('chip.add chip.delete', function(e, chip){
+  chips = $('#filter-tags').material_chip('data')
+  stringValues = chips.map(function(i) {return i.tag;});
+
+  $('#filter_tags_value').val(stringValues)
+  var hidden_val = $('#filter_tags_value').val()
+  console.log(hidden_val)
+});
+
+
+
+<% @active_org.contact_properties.each do |cp| %>
+
+  <% if cp.data_type == "text" %>
+    var Arr = []
+
+    <% cp.contact_values.each do |cv| %>
+      Arr.push(
+        { tag: "<%= cv.value %>", id: <%= cv.id %>}
+      )
+    <% end %>
+
+    var autocompleteTags = {}
+    $.each(Arr, function(index, value) {
+      autocompleteTags[value.tag] = null;
+    });
+
+    $('#filter-<%= cp.id %>').material_chip({
+      data: [],
+      placeholder: 'Search',
+      secondaryPlaceholder: '+ <%= cp.property %>',
+      limit: Infinity,
+      autocompleteData: autocompleteTags
+    });
+
+    $('#filter-<%= cp.id %>').on('chip.add chip.delete', function(e, chip){
+      chips = $('#filter-<%= cp.id %>').material_chip('data')
+
+      stringValues = chips.map(function(i) {return i.tag;});
+      $('#<%= cp.id %>-value').val(stringValues)
+
+    });
+
+
+  <% elsif cp.data_type == "number" && cp.show_in_table == true && cp.low_value != cp.high_value %>
+
+    var slider<%= cp.id %> = document.getElementById('slider-<%= cp.id %>');
+    noUiSlider.create(slider<%= cp.id %>, {
+     start: [<%= cp.low_value %>, <%= cp.high_value %>],
+     connect: true,
+     step: 0.1,
+     tooltips: [ true, true ],
+     range: {
+       'min': <%= cp.low_value %>,
+       'max': <%= cp.high_value %>
+     },
+     format: wNumb({
+       decimals: 1
+     })
+    });
+
+    var lowValue<%= cp.id %> = document.getElementById('slider-low-<%= cp.id %>');
+    var highValue<%= cp.id %> = document.getElementById('slider-high-<%= cp.id %>');
+
+     slider<%= cp.id %>.noUiSlider.on('update', function( values, handle ) {
+       lowValue<%= cp.id %>.innerHTML = values[0];
+       highValue<%= cp.id %>.innerHTML = values[1]
+
+       if (<%= cp.low_value %> == values[0] && <%= cp.high_value %> == values[1]) {
+          $('#<%= cp.id %>-value').val("")
+       } else {
+         $('#<%= cp.id %>-value').val(`${values[0]},${values[1]}`)
+       }
+     });
+
+  <% end %>
+<% end %>

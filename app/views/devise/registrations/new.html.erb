@@ -1,82 +1,85 @@
 <!-- <div class="mini-header"></div> -->
 <%= devise_error_messages! %>
-<div>
+<!-- <div>
   <div class="left-pane">
     <div class="container">
-      <div class="logo-container"><%= image_tag "onside.svg" %></div>
-      <!-- <h4>Play Together</h4> -->
+      <div class="logo-container"><%= image_tag "ds-tongue.png" %></div>
     </div>
   </div>
   <div class="right-pane">
-    <div class="container">
-      <div class="card">
-        <div class="card-content">
-          <div class="guts--narrow__centered">
-            <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
-              <% if @token != nil %>
-                <%= hidden_field_tag :invitation_token, @token %>
-              <% end %>
-              <% if @team != nil %>
-                <%= hidden_field_tag :team, @team.slug %>
-              <% end %>
 
-              <% if @org != nil %>
-                <%= hidden_field_tag :org, @org.id %>
-              <% end %>
+  </div>
+</div> -->
 
-              <% if @plan != nil %>
-                <%= hidden_field_tag :plan, @plan %>
-              <% end %>
-              <div>
-                <!-- <%= link_to(person_facebook_omniauth_authorize_path) do %>
-                  <%= button_tag(type: 'button', class: "waves-effect waves-light btn facebook-button") do %>
-                    <i class="material-icons left button-icon">
-                      <%= image_tag "facebook-icon.svg" %>
-                    </i>
-                    Sign up with Facebook
-                  <% end %>
-                <% end %> -->
-                <!-- <%= link_to(person_google_oauth2_omniauth_authorize_path) do %>
-                  <%= button_tag(type: 'button', class: "waves-effect waves-light btn google-button") do %>
-                    <i class="material-icons left button-icon">
-                      <%= image_tag "google-icon.svg" %>
-                    </i>
-                    Sign up with Google
-                  <% end %>
-                <% end %> -->
-              </div>
-              <!-- <div class="or-divider">or</div> -->
-
-              <div class="row">
-                <div class="input-field col s12">
-                  <% if @invite %>
-                    <%= f.email_field :email, autofocus: true, value: @invite.email %>
-                  <% else %>
-                    <%= f.email_field :email, autofocus: true %>
-                  <% end %>
-                  <%= f.label :email %>
-                </div>
-
-                <div class="input-field col s12">
-                  <%= f.password_field :password, autocomplete: "off" %>
-                  <%= f.label :password %>
-                </div>
-              </div>
-              <div>
-                <% team_color = "" %>
-                <% if @team != nil then team_color = @team.color end %>
-                <%= button_tag(type: 'submit', class: "waves-effect waves-light btn email-sign-up-button", style: "background: #{team_color};") do %>
-                  <i class="material-icons left button-icon">
-                    <%= image_tag "email-icon.svg" %>
-                  </i>
-                  Sign up with email
-                <% end %>
-              </div>
+<div style="background: #393939;position: fixed;display: flex;justify-content: center;align-items: center;height: 100%;width: 100%;">
+  <div class="container" style="text-align: center;">
+    <div class="card" style="max-width: 600px; margin-left: auto; margin-right: auto;">
+      <div class="card-content">
+        <div class="guts--narrow__centered">
+          <%= form_for(resource, as: resource_name, url: registration_path(resource_name)) do |f| %>
+            <% if @token != nil %>
+              <%= hidden_field_tag :invitation_token, @token %>
             <% end %>
-            <div class="or-divider">
-              Already onside?<br>
-              <%= link_to "Sign In", new_person_session_path,  class: "waves-effect waves-green btn-flat" %>
+            <% if @team != nil %>
+              <%= hidden_field_tag :team, @team.slug %>
+            <% end %>
+
+            <% if @org != nil %>
+              <%= hidden_field_tag :org, @org.id %>
+            <% end %>
+
+            <% if @plan != nil %>
+              <%= hidden_field_tag :plan, @plan %>
+            <% end %>
+            <div>
+              <!-- <%= link_to(person_facebook_omniauth_authorize_path) do %>
+                <%= button_tag(type: 'button', class: "waves-effect waves-light btn facebook-button") do %>
+                  <i class="material-icons left button-icon">
+                    <%= image_tag "facebook-icon.svg" %>
+                  </i>
+                  Sign up with Facebook
+                <% end %>
+              <% end %> -->
+              <!-- <%= link_to(person_google_oauth2_omniauth_authorize_path) do %>
+                <%= button_tag(type: 'button', class: "waves-effect waves-light btn google-button") do %>
+                  <i class="material-icons left button-icon">
+                    <%= image_tag "google-icon.svg" %>
+                  </i>
+                  Sign up with Google
+                <% end %>
+              <% end %> -->
             </div>
+            <!-- <div class="or-divider">or</div> -->
+
+            <div class="row">
+              <div class="input-field col s12">
+                <% if @invite %>
+                  <%= f.email_field :email, autofocus: true, value: @invite.email %>
+                <% else %>
+                  <%= f.email_field :email, autofocus: true %>
+                <% end %>
+                <%= f.label :email %>
+              </div>
+
+              <div class="input-field col s12">
+                <%= f.password_field :password, autocomplete: "off" %>
+                <%= f.label :password %>
+              </div>
+            </div>
+            <div>
+              <% team_color = "" %>
+              <% if @team != nil then team_color = @team.color end %>
+              <%= button_tag(type: 'submit', class: "waves-effect waves-light btn email-sign-up-button", style: "background: #{team_color};") do %>
+                <i class="material-icons left button-icon">
+                  <%= image_tag "email-icon.svg" %>
+                </i>
+                Sign up with email
+              <% end %>
+            </div>
+          <% end %>
+          <div class="or-divider">
+            Already onside?<br>
+            <%= link_to "Sign In", new_person_session_path,  class: "waves-effect waves-green btn-flat" %>
           </div>
         </div>
       </div>
