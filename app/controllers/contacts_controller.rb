@@ -28,11 +28,6 @@ class ContactsController < ApplicationController
   def filter
     @contacts = get_filtered_contacts(filter_params)
 
-    puts "filter action"
-    puts @contacts.inspect
-
-    @contacts
-
     respond_to do |format|
         format.html { redirect_to contacts_path, notice: "That filter probably didn't work. Try again or maybe try different criteria." }
         format.js   {}
@@ -375,7 +370,7 @@ class ContactsController < ApplicationController
       filtered_contacts = Contact.where(org_id: @active_org.id)
 
       if filter_params[:filter_tags_value] && filter_params[:filter_tags_value] != ""
-        filtered_contacts = filtered_contacts.tagged_with(filter_params[:filter_tags_value], :match_all => true)
+        filtered_contacts = filtered_contacts.tagged_with(filter_params[:filter_tags_value]) #, :match_all => true
       end
 
       # puts filter_params.inspect
@@ -384,8 +379,11 @@ class ContactsController < ApplicationController
         if filter_params["#{cp.id}-value".to_sym]
           values_array = filter_params["#{cp.id}-value".to_sym].split(',')
 
+          puts values_array.inspect
+
           if values_array && values_array.length > 0
             filtered_contacts = filtered_contacts & contacts_filtered_by_value(cp, values_array)
+            puts filtered_contacts.inspect
           end
         end
       end
