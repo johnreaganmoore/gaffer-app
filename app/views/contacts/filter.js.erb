@@ -59,23 +59,11 @@ $('#filter-tags').on('chip.add chip.delete', function(e, chip){
     });
 
     $('#filter-<%= cp.id %>').on('chip.add chip.delete', function(e, chip){
-      console.log($('#filter-<%= cp.id %>').material_chip('data'))
-      var hidden_field = $('#<%= cp.id %>-value')
-      console.log(hidden_field)
-
       chips = $('#filter-<%= cp.id %>').material_chip('data')
 
       stringValues = chips.map(function(i) {return i.tag;});
-
-      console.log(stringValues)
-      console.log(stringValues.join(","))
-
-      // $('#<%= cp.id %>-value').val($('#filter-<%= cp.id %>').material_chip('data'))
-      // $('#<%= cp.id %>-value').val(stringValues.join(","))
       $('#<%= cp.id %>-value').val(stringValues)
-      // $('#<%= cp.id %>-value').val(chips)
-      var hidden_val = $('#<%= cp.id %>-value').val()
-      console.log(hidden_val)
+
     });
 
 
@@ -100,12 +88,14 @@ $('#filter-tags').on('chip.add chip.delete', function(e, chip){
     var highValue<%= cp.id %> = document.getElementById('slider-high-<%= cp.id %>');
 
      slider<%= cp.id %>.noUiSlider.on('update', function( values, handle ) {
-       console.log(values,handle)
        lowValue<%= cp.id %>.innerHTML = values[0];
        highValue<%= cp.id %>.innerHTML = values[1]
 
-       $('#<%= cp.id %>-value').val(`${values[0]},${values[1]}`)
-       console.log($('#<%= cp.id %>-value').val())
+       if (<%= cp.low_value %> == values[0] && <%= cp.high_value %> == values[1]) {
+          $('#<%= cp.id %>-value').val("")
+       } else {
+         $('#<%= cp.id %>-value').val(`${values[0]},${values[1]}`)
+       }
      });
 
   <% end %>
