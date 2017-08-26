@@ -7,32 +7,30 @@
      </a>
      <a id="training-side-menu-icon" href="#" data-activates="training-side-menu" class="button-collapse"><i class="material-icons">menu</i></a>
      <ul class="right hide-on-med-and-down">
-       <li><a style="color: #424242;" href="#philosophy">Philosophy</a></li>
-       <!-- <li><a style="color: #424242;" href="#training">Training</a></li> -->
-       <li><a style="color: #424242;" class="dropdown-button" href="#" data-beloworigin="true" data-activates="training-dropdown">Training</a></li>
-       <!-- <li><a style="color: #424242;" href="#why">Small Sided Teams</a></li>
-       <li><a style="color: #424242;" href="#how">Personal Training</a></li>
-       <li><a style="color: #424242;" href="#products">Camps and Clinics</a></li>
-       <li><a style="color: #424242;" href="#products">Training Resources</a></li> -->
-       <li><a style="color: #424242;" href="#coaches">Coaches</a></li>
-       <li><a style="color: #424242;" href="#contact">Contact</a></li>
+       <li><a style="color: #424242;" class="dropdown-button" href="#" data-beloworigin="true" data-activates="who-dropdown">Who We Are</a></li>
+       <!-- <li><a style="color: #424242;" href="<%= small_sided_path %>">Small Sided Teams</a></li> -->
+       <li><a style="color: #424242;" href="<%= personal_training_path %>">Personal Training</a></li>
+       <!-- <li><a style="color: #424242;" href="<%= clinics_path %>">Clinics</a></li> -->
+       <li><a style="color: #424242;" href="<%= resources_path %>">Training Resources</a></li>
      </ul>
      <ul class="side-nav" id="training-side-menu">
-       <li><a style="color: #424242;" href="#philosophy">Philosophy</a></li>
-       <li><a style="color: #424242;" href="#training">Training</a></li>
-       <!-- <li><a style="color: #424242;" href="#why">Small Sided Teams</a></li>
-       <li><a style="color: #424242;" href="#how">Personal Training</a></li>
-       <li><a style="color: #424242;" href="#products">Camps and Clinics</a></li>
-       <li><a style="color: #424242;" href="#products">Training Resources</a></li> -->
-       <li><a style="color: #424242;" href="#coaches">Coaches</a></li>
-       <li><a style="color: #424242;" href="#contact">Contact</a></li>
+       <li><a style="color: #424242;" class="dropdown-button" href="#" data-beloworigin="true" data-activates="who-side-menu">Who We Are</a></li>
+       <!-- <li><a style="color: #424242;" href="<%= small_sided_path %>">Small Sided Teams</a></li> -->
+       <li><a style="color: #424242;" href="<%= personal_training_path %>">Personal Training</a></li>
+       <!-- <li><a style="color: #424242;" href="<%= clinics_path %>">Clinics</a></li> -->
+       <li><a style="color: #424242;" href="<%= resources_path %>">Training Resources</a></li>
      </ul>
   </div>
 </nav>
 
-<ul id="training-dropdown" class="dropdown-content" style="min-width: 250px;">
-  <li><a style="color: #424242;" href="#why">Small Sided Teams</a></li>
-  <li><a style="color: #424242;" href="#how">Personal Training</a></li>
-  <li><a style="color: #424242;" href="#products">Camps and Clinics</a></li>
-  <li><a style="color: #424242;" href="#products">Training Resources</a></li>
+<ul id="who-dropdown" class="dropdown-content" style="min-width: 250px;">
+  <li><a style="color: #424242;" href="<%= philosophy_path %>">Philosophy</a></li>
+  <li><a style="color: #424242;" href="<%= coaches_path %>">Coaches</a></li>
+  <li><a style="color: #424242;" href="<%= contact_onside_path %>">Contact</a></li>
+</ul>
+
+<ul id="who-side-menu" class="dropdown-content" style="min-width: 250px;">
+  <li><a style="color: #424242;" href="<%= philosophy_path %>">Philosophy</a></li>
+  <li><a style="color: #424242;" href="<%= coaches_path %>">Coaches</a></li>
+  <li><a style="color: #424242;" href="<%= contact_onside_path %>">Contact</a></li>
 </ul>

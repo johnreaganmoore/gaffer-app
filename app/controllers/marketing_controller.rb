@@ -5,6 +5,9 @@ class MarketingController < ApplicationController
   def tos
   end
 
+  def software
+  end
+
   def harrisburg
     @orgs = [
       {
