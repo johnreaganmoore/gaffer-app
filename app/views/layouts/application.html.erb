@@ -2,7 +2,7 @@
 <html>
   <head>
     <title>
-      Onside
+      DeadSimple
     </title>
     <%= csrf_meta_tags %>
     <%= include_gon %>
@@ -31,7 +31,8 @@
     <script type="text/javascript" src="https://js.stripe.com/v2/"></script>
     <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
     <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery.payment/3.0.0/jquery.payment.min.js"></script>
-    <%= favicon_link_tag %>
+
+    <%= favicon_link_tag 'ds-dark-square.ico' %>
 
     <!-- Start of Async Drift Code -->
     <!-- <script>

@@ -32,6 +32,15 @@ Rails.application.routes.draw do
   resources :contacts
 
 
+  get 'philosophy', to: 'training#philosophy', as: :philosophy
+  get 'coaches', to: 'training#coaches', as: :coaches
+  get 'contact_onside', to: 'training#contact', as: :contact_onside
+  get 'small_sided', to: 'training#small_sided', as: :small_sided
+  get 'personal_training', to: 'training#personal_training', as: :personal_training
+  get 'resources', to: 'training#resources', as: :resources
+  get 'clinics', to: 'training#clinics', as: :clinics
+
+
   get 'transactions/new'
 
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
@@ -190,8 +199,8 @@ Rails.application.routes.draw do
   get '/', to: 'marketing#logos', constraints: { subdomain: 'logos' }
   get '/logos', to: 'marketing#logos'
 
-  get "/", to: 'marketing#home', as: :onside_home
-  root to: 'marketing#home'
+  get "/", to: 'training#resources', as: :onside_home
+  root to: 'training#resources'
   # get "/", to: 'marketing#coming_soon'
   # root to: 'marketing#coming_soon'
 
