@@ -2,7 +2,7 @@
   <div class="nav-wrapper">
      <a title="Home to Onside Harrisburg" href="/" class="brand-logo">
        <div class="logo-container">
-         <%= image_tag "ds-tongue.png", class: "header-logo" %>
+         <%= image_tag "onside-horizontal-white.svg", class: "header-logo" %>
        </div>
      </a>
      <a id="register-side-menu-icon" href="#" data-activates="connect-side-menu" class="button-collapse"><i class="material-icons" style="color: white;">menu</i></a>
@@ -11,7 +11,7 @@
        <li><a href="#features">Features</a></li>
        <li><a href="#pricing">Pricing</a></li> -->
        <!-- <li><a href="http://playonside.com">About</a></li> -->
-       <li><a href="#pricing">Pricing</a></li>
+       <li><a id="mainNavPricing" href="#pricing">Pricing</a></li>
        <li><a href="<%= new_person_session_path %>">Sign In</a></li>
        <li>
          <%= link_to "Start Free Trial", new_person_registration_path(plan: "free"), class: "btn blue white-text waves-effect waves-blue" %>

@@ -141,7 +141,7 @@ class Contact < ApplicationRecord
                       }
 
     # Send your message through the client
-    mg_client.send_message 'mail.deadsimple.co', message_params
+    mg_client.send_message 'mail.playonside.com', message_params
 
     Note.create(
       creator_id: sender.id,
@@ -158,7 +158,7 @@ class Contact < ApplicationRecord
     mg_client = Mailgun::Client.new ENV['mailgun_api_key']
 
     # Create a Batch Message object, pass in the client and your domain.
-    mb_obj = Mailgun::BatchMessage.new(mg_client, "mail.deadsimple.co")
+    mb_obj = Mailgun::BatchMessage.new(mg_client, "mail.playonside.com")
 
     # Define the from address.
     mb_obj.from(sender.email, {"first"=>sender.first_name, "last" => sender.last_name});

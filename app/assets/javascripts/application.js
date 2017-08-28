@@ -102,6 +102,14 @@ $( document ).on('ready turbolinks:load', function() {
    });
  }
 
+ $('#mainNavPricing').click(function() {
+   console.log('click pricing')
+   analytics.track('Clicked Pricing', {
+     location: 'header',
+     type: 'link'
+   });
+ });
+
 })
 
 function maxDate() {
