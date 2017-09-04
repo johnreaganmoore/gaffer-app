@@ -6,7 +6,7 @@
 
         <div style="display: flex; flex-direction: column; justify-content: center; align-items: center; margin-top: 60px; margin-bottom: 60px;">
           <div class="relate-title" style="width: 100%;">
-            Simple recruiting for busy coaches
+            Simple recruiting for college soccer coaches
           </div>
 
           <div class="relate-desc flow-text" style="width: 100%;">
@@ -121,7 +121,7 @@
       <div class="home-sub-section">
         <div class="home-sub-section-header" style="text-align: left; align-items: left;">
           <h2 style="text-align: left;">Stay on top of all your recruiting activity</h2>
-          <h3 style="text-align: left; margin-top: 30px;">See all activity for a recruit in a stream of notes, tasks and emails. Assign tasks and get reminders when the due date is coming up. Write notes to keep track of who contacted a player and whe,</h3>
+          <h3 style="text-align: left; margin-top: 30px;">See all activity for a recruit in a stream of notes, tasks and emails. Assign tasks and get reminders when the due date is coming up. Write notes to keep track of who contacted a player and what was communicated.</h3>
         </div>
       </div>
 
@@ -259,7 +259,7 @@
                 <b>$30/mth</b>
               </h2>
               <div class="home-sub-section-container">
-                <%= link_to "Get Started", new_person_registration_path(plan: "connect-basic-monthly"), class: "btn blue waves-effect waves-green" %>
+                <%= link_to "Get Started", new_person_registration_path(plan: "connect-basic-monthly"), id: 'get-started-basic-monthly', class: "get-started-button btn blue waves-effect waves-green" %>
               </div>
             </div>
           </div>
@@ -279,7 +279,7 @@
                 <b>$50/mth</b>
               </h2>
               <div class="home-sub-section-container">
-                <%= link_to "Get Started", new_person_registration_path(plan: "connect-team-monthly"), class: "btn blue waves-effect waves-green" %>
+                <%= link_to "Get Started", new_person_registration_path(plan: "connect-team-monthly"), id: 'get-started-team-monthly', class: "get-started-button btn blue waves-effect waves-green" %>
               </div>
             </div>
           </div>
@@ -299,7 +299,7 @@
                 <b>$300/mth</b>
               </h2>
               <div class="home-sub-section-container">
-                <%= link_to "Get Started", new_person_registration_path(plan: "connect-business-monthly"), class: "btn blue waves-effect waves-green" %>
+                <%= link_to "Get Started", new_person_registration_path(plan: "connect-business-monthly"), id: 'get-started-department-monthly', class: "get-started-button btn blue waves-effect waves-green" %>
               </div>
             </div>
           </div>
@@ -323,7 +323,7 @@
                 <b>$19/mth</b>
               </h2>
               <div class="home-sub-section-container">
-                <%= link_to "Get Started", new_person_registration_path(plan: "connect-basic-yearly"), class: "btn blue waves-effect waves-green" %>
+                <%= link_to "Get Started", new_person_registration_path(plan: "connect-basic-yearly"), id: 'get-started-basic-yearly' ,class: "get-started-button btn blue waves-effect waves-green" %>
               </div>
             </div>
           </div>
@@ -343,7 +343,7 @@
                 <b>$39/mth</b>
               </h2>
               <div class="home-sub-section-container">
-                <%= link_to "Get Started", new_person_registration_path(plan: "connect-team-yearly"), class: "btn blue waves-effect waves-green" %>
+                <%= link_to "Get Started", new_person_registration_path(plan: "connect-team-yearly"), id: 'get-started-team-yearly', class: "get-started-button btn blue waves-effect waves-green" %>
               </div>
             </div>
           </div>
@@ -363,7 +363,7 @@
                 <b>$199/mth</b>
               </h2>
               <div class="home-sub-section-container">
-                <%= link_to "Get Started", new_person_registration_path(plan: "connect-business-yearly"), class: "btn blue waves-effect waves-green" %>
+                <%= link_to "Get Started", new_person_registration_path(plan: "connect-business-yearly"), id: 'get-started-department-yearly', class: "get-started-button btn blue waves-effect waves-green" %>
               </div>
             </div>
           </div>
