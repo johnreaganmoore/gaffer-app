@@ -31,6 +31,34 @@ $( document ).on('turbolinks:load', function() {
   $.each( flashMessages, function(key, value){
     $.snackbar({content: value, style: key, timeout: 10000});
   });
+
+  $('#mainNavPricing').click(function() {
+    console.log('click pricing')
+    analytics.track('Clicked Pricing', {
+      location: 'header',
+      type: 'link'
+    });
+  });
+
+  $('#registerSubmit').click(function() {
+    analytics.track('Clicked Register', {
+      email: $('#person_email').val()
+    });
+  });
+
+  $('#pricing-frequency').click(function() {
+    analytics.track('Toggled Payment Frequency', {
+      checked: $('#pricing-frequency').is(':checked')
+    });
+  });
+
+  $('.get-started-button').click(function() {
+    analytics.track('Clicked Get Started', {
+      plan: $(this).attr("id")
+    });
+  });
+
+
 });
 
 $( document ).on('ready turbolinks:load', function() {
@@ -101,14 +129,6 @@ $( document ).on('ready turbolinks:load', function() {
      //complete: function() { alert('Closed'); } // Callback for Modal close
    });
  }
-
- $('#mainNavPricing').click(function() {
-   console.log('click pricing')
-   analytics.track('Clicked Pricing', {
-     location: 'header',
-     type: 'link'
-   });
- });
 
 })
 

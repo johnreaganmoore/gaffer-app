@@ -69,7 +69,7 @@
             <div>
               <% team_color = "" %>
               <% if @team != nil then team_color = @team.color end %>
-              <%= button_tag(type: 'submit', class: "waves-effect waves-light btn email-sign-up-button", style: "background: #{team_color};") do %>
+              <%= button_tag(id: 'registerSubmit', type: 'submit', class: "waves-effect waves-light btn email-sign-up-button", style: "background: #{team_color};") do %>
                 <i class="material-icons left button-icon">
                   <%= image_tag "email-icon.svg" %>
                 </i>
