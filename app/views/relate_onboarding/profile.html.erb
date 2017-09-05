@@ -48,7 +48,7 @@
 
           <!-- <hr class="faint"> -->
 
-        <% if @plan %>
+        <% if @plan && @plan != "free" %>
 
           <p class="debit-explanation">
             Card Info
@@ -142,7 +142,7 @@
     validateDetails();
   });
 
-  <% if @plan %>
+  <% if @plan && @plan != "free" %>
 
   $(function() {
     var $form = $('#payment-form');
