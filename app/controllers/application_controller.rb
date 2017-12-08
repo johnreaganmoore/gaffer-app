@@ -39,15 +39,7 @@ class ApplicationController < ActionController::Base
   end
 
   def set_layout
-    if request.subdomain == "register" && current_person
-      return "league_admin"
-    elsif request.subdomain == "subs" || request.subdomain == "collect"
-      return "league_admin"
-    elsif request.subdomain == "relate"
       return "relate"
-    else
-      return "application"
-    end
   end
 
   def after_sign_in_path_for(person)
@@ -61,43 +53,12 @@ class ApplicationController < ActionController::Base
       return onboarding_path(:create_profile, plan: params[:plan])
     end
 
-    if request.subdomain == "register"
-      return orgs_path
-    end
-
-    if request.subdomain == "collect"
-      return orgs_path
-    end
-
-    if request.subdomain == "relate"
-      # if person.first_name == nil then
-      #   return onboarding_path(:create_profile, params[:plan])
-      # end
-      if self.active_org
-        return contacts_path
-      else
-        return orgs_path
-      end
-    end
-
-    if request.subdomain == "subs"
-      return list_index_path
-    end
-
-    # If no subdomain, I will need to check conditions of teams/orgs.
-    # See which they have, if neither route to account page and then allow them to choose product on the left.
-
-
-
-    # If they already have a team, take them to their teams page.
-    if person.teams.length > 0 then
-      team_path(person.teams.first)
-    # Otherwise take them to create team step.
+    if self.active_org
+      return contacts_path
     else
-        onboarding_path(:create_team)
+      return orgs_path
     end
 
-    # request.env['omniauth.origin'] || stored_location_for(resource) || root_path
   end
 
   def after_sign_up_path_for(resource)

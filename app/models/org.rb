@@ -12,8 +12,6 @@ class Org < ApplicationRecord
 
   # Set Relationships
   has_many :invites
-  has_many :leagues
-  has_many :sub_lists
   has_many :teams
   has_many :contacts
   has_many :submissions
@@ -21,7 +19,7 @@ class Org < ApplicationRecord
   has_many :email_templates
   acts_as_tagger
 
-  after_create :populate_first_contact
+  # after_create :populate_first_contact
 
   def populate_first_contact(creator)
     @contact = Contact.create(
@@ -101,38 +99,6 @@ class Org < ApplicationRecord
     # Send your message through the client
     mg_client.send_message 'playonside.com', message_params
 
-  end
-
-  def create_managed_account(admin)
-    account_props = {
-      managed: true,
-      transfer_schedule: {
-        interval: "daily"
-      },
-      country: 'US',
-      email: admin.email,
-      legal_entity: {
-        type: "company",
-        dob: {
-          day: admin.date_of_birth.strftime("%d").to_i,
-          month: admin.date_of_birth.strftime("%m").to_i,
-          year: admin.date_of_birth.strftime("%Y").to_i
-        },
-        first_name: admin.first_name,
-        last_name: admin.last_name,
-      }
-
-    }
-    result = Stripe::Account.create(account_props)
-    self.merchant_account_id = result.id
-    self.save
-  end
-
-  def record_accept_terms(ip)
-    account = Stripe::Account.retrieve(self.merchant_account_id)
-    account.tos_acceptance.date = Time.now.to_i
-    account.tos_acceptance.ip = ip # Assumes you're not using a proxy
-    account.save
   end
 
 
