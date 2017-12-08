@@ -27,24 +27,8 @@ class OrgsController < ApplicationController
       @org.populate_first_contact(org_creator)
 
       session[:admin_org] = @org
-      case request.subdomain
-      when "collect"
-        redirect_to teams_path
-      when "register"
-        redirect_to leagues_path
-      when "subs"
-        redirect_to list_index_path
-      when "relate"
-        redirect_to contacts_path
-      else
-        redirect_to edit_org_path(@org)
-      end
-
+      redirect_to contacts_path
       flash[:success] = "Organization was successfully created!"
-
-      # @org.create_managed_account(current_person)
-      # @org.record_accept_terms(request.remote_ip)
-
     else
       render 'new'
     end

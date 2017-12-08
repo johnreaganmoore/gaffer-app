@@ -28,15 +28,10 @@ class People::RegistrationsController < Devise::RegistrationsController
     super do |person|
       @token = params[:invitation_token]
 
-      if params[:team] != nil
-        @team = Team.friendly.find(params[:team])
-      end
-
       if @token != nil
         #  team =  Invite.find_by_token(@token).team #find the user group attached to the invite
         #  person.teams.push(team) #add this user to the new user group as a member
         invitation = Invite.find_by_token(@token)
-
         invitation.recipient_id = person.id
 
         invitation.save
@@ -55,9 +50,6 @@ class People::RegistrationsController < Devise::RegistrationsController
         person.accept_invitation!
       else
         # do normal registration things #
-        if @team != nil
-          person.teams.push(@team)
-        end
       end
       @person.save
     end
@@ -120,7 +112,6 @@ class People::RegistrationsController < Devise::RegistrationsController
 
     sign_in(person)
     onboarding_path(:create_profile, plan: params[:plan])
-    # person.goggle
   end
 
   # The path used after sign up for inactive people.
