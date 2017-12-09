@@ -47,10 +47,16 @@
   </head>
 
   <body class="app-background">
-    <%= render "layouts/relate_header", bg_color: bg_color %>
-    <div class="page-content">
-      <%= yield %>
-    </div>
+
+      <nav id="nav-container">
+        <%= render "layouts/relate_header", bg_color: bg_color %>
+      </nav>
+      <div id="side-nav-container">
+        <%= render "layouts/relate_side_nav", bg_color: bg_color %>
+      </div>
+      <main class="page-content">
+        <%= yield %>
+      </main>
   </body>
   <div id="drift-widget-container" data-turbolinks-permanent></div><br>
 </html>

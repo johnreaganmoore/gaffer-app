@@ -1,0 +1,8 @@
+<ul class="side-nav fixed" id="slide-out">
+  <li><a href="<%= reminders_path %>" style="color: #424242;">Tasks <i class="material-icons left">check_box</i><% if @due_tasks && @due_tasks.length > 0 %><span class="new badge blue" data-badge-caption="due"><%= @due_tasks.length %></span><% end %></a></li>
+  <li><a href="<%= submissions_path %>" style="color: #424242;">Submissions <i class="material-icons left">people_outline</i><% if @new_submissions && @new_submissions.length > 0 %><span class="new badge blue "><%= @new_submissions.length %></span><% end %></a></li>
+  <li><a href="<%= contacts_path %>" style="color: #424242;">Contacts<i class="material-icons left">contacts</i></a></li>
+  <li>
+    <a class="dropdown-button" href="#" data-beloworigin="true" data-activates="dropdown2">Account Settings<i class="material-icons right">arrow_drop_down</i></a>
+  </li>
+</ul>
