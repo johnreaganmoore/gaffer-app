@@ -2,7 +2,7 @@
 <!-- <div class="profile-page"> -->
 <div class="container">
 
-  <% if @plan %>
+  <% if @plan && @plan != "free" %>
 
     <div class="card blue-grey darken-1">
       <div class="card-content white-text">
@@ -19,7 +19,7 @@
       </div>
     </div>
 
-    <% end %>
+  <% end %>
 
     <div class="card" style="background: #f9f9f9;">
 
@@ -41,8 +41,7 @@
           </div>
           <div class="row">
             <div class="input-field col s12">
-              <%= email_field_tag :email, @person.email %>
-              <%= label_tag :email %>
+              <%= hidden_field_tag :email, @person.email %>
             </div>
           </div>
 

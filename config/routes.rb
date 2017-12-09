@@ -46,33 +46,19 @@ Rails.application.routes.draw do
       omniauth_callbacks: "people/omniauth_callbacks"
     }
 
-  # devise_scope :person do
-  #   delete 'sign_out', :to => 'devise/sessions#destroy', :as => :destroy_person_session
-  # end
-
-  resources :teams
-  get 'teams/:id/sweep', to: 'teams#sweep_invites', as: :sweep_invites
-  # resources :people
   resources :invites
   get 'invites/:id/resend', to: 'invites#resend', as: :resend_invite
 
-  # scope :people do
   resources :profiles
   get 'profiles/:id/leave', to: 'profiles#leave', as: :leave_team
   get 'profiles/:id/account', to: 'profiles#account', as: :account
   post 'profiles/:id/toggle', to: 'profiles#toggle', as: :toggle
 
-  # end
-
-  # get 'players/new', to: 'players#new', as: :new_player
-  # post 'players', to: 'players#create', as: :create_player
 
   get 'admins/new', to: 'admins#new', as: :new_admin
   post 'admins', to: 'admins#create', as: :create_admin
 
   resources :orgs
-
-
   resources :transactions, only: [:new, :create]
 
 

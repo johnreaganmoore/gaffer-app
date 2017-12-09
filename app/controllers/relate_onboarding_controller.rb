@@ -15,7 +15,7 @@ class RelateOnboardingController < ApplicationController
 
     respond_to do |format|
       if @person.update(person_params)
-        format.html { redirect_to contacts_path, notice: "Great job, #{@person.first_name}! You're signed up." }
+        format.html { redirect_to orgs_path, notice: "Great job, #{@person.first_name}! You're signed up." }
         format.js {}
       else
         format.html { render :edit }

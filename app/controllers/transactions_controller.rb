@@ -10,11 +10,6 @@ class TransactionsController < ApplicationController
     @season = Season.find(params[:season])
   end
 
-  def captain_signup
-    @season = Season.find(params[:season])
-
-    result = self.purchase_team_season(@season)
-  end
 
   def connect_subscribe
     @token = params["stripeToken"]
@@ -25,11 +20,13 @@ class TransactionsController < ApplicationController
       person_with_customer.subscribe_to_plan(params[:plan])
     end
 
-    if @token
-      redirect_to orgs_path
-    else
-      redirect_to contacts_path
-    end
+    redirect_to orgs_path
+
+    # if @token
+    #   redirect_to orgs_path
+    # else
+    #   redirect_to orgs_path
+    # end
 
     # IDEA: Instead of flash messages, at critical points give smooch popups. May need intercom for this.
     # flash[:success] = "Welcome to Onside!"
