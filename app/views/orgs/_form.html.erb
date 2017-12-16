@@ -6,13 +6,17 @@
         <div class="row">
           <div class="input-field col s12 m12 l12">
             <%= f.text_field :name, required: true %>
-            <%= f.label :name %>
+            <%= f.label :name do %>
+             Team Name
+            <% end %>
           </div>
         </div>
         <div class="row">
           <div class="input-field col s12 m12 l12">
             <%= f.text_field :external_link, required: true %>
-            <%= f.label :external_link %>
+            <%= f.label :external_link do %>
+              Team Website
+            <% end %>
           </div>
         </div>
 

@@ -1,0 +1,79 @@
+<div class="row" style="background: #ffffff;">
+  <div class="col s12">
+    <ul class="tabs">
+      <li class="tab col s3"><a class="active" href="#all">All</a></li>
+      <li class="tab col s3"><a class="active" href="#my-tasks">My Tasks</a></li>
+      <li class="tab col s3"><a class="active" href="#submissions">Submissions</a></li>
+      <li class="tab col s3"><a href="#unassigned">Unassigned</a></li>
+    </ul>
+  </div>
+</div>
+
+<div class="container">
+
+  <div id="all" class="col s12">
+    <div class="card team-card">
+      <div class="card-content">
+        <div id="all_items_container">
+            <%= render 'inbox_item_list', inbox_items: @inbox_items %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="my-tasks" class="col s12">
+    <div class="card team-card">
+      <div class="card-content">
+        <div id="cp_task_list_container">
+
+          <% if @current_person_tasks.length == 0 %>
+            <div style="width: 100%; text-align: center;">Good work. <br>You have no outstanding tasks. </div>
+          <% else %>
+            <%= render 'contacts/task_list', reminders: @current_person_tasks, truncate_length: 50 %>
+          <% end %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="submissions" class="col s12">
+    <div class="card team-card">
+      <div class="card-content">
+        <div id="new-submission-list-container" class="container">
+          <%= render 'submissions/new_submissions', new_submissions: @new_submissions %>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <div id="unassigned" class="col s12" style="position: relative;">
+
+    <div class="card team-card">
+      <div class="card-content">
+        <div id="ua_task_list_container">
+
+          <% if @unassigned_tasks.length == 0 %>
+            <div style="width: 100%; text-align: center;">No unassigned tasks. </div>
+          <% else %>
+            <%= render 'contacts/task_list', reminders: @unassigned_tasks, truncate_length: 50 %>
+          <% end %>
+
+        </div>
+      </div>
+    </div>
+
+  </div>
+</div>
+
+<div class="fixed-action-btn">
+  <a class="btn-floating btn-large">
+    <i class="large material-icons">add</i>
+  </a>
+  <ul>
+    <li><a class="btn-floating tooltipped" data-position="left" data-delay="70" data-tooltip="Contact" href="<%= new_contact_path %>"><i class="material-icons">person_add</i></a></li>
+    <li><a class="btn-floating tooltipped" data-position="left" data-delay="70" data-tooltip="Task" href="<%= new_reminder_path %>"><i class="material-icons">check_box</i></a></li>
+    <li><a class="btn-floating tooltipped" data-position="left" data-delay="70" data-tooltip="Email" href="<%= contact_new_email_path %>"><i class="material-icons">mail_outline</i></a></li>
+    <li><a class="btn-floating tooltipped" data-position="left" data-delay="70" data-tooltip="Note" href="<%= new_note_path %>"><i class="material-icons">note_add</i></a></li>
+  </ul>
+</div>

@@ -1,8 +1,8 @@
 
-<!-- <div class="container"> -->
+<div class="container">
 
   <div class="row">
-    <div class="col s12 m4 l4">
+    <div class="col s12 m12 l12">
       <div class="card">
         <div class="card-content">
           <div class="card-title">
@@ -20,7 +20,7 @@
 
           <p style="display: flex; justify-content: space-between;">
             Phone:
-            <strong><%= number_to_phone(@contact.phone) %></strong>
+            <strong><a href="tel:<%= number_to_phone(@contact.phone) %>"><%= number_to_phone(@contact.phone) %></a></strong>
           </p>
 
           <p style="margin-bottom: 15px; display: flex; justify-content: space-between;">
@@ -58,54 +58,25 @@
           <%= link_to 'Edit Contact', edit_contact_path(@contact), class: "btn waves-effect waves-light" %>
         </div>
       </div>
+    </div>
+    </div>
 
+    <div class="col s12 m12 l12">
       <div class="card">
         <div class="card-content">
-          <div class="card-title" style="margin-bottom: 15px;">
-            Tasks
-          </div>
-          <div id="contact_task_list_container">
-            <%= render 'task_list', reminders: @tasks, truncate_length: 20 %>
-          </div>
+          <span class="card-title">New Note</span>
+        </div>
+        <div id="new-note" class="col s12" style="padding: 0px;">
+          <%= render 'notes/form', note: @note, contact: @contact %>
         </div>
       </div>
     </div>
 
-    <div class="col s12 m8 l8">
-      <div class="card">
-        <div class="row">
-          <div class="col s12" style="padding: 0px;">
-            <ul class="tabs">
-              <li class="tab col s4"><a class="active" href="#new-email">New Email</a></li>
-              <li class="tab col s4"><a href="#new-task">New Task</a></li>
-              <li class="tab col s4"><a href="#new-note">New Note</a></li>
-            </ul>
-          </div>
-          <div id="new-email" class="col s12" style="padding: 0px;">
-            <%= render 'email_form', email: @email, contact: @contact %>
-          </div>
-          <div id="new-task" class="col s12" style="padding: 0px;">
-            <%= render 'reminders/form', reminder: @reminder, contact: @contact %>
-          </div>
-          <div id="new-note" class="col s12" style="padding: 0px;">
-            <%= render 'notes/form', note: @note, contact: @contact %>
-          </div>
-
-        </div>
-      </div>
-
-      <!-- <div class="section"> -->
-        <!-- <div class="section-headline">
-          <h3>Notes</h3>
-          <%= link_to 'New Note', new_note_path(contact: @contact.id), class: "btn waves-effect waves-light" %>
-        </div> -->
-        <div id="activity_list_container">
-          <%= render 'activity_list', activities: @activities %>
-        </div>
-      <!-- </div> -->
+    <div id="activity_list_container">
+      <%= render 'activity_list', activities: @activities %>
     </div>
-  </div>
-<!-- </div> -->
+
+</div>
 
 <script>
 

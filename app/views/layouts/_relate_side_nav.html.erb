@@ -1,0 +1,38 @@
+<ul class="side-nav fixed" id="slide-out">
+
+  <!-- <li>
+    <a
+      href="<%= inbox_path %>"
+      style="color: #424242;"
+    >Inbox <i class="material-icons left">inbox</i>
+      <% if @due_tasks && @due_tasks.length > 0 || @new_submissions && @new_submissions.length > 0 %>
+      <span class="new badge blue"
+        <% if @due_tasks.length + @new_submissions.length > 1 %>
+          data-badge-caption="items"
+        <% else %>
+          data-badge-caption="item"
+        <% end %>
+      >
+      <%= @due_tasks.length + @new_submissions.length %></span>
+      <% end %>
+    </a>
+  </li> -->
+  <li><a href="<%= contacts_path %>" style="color: #424242;">Recruits<i class="material-icons left">contacts</i></a></li>
+  <ul>
+    <% if @active_org %>
+     <% @active_org.owned_tags.each do |tag| %>
+        <li>
+          <%= link_to contacts_path(filter_tags_value: tag.name), style: "color: #424242;" do %>
+            <%= tag.name %><i class="material-icons left">people_outline</i>
+          <% end %>
+        </li>
+      <% end %>
+    <% end %>
+  </ul>
+  <!-- <li>
+    <a style="color: #424242;" href="#modal-filter" class="modal-trigger">New Filter<i class="material-icons left">filter_list</i></a>
+  </li> -->
+  <li>
+    <a class="dropdown-button" href="#" data-beloworigin="true" data-activates="dropdown2">Account Setting<i class="material-icons left">settings</i>s<i class="material-icons right">arrow_drop_down</i></a>
+  </li>
+</ul>

@@ -3,6 +3,7 @@ class InvitesController < ApplicationController
 
   before_action :authenticate_person!, :only => :create
   # skip_filter :require_no_authentication, :only => :edit
+  before_action :active_org, :set_current_person_tasks, :set_unassigned_tasks, :set_new_submissions, :get_due_tasks
 
   def new
     @invite = Invite.new
