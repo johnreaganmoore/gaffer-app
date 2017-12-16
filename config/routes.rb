@@ -59,15 +59,21 @@ Rails.application.routes.draw do
   post 'admins', to: 'admins#create', as: :create_admin
 
   resources :orgs
-  resources :transactions, only: [:new, :create]
+  # resources :orgs, :path => ''
+  # # resources :orgs, :path => '', :only => [] do
+  # #   resources :projects, :path => '', :except => [:index]
+  # # end
 
+
+  resources :transactions, only: [:new, :create]
 
   post 'connect_subscribe', to: 'transactions#connect_subscribe', as: :connect_payment
   post 'update_subscription', to: 'transactions#update_subscription', as: :update_subscription
 
+  get 'inbox', to: 'inbox#all', as: :inbox
+
 
   post "/webhooks", to: 'webhooks#recieve'
-
 
   get '/onboarding', to: 'relate_onboarding#profile'
   put '/onboarding', to: 'relate_onboarding#update_profile'

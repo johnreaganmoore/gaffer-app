@@ -1,0 +1,73 @@
+<% if item.class == Submission %>
+  Submission
+<% elsif item.class == Reminder %>
+  <% unless item.status == "archived" %>
+    <div class="task-line">
+      <% if item.status == "complete" %>
+        <div class="task-check-label">
+          <%= link_to reminder_path(item, item: {status: "incomplete"}), method: :put, remote: true do %>
+            <input type="checkbox" checked id="<%= item.id %>_check" />
+            <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= item.label %>" for="<%= item.id %>_check">
+                <del>
+                  <% if truncate_length > 49 && item.contact && item.contact %>
+                    <strong><%= item.contact.first_name[0] %>. <%= item.contact.last_name %></strong>:
+                  <% end %>
+                  <%= item.label.truncate(truncate_length) %>
+                </del>
+            </label>
+          <% end %>
+        </div>
+      <% elsif item.status == "incomplete" %>
+        <div class="task-check-label">
+          <%= link_to reminder_path(item, item: {status: "complete"}), method: :put, remote: true do %>
+            <input type="checkbox" id="<%= item.id %>_check" />
+            <label class="" style="color: rgba(0, 0, 0, 0.87059);" data-position="bottom" data-delay="50" data-tooltip="<%= item.label %>" for="<%= item.id %>_check">
+              <% if truncate_length > 49 && item.contact %>
+                <strong><%= item.contact.first_name[0] %>. <%= item.contact.last_name %></strong>:
+              <% end %>
+              <%= item.label.truncate(truncate_length) %>
+            </label>
+          <% end %>
+        </div>
+      <% end %>
+      <div class="task-due-edit">
+        <div class="date">
+          <% if item.next_date && item.next_date == Date.tomorrow %>
+             <div class="chip" style="background-color: rgba(0,0,255,0.25);;">
+               Tomorrow
+             </div>
+          <% elsif item.next_date && item.next_date == Date.today %>
+            <div class="chip" style="background-color: rgba(0,128,0,0.3);">
+               Today
+            </div>
+          <% elsif item.next_date && item.next_date > Date.today %>
+            <%= item.next_date.strftime("%b %e")%>
+          <% elsif item.next_date && item.next_date < Date.today %>
+            <div class="chip" style="background-color: rgba(255, 88, 58, 0.34);">
+              <%= item.next_date.strftime("%b %e")%>
+            </div>
+          <% else %>
+          <% end %>
+
+          <!-- <%= item.next_date.strftime("%b #{item.next_date.day.ordinalize}") %> -->
+        </div>
+        <div>
+          <%= link_to edit_reminder_path(item) do %>
+            <i class="material-icons" style="display: inline;">mode_edit</i>
+          <% end %>
+        </div>
+        <% if item.status == "complete" %>
+          <div>
+            <%= link_to reminder_path(item, item: {status: "archived"}), method: :put, remote: true do %>
+              <i class="material-icons" style="display: inline;">archive</i>
+            <% end %>
+          </div>
+        <% end %>
+      </div>
+    </div>
+  <% end %>
+<% else %>
+  <div class="card-content">
+    Unknown Activity
+  </div>
+<% end %>

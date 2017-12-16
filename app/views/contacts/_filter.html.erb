@@ -1,10 +1,6 @@
-<ul id="filter-collapsible" class="collapsible" data-collapsible="accordion" style="border: none;">
-  <li>
-    <div class="collapsible-header"><span>Filter<i class="material-icons">filter_list</i></span><i class="material-icons right">arrow_drop_down</i></div>
-    <div class="collapsible-body" style="padding: 0px;">
 
       <%= form_tag '/filter_contacts', remote: true do |f| %>
-            <div class="card-content">
+            <div class="modal-content">
 
               <%= hidden_field_tag "filter_tags_value" %>
 
@@ -40,17 +36,13 @@
               <% end %>
 
             </div>
-        <div class="card-action edit-profile-actions">
-          <%= link_to 'Clear Filter', contacts_path %>
+        <div class="modal-footer edit-profile-actions">
           <%= button_tag(id: "filter-submit", type: 'submit', class: "btn waves-effect waves-light") do %>
             Filter Contacts
           <% end %>
         </div>
       <% end %>
 
-    </div>
-  </li>
-</ul>
 
 <script>
   $( document ).on('ready turbolinks:load', function() {

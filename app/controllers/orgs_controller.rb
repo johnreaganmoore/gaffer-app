@@ -24,7 +24,7 @@ class OrgsController < ApplicationController
       org_creator = current_person
       org_creator.add_role :admin, @org
 
-      @org.populate_first_contact(org_creator)
+      # @org.populate_first_contact(org_creator)
 
       session[:admin_org] = @org
       redirect_to contacts_path
@@ -48,6 +48,7 @@ class OrgsController < ApplicationController
   end
 
   def show
+    redirect_to contacts_path
   end
 
   def edit

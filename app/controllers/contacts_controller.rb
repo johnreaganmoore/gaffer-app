@@ -8,7 +8,8 @@ class ContactsController < ApplicationController
   # GET /contacts
   # GET /contacts.json
   def index
-    @contacts = @active_org.contacts
+    # @contacts = @active_org.contacts
+    @contacts = get_filtered_contacts(filter_params)
 
     @table_property_names = @active_org.contact_properties.ids
 
@@ -29,7 +30,8 @@ class ContactsController < ApplicationController
     @contacts = get_filtered_contacts(filter_params)
 
     respond_to do |format|
-        format.html { redirect_to contacts_path, notice: "That filter probably didn't work. Try again or maybe try different criteria." }
+        format.html { contacts_path }
+        # format.html { redirect_to contacts_path, notice: "That filter probably didn't work. Try again or maybe try different criteria." }
         format.js   {}
     end
 
